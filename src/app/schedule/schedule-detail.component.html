@@ -1,0 +1,49 @@
+<md-card class="container">
+    <md-card-title>Agendamento</md-card-title>
+    <form [formGroup]="scheduleForm" (submit)="onSubmit()">
+        <input type="hidden" formControlName="id">
+
+        <div fxLayout="column">
+            <md-input-container fxFlex="100">
+                <input mdInput placeholder="Paciente" formControlName="patient" [mdAutocomplete]="auto">
+                <md-error>{{ scheduleForm.getControlMessages('patient') }}</md-error>
+            </md-input-container>
+        </div>
+        <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayPatient">
+            <ng-container *ngIf="filteredPatients | async; let filteredPatients">
+                <md-option *ngFor="let option of filteredPatients.results" [value]="option">
+                    {{ option.name + " " + option.last_name}}
+                </md-option>
+            </ng-container>
+        </md-autocomplete>
+        <div fxLayout.gt-lg="row" fxLayout.lt-lg="column">
+            <md-input-container fxFlex="70">
+                <input mdInput type="datetime-local" placeholder="Data" formControlName="date">
+            </md-input-container>
+            <md-input-container fxFlex="30" style="top:5px;">
+                <!-- TODO: remover style quando for corrigido no material -->
+                <input mdInput type="number" placeholder="Duração (Minutos)" formControlName="duration">
+            </md-input-container>
+        </div>
+        <div fxLayout="row">
+            <md-select placeholder="Dentista" formControlName="dentist" fxFlex="100">
+                <md-option *ngFor="let dentist of dentists" [value]="dentist">{{ dentist.first_name }}</md-option>
+            </md-select>
+        </div>
+        <md-dialog-content>
+            <div class="app-actions" fxLayoutGap="10px" fxLayoutAlign="end center">
+                <button type="button" md-raised-button color="warn" *ngIf="scheduleForm.controls.id.value != ''" (click)="onDelete()" [disabled]="isSubmitting">
+                    <span *ngIf="!isSubmitting" >Apagar</span>
+                    <md-spinner class="btn" *ngIf="isSubmitting"></md-spinner>
+                </button>
+                <button md-raised-button color="accent" [disabled]="!scheduleForm.valid || isSubmitting">
+                    <span *ngIf="!isSubmitting" >Salvar</span>
+                    <md-spinner class="btn" *ngIf="isSubmitting"></md-spinner>
+                </button>
+            </div>
+        </md-dialog-content>
+    </form>
+    <div class="overlay" *ngIf="isLoading">
+        <md-spinner style="margin: 0 auto"></md-spinner>
+    </div>
+</md-card>

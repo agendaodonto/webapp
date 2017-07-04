@@ -1,0 +1,56 @@
+import { AboutModule, aboutRoutes } from 'app/about/about.module';
+import { ClinicModule, clinicRoutes } from './clinic/clinic.module';
+import { DashboardModule, dashboardRoutes } from 'app/dashboard/dashboard.module';
+import { LoginModule, loginRoutes } from './login/login.module';
+import { PatientModule, patientRoutes } from './patient/patient.module';
+import { RouterModule, Routes } from '@angular/router';
+import { ScheduleModule, scheduleRoutes } from './schedule/schedule.module';
+
+import { AppComponent } from './app.component';
+import { AuthService } from './shared/services/auth.service';
+import { BrowserModule } from '@angular/platform-browser';
+import { CalendarModule } from 'angular-calendar';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { MaterialAppModule } from './shared/material.app.module';
+import { MdSidenavModule } from '@angular/material';
+import { NgModule } from '@angular/core';
+import { RegisterModule } from './register/register.module';
+import { registerRoutes } from 'app/register/register.module';
+
+export const routes: Routes = [
+    ...dashboardRoutes,
+    ...clinicRoutes,
+    ...loginRoutes,
+    ...registerRoutes,
+    ...patientRoutes,
+    ...scheduleRoutes,
+    ...aboutRoutes
+];
+
+@NgModule({
+    declarations: [
+        AppComponent,
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        RouterModule.forRoot(routes),
+        MaterialAppModule,
+        // App Modules
+        DashboardModule,
+        RegisterModule,
+        ClinicModule,
+        LoginModule,
+        PatientModule,
+        ScheduleModule,
+        AboutModule,
+        MdSidenavModule,
+        CalendarModule.forRoot()
+    ],
+    providers: [AuthService],
+    bootstrap: [AppComponent]
+})
+export class AppModule {
+}

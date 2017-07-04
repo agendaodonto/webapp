@@ -1,0 +1,30 @@
+<md-sidenav-container>
+    <md-sidenav #sidenav>
+        <div class="sidenav-header">
+            <img class="sidenav-image" src="https://www.gravatar.com/avatar/{{ getProfileUrl() }}?d=http%3A%2F%2Fi.imgur.com%2FtwA93qd.jpg">
+            <p *ngIf="loginService.isLogged()">
+                {{ loginService.getLocalUserInfo()?.first_name + " " +loginService.getLocalUserInfo()?.last_name}}
+            </p>
+        </div>
+        <md-list>
+            <ng-container *ngFor="let menu of sideNavMenus">
+                <md-list-item class="link" routerLinkActive="active" [routerLink]="[menu.link]"
+                              (click)="closeSideNav()" *ngIf="displayMenu(menu)">
+                    {{ menu.name }}
+                </md-list-item>
+            </ng-container>
+            <md-list-item class="link" (click)="logout()" *ngIf="loginService.isLogged()">
+                Sair
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+    <div class="content">
+        <md-toolbar color="primary">
+            <button md-button class="toggle-sidenav" (click)="sidenav.toggle()">
+                <md-icon>menu</md-icon>
+            </button>
+            <span>Agenda Odonto</span>
+        </md-toolbar>
+        <router-outlet></router-outlet>
+    </div>
+</md-sidenav-container>

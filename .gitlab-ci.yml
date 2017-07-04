@@ -1,0 +1,60 @@
+bundle:
+    image: andreroggeri/docker-node:latest
+    script:
+      - yarn global add node-gyp
+      - yarn global add @angular/cli@1.1.1
+      - yarn install
+      - ng build --env=prod --aot -op build/prod
+      - ng build --env=staging --aot -op build/staging
+    stage: build
+    artifacts:
+      paths:
+        - build/prod
+        - build/staging
+test:
+    image: andreroggeri/docker-node:latest
+    script:
+      - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+      - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+      - apt-get update -yqqq
+      - apt-get install -y google-chrome-stable
+      - yarn global add node-gyp
+      - yarn global add @angular/cli@1.1.1
+      - yarn install
+      - ng test -cc -sr --browsers=ChromeHeadless
+    artifacts:
+      paths:
+        - coverage
+
+
+deploy to staging:
+    image: node:latest
+    stage: deploy
+    script:
+      - yarn global add firebase-tools
+      - yarn global add copyfiles
+      - copyfiles -u 2 "build/staging/*" "dist/"
+      - copyfiles -u 2 "build/staging/*/**" "dist/"
+      - firebase use --token $FIREBASE_TOKEN agendaodontoweb-staging
+      - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token $FIREBASE_TOKEN
+    only:
+      - develop
+    environment:
+      name: staging
+      url: https://agendaodontoweb-staging.firebaseapp.com/
+
+deploy to production:
+    image: node:latest
+    stage: deploy
+    only:
+        - master
+    script:
+      - yarn global add firebase-tools
+      - yarn global add copyfiles
+      - copyfiles -u 2 "build/prod/*" "dist/"
+      - copyfiles -u 2 "build/prod/*/**" "dist/"
+      - firebase use --token $FIREBASE_TOKEN agendaodonto-29023
+      - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token $FIREBASE_TOKEN
+    environment:
+          name: production
+          url: https://agendaodonto-29023.firebaseapp.com/

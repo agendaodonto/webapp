@@ -1,0 +1,65 @@
+<md-card class="container">
+    <md-card-title>Clinica</md-card-title>
+    <form [formGroup]="clinicForm" (submit)="onSubmit()">
+        <input type="hidden" formControlName="id">
+
+        <div fxLayout="row">
+            <md-input-container fxFlex="100">
+                <input mdInput placeholder="Nome" formControlName="name">
+                <md-error> {{ clinicForm.getControlMessages('name') }} </md-error>
+            </md-input-container>
+        </div>
+        <div fxLayout="row">
+            <md-input-container fxFlex="100">
+                <input type="text" mdInput [formControl]="dentistCompleter" placeholder="Digite o CRO" [mdAutocomplete]="auto">
+            </md-input-container>
+        </div>
+        <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayDentist">
+            <md-option *ngFor="let dentist of filteredOptions | async" [value]="dentist">
+                {{ dentist.first_name }} {{ dentist.last_name }}
+            </md-option>
+        </md-autocomplete>
+        <div fxLayout="row">
+            <table class="material">
+                <thead>
+                    <tr>
+                        <td>CRO</td>
+                        <td>Nome</td>
+                        <td>Sobrenome</td>
+                        <td>Ações</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dentist of clinicForm.controls.dentists.value">
+                        <td>{{ dentist.cro }}</td>
+                        <td>{{ dentist.first_name}}</td>
+                        <td>{{ dentist.last_name }}</td>
+                        <td>
+                            <button type="button" md-mini-fab color="warn" class="fab-no-shadow" (click)="removeDentist(dentist)">
+                        <md-icon>delete</md-icon>
+                    </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="!isLoading && clinicForm?.controls.dentists.value.length == 0">
+                        <td class="text-center" colspan="4">
+                            Nenhum dentista associado
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="app-actions" fxLayoutGap="10px" fxLayoutAlign="end center">
+            <button type="button" md-raised-button color="warn" *ngIf="clinicForm.controls.id.value != ''" (click)="onDelete()" [disabled]="isSubmitting">
+               <span *ngIf="!isSubmitting">Apagar</span>
+                <md-spinner class="btn" *ngIf="isSubmitting"></md-spinner>
+            </button>
+            <button md-raised-button color="accent" [disabled]="!clinicForm.valid || isSubmitting">
+                <span *ngIf="!isSubmitting">Salvar</span>
+                <md-spinner class="btn" *ngIf="isSubmitting"></md-spinner>
+            </button>
+        </div>
+    </form>
+    <div class="overlay" *ngIf="isLoading">
+        <md-spinner style="margin: 0 auto"></md-spinner>
+    </div>
+</md-card>

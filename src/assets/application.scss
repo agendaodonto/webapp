@@ -1,0 +1,136 @@
+@import '../variables';
+
+html, body, md-sidenav-container, .content {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+md-sidenav {
+    width: 280px;
+}
+
+md-select.flex {
+    padding: 0.26em 0;
+    padding-bottom: 1.296875em;
+    border-top: 0.84375em solid transparent;
+}
+
+md-spinner.btn {
+    height: 36px;
+}
+
+.container {
+    margin: 15px;
+}
+
+.app-action {
+    z-index: 1000;
+    position: fixed;
+    right: 2%;
+    bottom: 3%;
+    // right: 20px;
+    // bottom: 20px;
+}
+
+button.fab-no-shadow {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+button.fab-no-shadow :hover :active {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+table.material > thead > tr {
+    font-weight: 800;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+table.material tr {
+    height: 48px;
+}
+
+table.material > tbody {
+    justify-content: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    //transition-duration: .28s;
+    //transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    //transition-property: background-color;
+}
+
+//TODO: Remover após corrigirem a issue de alinhamento no GH
+// https://github.com/angular/material2/issues/2124
+.flex.mat-select-trigger{
+    top: 17px;
+}
+
+md-dialog-container.mat-dialog-container{
+    padding: 0;
+}
+
+md-dialog-container > app-schedule-detail > md-card{
+    margin: 0;
+}
+
+table.material {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.app-actions {
+    margin: 16px 0 16px 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.overlay > md-spinner {
+    height: 50px;
+    width: 50px;
+}
+
+.overlay {
+    display: flex;
+    position: absolute;
+    vertical-align: middle;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+// Data Table
+.datatable-header-cell-label {
+    font-weight: 800;
+}
+
+.datatable-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+datatable-row-wrapper {
+    justify-content: center;
+    height: 48px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    transition-duration: .28s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-property: background-color;
+}
+
+datatable-row-wrapper:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.04);
+
+}
+
+datatable-body-row.active{
+    background-color: rgba(0, 0, 0, 0.12);
+}
