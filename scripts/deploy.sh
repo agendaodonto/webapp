@@ -22,4 +22,5 @@ fi
 
 echo "Deploying to Staging (Force deploy just for test!)"
 ng build --aot -env=staging
-dpl --provider=firebase --token=$FIREBASE_TOKEN --project=agendaodontoweb-staging
+firebase use --token $FIREBASE_TOKEN agendaodontoweb-staging
+firebase deploy --non-interactive --token $FIREBASE_TOKEN
