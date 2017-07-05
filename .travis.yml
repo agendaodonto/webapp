@@ -10,16 +10,16 @@ addons:
 jobs:
   include:
     -stage test
-     script: ng test -cc -sr --browsers=ChromeHeadless
+      script: ng test -cc -sr --browsers=ChromeHeadless
     -stage test
-     script: ng lint
+      script: ng lint
     -stage test
-     script: ng build --aot
+      script: ng build --aot
     -stage deploy to staging
-     script:
-       - ng build --env=staging --aot
-       - dpl --provider=firebase --token=$FIREBASE_TOKEN --project=agendaodontoweb-staging
+      script:
+        - ng build --env=staging --aot
+        - dpl --provider=firebase --token=$FIREBASE_TOKEN --project=agendaodontoweb-staging
     -stage deploy to production
-     script:
-       - ng build --env=prod --aot
-       - dpl --provider=firebase --token=$FIREBASE_TOKEN --project=agendaodonto-29023
+      script:
+        - ng build --env=prod --aot
+        - dpl --provider=firebase --token=$FIREBASE_TOKEN --project=agendaodonto-29023
