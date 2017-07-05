@@ -12,6 +12,8 @@ jobs:
     - stage: test
       addons:
         chrome: stable
+      env:
+        - CHROME_BIN=chromium-browser
       script: ng test -cc -sr --browsers=ChromeHeadless
     - stage: test
       script: ng lint
