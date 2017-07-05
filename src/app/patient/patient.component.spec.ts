@@ -8,6 +8,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PatientComponent } from './patient.component';
 import { PatientService } from './patient.service';
 import { PatientServiceStub } from 'app/shared/testing/stubs/patient.stub';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 describe('PatientComponent', () => {
@@ -16,7 +17,7 @@ describe('PatientComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, MaterialAppModule, NgxDatatableModule, DataTablePagerModule],
+            imports: [NoopAnimationsModule, MaterialAppModule, NgxDatatableModule, DataTablePagerModule, ReactiveFormsModule],
             declarations: [PatientComponent, RouterLinkStubDirective],
             providers: [
                 { provide: PatientService, useClass: PatientServiceStub },
