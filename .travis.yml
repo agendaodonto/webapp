@@ -1,0 +1,25 @@
+language: node_js
+
+cache:
+  directories:
+    - "node_modules"
+  yarn: true
+addons:
+  chrome: stable
+
+jobs:
+  include:
+    -stage test
+     script: ng test -cc -sr --browsers=ChromeHeadless
+    -stage test
+     script: ng lint
+    -stage test
+     script: ng build --aot
+    -stage deploy to staging
+     script:
+       - ng build --env=staging --aot
+       - dpl --provider=firebase --token=$FIREBASE_TOKEN --project=agendaodontoweb-staging
+    -stage deploy to production
+     script:
+       - ng build --env=prod --aot
+       - dpl --provider=firebase --token=$FIREBASE_TOKEN --project=agendaodonto-29023
