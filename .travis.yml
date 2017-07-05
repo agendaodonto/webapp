@@ -14,7 +14,7 @@ jobs:
         chrome: stable
       env:
         - CHROME_BIN=google-chrome-stable
-      script: ng test -cc -sr -sm=false --browsers=ChromeHeadlessV2
+      script: ng test -cc -sr -sm=false
     - stage: test
       script: ng lint
     - stage: test
