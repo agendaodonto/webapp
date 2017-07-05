@@ -50,7 +50,7 @@ export class PatientComponent implements OnInit {
         this.getPatients(0)
     }
 
-    filter(field: string, value: string){
+    filter(field: string, value: string) {
         this.patientFilter.setFilterValue(field, value);
         this.getPatients(0);
     }
