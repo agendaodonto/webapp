@@ -13,7 +13,7 @@ jobs:
       addons:
         chrome: stable
       env:
-        - CHROME_BIN=chromium-browser
+        - CHROME_BIN=google-chrome-stable
       script: ng test -cc -sr --browsers=ChromeHeadless
     - stage: test
       script: ng lint
