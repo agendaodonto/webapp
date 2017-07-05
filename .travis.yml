@@ -19,10 +19,6 @@ jobs:
     - stage: test
       script: ng build --aot
     - stage: deploy to staging
-      script:
-        - ng build --env=staging --aot
-        - dpl --provider=firebase --token=$FIREBASE_TOKEN --project=agendaodontoweb-staging
+      script: ./scripts/deploy.sh
     - stage: deploy to production
-      script:
-        - ng build --env=prod --aot
-        - dpl --provider=firebase --token=$FIREBASE_TOKEN --project=agendaodonto-29023
+      script: ./scripts/deploy.sh
