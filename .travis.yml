@@ -1,12 +1,11 @@
 language: node_js
 node_js:
   - "7"
-
 cache:
   directories:
     - "node_modules"
   yarn: true
-
+dist: trusty
 jobs:
   include:
     - stage: test
@@ -14,10 +13,7 @@ jobs:
         chrome: stable
       env:
         - CHROME_BIN=google-chrome-stable
-        - DISPLAY=:99.0
-      script:
-        - sh -e /etc/init.d/xvfb start
-        - ng test -cc -sr -sm=false
+      script: ng test -cc -sr --browsers=ChromeHeadlessv2
     - stage: test
       script: ng lint
     - stage: test
