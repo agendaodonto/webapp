@@ -13,7 +13,9 @@ jobs:
         chrome: stable
       env:
         - CHROME_BIN=google-chrome-stable
-      script: ng test -cc -sr --browsers=ChromeHeadlessNoSandBox
+      script:
+        - ng test -cc -sr --browsers=ChromeHeadlessNoSandBox
+        - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
     - stage: test
       script: ng lint
     - stage: test
