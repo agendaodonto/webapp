@@ -49,6 +49,7 @@ export class ScheduleComponent implements OnInit {
     getSchedules() {
         this.isLoading = true;
         const filter = new ScheduleFilter();
+        filter.setFilterValue('pageSize', '100');
         if (this.view === 'day') {
             filter.setFilterValue('startDate', format(this.currentDate, 'YYYY-MM-DD'))
             filter.setFilterValue('endDate', format(this.currentDate, 'YYYY-MM-DD'))
