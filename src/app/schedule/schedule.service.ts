@@ -75,7 +75,6 @@ export class ScheduleFilter extends BaseFilter {
             { name: 'endDate', mapsTo: 'date_1', value: null, type: 'filter' },
             { name: 'status', mapsTo: 'status', value: null, type: 'filter' },
         );
-        this.setFilterValue('pageSize', '100');
         this.setFilterValue('orderBy', 'date');
     }
 
