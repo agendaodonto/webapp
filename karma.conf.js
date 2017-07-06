@@ -32,7 +32,7 @@ module.exports = function (config) {
       environment: 'dev'
     },
     reporters: config.angularCli && config.angularCli.codeCoverage
-              ? ['progress', 'coverage-istanbul']
+              ? ['progress', 'coverage-istanbul', 'coverage']
               : ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
@@ -40,10 +40,6 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['Chrome'],
     customLaunchers: {
-        ChromeHeadlessV2: {
-            base: 'ChromeHeadless',
-            flags: ['--no-sandbox']
-        }
     },
     singleRun: false
   });
