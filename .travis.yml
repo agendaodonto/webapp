@@ -12,8 +12,8 @@ jobs:
       addons:
         chrome: stable
       env:
-        - CHROME_BIN=google-chrome-stable --browsers=ChromeHeadlessNoSandBox
-      script: ng test -cc -sr
+        - CHROME_BIN=google-chrome-stable
+      script: ng test -cc -sr --browsers=ChromeHeadlessNoSandBox
     - stage: test
       script: ng lint
     - stage: test
