@@ -18,7 +18,5 @@ jobs:
       script: ng lint
     - stage: test
       script: ng build --aot
-    - stage: deploy to staging
-      script: ./scripts/deploy.sh
-    - stage: deploy to production
+    - stage: deploy
       script: ./scripts/deploy.sh
