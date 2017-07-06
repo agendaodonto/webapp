@@ -1,0 +1,50 @@
+@import '../variables';
+
+.toggle-sidenav {
+    border: 1px solid;
+    min-width: 45px;
+    padding: 0;
+    margin-right: 15px;
+}
+
+.link:hover {
+    background: #c6c6c6;
+    cursor: pointer;
+}
+
+.sidenav-header {
+    background: url('/assets/sidenav-bg.png') no-repeat;
+    background-size: contain;
+    text-align: center;
+    height: 157.5px;
+}
+
+.sidenav-header > p {
+    font-weight: 700;
+    color: #ffffff;
+    padding: 0;
+    margin: 0;
+}
+
+.sidenav-image {
+    width: 96px;
+    height: 96px;
+    border-radius: 100%;
+    margin-top: 20px;
+}
+
+md-list-item.active {
+    background: #c6c6c6;
+    border-left: solid mat-color($primary);
+    transition-property: border-left;
+    transition-duration: 0.15s;
+    transition-timing-function: linear;
+}
+
+md-list-item:active, md-list-item:focus {
+    outline: none;
+}
+
+md-sidenav > md-list {
+    padding-top: 0;
+}

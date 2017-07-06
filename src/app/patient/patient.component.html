@@ -1,0 +1,53 @@
+<md-card class="container">
+    <md-card-title>Pacientes</md-card-title>
+    <div class="app-actions" fxLayout="column">
+        <div fxLayoutAlign="end center">
+            <a md-raised-button color="accent" [routerLink]="['/pacientes/criar']">Novo</a>
+        </div>
+        <div fxLayoutAlign="end center">
+            <form [formGroup]="filterForm" (submit)="onFilter()">
+                <md-select placeholder="Filtro" formControlName="field">
+                    <md-option [value]="'name'" selected>Nome</md-option>
+                    <md-option [value]="'lastName'">Sobrenome</md-option>
+                    <md-option [value]="'phone'">Telefone</md-option>
+                </md-select>
+                <md-input-container>
+                    <input mdInput placeholder="Pesquisar" formControlName="value">
+                </md-input-container>
+                <button md-button>
+                    <md-icon>search</md-icon>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div fxLayout="column">
+        <md-progress-bar [mode]="'query'" *ngIf="isLoading"></md-progress-bar>
+        <ngx-datatable #patientTable [columnMode]="'force'" [rowHeight]="'auto'" [footerHeight]="50" [rows]="patients" [externalSorting]="true"
+            [externalPaging]="true" [selectionType]=false (activate)="view($event)" [limit]="pageLimit" [count]="patientCount"
+            [offset]="0" (page)="paginate($event)" (sort)="sort($event)">
+            <ngx-datatable-column name="Nome" prop="name" [width]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Sobrenome" prop="last_name" [width]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Clinica" prop="clinic.name" [width]="1" [sortable]="false">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-footer>
+                <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize" let-selectedCount="selectedCount"
+                    , let-curPage="curPage" let-offset="offset">
+                    <app-datatable-pager style="width:100%" [page]="curPage" [size]="pageSize" [count]="rowCount" [hidden]="!((rowCount / pageSize) > 1)"
+                        (change)="patientTable.onFooterPage($event)">
+                    </app-datatable-pager>
+                </ng-template>
+            </ngx-datatable-footer>
+        </ngx-datatable>
+    </div>
+</md-card>

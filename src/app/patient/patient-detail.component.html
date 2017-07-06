@@ -1,0 +1,48 @@
+<md-card class="container">
+    <md-card-title>Informações</md-card-title>
+    <form [formGroup]="patientForm" (submit)="onSubmit()">
+        <input type="hidden" formControlName="id">
+        <div fxLayout="row">
+            <md-input-container fxFlex="50">
+                <input mdInput placeholder="Nome" formControlName="name">
+                <md-error>{{ patientForm.getControlMessages('name') }}</md-error>
+            </md-input-container>
+            <md-input-container fxFlex="50">
+                <input mdInput placeholder="Sobrenome" formControlName="last_name">
+                <md-error>{{ patientForm.getControlMessages('last_name') }}</md-error>
+            </md-input-container>
+        </div>
+        <div fxLayout="row">
+            <md-input-container fxFlex="50">
+                <input mdInput placeholder="Telefone" formControlName="phone">
+                <md-error>{{ patientForm.getControlMessages('phone') }}</md-error>
+            </md-input-container>
+            <!--
+                TODO: Use input container for the select when its supported by Material
+                https://github.com/angular/material2/issues/4673
+            -->
+            <md-select placeholder="Sexo" fxFlex="50" formControlName="sex" class="flex">
+                <md-option [value]="'M'">Masculino</md-option>
+                <md-option [value]="'F'">Feminino</md-option>
+            </md-select>
+        </div>
+        <div fxLayout="row">
+            <md-select placeholder="Clinica" fxFlex="100" formControlName="clinic" class="flex">
+                <md-option *ngFor="let clinic of clinics" [value]="clinic.id">{{ clinic.name }}</md-option>
+            </md-select>
+        </div>
+        <div class="app-actions" fxLayoutGap="10px" fxLayoutAlign="end center">
+            <button type="button" md-raised-button color="warn" *ngIf="patientForm.controls.id.value != ''" (click)="onDelete()" [disabled]="isSubmitting">
+                <span *ngIf="!isSubmitting">Apagar</span>
+                <md-spinner class="btn" *ngIf="isSubmitting"></md-spinner>
+            </button>
+            <button md-raised-button color="accent" [disabled]="!patientForm.valid || isSubmitting">
+                <span *ngIf="!isSubmitting" >Salvar</span>
+                <md-spinner class="btn" *ngIf="isSubmitting"></md-spinner>
+            </button>
+        </div>
+    </form>
+    <div class="overlay" *ngIf="isLoading">
+        <md-spinner style="margin: 0 auto"></md-spinner>
+    </div>
+</md-card>

@@ -1,0 +1,111 @@
+import { ActivatedRoute, Router } from '@angular/router';
+import { ClinicService, IClinic } from 'app/clinic/clinic.service';
+import { Component, OnInit } from '@angular/core';
+import { CustomFB, CustomFG } from '../shared/validation';
+import { IPatient, PatientService } from 'app/patient/patient.service';
+import { MdDialog, MdSnackBar } from '@angular/material';
+
+import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
+import { Validators } from '@angular/forms';
+
+@Component({
+    selector: 'app-patient-detail',
+    templateUrl: './patient-detail.component.html',
+    styleUrls: ['./patient-detail.component.scss']
+})
+export class PatientDetailComponent implements OnInit {
+    patientForm: CustomFG;
+    clinics: IClinic[];
+    isLoading = true;
+    isSubmitting = false;
+
+    constructor(private patientService: PatientService,
+        private clinicService: ClinicService,
+        private router: Router,
+        private route: ActivatedRoute,
+        public dialog: MdDialog,
+        public snackBar: MdSnackBar) {
+        this.patientForm = new CustomFB().group({
+            id: [''],
+            name: ['', Validators.required],
+            last_name: ['', Validators.required],
+            phone: ['', Validators.required],
+            sex: ['', Validators.required],
+            clinic: ['', Validators.required]
+        });
+    }
+
+    ngOnInit() {
+        const patientId = +this.route.snapshot.params['id'];
+        this.loadClinics();
+        if (patientId) {
+            this.patientService.get(patientId)
+                .finally(() => this.isLoading = false)
+                .subscribe(response => {
+                    this.patientForm.setValue({
+                        id: response.id,
+                        name: response.name,
+                        last_name: response.last_name,
+                        phone: response.phone,
+                        sex: response.sex,
+                        clinic: response.clinic.id,
+                    });
+                });
+        } else {
+            this.isLoading = false;
+        }
+    }
+
+    loadClinics() {
+        this.clinicService.getAll().subscribe(response => this.clinics = response.results);
+    }
+
+    matchClinicObj(): IClinic {
+        /**
+         * Remove this when Material implements compareWith method for md-select
+         * https://github.com/angular/material2/issues/2785
+         */
+        return this.clinics.filter(clinic => clinic.id === this.patientForm.controls.clinic.value)[0]
+    }
+
+    onSubmit() {
+        this.isSubmitting = true;
+        const data: IPatient = this.patientForm.value;
+        data.clinic = this.matchClinicObj();
+        this.patientService.save(data)
+            .finally(() => this.isSubmitting = false)
+            .subscribe(
+            patient => {
+                this.snackBar.open('Salvo com sucesso', '', { duration: 2000 });
+                this.router.navigate(['/pacientes']);
+            },
+            errors => {
+                this.snackBar.open('Não foi possível salvar.', '', { duration: 2000 });
+                this.patientForm.pushFieldErrors(errors.json());
+            }
+            );
+    }
+
+    onDelete() {
+        const dialog = this.dialog.open(ConfirmDialogComponent, {
+            height: '150px',
+            data: {
+                title: 'Você tem certeza disso ?',
+                message: 'Ao apagar o Paciente, você também apagará todos os seus agendamentos. Deseja prosseguir?'
+            }
+        });
+
+        dialog.afterClosed().subscribe(result => {
+            if (result === 'true') {
+                this.isSubmitting = true;
+                this.patientService.remove(this.patientForm.value).subscribe(
+                    () => {
+                        this.snackBar.open('Paciente excluido.', '', { duration: 2000 });
+                        this.router.navigate(['pacientes']);
+                    }
+                );
+            }
+        });
+    }
+
+}

@@ -1,0 +1,68 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <md-card class="container">
+        <md-card-title>Cadastro</md-card-title>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div fxLayout="row">
+                <md-input-container fxFlex="100">
+                    <input mdInput type="text" placeholder="Nome" name="first_name" formControlName="first_name">
+                    <md-error>{{ registerForm.getControlMessages('first_name') }}</md-error>
+                </md-input-container>
+            </div>
+            <div fxLayout="row">
+                <md-input-container fxFlex="100">
+                    <input mdInput type="text" placeholder="Sobrenome" name="last_name" formControlName="last_name">
+                    <md-error>{{ registerForm.getControlMessages('last_name') }}</md-error>
+                </md-input-container>
+            </div>
+            <div fxLayout="row">
+                <md-select placeholder="Sexo" fxFlex="100" formControlName="sex" class="flex">
+                    <md-option [value]="'M'">Masculino</md-option>
+                    <md-option [value]="'F'">Feminino</md-option>
+                </md-select>
+            </div>
+            <div fxLayout="row">
+                <md-input-container fxFlex="100">
+                    <input mdInput type="text" placeholder="CRO" name="cro" formControlName="cro">
+                    <md-error>{{ registerForm.getControlMessages('cro') }}</md-error>
+                </md-input-container>
+            </div>
+            <div fxLayout="row">
+                <md-select placeholder="Estado Emissor (CRO)" fxFlex="100" formControlName="cro_state" class="flex">
+                    <md-option *ngFor="let state of states" [value]="state.value">
+                        {{ state.display_name }}
+                    </md-option>
+                </md-select>
+            </div>
+            <div fxLayout="row">
+                <md-input-container fxFlex="100">
+                    <input mdInput type="email" placeholder="Email" name="email" formControlName="email">
+                    <md-error>{{ registerForm.getControlMessages('email') }}</md-error>
+                </md-input-container>
+            </div>
+            <div fxLayout="row">
+                <md-input-container fxFlex="100" formGroupName="password">
+                    <input mdInput type="password" placeholder="Senha" name="password" formControlName="password">
+                    <md-error>{{ registerForm.getControlMessages('password') }}</md-error>
+                </md-input-container>
+            </div>
+            <div fxLayout="row">
+                <md-input-container fxFlex="100" formGroupName="password">
+                    <input mdInput type="password" placeholder="Confirme a sua senha" name="confirm_password" formControlName="confirm_password">
+                    <md-error>{{ registerForm.getControlMessages('password') }}</md-error>
+                </md-input-container>
+            </div>
+            <div fxLayout="row">
+                <md-error *ngFor="let error of errors"> {{ error }}</md-error>
+            </div>
+        </form>
+        <div class="overlay" *ngIf="isLoading">
+            <md-spinner style="margin: 0 auto"></md-spinner>
+        </div>
+        <p fxLayoutAlign="end center">
+            <button md-raised-button color="accent" (click)="onSubmit()" [disabled]="!registerForm.valid || isSubmitting">
+                <span *ngIf="!isSubmitting">Criar Conta</span>
+                <md-spinner class="btn" *ngIf="isSubmitting"></md-spinner>
+            </button>
+        </p>
+    </md-card>
+</div>

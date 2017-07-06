@@ -1,0 +1,27 @@
+<div fxLayout="row" fxLayoutAlign="center center" style="height: 80%">
+    <md-card class="container">
+        <md-card-title>Login</md-card-title>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div fxLayout="row">
+                <md-input-container fxFlex="100">
+                    <input mdInput type="email" placeholder="Email" name="email" formControlName="email" required>
+                    <md-error>{{ loginForm.getControlMessages('email') }}</md-error>
+                </md-input-container>
+            </div>
+            <div fxLayout="row">
+                <md-input-container fxFlex="100">
+                    <input mdInput type="password" placeholder="Senha" name="password" formControlName="password" required>
+                    <md-error>{{ loginForm.getControlMessages('password') }}</md-error>
+                </md-input-container>
+            </div>
+            <md-error *ngFor="let error of errors"> {{ error }}</md-error>
+        </form>
+        <p fxLayoutAlign="end center">
+            <a md-button [routerLink]="['/cadastro']">Criar Conta</a>
+            <button md-raised-button color="accent" (click)="onSubmit()" [disabled]="isLoading">
+                <span *ngIf="!isLoading">Entrar</span>
+                <md-spinner class="btn" *ngIf="isLoading"></md-spinner>
+            </button>
+        </p>
+    </md-card>
+</div>
