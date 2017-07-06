@@ -1,6 +1,8 @@
 
 [![Build Status](https://travis-ci.org/agendaodonto/webapp.svg?branch=master)](https://travis-ci.org/agendaodonto/webapp)
 
+[![Coverage Status](https://coveralls.io/repos/github/agendaodonto/webapp/badge.svg?branch=master)](https://coveralls.io/github/agendaodonto/webapp?branch=master)
+
 
 
 # ScheduleWebMaterial
