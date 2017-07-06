@@ -19,8 +19,3 @@ if [[ $TRAVIS_BRANCH == "develop" ]]; then
 else
   echo "Skipping deploy to production. (Not on develop branch)"
 fi
-
-echo "Deploying to Staging (Force deploy just for test!)"
-ng build --aot -env=staging
-firebase use --token $FIREBASE_TOKEN agendaodontoweb-staging
-firebase deploy --non-interactive --token $FIREBASE_TOKEN
