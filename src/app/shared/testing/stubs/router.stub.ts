@@ -33,6 +33,7 @@ export class ActivatedRouteStub {
 }
 
 @Directive({
+    /* tslint:disable:directive-selector */
     selector: '[routerLink]',
 })
 @Injectable()

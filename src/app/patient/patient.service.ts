@@ -89,7 +89,9 @@ export class PatientFilter extends BaseFilter {
     constructor() {
         super();
         this.fields.push(
-            { name: 'name', mapsTo: 'name', value: null }
+            { name: 'name', mapsTo: 'name', value: null },
+            { name: 'phone', mapsTo: 'phone', value: null },
+            { name: 'lastName', mapsTo: 'last_name', value: null },
         )
         this.setFilterValue('orderBy', 'name')
     }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomFB, CustomFG } from '../shared/validation';
 import { IPatient, PatientFilter, PatientService } from './patient.service';
 
 import { Router } from '@angular/router';
@@ -13,10 +14,16 @@ export class PatientComponent implements OnInit {
     isLoading = true;
     patientCount = 0;
     sortBy = 'name';
+    filterForm: CustomFG;
     patientFilter = new PatientFilter();
     pageLimit = 10;
 
     constructor(private patientService: PatientService, private router: Router) {
+        const fb = new CustomFB()
+        this.filterForm = fb.group({
+            field: ['name'],
+            value: ['']
+        })
     }
 
     ngOnInit() {
@@ -50,8 +57,8 @@ export class PatientComponent implements OnInit {
         this.getPatients(0)
     }
 
-    filter(field: string, value: string){
-        this.patientFilter.setFilterValue(field, value);
+    onFilter() {
+        this.patientFilter.setFilterValue(this.filterForm.value.field, this.filterForm.value.value);
         this.getPatients(0);
     }
 

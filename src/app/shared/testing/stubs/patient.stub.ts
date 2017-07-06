@@ -32,5 +32,4 @@ export class PatientServiceStub implements IPatientService {
     save(patient: IPatient) {
         throw new Error('Method not implemented.');
     }
-
 }
