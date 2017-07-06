@@ -1,7 +1,7 @@
 
-[![build status](https://gitlab.com/odonto-helper/schedule-client/badges/master/build.svg)](https://gitlab.com/odonto-helper/schedule-client/commits/master)
+[![Build Status](https://travis-ci.org/agendaodonto/webapp.svg?branch=master)](https://travis-ci.org/agendaodonto/webapp)
 
-[![coverage report](https://gitlab.com/odonto-helper/schedule-client/badges/master/coverage.svg)](https://gitlab.com/odonto-helper/schedule-client/commits/master)
+
 
 # ScheduleWebMaterial
 
