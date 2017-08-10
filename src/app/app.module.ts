@@ -1,4 +1,5 @@
 import { AboutModule, aboutRoutes } from 'app/about/about.module';
+import { AccountModule, accountRoutes } from './account/account.module';
 import { ClinicModule, clinicRoutes } from './clinic/clinic.module';
 import { DashboardModule, dashboardRoutes } from 'app/dashboard/dashboard.module';
 import { LoginModule, loginRoutes } from './login/login.module';
@@ -25,7 +26,8 @@ export const routes: Routes = [
     ...registerRoutes,
     ...patientRoutes,
     ...scheduleRoutes,
-    ...aboutRoutes
+    ...aboutRoutes,
+    ...accountRoutes
 ];
 
 @NgModule({
@@ -46,7 +48,7 @@ export const routes: Routes = [
         PatientModule,
         ScheduleModule,
         AboutModule,
-        MdSidenavModule,
+        AccountModule,
         CalendarModule.forRoot()
     ],
     providers: [AuthService],

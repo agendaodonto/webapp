@@ -34,6 +34,14 @@ export class DentistService extends BaseService implements IDentistService {
     getStates(): Observable<any> {
         return this.http.options(BaseService.API_AUTH_URL + 'register/').map(data => data.json().actions.POST.cro_state.choices)
     }
+
+    me(): Observable<IDentist> {
+        return this.http.get(this.url(['dentists', 'me'])).map(data => data.json())
+    }
+
+    update(dentist: IDentist): Observable<IDentist> {
+        return this.http.put(this.url(['dentists', 'me']), JSON.stringify(dentist)).map(data => data.json())
+    }
 }
 
 export interface IDentist {
@@ -44,4 +52,6 @@ export interface IDentist {
     last_name: string;
     email: string;
     sex: string;
+    sg_user: string;
+    sg_password?: string;
 }
