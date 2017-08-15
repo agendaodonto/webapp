@@ -1,0 +1,50 @@
+<md-card class="container">
+    <md-card-title>Minha Conta</md-card-title>
+    <form [formGroup]="accountForm" (submit)="onSubmit()">
+        <div fxLayout="row">
+            <md-input-container fxFlex="25">
+                <input mdInput placeholder="Nome" formControlName="first_name">
+            </md-input-container>
+            <md-input-container fxFlex="50">
+                <input mdInput placeholder="Sobrenome" formControlName="last_name">
+            </md-input-container>
+            <md-select placeholder="Sexo" fxFlex="25" formControlName="sex" class="flex">
+                <md-option [value]="'M'">Masculino</md-option>
+                <md-option [value]="'F'">Feminino</md-option>
+            </md-select>
+        </div>
+        <div fxLayout="row">
+            <md-input-container fxFlex="30">
+                <input mdInput placeholder="Email" formControlName="email" readonly>
+            </md-input-container>
+            <md-input-container fxFlex="20">
+                <input mdInput placeholder="CRO" formControlName="cro">
+            </md-input-container>
+            <md-select placeholder="Estado Emissor" fxFlex="50" formControlName="cro_state" class="flex">
+                <md-option *ngFor="let state of states" [value]="state.value">
+                    {{ state.display_name }}
+                </md-option>
+            </md-select>
+        </div>
+        <div fxLayout="row">
+             <md-input-container fxFlex="50">
+                <input mdInput placeholder="Email SMS Gateway" formControlName="sg_user">
+                <md-hint>Utilize o email de sua conta <a href="https://smsgateway.me">SMSGateway</a></md-hint>
+            </md-input-container>
+            <md-input-container fxFlex="50">
+                <input mdInput placeholder="Senha SMS Gateway" type="password" formControlName="sg_password">
+                <md-hint>Utilize a senha de sua conta <a href="https://smsgateway.me">SMSGateway</a></md-hint>
+            </md-input-container>
+        </div>
+        <div class="app-actions" fxLayoutGap="10px" fxLayoutAlign="end center">
+            <button md-raised-button color="accent" [disabled]="!accountForm.valid || isSubmitting">
+                <span *ngIf="!isSubmitting" >Salvar</span>
+                <md-spinner class="btn" *ngIf="isSubmitting"></md-spinner>
+            </button>
+        </div>
+
+    </form>
+    <div class="overlay" *ngIf="isLoading">
+        <md-spinner style="margin: 0 auto"></md-spinner>
+    </div>
+</md-card>

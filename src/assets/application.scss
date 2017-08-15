@@ -7,6 +7,10 @@ html, body, md-sidenav-container, .content {
     min-height: 100vh;
 }
 
+//TODO: Remover após corrigirem a issue de alinhamento no GH
+// https://github.com/angular/material2/issues/2124
+.mat-select-placeholder.mat-floating-placeholder {transform: scale(.75) translateY(7px) !important;}
+
 md-sidenav {
     width: 280px;
 }
@@ -63,11 +67,6 @@ table.material > tbody {
     //transition-property: background-color;
 }
 
-//TODO: Remover após corrigirem a issue de alinhamento no GH
-// https://github.com/angular/material2/issues/2124
-.flex.mat-select-trigger{
-    top: 17px;
-}
 
 md-dialog-container.mat-dialog-container{
     padding: 0;
