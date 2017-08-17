@@ -5,8 +5,10 @@ import { RequestOptions, URLSearchParams } from '@angular/http';
 
 import { AuthHttp } from '../shared/auth_http';
 import { IClinic } from '../clinic/clinic.service';
+import { ISchedule } from '../schedule/schedule.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import { ScheduleFilter } from 'app/schedule/schedule.service';
 
 @Injectable()
 export class PatientService extends BaseService implements IPatientService {
@@ -54,6 +56,11 @@ export class PatientService extends BaseService implements IPatientService {
         const options = new RequestOptions();
         options.params = params;
         return this.http.get(this.url(['patients']), options).map(data => data.json().count);
+    }
+
+    getSchedules(patientId: number, scheduleFilter?: ScheduleFilter): Observable<{ count: number, results: ISchedule[] }> {
+        const filter = scheduleFilter ? scheduleFilter.getFilter() : new ScheduleFilter().getFilter()
+        return this.http.get(this.url(['patients', patientId, 'schedules']), filter).map(data => data.json());
     }
 }
 
