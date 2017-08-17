@@ -2,9 +2,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClinicService, IClinic } from 'app/clinic/clinic.service';
 import { Component, OnInit } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
+import { IClickEvent, IPaginateEvent } from '../shared/components/pager/datatable-pager.component';
 import { IPatient, PatientService } from 'app/patient/patient.service';
+import { ISchedule, ScheduleFilter } from '../schedule/schedule.service';
 import { MdDialog, MdSnackBar } from '@angular/material';
 
+import { ClinicFilter } from '../clinic/clinic.service';
 import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
 import { Validators } from '@angular/forms';
 
@@ -16,6 +19,11 @@ import { Validators } from '@angular/forms';
 export class PatientDetailComponent implements OnInit {
     patientForm: CustomFG;
     clinics: IClinic[];
+    patientId: number;
+    schedulesLoading = false;
+    schedules: ISchedule[];
+    scheduleCount = 0;
+    pageSize = 10;
     isLoading = true;
     isSubmitting = false;
 
@@ -36,10 +44,11 @@ export class PatientDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        const patientId = +this.route.snapshot.params['id'];
+        this.patientId = +this.route.snapshot.params['id'];
         this.loadClinics();
-        if (patientId) {
-            this.patientService.get(patientId)
+        if (this.patientId) {
+            this.getSchedules(0);
+            this.patientService.get(this.patientId)
                 .finally(() => this.isLoading = false)
                 .subscribe(response => {
                     this.patientForm.setValue({
@@ -58,6 +67,19 @@ export class PatientDetailComponent implements OnInit {
 
     loadClinics() {
         this.clinicService.getAll().subscribe(response => this.clinics = response.results);
+    }
+
+    getSchedules(offset: number) {
+        this.schedulesLoading = true;
+        const filter = new ScheduleFilter()
+        filter.setFilterValue('orderBy', '-date');
+        filter.setFilterValue('offset', offset.toString());
+        this.patientService.getSchedules(this.patientId, filter)
+            .finally(() => this.schedulesLoading = false)
+            .subscribe(response => {
+                this.scheduleCount = response.count;
+                this.schedules = response.results;
+            });
     }
 
     matchClinicObj(): IClinic {
@@ -106,6 +128,14 @@ export class PatientDetailComponent implements OnInit {
                 );
             }
         });
+    }
+
+    paginateSchedules(event: IPaginateEvent) {
+        this.getSchedules(event.limit * event.offset);
+    }
+
+    viewSchedule(event: IClickEvent<ISchedule>) {
+        this.router.navigate(['agenda', event.row.id]);
     }
 
 }
