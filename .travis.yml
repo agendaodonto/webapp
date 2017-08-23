@@ -8,14 +8,14 @@ cache:
 dist: trusty
 jobs:
   include:
-    - stage: test
-      addons:
-        chrome: stable
-      env:
-        - CHROME_BIN=google-chrome-stable
-      script:
-        - ng test -sm=false -cc -sr --browsers=ChromeHeadlessNoSandBox
-        - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+    # - stage: test
+    #   addons:
+    #     chrome: stable
+    #   env:
+    #     - CHROME_BIN=google-chrome-stable
+    #   script:
+    #     - ng test -sm=false -cc -sr --browsers=ChromeHeadlessNoSandBox
+    #     - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
     - stage: test
       script: ng lint
     - stage: test
