@@ -92,6 +92,7 @@ export class PatientFilter extends BaseFilter {
             { name: 'name', mapsTo: 'name', value: null, type: 'filter' },
             { name: 'phone', mapsTo: 'phone', value: null, type: 'filter' },
             { name: 'lastName', mapsTo: 'last_name', value: null, type: 'filter' },
+            { name: 'fullName', mapsTo: 'full_name', value: null, type: 'filter' },
         )
         this.setFilterValue('orderBy', 'name')
     }

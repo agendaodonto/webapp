@@ -49,7 +49,7 @@ export class ScheduleDetailComponent implements OnInit {
             .debounceTime(100)
             .subscribe((val) => {
                 if (isString(val)) {
-                    filter.setFilterValue('name', val);
+                    filter.setFilterValue('fullName', val);
                     this.filteredPatients = this.patientService.getAll(filter);
                 } else {
                     this.dentists = val.clinic.dentists;
