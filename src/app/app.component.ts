@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
         { name: 'Agenda', link: '/agenda/semana', requiresLogin: true, hideWhenLogged: false },
         { name: 'Login', link: '/login', requiresLogin: false, hideWhenLogged: true },
         { name: 'Sobre', link: '/sobre', requiresLogin: false, hideWhenLogged: false },
-        { name: 'Minha Conta', link: '/conta', requiresLogin: true, hideWhenLogged: false },
+        // { name: 'Minha Conta', link: '/conta', requiresLogin: true, hideWhenLogged: false },
     ];
 
     constructor(public loginService: LoginService, private router: Router) {

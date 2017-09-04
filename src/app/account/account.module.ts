@@ -10,7 +10,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 export const accountRoutes: Routes = [
-    { path: 'conta', component: AccountComponent, canActivate: [AuthGuard] }
+    // { path: 'conta', component: AccountComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
