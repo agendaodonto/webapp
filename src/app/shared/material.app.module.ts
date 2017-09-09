@@ -12,6 +12,7 @@ import {
     MdProgressSpinnerModule,
     MdSelectModule,
     MdSidenavModule,
+    MdSlideToggleModule,
     MdSnackBarModule,
     MdTabsModule,
     MdToolbarModule,
@@ -36,7 +37,8 @@ const IMPORT_LIST = [
     MdProgressSpinnerModule,
     MdProgressBarModule,
     MdDialogModule,
-    MdTabsModule
+    MdTabsModule,
+    MdSlideToggleModule
 ];
 @NgModule({
     imports: [IMPORT_LIST],
