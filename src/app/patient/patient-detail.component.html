@@ -3,7 +3,7 @@
     <div fxLayoutAlign="end center" fxLayout="row">
         <md-slide-toggle #continuousMode>Modo contínuo</md-slide-toggle>
     </div>
-    <form [formGroup]="patientForm" (submit)="onSubmit()">
+    <form [formGroup]="patientForm" (submit)="onSubmit()" appAutoFocus>
         <input type="hidden" formControlName="id">
         <div fxLayout="row">
             <md-input-container fxFlex="50">
