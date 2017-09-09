@@ -7,7 +7,7 @@
         <div fxLayoutAlign="end center">
             <form [formGroup]="filterForm" (submit)="onFilter()">
                 <md-select placeholder="Filtro" formControlName="field">
-                    <md-option [value]="'fullName'" selected>Nome</md-option>
+                    <md-option [value]="'fullName'">Nome</md-option>
                     <md-option [value]="'phone'">Telefone</md-option>
                 </md-select>
                 <md-input-container>

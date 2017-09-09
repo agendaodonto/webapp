@@ -21,7 +21,7 @@ export class PatientComponent implements OnInit {
     constructor(private patientService: PatientService, private router: Router) {
         const fb = new CustomFB()
         this.filterForm = fb.group({
-            field: ['name'],
+            field: ['fullName'],
             value: ['']
         })
     }
