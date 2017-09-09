@@ -3,6 +3,7 @@ import { Route, RouterModule } from '@angular/router';
 import { AuthGuard } from 'app/shared/guards/auth.guard';
 import { CalendarModule } from 'angular-calendar';
 import { CommonModule } from '@angular/common';
+import { DirectivesModule } from '../shared/directives/directives.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { NgModule } from '@angular/core';
@@ -27,6 +28,7 @@ export const scheduleRoutes: Route[] = [
         RouterModule,
         FlexLayoutModule,
         ReactiveFormsModule,
+        DirectivesModule,
         CalendarModule.forRoot()
     ],
     declarations: [ScheduleComponent, ScheduleDetailComponent],
