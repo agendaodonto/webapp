@@ -134,9 +134,6 @@ export class PatientDetailComponent implements OnInit {
         });
     }
 
-    reset() {
-        this.patientForm.reset();
-    }
     paginateSchedules(event: IPaginateEvent) {
         this.getSchedules(event.limit * event.offset);
     }
