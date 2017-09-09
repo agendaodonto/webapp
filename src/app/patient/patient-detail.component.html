@@ -1,5 +1,8 @@
 <md-card class="container">
     <md-card-title>Informações</md-card-title>
+    <div fxLayoutAlign="end center" fxLayout="row">
+        <md-slide-toggle #continuousMode>Modo contínuo</md-slide-toggle>
+    </div>
     <form [formGroup]="patientForm" (submit)="onSubmit()">
         <input type="hidden" formControlName="id">
         <div fxLayout="row">
