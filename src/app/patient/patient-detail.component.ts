@@ -6,7 +6,7 @@ import { FormGroupDirective, Validators } from '@angular/forms';
 import { IClickEvent, IPaginateEvent } from '../shared/components/pager/datatable-pager.component';
 import { IPatient, PatientService } from 'app/patient/patient.service';
 import { ISchedule, ScheduleFilter } from '../schedule/schedule.service';
-import { MdDialog, MdSlideToggle, MdSnackBar } from '@angular/material';
+import { MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
 
 import { ClinicFilter } from '../clinic/clinic.service';
 import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -26,15 +26,15 @@ export class PatientDetailComponent implements OnInit {
     pageSize = 10;
     isLoading = true;
     isSubmitting = false;
-    @ViewChild('continuousMode') continuousMode: MdSlideToggle;
+    @ViewChild('continuousMode') continuousMode: MatSlideToggle;
     @ViewChild(FormGroupDirective) patientFormDirective: FormGroupDirective;
 
     constructor(private patientService: PatientService,
         private clinicService: ClinicService,
         private router: Router,
         private route: ActivatedRoute,
-        public dialog: MdDialog,
-        public snackBar: MdSnackBar) {
+        public dialog: MatDialog,
+        public snackBar: MatSnackBar) {
         this.patientForm = new CustomFB().group({
             id: [''],
             name: ['', Validators.required],

@@ -10,6 +10,7 @@ import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/conf
 import { ConfirmDialogModule } from 'app/shared/components/confirm-dialog/confirm-dialog.module';
 import { DataTablePagerModule } from 'app/shared/components/pager/datatable-pager.module';
 import { DentistService } from '../shared/services/dentist.service';
+import { DirectivesModule } from '../shared/directives/directives.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { NgModule } from '@angular/core';
@@ -32,7 +33,8 @@ export const clinicRoutes: Routes = [
         RouterModule,
         ReactiveFormsModule,
         ConfirmDialogModule,
-        DataTablePagerModule
+        DataTablePagerModule,
+        DirectivesModule
     ],
     declarations: [ClinicComponent, ClinicDetailComponent],
     providers: [ClinicService, DentistService, AuthGuard],

@@ -1,8 +1,8 @@
 import { Component, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
 
 import { LoginService } from './login/login.service';
+import { MatSidenav } from '@angular/material';
 import { Md5 } from 'ts-md5/dist/md5';
-import { MdSidenav } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 
@@ -23,7 +23,7 @@ type Display = 'desktop' | 'mobile';
 })
 export class AppComponent implements OnInit {
     date = new Date();
-    @ViewChild('sidenav') sideNav: MdSidenav;
+    @ViewChild('sidenav') sideNav: MatSidenav;
     displayType: Display;
     sideNavMenus: IMenu[] = [
         { name: 'Dashboard', link: '/dashboard', requiresLogin: true, hideWhenLogged: false },

@@ -3,8 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { FormGroupDirective, Validators } from '@angular/forms';
 import { IPatient, PatientFilter, PatientService } from '../patient/patient.service';
-import { MdDialog, MdSlideToggle, MdSnackBar } from '@angular/material';
 import { addMinutes, format } from 'date-fns';
+import { MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
 
 import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
 import { IDentist } from '../shared/services/dentist.service';
@@ -23,13 +23,13 @@ export class ScheduleDetailComponent implements OnInit {
     scheduleForm: CustomFG;
     dentists: IDentist[] = [];
     filteredPatients: Observable<{ results: IPatient[] }>;
-    @ViewChild('continuousMode') continuousMode: MdSlideToggle;
+    @ViewChild('continuousMode') continuousMode: MatSlideToggle;
     @ViewChild(FormGroupDirective) scheduleFormDirective: FormGroupDirective;
 
     constructor(private scheduleService: ScheduleService,
         private patientService: PatientService,
-        private snackBar: MdSnackBar,
-        public dialog: MdDialog,
+        private snackBar: MatSnackBar,
+        public dialog: MatDialog,
         private router: Router,
         private route: ActivatedRoute) {
         this.scheduleForm = new CustomFB().group({

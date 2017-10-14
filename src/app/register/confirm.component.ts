@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { DentistService } from 'app/shared/services/dentist.service';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-confirm',
@@ -14,7 +14,7 @@ export class ConfirmComponent implements OnInit {
         private router: Router,
         private dentistService: DentistService,
         private route: ActivatedRoute,
-        private snack: MdSnackBar) { }
+        private snack: MatSnackBar) { }
 
     ngOnInit() {
         const uid = this.route.snapshot.params['uid']

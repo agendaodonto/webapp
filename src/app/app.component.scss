@@ -33,7 +33,7 @@
     margin-top: 20px;
 }
 
-md-list-item.active {
+mat-list-item.active {
     background: #c6c6c6;
     border-left: solid mat-color($primary);
     transition-property: border-left;
@@ -41,10 +41,10 @@ md-list-item.active {
     transition-timing-function: linear;
 }
 
-md-list-item:active, md-list-item:focus {
+mat-list-item:active, mat-list-item:focus {
     outline: none;
 }
 
-md-sidenav > md-list {
+mat-sidenav > mat-list {
     padding-top: 0;
 }

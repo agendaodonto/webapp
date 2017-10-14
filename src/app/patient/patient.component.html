@@ -1,26 +1,28 @@
-<md-card class="container">
-    <md-card-title>Pacientes</md-card-title>
+<mat-card class="container">
+    <mat-card-title>Pacientes</mat-card-title>
     <div class="app-actions" fxLayout="column">
         <div fxLayoutAlign="end center">
-            <a md-raised-button color="accent" [routerLink]="['/pacientes/criar']">Novo</a>
+            <a mat-raised-button color="accent" [routerLink]="['/pacientes/criar']">Novo</a>
         </div>
         <div fxLayoutAlign="end center">
             <form [formGroup]="filterForm" (submit)="onFilter()">
-                <md-select placeholder="Filtro" formControlName="field">
-                    <md-option [value]="'fullName'">Nome</md-option>
-                    <md-option [value]="'phone'">Telefone</md-option>
-                </md-select>
-                <md-input-container>
-                    <input mdInput placeholder="Pesquisar" formControlName="value">
-                </md-input-container>
-                <button md-button>
-                    <md-icon>search</md-icon>
+                <mat-input-container>
+                    <mat-select placeholder="Filtro" formControlName="field">
+                        <mat-option [value]="'fullName'">Nome</mat-option>
+                        <mat-option [value]="'phone'">Telefone</mat-option>
+                    </mat-select>
+                </mat-input-container>
+                <mat-input-container>
+                    <input matInput placeholder="Pesquisar" formControlName="value">
+                </mat-input-container>
+                <button mat-button>
+                    <mat-icon>search</mat-icon>
                 </button>
             </form>
         </div>
     </div>
     <div fxLayout="column">
-        <md-progress-bar [mode]="'query'" *ngIf="isLoading"></md-progress-bar>
+        <mat-progress-bar [mode]="'query'" *ngIf="isLoading"></mat-progress-bar>
         <ngx-datatable #patientTable [columnMode]="'force'" [rowHeight]="'auto'" [footerHeight]="50" [rows]="patients" [externalSorting]="true"
             [externalPaging]="true" [selectionType]=false (activate)="view($event)" [limit]="pageLimit" [count]="patientCount"
             [offset]="0" (page)="paginate($event)" (sort)="sort($event)">
@@ -49,4 +51,4 @@
             </ngx-datatable-footer>
         </ngx-datatable>
     </div>
-</md-card>
+</mat-card>

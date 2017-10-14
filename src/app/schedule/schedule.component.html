@@ -1,22 +1,22 @@
-<md-card class="container">
-    <md-card-title>Agenda</md-card-title>
+<mat-card class="container">
+    <mat-card-title>Agenda</mat-card-title>
     <div class="app-actions" fxLayout="column" fxLayout.gt-lg="row" fxLayoutAlign="center center">
         <div fxFlex="20" fxLayoutAlign="center center">
-            <button md-button (click)="setView('day')">Dia</button>
-            <button md-button (click)="setView('week')">Semana</button>
-            <a md-raised-button color="accent" [routerLink]="['/agenda/criar']" fxHide.gt-lg="true">Novo</a>
+            <button mat-button (click)="setView('day')">Dia</button>
+            <button mat-button (click)="setView('week')">Semana</button>
+            <a mat-raised-button color="accent" [routerLink]="['/agenda/criar']" fxHide.gt-lg="true">Novo</a>
         </div>
         <div fxFlex="47" fxLayoutAlign="center center">
             <h3>{{ currentDate | calendarDate:(view + 'ViewTitle')}}</h3>
         </div>
         <div fxFlex="33" fxLayoutAlign="center center">
-            <button md-button (click)="decrement()">Anterior</button>
-            <button md-button (click)="today()">Hoje</button>
-            <button md-button (click)="increment()">Próximo</button>
-            <a md-raised-button color="accent" [routerLink]="['/agenda/criar']" fxHide fxShow.gt-lg="true">Novo</a>
+            <button mat-button (click)="decrement()">Anterior</button>
+            <button mat-button (click)="today()">Hoje</button>
+            <button mat-button (click)="increment()">Próximo</button>
+            <a mat-raised-button color="accent" [routerLink]="['/agenda/criar']" fxHide fxShow.gt-lg="true">Novo</a>
         </div>
     </div>
-    <md-progress-bar [mode]="'query'" *ngIf="isLoading"></md-progress-bar>
+    <mat-progress-bar [mode]="'query'" *ngIf="isLoading"></mat-progress-bar>
     <div fxLayout="column" >
         <mwl-calendar-day-view
             *ngIf="view=='day'"
@@ -33,5 +33,5 @@
             (eventClicked)="eventClick($event)">
         </mwl-calendar-week-view>
     </div>
-</md-card>
+</mat-card>
 

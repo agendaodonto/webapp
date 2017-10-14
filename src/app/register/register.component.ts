@@ -4,7 +4,7 @@ import { FormGroup, Validators } from '@angular/forms';
 
 import { CustomFB } from 'app/shared/validation';
 import { DentistService } from '../shared/services/dentist.service';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-register',
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
     isSubmitting = false;
     errors: string[] = [];
 
-    constructor(private dentistService: DentistService, private snackBar: MdSnackBar) {
+    constructor(private dentistService: DentistService, private snackBar: MatSnackBar) {
         const fb = new CustomFB();
         this.registerForm = fb.group({
             email: ['', Validators.required],

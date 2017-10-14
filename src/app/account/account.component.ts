@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
 
 import { DentistService } from '../shared/services/dentist.service';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Rx';
 import { Validators } from '@angular/forms';
 
@@ -17,7 +17,7 @@ export class AccountComponent implements OnInit {
     isLoading = false;
     isSubmitting = false;
 
-    constructor(private dentistService: DentistService, private snackBar: MdSnackBar) {
+    constructor(private dentistService: DentistService, private snackBar: MatSnackBar) {
         const fb = new CustomFB()
         this.accountForm = fb.group({
             first_name: ['', Validators.required],

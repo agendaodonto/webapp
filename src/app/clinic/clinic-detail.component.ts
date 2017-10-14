@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { DentistService, IDentist } from '../shared/services/dentist.service';
 import { FormControl, Validators } from '@angular/forms';
-import { MdDialog, MdSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { ClinicService } from './clinic.service';
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
@@ -29,8 +29,8 @@ export class ClinicDetailComponent implements OnInit {
         private dentistService: DentistService,
         private router: Router,
         private route: ActivatedRoute,
-        public snackBar: MdSnackBar,
-        public dialog: MdDialog) {
+        public snackBar: MatSnackBar,
+        public dialog: MatDialog) {
         this.clinicForm = new CustomFB().group({
             id: [''],
             name: ['', Validators.required],

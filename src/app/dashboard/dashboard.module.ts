@@ -3,11 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { DashboardComponent } from 'app/dashboard/dashboard.component';
 import { DataTablePagerComponent } from '../shared/components/pager/datatable-pager.component';
 import { DataTablePagerModule } from 'app/shared/components/pager/datatable-pager.module';
+import { DirectivesModule } from '../shared/directives/directives.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialAppModule } from 'app/shared/material.app.module';
-import { MaterialModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable/release';
 import { Routes } from '@angular/router';
@@ -29,7 +29,8 @@ export const dashboardRoutes: Routes = [
         MaterialAppModule,
         FlexLayoutModule,
         NgxDatatableModule,
-        DataTablePagerModule
+        DataTablePagerModule,
+        DirectivesModule
     ],
     providers: [ScheduleService, AuthGuard],
 })

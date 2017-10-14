@@ -14,7 +14,6 @@ import { CalendarModule } from 'angular-calendar';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialAppModule } from './shared/material.app.module';
-import { MdSidenavModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RegisterModule } from './register/register.module';
 import { registerRoutes } from 'app/register/register.module';
