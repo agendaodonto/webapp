@@ -1,6 +1,9 @@
 <md-card class="container">
     <md-card-title>Informações</md-card-title>
-    <form [formGroup]="patientForm" (submit)="onSubmit()">
+    <div fxLayoutAlign="end center" fxLayout="row">
+        <md-slide-toggle #continuousMode>Modo contínuo</md-slide-toggle>
+    </div>
+    <form [formGroup]="patientForm" (submit)="onSubmit()" appAutoFocus>
         <input type="hidden" formControlName="id">
         <div fxLayout="row">
             <md-input-container fxFlex="50">

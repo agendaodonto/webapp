@@ -1,6 +1,9 @@
 <md-card class="container">
     <md-card-title>Agendamento</md-card-title>
-    <form [formGroup]="scheduleForm" (submit)="onSubmit()">
+    <div fxLayoutAlign="end center" fxLayout="row">
+            <md-slide-toggle #continuousMode>Modo contínuo</md-slide-toggle>
+        </div>
+    <form [formGroup]="scheduleForm" (submit)="onSubmit()" appAutoFocus>
         <input type="hidden" formControlName="id">
 
         <div fxLayout="column">

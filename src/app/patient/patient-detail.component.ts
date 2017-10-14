@@ -1,15 +1,15 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClinicService, IClinic } from 'app/clinic/clinic.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
+import { FormGroupDirective, Validators } from '@angular/forms';
 import { IClickEvent, IPaginateEvent } from '../shared/components/pager/datatable-pager.component';
 import { IPatient, PatientService } from 'app/patient/patient.service';
 import { ISchedule, ScheduleFilter } from '../schedule/schedule.service';
-import { MdDialog, MdSnackBar } from '@angular/material';
+import { MdDialog, MdSlideToggle, MdSnackBar } from '@angular/material';
 
 import { ClinicFilter } from '../clinic/clinic.service';
 import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
-import { Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-patient-detail',
@@ -26,6 +26,8 @@ export class PatientDetailComponent implements OnInit {
     pageSize = 10;
     isLoading = true;
     isSubmitting = false;
+    @ViewChild('continuousMode') continuousMode: MdSlideToggle;
+    @ViewChild(FormGroupDirective) patientFormDirective: FormGroupDirective;
 
     constructor(private patientService: PatientService,
         private clinicService: ClinicService,
@@ -96,16 +98,18 @@ export class PatientDetailComponent implements OnInit {
         data.clinic = this.matchClinicObj();
         this.patientService.save(data)
             .finally(() => this.isSubmitting = false)
-            .subscribe(
-            patient => {
+            .subscribe(patient => {
                 this.snackBar.open('Salvo com sucesso', '', { duration: 2000 });
-                this.router.navigate(['/pacientes']);
+                if (this.continuousMode.checked) {
+                    this.patientFormDirective.resetForm();
+                } else {
+                    this.router.navigate(['/pacientes']);
+                }
             },
             errors => {
                 this.snackBar.open('Não foi possível salvar.', '', { duration: 2000 });
                 this.patientForm.pushFieldErrors(errors.json());
-            }
-            );
+            });
     }
 
     onDelete() {

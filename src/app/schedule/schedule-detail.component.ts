@@ -1,14 +1,14 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
+import { FormGroupDirective, Validators } from '@angular/forms';
 import { IPatient, PatientFilter, PatientService } from '../patient/patient.service';
-import { MdDialog, MdSnackBar } from '@angular/material';
+import { MdDialog, MdSlideToggle, MdSnackBar } from '@angular/material';
 
 import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
 import { IDentist } from '../shared/services/dentist.service';
 import { Observable } from 'rxjs/Observable';
 import { ScheduleService } from './schedule.service';
-import { Validators } from '@angular/forms';
 import { format } from 'date-fns';
 import { isString } from 'util';
 
@@ -23,6 +23,8 @@ export class ScheduleDetailComponent implements OnInit {
     scheduleForm: CustomFG;
     dentists: IDentist[] = [];
     filteredPatients: Observable<{ results: IPatient[] }>;
+    @ViewChild('continuousMode') continuousMode: MdSlideToggle;
+    @ViewChild(FormGroupDirective) scheduleFormDirective: FormGroupDirective;
 
     constructor(private scheduleService: ScheduleService,
         private patientService: PatientService,
@@ -47,14 +49,16 @@ export class ScheduleDetailComponent implements OnInit {
         const filter = new PatientFilter();
         this.scheduleForm.controls.patient.valueChanges
             .debounceTime(100)
-            .subscribe((val) => {
-                if (isString(val)) {
-                    filter.setFilterValue('fullName', val);
+            .subscribe((value) => {
+                if (isString(value)) {
+                    filter.setFilterValue('fullName', value);
                     this.filteredPatients = this.patientService.getAll(filter);
                 } else {
-                    this.dentists = val.clinic.dentists;
-                    if (this.dentists.length === 1) {
-                        this.scheduleForm.controls.dentist.setValue(this.dentists[0]);
+                    if (value != null) {
+                        this.dentists = value.clinic.dentists;
+                        if (this.dentists.length === 1) {
+                            this.scheduleForm.controls.dentist.setValue(this.dentists[0]);
+                        }
                     }
                 }
 
@@ -74,7 +78,11 @@ export class ScheduleDetailComponent implements OnInit {
         this.scheduleService.save(this.scheduleForm.value)
             .finally(() => this.isSubmitting = false)
             .subscribe(() => {
-                this.router.navigate(['/agenda/semana']);
+                if (this.continuousMode.checked) {
+                    this.scheduleFormDirective.resetForm();
+                } else {
+                    this.router.navigate(['/agenda/semana']);
+                }
             });
     }
 
