@@ -4,12 +4,12 @@ import { CustomFB, CustomFG } from '../shared/validation';
 import { FormGroupDirective, Validators } from '@angular/forms';
 import { IPatient, PatientFilter, PatientService } from '../patient/patient.service';
 import { MdDialog, MdSlideToggle, MdSnackBar } from '@angular/material';
+import { addMinutes, format } from 'date-fns';
 
 import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
 import { IDentist } from '../shared/services/dentist.service';
 import { Observable } from 'rxjs/Observable';
 import { ScheduleService } from './schedule.service';
-import { format } from 'date-fns';
 import { isString } from 'util';
 
 @Component({
@@ -74,12 +74,16 @@ export class ScheduleDetailComponent implements OnInit {
     }
 
     onSubmit() {
+        const scheduleDate = this.scheduleForm.controls.date.value;
+        const scheduleDuration = this.scheduleForm.controls.duration.value;
+        const nextScheduleDate = addMinutes(scheduleDate, scheduleDuration);
         this.isSubmitting = true;
         this.scheduleService.save(this.scheduleForm.value)
             .finally(() => this.isSubmitting = false)
             .subscribe(() => {
                 if (this.continuousMode.checked) {
                     this.scheduleFormDirective.resetForm();
+                    this.scheduleForm.controls.date.setValue(format(nextScheduleDate, 'YYYY-MM-DDTHH:mm'));
                 } else {
                     this.router.navigate(['/agenda/semana']);
                 }
