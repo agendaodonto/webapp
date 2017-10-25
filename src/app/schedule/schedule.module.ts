@@ -29,7 +29,7 @@ export const scheduleRoutes: Route[] = [
         FlexLayoutModule,
         ReactiveFormsModule,
         DirectivesModule,
-        CalendarModule.forRoot()
+        CalendarModule.forRoot(),
     ],
     declarations: [ScheduleComponent, ScheduleDetailComponent],
     providers: [ScheduleService, PatientService, AuthGuard]

@@ -1,50 +1,49 @@
-<md-card class="container">
-    <md-card-title>Minha Conta</md-card-title>
+<mat-card class="container">
+    <mat-card-title>Minha Conta</mat-card-title>
     <form [formGroup]="accountForm" (submit)="onSubmit()">
         <div fxLayout="row">
-            <md-input-container fxFlex="25">
-                <input mdInput placeholder="Nome" formControlName="first_name">
-            </md-input-container>
-            <md-input-container fxFlex="50">
-                <input mdInput placeholder="Sobrenome" formControlName="last_name">
-            </md-input-container>
-            <md-select placeholder="Sexo" fxFlex="25" formControlName="sex" class="flex">
-                <md-option [value]="'M'">Masculino</md-option>
-                <md-option [value]="'F'">Feminino</md-option>
-            </md-select>
+            <mat-input-container fxFlex="25">
+                <input matInput placeholder="Nome" formControlName="first_name">
+            </mat-input-container>
+            <mat-input-container fxFlex="50">
+                <input matInput placeholder="Sobrenome" formControlName="last_name">
+            </mat-input-container>
+            <mat-select placeholder="Sexo" fxFlex="25" formControlName="sex" class="flex">
+                <mat-option [value]="'M'">Masculino</mat-option>
+                <mat-option [value]="'F'">Feminino</mat-option>
+            </mat-select>
         </div>
         <div fxLayout="row">
-            <md-input-container fxFlex="30">
-                <input mdInput placeholder="Email" formControlName="email" readonly>
-            </md-input-container>
-            <md-input-container fxFlex="20">
-                <input mdInput placeholder="CRO" formControlName="cro">
-            </md-input-container>
-            <md-select placeholder="Estado Emissor" fxFlex="50" formControlName="cro_state" class="flex">
-                <md-option *ngFor="let state of states" [value]="state.value">
+            <mat-input-container fxFlex="30">
+                <input matInput placeholder="Email" formControlName="email" readonly>
+            </mat-input-container>
+            <mat-input-container fxFlex="20">
+                <input matInput placeholder="CRO" formControlName="cro">
+            </mat-input-container>
+            <mat-select placeholder="Estado Emissor" fxFlex="50" formControlName="cro_state" class="flex">
+                <mat-option *ngFor="let state of states" [value]="state.value">
                     {{ state.display_name }}
-                </md-option>
-            </md-select>
+                </mat-option>
+            </mat-select>
         </div>
         <div fxLayout="row">
-             <md-input-container fxFlex="50">
-                <input mdInput placeholder="Email SMS Gateway" formControlName="sg_user">
-                <md-hint>Utilize o email de sua conta <a href="https://smsgateway.me">SMSGateway</a></md-hint>
-            </md-input-container>
-            <md-input-container fxFlex="50">
-                <input mdInput placeholder="Senha SMS Gateway" type="password" formControlName="sg_password">
-                <md-hint>Utilize a senha de sua conta <a href="https://smsgateway.me">SMSGateway</a></md-hint>
-            </md-input-container>
+             <mat-input-container fxFlex="50">
+                <input matInput placeholder="Email SMS Gateway" formControlName="sg_user">
+                <mat-hint>Utilize o email de sua conta <a href="https://smsgateway.me">SMSGateway</a></mat-hint>
+            </mat-input-container>
+            <mat-input-container fxFlex="50">
+                <input matInput placeholder="Senha SMS Gateway" type="password" formControlName="sg_password">
+                <mat-hint>Utilize a senha de sua conta <a href="https://smsgateway.me">SMSGateway</a></mat-hint>
+            </mat-input-container>
         </div>
         <div class="app-actions" fxLayoutGap="10px" fxLayoutAlign="end center">
-            <button md-raised-button color="accent" [disabled]="!accountForm.valid || isSubmitting">
+            <button mat-raised-button color="accent" [disabled]="!accountForm.valid" [appBtnLoader]="isSubmitting">
                 <span *ngIf="!isSubmitting" >Salvar</span>
-                <md-spinner class="btn" *ngIf="isSubmitting"></md-spinner>
             </button>
         </div>
 
     </form>
     <div class="overlay" *ngIf="isLoading">
-        <md-spinner style="margin: 0 auto"></md-spinner>
+        <mat-spinner style="margin: 0 auto"></mat-spinner>
     </div>
-</md-card>
+</mat-card>

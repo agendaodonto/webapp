@@ -4,6 +4,7 @@ import { AccountComponent } from './account.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { CommonModule } from '@angular/common';
 import { DentistService } from '../shared/services/dentist.service';
+import { DirectivesModule } from '../shared/directives/directives.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { NgModule } from '@angular/core';
@@ -14,7 +15,7 @@ export const accountRoutes: Routes = [
 ]
 
 @NgModule({
-    imports: [CommonModule, MaterialAppModule, FlexLayoutModule, ReactiveFormsModule, RouterModule],
+    imports: [CommonModule, MaterialAppModule, FlexLayoutModule, ReactiveFormsModule, RouterModule, DirectivesModule],
     declarations: [AccountComponent],
     providers: [DentistService]
 })

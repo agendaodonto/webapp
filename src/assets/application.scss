@@ -1,27 +1,17 @@
 @import '../variables';
 
-html, body, md-sidenav-container, .content {
+html, body, mat-sidenav-container, .content {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     width: 100%;
     min-height: 100vh;
 }
 
-//TODO: Remover após corrigirem a issue de alinhamento no GH
-// https://github.com/angular/material2/issues/2124
-.mat-select-placeholder.mat-floating-placeholder {transform: scale(.75) translateY(7px) !important;}
-
-md-sidenav {
+mat-sidenav {
     width: 280px;
 }
 
-md-select.flex {
-    padding: 0.26em 0;
-    padding-bottom: 1.296875em;
-    border-top: 0.84375em solid transparent;
-}
-
-md-spinner.btn {
+mat-spinner.btn {
     height: 36px;
 }
 
@@ -39,15 +29,15 @@ md-spinner.btn {
 }
 
 button.fab-no-shadow {
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 button.fab-no-shadow :hover :active {
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none!important;
+    box-shadow: none !important;
 }
 
 table.material > thead > tr {
@@ -68,11 +58,11 @@ table.material > tbody {
 }
 
 
-md-dialog-container.mat-dialog-container{
+mat-dialog-container.mat-dialog-container{
     padding: 0;
 }
 
-md-dialog-container > app-schedule-detail > md-card{
+mat-dialog-container > app-schedule-detail > mat-card{
     margin: 0;
 }
 
@@ -89,7 +79,7 @@ table.material {
     text-align: center;
 }
 
-.overlay > md-spinner {
+.overlay > mat-spinner {
     height: 50px;
     width: 50px;
 }

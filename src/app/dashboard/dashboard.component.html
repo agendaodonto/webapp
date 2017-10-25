@@ -1,22 +1,19 @@
 <div class="container">
   <div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="20px">
-    <md-card fxFlex="100">
-      <md-card-title>Consultas a confirmar</md-card-title>
+    <mat-card fxFlex="100">
+      <mat-card-title>Consultas a confirmar</mat-card-title>
       <div class="app-actions" fxLayoutGap="10px" fxLayoutAlign="end center">
-        <button type="button" md-raised-button color="accent" (click)="setStatus(1)" [disabled]="isLoading">
+        <button type="button" mat-raised-button color="accent" (click)="setStatus(1)" [appBtnLoader]="isLoading">
           <span *ngIf="!isLoading">Compareceu</span>
-          <md-spinner class="btn" *ngIf="isLoading"></md-spinner>
         </button>
-        <button type="button" md-raised-button color="warn" (click)="setStatus(2)" [disabled]="isLoading">
+        <button type="button" mat-raised-button color="warn" (click)="setStatus(2)" [appBtnLoader]="isLoading">
           <span *ngIf="!isLoading">Faltou</span>
-          <md-spinner class="btn" *ngIf="isLoading"></md-spinner>
         </button>
-        <button type="button" md-raised-button (click)="setStatus(3)" [disabled]="isLoading">
+        <button type="button" mat-raised-button (click)="setStatus(3)" [appBtnLoader]="isLoading">
           <span *ngIf="!isLoading">Cancelou</span>
-          <md-spinner class="btn" *ngIf="isLoading"></md-spinner>
         </button>
       </div>
-      <md-progress-bar [mode]="'query'" *ngIf="isLoading"></md-progress-bar>
+      <mat-progress-bar [mode]="'query'" *ngIf="isLoading"></mat-progress-bar>
       <ngx-datatable #pendingSchedulesTable
         [columnMode]="'force'"
         [footerHeight]="50"
@@ -65,16 +62,16 @@
             </ngx-datatable-footer>
       </ngx-datatable>
       <div fxLayoutGap="10px" fxLayoutAlign="end center">
-        <md-hint>Selecione vários agendamentos utilizando SHIFT</md-hint>
+        <mat-hint>Selecione vários agendamentos utilizando SHIFT</mat-hint>
       </div>
-    </md-card>
-    <!--<md-card fxFlex="30">
-      <md-card-title>Informações de Janeiro</md-card-title>
-    </md-card>-->
+    </mat-card>
+    <!--<mat-card fxFlex="30">
+      <mat-card-title>Informações de Janeiro</mat-card-title>
+    </mat-card>-->
   </div>
   <!--<div fxLayout="row">
-    <md-card fxFlex="100">
-      <md-card-title>Gráficos</md-card-title>
-    </md-card>
+    <mat-card fxFlex="100">
+      <mat-card-title>Gráficos</mat-card-title>
+    </mat-card>
   </div>-->
 </div>

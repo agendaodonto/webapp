@@ -3,11 +3,11 @@
         {{ startRange }}-{{ endRange }} de {{ count }}
     </div>
     <div>
-        <button md-button (click)="prevPage()" [disabled]="!canPrevious()">
-            <md-icon>keyboard_arrow_left</md-icon>
+        <button mat-button (click)="prevPage()" [disabled]="!canPrevious()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
-        <button md-button (click)="nextPage()" [disabled]="!canNext()">
-            <md-icon>keyboard_arrow_right</md-icon>
+        <button mat-button (click)="nextPage()" [disabled]="!canNext()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
     </button>
     </div>
 </div>
