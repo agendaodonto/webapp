@@ -5,7 +5,7 @@
             <a mat-raised-button color="accent" [routerLink]="['/pacientes/criar']">Novo</a>
         </div>
         <div fxLayoutAlign="end center">
-            <form [formGroup]="filterForm" (submit)="onFilter()">
+            <form [formGroup]="filterForm" (submit)="filter()">
                 <mat-input-container>
                     <mat-select placeholder="Filtro" formControlName="field">
                         <mat-option [value]="'fullName'">Nome</mat-option>

@@ -1,5 +1,4 @@
 import { RequestOptions, URLSearchParams } from '@angular/http';
-
 import { environment } from '../../../environments/environment';
 
 export abstract class BaseService {
@@ -55,5 +54,11 @@ export abstract class BaseFilter {
         const options = new RequestOptions();
         options.params = params;
         return options;
+    }
+
+    reset() {
+        this.fields
+            .filter((field) => field.type === 'filter')
+            .forEach((field) => field.value = '')
     }
 }
