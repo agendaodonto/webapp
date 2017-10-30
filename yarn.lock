@@ -158,9 +158,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/router@^4.4.5":
-  version "4.4.5"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-4.4.5.tgz#f73130cf487d9a32cc1988afda59665f44a28a89"
+"@angular/router@^4.4.6":
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-4.4.6.tgz#0f6ad29ae0ff8d2c9ea379bd320447217b7ec866"
   dependencies:
     tslib "^1.7.1"
 
