@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
         { name: 'Dashboard', link: '/dashboard', requiresLogin: true, hideWhenLogged: false },
         { name: 'Clinicas', link: '/clinicas', requiresLogin: true, hideWhenLogged: false },
         { name: 'Pacientes', link: '/pacientes', requiresLogin: true, hideWhenLogged: false },
-        { name: 'Agenda', link: '/agenda/semana', requiresLogin: true, hideWhenLogged: false },
+        { name: 'Agenda', link: '/agenda', requiresLogin: true, hideWhenLogged: false },
         { name: 'Login', link: '/login', requiresLogin: false, hideWhenLogged: true },
         { name: 'Sobre', link: '/sobre', requiresLogin: false, hideWhenLogged: false },
         // { name: 'Minha Conta', link: '/conta', requiresLogin: true, hideWhenLogged: false },
