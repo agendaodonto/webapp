@@ -1,8 +1,8 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { IPatient, PatientFilter, PatientService } from './patient.service';
-
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-patient',
@@ -18,7 +18,7 @@ export class PatientComponent implements OnInit {
     patientFilter = new PatientFilter();
     pageLimit = 10;
 
-    constructor(private patientService: PatientService, private router: Router) {
+    constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute, private location: Location) {
         const fb = new CustomFB()
         this.filterForm = fb.group({
             field: ['fullName'],
@@ -27,7 +27,7 @@ export class PatientComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getPatients(0)
+        this.setupUrlFilterListener();
     }
 
     getPatients(offset: number) {
@@ -57,9 +57,42 @@ export class PatientComponent implements OnInit {
         this.getPatients(0)
     }
 
+    filter() {
+        const field = this.filterForm.value.field;
+        const value = this.filterForm.value.value;
+        this.router.navigate(['/pacientes/'], { queryParams: { valor: value, campo: field }, replaceUrl: true });
+    }
+
     onFilter() {
-        this.patientFilter.setFilterValue(this.filterForm.value.field, this.filterForm.value.value);
+        const field = this.filterForm.value.field
+        const value = this.filterForm.value.value
+        this.patientFilter.reset();
+        this.patientFilter.setFilterValue(field, value);
         this.getPatients(0);
+    }
+
+    /**
+     * Configures a queryParam listener
+     * Every URL change will trigger a new onFilter event
+     * @memberof PatientComponent
+     */
+    setupUrlFilterListener() {
+        this.route.queryParams.subscribe((queryParams) => {
+            const field = queryParams['campo']
+            const value = queryParams['valor']
+            if (field && value) {
+                this.filterForm.controls.field.setValue(field);
+                this.filterForm.controls.value.setValue(value);
+            } else {
+                this.filterForm.controls.field.setValue('fullName');
+                this.filterForm.controls.value.setValue('');
+                if (this.route.snapshot.routeConfig.path !== 'pacientes') {
+                    this.location.go('pacientes');
+                }
+            }
+            this.onFilter();
+        })
+
     }
 
 }
