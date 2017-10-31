@@ -1,5 +1,6 @@
 import { CalendarDateFormatter, CalendarEvent } from 'angular-calendar';
 import { Component, OnInit } from '@angular/core';
+import { IMatcher, getMatchedField, getReversedMatchField } from '../shared/util';
 import { ScheduleFilter, ScheduleService } from './schedule.service';
 import { addDays, addMinutes, addWeeks, endOfWeek, format, parse, startOfWeek, subDays, subWeeks } from 'date-fns';
 
@@ -32,6 +33,10 @@ export class ScheduleComponent implements OnInit {
     currentDate: Date = new Date();
     schedules: ScheduleEvent[] = [];
     isLoading = true;
+    urlViews: IMatcher[] = [
+        { name: 'day', prettyName: 'dia' },
+        { name: 'week', prettyName: 'semana' },
+    ]
 
     constructor(
         private router: Router,
@@ -102,7 +107,7 @@ export class ScheduleComponent implements OnInit {
     }
 
     reload() {
-        this.router.navigate(['/agenda/', this.getReversedView(), this.getDateForUrl()]);
+        this.router.navigate(['/agenda/', getReversedMatchField(this.view, this.urlViews), this.getDateForUrl()]);
     }
 
     eventClick({ event: event }) {
@@ -113,7 +118,7 @@ export class ScheduleComponent implements OnInit {
         this.route.params.subscribe(
             params => {
                 if (params.view !== undefined) {
-                    this.view = this.viewMatcher(params.view);
+                    this.view = <ViewType>getMatchedField(params.view, this.urlViews);
                 }
 
                 if (params.date !== undefined) {
@@ -124,27 +129,6 @@ export class ScheduleComponent implements OnInit {
                 this.getSchedules();
             }
         )
-    }
-
-    viewMatcher(view: string): ViewType {
-        const matcher = {
-            'dia': 'day',
-            'semana': 'week'
-        }
-        if (matcher[view] !== undefined) {
-            return matcher[view];
-        } else {
-            return 'week';
-        }
-    }
-
-    getReversedView(): string {
-        const matcher = {
-            'day': 'dia',
-            'week': 'semana'
-        }
-
-        return matcher[this.view];
     }
 
     getDateForUrl(): string {

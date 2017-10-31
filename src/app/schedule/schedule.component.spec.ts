@@ -12,17 +12,17 @@ import { ScheduleServiceStub } from 'app/shared/testing/stubs/schedule.stub';
 describe('ScheduleComponent', () => {
     let component: ScheduleComponent;
     let fixture: ComponentFixture<ScheduleComponent>;
+    const route = new ActivatedRouteStub();
 
     beforeEach(async(() => {
-        const activatedRoute = new ActivatedRouteStub();
-        activatedRoute.testParams = { id: 1 };
+        route.testParams = {};
         TestBed.configureTestingModule({
             imports: [MaterialAppModule, CalendarModule.forRoot()],
             declarations: [ScheduleComponent, RouterLinkStubDirective],
             providers: [
                 { provide: ScheduleService, useClass: ScheduleServiceStub },
                 { provide: Router, useClass: RouterStub },
-                { provide: ActivatedRoute, useValue: activatedRoute },
+                { provide: ActivatedRoute, useValue: route },
             ]
         }).compileComponents();
 
@@ -36,5 +36,14 @@ describe('ScheduleComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should load the date from URL', () => {
+        route.testParams = { view: 'dia', date: '2017-11-13' }
+        expect(component.scheduleFilter.fields.find(v => v.name === 'startDate').value).toBe('2017-11-13');
+        expect(component.scheduleFilter.fields.find(v => v.name === 'endDate').value).toBe('2017-11-13');
+        route.testParams = { view: 'semana', date: '2017-11-15' }
+        expect(component.scheduleFilter.fields.find(v => v.name === 'startDate').value).toBe('2017-11-12');
+        expect(component.scheduleFilter.fields.find(v => v.name === 'endDate').value).toBe('2017-11-18');
     });
 });
