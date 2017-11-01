@@ -977,9 +977,13 @@ bytes@2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-2.4.0.tgz#7d97196f9d5baf7f6935e25985549edd2a6c2339"
 
-calendar-utils@0.0.57, calendar-utils@^0.0.57:
+calendar-utils@0.0.57:
   version "0.0.57"
   resolved "https://registry.yarnpkg.com/calendar-utils/-/calendar-utils-0.0.57.tgz#f1fd02a05094dabe73382e992c7f5357edeb228b"
+
+calendar-utils@^0.0.58:
+  version "0.0.58"
+  resolved "https://registry.yarnpkg.com/calendar-utils/-/calendar-utils-0.0.58.tgz#4504bf8eff4bf8a781d88c0181ed8dd939a5fe93"
 
 callsite@1.0.0:
   version "1.0.0"
