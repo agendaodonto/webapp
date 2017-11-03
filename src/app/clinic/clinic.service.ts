@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 export interface IClinicService {
-    getAll(): Observable<{ results: IClinic[] }>;
+    getAll(clinicFilter?: ClinicFilter): Observable<{ results: IClinic[] }>;
     get(clinicId: number): Observable<IClinic>;
     create(clinic: IClinic);
     update(clinic: IClinic);
@@ -60,7 +60,6 @@ export class ClinicService extends BaseService implements IClinicService {
 export interface IClinic {
     id: number;
     name: string;
-    owner: number;
     dentists: IDentist[];
 }
 

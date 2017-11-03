@@ -105,11 +105,11 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/compiler-cli@^4.4.5":
-  version "4.4.5"
-  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-4.4.5.tgz#61fa0336acd1a208c5f1c5c6d4df679e99953248"
+"@angular/compiler-cli@^4.4.6":
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-4.4.6.tgz#bafd3d1e260e99087eb9a8cf7532dbd603abb9b1"
   dependencies:
-    "@angular/tsc-wrapped" "4.4.5"
+    "@angular/tsc-wrapped" "4.4.6"
     minimist "^1.2.0"
     reflect-metadata "^0.1.2"
 
@@ -165,9 +165,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/tsc-wrapped@4.4.5":
-  version "4.4.5"
-  resolved "https://registry.yarnpkg.com/@angular/tsc-wrapped/-/tsc-wrapped-4.4.5.tgz#30a0cbb43a663aa75dca984894be4813778ddc9c"
+"@angular/tsc-wrapped@4.4.6":
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/@angular/tsc-wrapped/-/tsc-wrapped-4.4.6.tgz#16787cbbf50bdc7e738123b19c32527f244e178d"
   dependencies:
     tsickle "^0.21.0"
 
@@ -2480,6 +2480,10 @@ extsprintf@1.0.2:
 eyes@0.1.x:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/eyes/-/eyes-0.1.8.tgz#62cf120234c683785d902348a800ef3e0cc20bc0"
+
+faker@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/faker/-/faker-4.1.0.tgz#1e45bbbecc6774b3c195fad2835109c6d748cc3f"
 
 fast-deep-equal@^1.0.0:
   version "1.0.0"

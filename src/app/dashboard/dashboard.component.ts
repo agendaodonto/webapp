@@ -35,7 +35,6 @@ export class DashboardComponent implements OnInit {
     this.scheduleService.getAll(filter)
       .finally(() => this.isLoading = false)
       .subscribe(schedules => {
-        console.log(schedules);
         this.scheduleCount = schedules.count;
         this.pendingSchedules = schedules.results;
       });

@@ -48,8 +48,6 @@ export class AccountComponent implements OnInit {
                     cro: dentist.cro,
                     cro_state: dentist.cro_state,
                     sex: dentist.sex,
-                    sg_user: dentist.sg_user,
-                    sg_password: ''
                 });
             });
     }

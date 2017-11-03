@@ -1,6 +1,6 @@
 <mat-card class="container">
     <mat-card-title>Agendamento</mat-card-title>
-    <div fxLayoutAlign="end center" fxLayout="row">
+    <div fxLayoutAlign="end center" fxLayout="row" *ngIf="!scheduleId">
         <mat-slide-toggle #continuousMode>Modo contínuo</mat-slide-toggle>
     </div>
     <form [formGroup]="scheduleForm" (submit)="onSubmit()" appAutoFocus>
@@ -30,7 +30,7 @@
         </div>
         <div fxLayout="row">
             <mat-input-container fxFlex="100">
-                <mat-select placeholder="Dentista" formControlName="dentist">
+                <mat-select placeholder="Dentista" formControlName="dentist" [compareWith]="compareDentist">
                     <mat-option *ngFor="let dentist of dentists" [value]="dentist">{{ dentist.first_name }}</mat-option>
                 </mat-select>
             </mat-input-container>

@@ -1,24 +1,18 @@
-import { IPatient, IPatientService } from 'app/patient/patient.service';
-
-import { ClinicServiceStub } from 'app/shared/testing/stubs/clinic.stub';
-import { Injectable } from '@angular/core';
+import { IPatientService, IPatient } from 'app/patient/patient.service';
 import { Observable } from 'rxjs/Observable';
+import { ScheduleFilter, ISchedule } from 'app/schedule/schedule.service';
+import { IPagedResponse } from 'app/shared/auth_http';
+import { PatientDatabase } from 'app/shared/testing/databases/patient.database';
+import { ScheduleDatabase } from 'app/shared/testing/databases/schedule.database';
 
-@Injectable()
 export class PatientServiceStub implements IPatientService {
-    static PATIENT: IPatient = {
-        id: 1,
-        name: 'John',
-        last_name: 'Armless',
-        sex: 'M',
-        phone: '+5519912345678',
-        clinic: ClinicServiceStub.CLINIC
-    };
-    getAll(): Observable<{ results: IPatient[] }> {
-        return Observable.of({ results: [PatientServiceStub.PATIENT] });
+    patientDatabase = new PatientDatabase();
+    scheduleDatabase = new ScheduleDatabase();
+    getAll(): Observable<{ results: IPatient[]; }> {
+        return Observable.of({ results: this.patientDatabase.getMany(50) })
     }
     get(patientId: number): Observable<IPatient> {
-        return Observable.of(PatientServiceStub.PATIENT);
+        return Observable.of(this.patientDatabase.get())
     }
     create(patient: IPatient) {
         throw new Error('Method not implemented.');
@@ -32,4 +26,8 @@ export class PatientServiceStub implements IPatientService {
     save(patient: IPatient) {
         throw new Error('Method not implemented.');
     }
+    getSchedules(patientId: number, scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<ISchedule>> {
+        return Observable.of({ count: 10, results: this.scheduleDatabase.getMany(10) });
+    }
+
 }

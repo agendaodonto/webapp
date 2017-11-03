@@ -72,7 +72,6 @@ export class ScheduleComponent implements OnInit {
                     });
                     this.schedules = tmpArray;
                 });
-                console.log(schedules);
             }
             );
     }

@@ -1,35 +1,24 @@
-import { IClinic, IClinicService } from '../../../clinic/clinic.service';
+import { IClinicService, ClinicFilter, IClinic } from 'app/clinic/clinic.service';
+import { Observable } from 'rxjs/Observable';
+import { ClinicDatabase } from 'app/shared/testing/databases/clinic.database';
 
-import { DentistServiceStub } from './dentist.stub';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-
-@Injectable()
 export class ClinicServiceStub implements IClinicService {
-    static CLINIC: IClinic = {id: 1, name: 'Test Clinic', owner: 1, dentists: [DentistServiceStub.DENTISTS[0]]};
-
-    getAll(): Observable<{ results: IClinic[]; }> {
-        return Observable.from([
-            {results: [ClinicServiceStub.CLINIC]},
-        ]);
+    clinicDatabase = new ClinicDatabase();
+    getAll(clinicFilter?: ClinicFilter): Observable<{ results: IClinic[]; }> {
+        return Observable.of({ results: this.clinicDatabase.getMany(10) });
     }
-
     get(clinicId: number): Observable<IClinic> {
-        return Observable.from([ClinicServiceStub.CLINIC]);
+        return Observable.of(this.clinicDatabase.get());
     }
-
     create(clinic: IClinic) {
         throw new Error('Method not implemented.');
     }
-
     update(clinic: IClinic) {
         throw new Error('Method not implemented.');
     }
-
     remove(clinic: IClinic) {
         throw new Error('Method not implemented.');
     }
-
     save(clinic: IClinic) {
         throw new Error('Method not implemented.');
     }

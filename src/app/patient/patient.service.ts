@@ -1,9 +1,9 @@
 import 'rxjs/add/operator/map';
 
+import { AuthHttp, IPagedResponse } from '../shared/auth_http';
 import { BaseFilter, BaseService } from '../shared/services/base.service';
 import { RequestOptions, URLSearchParams } from '@angular/http';
 
-import { AuthHttp } from '../shared/auth_http';
 import { IClinic } from '../clinic/clinic.service';
 import { ISchedule } from '../schedule/schedule.service';
 import { Injectable } from '@angular/core';
@@ -71,6 +71,7 @@ export interface IPatientService {
     update(patient: IPatient);
     remove(patient: IPatient);
     save(patient: IPatient);
+    getSchedules(patientId: number, scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<ISchedule>>;
 }
 
 export interface IPatient {
