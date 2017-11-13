@@ -25,7 +25,7 @@
     "@angular/platform-browser": "^4.4.6",
     "@angular/platform-browser-dynamic": "^4.4.6",
     "@angular/router": "^4.4.6",
-    "@swimlane/ngx-datatable": "^9.3.0",
+    "@swimlane/ngx-datatable": "^11.0.3",
     "angular-calendar": "^0.21.3",
     "calendar-utils": "^0.0.58",
     "core-js": "^2.5.1",
