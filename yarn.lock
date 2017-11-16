@@ -2587,9 +2587,9 @@ find-up@^2.0.0:
   dependencies:
     locate-path "^2.0.0"
 
-firebase-tools@^3.15.0:
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/firebase-tools/-/firebase-tools-3.15.0.tgz#1fba801fb37ce43dd8d270353334b0e5e6a3ffb3"
+firebase-tools@^3.15.1:
+  version "3.15.1"
+  resolved "https://registry.yarnpkg.com/firebase-tools/-/firebase-tools-3.15.1.tgz#cbb0b569365e6fa545ffd8e4c9d45988a3008ae5"
   dependencies:
     JSONStream "^1.2.1"
     archiver "^2.1.0"
@@ -2610,6 +2610,7 @@ firebase-tools@^3.15.0:
     glob "^7.1.2"
     google-auto-auth "^0.7.2"
     inquirer "^0.12.0"
+    is "^3.2.1"
     jsonschema "^1.0.2"
     jsonwebtoken "^7.4.1"
     lodash "^4.6.1"
@@ -3640,7 +3641,7 @@ is-wsl@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-wsl/-/is-wsl-1.1.0.tgz#1f16e4aa22b04d1336b66188a66af3c600c3a66d"
 
-is@^3.0.1, is@^3.2.0:
+is@^3.0.1, is@^3.2.0, is@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/is/-/is-3.2.1.tgz#d0ac2ad55eb7b0bec926a5266f6c662aaa83dca5"
 
