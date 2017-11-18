@@ -23,6 +23,7 @@ export class ScheduleDetailComponent implements OnInit {
     scheduleForm: CustomFG;
     dentists: IDentist[] = [];
     filteredPatients: Observable<{ results: IPatient[] }>;
+    scheduleId: number;
     @ViewChild('continuousMode') continuousMode: MatSlideToggle;
     @ViewChild(FormGroupDirective) scheduleFormDirective: FormGroupDirective;
 
@@ -42,9 +43,9 @@ export class ScheduleDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        const id = +this.route.snapshot.params['id'];
-        if (id) {
-            this.loadScheduleData(id);
+        this.scheduleId = +this.route.snapshot.params['id'];
+        if (this.scheduleId) {
+            this.loadScheduleData(this.scheduleId);
         }
         const filter = new PatientFilter();
         this.scheduleForm.controls.patient.valueChanges
@@ -98,15 +99,15 @@ export class ScheduleDetailComponent implements OnInit {
                     id: schedule.id,
                     patient: schedule.patient,
                     date: format(schedule.date, 'YYYY-MM-DDTHH:mm:ss.SSS'),
-                    /**
-                     * TODO: Remove this when Material implements compareWith method for md-select
-                     * https://github.com/angular/material2/issues/2785
-                     */
-                    dentist: this.dentists.find(d => d.id === schedule.dentist.id),
+                    dentist: schedule.dentist,
                     duration: schedule.duration
                 });
             }
         );
+    }
+
+    compareDentist(item1, item2) {
+        return item1.id === item2.id;
     }
 
     onDelete() {

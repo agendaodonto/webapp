@@ -52,6 +52,4 @@ export interface IDentist {
     last_name: string;
     email: string;
     sex: string;
-    sg_user: string;
-    sg_password?: string;
 }

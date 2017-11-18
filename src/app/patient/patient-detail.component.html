@@ -1,6 +1,6 @@
 <mat-card class="container">
     <mat-card-title>Informações</mat-card-title>
-    <div fxLayoutAlign="end center" fxLayout="row">
+    <div fxLayoutAlign="end center" fxLayout="row" *ngIf="!patientId">
         <mat-slide-toggle #continuousMode>Modo contínuo</mat-slide-toggle>
     </div>
     <form [formGroup]="patientForm" (submit)="onSubmit()" appAutoFocus>
@@ -29,7 +29,7 @@
         </div>
         <div fxLayout="row">
             <mat-input-container fxFlex="100">
-                <mat-select placeholder="Clinica" formControlName="clinic">
+                <mat-select placeholder="Clinica" formControlName="clinic" [compareWith]="clinicMatcher">
                     <mat-option *ngFor="let clinic of clinics" [value]="clinic.id">{{ clinic.name }}</mat-option>
                 </mat-select>
             </mat-input-container>

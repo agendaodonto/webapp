@@ -84,18 +84,13 @@ export class PatientDetailComponent implements OnInit {
             });
     }
 
-    matchClinicObj(): IClinic {
-        /**
-         * Remove this when Material implements compareWith method for md-select
-         * https://github.com/angular/material2/issues/2785
-         */
-        return this.clinics.filter(clinic => clinic.id === this.patientForm.controls.clinic.value)[0]
+    clinicMatcher(item1, item2) {
+        return item1.id === item2.id;
     }
 
     onSubmit() {
         this.isSubmitting = true;
         const data: IPatient = this.patientForm.value;
-        data.clinic = this.matchClinicObj();
         this.patientService.save(data)
             .finally(() => this.isSubmitting = false)
             .subscribe(patient => {

@@ -8,7 +8,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ScheduleModule, scheduleRoutes } from './schedule/schedule.module';
 
 import { AppComponent } from './app.component';
-import { AuthService } from './shared/services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { CalendarModule } from 'angular-calendar';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +16,7 @@ import { MaterialAppModule } from './shared/material.app.module';
 import { NgModule } from '@angular/core';
 import { RegisterModule } from './register/register.module';
 import { registerRoutes } from 'app/register/register.module';
+import { AuthHttp } from 'app/shared/auth_http';
 
 export const routes: Routes = [
     ...dashboardRoutes,
@@ -50,7 +50,7 @@ export const routes: Routes = [
         AccountModule,
         CalendarModule.forRoot()
     ],
-    providers: [AuthService],
+    providers: [AuthHttp],
     bootstrap: [AppComponent]
 })
 export class AppModule {

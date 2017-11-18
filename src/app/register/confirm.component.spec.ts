@@ -4,9 +4,10 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { ConfirmComponent } from 'app/register/confirm.component';
 import { DentistService } from 'app/shared/services/dentist.service';
-import { DentistServiceStub } from 'app/shared/testing/stubs/dentist.stub';
+import { HttpModule } from '@angular/http';
 import { MaterialAppModule } from 'app/shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DentistServiceStub } from 'app/shared/testing/stubs/dentist.stub';
 
 describe('ConfirmComponent', () => {
     let component: ConfirmComponent;

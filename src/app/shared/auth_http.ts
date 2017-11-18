@@ -5,18 +5,17 @@ import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class AuthHttp implements IAuthHttp {
-    token: string;
 
     constructor(private http: Http) {
 
     }
 
     private getHeaders(): RequestOptions {
-        this.token = localStorage.getItem('auth_token');
+        const token = localStorage.getItem('auth_token');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        if (this.token) {
-            headers.append('Authorization', 'Token ' + this.token);
+        if (token) {
+            headers.append('Authorization', 'Token ' + token);
         }
         return new RequestOptions({ headers: headers });
     }
@@ -79,4 +78,13 @@ interface IAuthHttp {
     put(url: string, body: any): Observable<Response>;
     remove(url: string): Observable<Response>;
     options(url: string): Observable<Response>;
+}
+
+export interface IPagedResponse<T> {
+    count: number;
+    results: T[];
+}
+
+export interface IResponse<T> {
+    T;
 }
