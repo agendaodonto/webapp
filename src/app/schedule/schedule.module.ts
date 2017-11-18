@@ -14,11 +14,11 @@ import { ScheduleDetailComponent } from './schedule-detail.component';
 import { ScheduleService } from './schedule.service';
 
 export const scheduleRoutes: Route[] = [
+    { path: 'agenda/criar', component: ScheduleDetailComponent, canActivate: [AuthGuard] },
+    { path: 'agenda/:id', component: ScheduleDetailComponent, canActivate: [AuthGuard] },
     { path: 'agenda/:view/:date', component: ScheduleComponent, canActivate: [AuthGuard] },
     { path: 'agenda/:view', component: ScheduleComponent, canActivate: [AuthGuard] },
     { path: 'agenda', component: ScheduleComponent, canActivate: [AuthGuard] },
-    { path: 'agenda/criar', component: ScheduleDetailComponent, canActivate: [AuthGuard] },
-    { path: 'agenda/:id', component: ScheduleDetailComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
