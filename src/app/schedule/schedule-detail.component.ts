@@ -1,23 +1,25 @@
+import { BaseComponent } from '../shared/components/base.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { FormGroupDirective, Validators } from '@angular/forms';
 import { IPatient, PatientFilter, PatientService } from '../patient/patient.service';
 import { addMinutes, format } from 'date-fns';
-import { MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSlideToggle, MatSnackBar, MatAutocompleteTrigger } from '@angular/material';
 
 import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
 import { IDentist } from '../shared/services/dentist.service';
 import { Observable } from 'rxjs/Observable';
 import { ScheduleService } from './schedule.service';
 import { isString } from 'util';
+import { PatientDetailComponent } from 'app/patient/patient-detail.component';
 
 @Component({
     selector: 'app-schedule-detail',
     templateUrl: './schedule-detail.component.html',
     styleUrls: ['./schedule-detail.component.scss']
 })
-export class ScheduleDetailComponent implements OnInit {
+export class ScheduleDetailComponent extends BaseComponent implements OnInit {
     isLoading = false;
     isSubmitting = false;
     scheduleForm: CustomFG;
@@ -33,6 +35,7 @@ export class ScheduleDetailComponent implements OnInit {
         public dialog: MatDialog,
         private router: Router,
         private route: ActivatedRoute) {
+        super();
         this.scheduleForm = new CustomFB().group({
             id: [''],
             patient: ['', Validators.required],
@@ -64,6 +67,7 @@ export class ScheduleDetailComponent implements OnInit {
                 }
 
             });
+
     }
 
     displayPatient(patient: IPatient) {
@@ -82,11 +86,11 @@ export class ScheduleDetailComponent implements OnInit {
         this.scheduleService.save(this.scheduleForm.value)
             .finally(() => this.isSubmitting = false)
             .subscribe(() => {
-                if (this.continuousMode.checked) {
+                if (this.continuousMode && this.continuousMode.checked) {
                     this.scheduleFormDirective.resetForm();
                     this.scheduleForm.controls.date.setValue(format(nextScheduleDate, 'YYYY-MM-DDTHH:mm'));
                 } else {
-                    this.router.navigate(['/agenda/semana']);
+                    this.router.navigate(['/agenda']);
                 }
             });
     }
@@ -104,10 +108,6 @@ export class ScheduleDetailComponent implements OnInit {
                 });
             }
         );
-    }
-
-    compareDentist(item1, item2) {
-        return item1.id === item2.id;
     }
 
     onDelete() {
@@ -131,5 +131,15 @@ export class ScheduleDetailComponent implements OnInit {
                 );
             }
         });
+    }
+
+    patientSelected() {
+        this.filteredPatients = null;
+    }
+
+    patientDialog() {
+        this.dialog.open(PatientDetailComponent,
+            { data: { patientId: this.scheduleForm.controls.patient.value.id } }
+        )
     }
 }

@@ -29,8 +29,8 @@
         </div>
         <div fxLayout="row">
             <mat-input-container fxFlex="100">
-                <mat-select placeholder="Clinica" formControlName="clinic" [compareWith]="clinicMatcher">
-                    <mat-option *ngFor="let clinic of clinics" [value]="clinic.id">{{ clinic.name }}</mat-option>
+                <mat-select placeholder="Clinica" formControlName="clinic" [compareWith]="defaultMatcher">
+                    <mat-option *ngFor="let clinic of clinics" [value]="clinic">{{ clinic.name }}</mat-option>
                 </mat-select>
             </mat-input-container>
         </div>

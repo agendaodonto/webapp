@@ -16,9 +16,9 @@ import { ScheduleServiceStub } from 'app/shared/testing/stubs/schedule.stub';
 describe('ScheduleDetailComponent', () => {
     let component: ScheduleDetailComponent;
     let fixture: ComponentFixture<ScheduleDetailComponent>;
+    const route = new ActivatedRouteStub();
 
     beforeEach(async(() => {
-        const route = new ActivatedRouteStub();
         route.testParams = { id: 1 };
         TestBed.configureTestingModule({
             imports: [MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule, DirectivesModule, HttpModule],
