@@ -110,6 +110,10 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
         );
     }
 
+    compareDentist(item1, item2) {
+        return item1.id === item2.id;
+    }
+
     onDelete() {
         const dialog = this.dialog.open(ConfirmDialogComponent, {
             height: '150px',
