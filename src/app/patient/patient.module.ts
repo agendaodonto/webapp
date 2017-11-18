@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 export const patientRoutes: Routes = [
     { path: 'pacientes', component: PatientComponent, canActivate: [AuthGuard] },
+    { path: 'pacientes/:field/:value', component: PatientComponent, canActivate: [AuthGuard] },
     { path: 'pacientes/:id', component: PatientDetailComponent, canActivate: [AuthGuard] },
     { path: 'pacientes/novo', component: PatientDetailComponent, canActivate: [AuthGuard] },
 ];
