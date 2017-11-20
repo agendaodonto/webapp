@@ -261,9 +261,9 @@
   dependencies:
     "@angular-devkit/core" "0.0.20"
 
-"@swimlane/ngx-datatable@^9.3.0":
-  version "9.3.0"
-  resolved "https://registry.yarnpkg.com/@swimlane/ngx-datatable/-/ngx-datatable-9.3.0.tgz#aeb34bb72c2102236214b474cfd98082c51a9dd0"
+"@swimlane/ngx-datatable@^11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@swimlane/ngx-datatable/-/ngx-datatable-11.1.0.tgz#ca31430a1ae1cf905b26294dbcd803ca85f4c4ca"
 
 "@types/jasmine@2.8.2":
   version "2.8.2"
