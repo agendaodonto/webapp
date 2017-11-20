@@ -1,17 +1,17 @@
 import { CanActivate, Router } from '@angular/router';
 
-import { AuthService } from '../services/auth.service';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { LoginService } from 'app/login/login.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {
+    constructor(private loginService: LoginService, private router: Router, private snackBar: MatSnackBar) {
     }
 
     canActivate() {
-        const status = this.authService.isLogged();
+        const status = this.loginService.isLogged();
 
         if (!status) {
             this.snackBar.open('Você precisa estar logado para visualizar esse menu.', '', { duration: 2000 })

@@ -1,6 +1,6 @@
 <mat-card class="container">
     <mat-card-title>Agendamento</mat-card-title>
-    <div fxLayoutAlign="end center" fxLayout="row">
+    <div fxLayoutAlign="end center" fxLayout="row" *ngIf="!scheduleId">
         <mat-slide-toggle #continuousMode>Modo contínuo</mat-slide-toggle>
     </div>
     <form [formGroup]="scheduleForm" (submit)="onSubmit()" appAutoFocus>
@@ -9,10 +9,13 @@
         <div fxLayout="row">
             <mat-input-container fxFlex="100">
                 <input matInput placeholder="Paciente" formControlName="patient" [matAutocomplete]="auto">
+                <button type="button" mat-button matSuffix (click)="patientDialog()" *ngIf="scheduleForm.controls.patient.value?.id">
+                    <mat-icon>face</mat-icon>
+                </button>
                 <mat-error>{{ scheduleForm.getControlMessages('patient') }}</mat-error>
             </mat-input-container>
         </div>
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPatient">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPatient" (optionSelected)="patientSelected()">
             <ng-container *ngIf="filteredPatients | async; let filteredPatients">
                 <mat-option *ngFor="let option of filteredPatients.results" [value]="option">
                     {{ option.name + " " + option.last_name}}
@@ -30,7 +33,7 @@
         </div>
         <div fxLayout="row">
             <mat-input-container fxFlex="100">
-                <mat-select placeholder="Dentista" formControlName="dentist">
+                <mat-select placeholder="Dentista" formControlName="dentist" [compareWith]="defaultMatcher">
                     <mat-option *ngFor="let dentist of dentists" [value]="dentist">{{ dentist.first_name }}</mat-option>
                 </mat-select>
             </mat-input-container>

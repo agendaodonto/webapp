@@ -1,7 +1,8 @@
 import { CalendarDateFormatter, CalendarEvent } from 'angular-calendar';
 import { Component, OnInit } from '@angular/core';
+import { IMatcher, getMatchedField, getReversedMatchField } from '../shared/util';
 import { ScheduleFilter, ScheduleService } from './schedule.service';
-import { addDays, addMinutes, addWeeks, endOfWeek, format, startOfWeek, subDays, subWeeks } from 'date-fns';
+import { addDays, addMinutes, addWeeks, endOfWeek, format, parse, startOfWeek, subDays, subWeeks } from 'date-fns';
 
 import { ActivatedRoute } from '@angular/router';
 import { EventColor } from 'calendar-utils';
@@ -18,9 +19,7 @@ interface ScheduleEvent extends CalendarEvent {
     selector: 'app-schedule',
     templateUrl: './schedule.component.html',
     styleUrls: ['./schedule.component.scss'],
-    providers: [
-        {provide: CalendarDateFormatter, useClass: LocalizedCalendarHeader}
-    ]
+    providers: [{ provide: CalendarDateFormatter, useClass: LocalizedCalendarHeader }]
 })
 export class ScheduleComponent implements OnInit {
     static COLORS: EventColor[] = [
@@ -30,34 +29,37 @@ export class ScheduleComponent implements OnInit {
         { primary: '#4f4f4f', secondary: '#c2c2c2' },
     ];
     view: ViewType = 'week';
+    scheduleFilter = new ScheduleFilter();
     currentDate: Date = new Date();
     schedules: ScheduleEvent[] = [];
     isLoading = true;
+    urlViews: IMatcher[] = [
+        { name: 'day', prettyName: 'dia' },
+        { name: 'week', prettyName: 'semana' },
+    ]
 
-    constructor(private router: Router,
+    constructor(
+        private router: Router,
         private route: ActivatedRoute,
-        // private location: Location,
         private scheduleService: ScheduleService,
-        // public dialog: MdDialog
     ) {
     }
 
     ngOnInit() {
-        this.getSchedules();
+        this.setupUrlFilterListener();
     }
 
     getSchedules() {
         this.isLoading = true;
-        const filter = new ScheduleFilter();
-        filter.setFilterValue('pageSize', '100');
+        this.scheduleFilter.setFilterValue('pageSize', '100');
         if (this.view === 'day') {
-            filter.setFilterValue('startDate', format(this.currentDate, 'YYYY-MM-DD'))
-            filter.setFilterValue('endDate', format(this.currentDate, 'YYYY-MM-DD'))
+            this.scheduleFilter.setFilterValue('startDate', format(this.currentDate, 'YYYY-MM-DD'))
+            this.scheduleFilter.setFilterValue('endDate', format(this.currentDate, 'YYYY-MM-DD'))
         } else {
-            filter.setFilterValue('startDate', format(startOfWeek(this.currentDate), 'YYYY-MM-DD'))
-            filter.setFilterValue('endDate', format(endOfWeek(this.currentDate), 'YYYY-MM-DD'))
+            this.scheduleFilter.setFilterValue('startDate', format(startOfWeek(this.currentDate), 'YYYY-MM-DD'))
+            this.scheduleFilter.setFilterValue('endDate', format(endOfWeek(this.currentDate), 'YYYY-MM-DD'))
         }
-        this.scheduleService.getAll(filter)
+        this.scheduleService.getAll(this.scheduleFilter)
             .finally(() => this.isLoading = false)
             .subscribe(schedules => {
                 const tmpArray = [];
@@ -72,14 +74,13 @@ export class ScheduleComponent implements OnInit {
                     });
                     this.schedules = tmpArray;
                 });
-                console.log(schedules);
             }
             );
     }
 
     setView(view: ViewType) {
         this.view = view;
-        this.getSchedules();
+        this.reload();
     }
 
     increment() {
@@ -88,7 +89,7 @@ export class ScheduleComponent implements OnInit {
             day: addDays
         }[this.view];
         this.currentDate = addFn(this.currentDate, 1);
-        this.getSchedules();
+        this.reload();
     }
 
     decrement() {
@@ -97,16 +98,40 @@ export class ScheduleComponent implements OnInit {
             day: subDays
         }[this.view];
         this.currentDate = subFn(this.currentDate, 1);
-        this.getSchedules();
+        this.reload();
     }
 
     today() {
         this.currentDate = new Date();
-        this.getSchedules();
+        this.reload();
+    }
+
+    reload() {
+        this.router.navigate(['/agenda/', getReversedMatchField(this.view, this.urlViews), this.getDateForUrl()]);
     }
 
     eventClick({ event: event }) {
         this.router.navigate(['/agenda/', event.id]);
     }
 
+    setupUrlFilterListener() {
+        this.route.params.subscribe(
+            params => {
+                if (params.view !== undefined) {
+                    this.view = <ViewType>getMatchedField(params.view, this.urlViews);
+                }
+
+                if (params.date !== undefined) {
+                    const date = parse(params.date);
+                    this.currentDate = date;
+                }
+
+                this.getSchedules();
+            }
+        )
+    }
+
+    getDateForUrl(): string {
+        return format(this.currentDate, 'YYYY-MM-DD');
+    }
 }

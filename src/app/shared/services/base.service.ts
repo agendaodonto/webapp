@@ -56,4 +56,10 @@ export abstract class BaseFilter {
         options.params = params;
         return options;
     }
+
+    reset() {
+        this.fields
+            .filter((field) => field.type === 'filter')
+            .forEach((field) => field.value = '')
+    }
 }

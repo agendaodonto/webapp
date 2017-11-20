@@ -1,12 +1,13 @@
+import { BaseComponent } from '../shared/components/base.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClinicService, IClinic } from 'app/clinic/clinic.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { FormGroupDirective, Validators } from '@angular/forms';
 import { IClickEvent, IPaginateEvent } from '../shared/components/pager/datatable-pager.component';
 import { IPatient, PatientService } from 'app/patient/patient.service';
 import { ISchedule, ScheduleFilter } from '../schedule/schedule.service';
-import { MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSlideToggle, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 
 import { ClinicFilter } from '../clinic/clinic.service';
 import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
@@ -16,7 +17,7 @@ import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/con
     templateUrl: './patient-detail.component.html',
     styleUrls: ['./patient-detail.component.scss']
 })
-export class PatientDetailComponent implements OnInit {
+export class PatientDetailComponent extends BaseComponent implements OnInit {
     patientForm: CustomFG;
     clinics: IClinic[];
     patientId: number;
@@ -33,8 +34,10 @@ export class PatientDetailComponent implements OnInit {
         private clinicService: ClinicService,
         private router: Router,
         private route: ActivatedRoute,
+        @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: any,
         public dialog: MatDialog,
         public snackBar: MatSnackBar) {
+        super();
         this.patientForm = new CustomFB().group({
             id: [''],
             name: ['', Validators.required],
@@ -46,7 +49,11 @@ export class PatientDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.patientId = +this.route.snapshot.params['id'];
+        if (this.dialogData) {
+            this.patientId = this.dialogData.patientId;
+        } else {
+            this.patientId = +this.route.snapshot.params['id'];
+        }
         this.loadClinics();
         if (this.patientId) {
             this.getSchedules(0);
@@ -59,7 +66,7 @@ export class PatientDetailComponent implements OnInit {
                         last_name: response.last_name,
                         phone: response.phone,
                         sex: response.sex,
-                        clinic: response.clinic.id,
+                        clinic: response.clinic,
                     });
                 });
         } else {
@@ -84,23 +91,14 @@ export class PatientDetailComponent implements OnInit {
             });
     }
 
-    matchClinicObj(): IClinic {
-        /**
-         * Remove this when Material implements compareWith method for md-select
-         * https://github.com/angular/material2/issues/2785
-         */
-        return this.clinics.filter(clinic => clinic.id === this.patientForm.controls.clinic.value)[0]
-    }
-
     onSubmit() {
         this.isSubmitting = true;
         const data: IPatient = this.patientForm.value;
-        data.clinic = this.matchClinicObj();
         this.patientService.save(data)
             .finally(() => this.isSubmitting = false)
             .subscribe(patient => {
                 this.snackBar.open('Salvo com sucesso', '', { duration: 2000 });
-                if (this.continuousMode.checked) {
+                if (this.continuousMode && this.continuousMode.checked) {
                     this.patientFormDirective.resetForm();
                 } else {
                     this.router.navigate(['/pacientes']);

@@ -4,12 +4,14 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { ClinicDetailComponent } from './clinic-detail.component';
 import { ClinicService } from './clinic.service';
-import { ClinicServiceStub } from 'app/shared/testing/stubs/clinic.stub';
 import { DentistService } from '../shared/services/dentist.service';
-import { DentistServiceStub } from 'app/shared/testing/stubs/dentist.stub';
+import { DirectivesModule } from '../shared/directives/directives.module';
+import { HttpModule } from '@angular/http';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ClinicServiceStub } from 'app/shared/testing/stubs/clinic.stub';
+import { DentistServiceStub } from 'app/shared/testing/stubs/dentist.stub';
 
 describe('ClinicDetailComponent', () => {
     let component: ClinicDetailComponent;
@@ -17,13 +19,13 @@ describe('ClinicDetailComponent', () => {
 
     beforeEach(async(() => {
         const activatedRoute = new ActivatedRouteStub();
-        activatedRoute.testParams = { id: 1 };
+        activatedRoute.testParams = { id: 2 };
         TestBed.configureTestingModule({
             declarations: [ClinicDetailComponent],
-            imports: [MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule],
+            imports: [MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule, DirectivesModule],
             providers: [
                 { provide: ClinicService, useClass: ClinicServiceStub },
-                { provide: DentistService, useClass: DentistServiceStub },
+                { provide: DentistService, useValue: DentistServiceStub },
                 { provide: Router, useValue: RouterStub },
                 { provide: ActivatedRoute, useValue: activatedRoute },
             ]
@@ -40,11 +42,4 @@ describe('ClinicDetailComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should add a dentist to the list', () => {
-        const dentist = DentistServiceStub.DENTISTS[1];
-        component.addDentist(dentist);
-        expect(component.clinicForm.controls.dentists.value.length).toBe(2);
-        component.addDentist(dentist); // Shouldn't duplicate
-        expect(component.clinicForm.controls.dentists.value.length).toBe(2);
-    });
 });

@@ -1,8 +1,8 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
+import { IMatcher, getMatchedField, getReversedMatchField } from '../shared/util';
 import { IPatient, PatientFilter, PatientService } from './patient.service';
-
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-patient',
@@ -17,8 +17,13 @@ export class PatientComponent implements OnInit {
     filterForm: CustomFG;
     patientFilter = new PatientFilter();
     pageLimit = 10;
+    urlFilters: IMatcher[] = [
+        { prettyName: 'nome', name: 'fullName' },
+        { prettyName: 'telefone', name: 'phone' },
+    ]
 
-    constructor(private patientService: PatientService, private router: Router) {
+
+    constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute) {
         const fb = new CustomFB()
         this.filterForm = fb.group({
             field: ['fullName'],
@@ -27,7 +32,7 @@ export class PatientComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getPatients(0)
+        this.setupUrlFilterListener();
     }
 
     getPatients(offset: number) {
@@ -57,9 +62,23 @@ export class PatientComponent implements OnInit {
         this.getPatients(0)
     }
 
-    onFilter() {
-        this.patientFilter.setFilterValue(this.filterForm.value.field, this.filterForm.value.value);
-        this.getPatients(0);
+    filter() {
+        const field = getReversedMatchField(this.filterForm.value.field, this.urlFilters);
+        this.router.navigate(['/pacientes', field, this.filterForm.value.value])
     }
 
+    setupUrlFilterListener() {
+        this.route.params.subscribe(
+            params => {
+                this.patientFilter.reset()
+                if (params.field !== undefined && params.value !== undefined) {
+                    const field = getMatchedField(params.field, this.urlFilters);
+                    this.patientFilter.setFilterValue(field, params.value);
+                    this.filterForm.controls.field.setValue(field);
+                    this.filterForm.controls.value.setValue(params.value);
+                }
+                this.getPatients(0);
+            }
+        )
+    }
 }
