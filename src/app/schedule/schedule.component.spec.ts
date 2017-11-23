@@ -3,7 +3,7 @@ import { ActivatedRouteStub, RouterLinkStubDirective, RouterStub } from 'app/sha
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { Http, HttpModule } from '@angular/http';
 
-import { CalendarModule } from 'angular-calendar/dist/esm/src';
+import { CalendarModule } from 'angular-calendar';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { ScheduleComponent } from './schedule.component';
 import { ScheduleService } from './schedule.service';
