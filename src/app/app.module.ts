@@ -9,7 +9,6 @@ import { ScheduleModule, scheduleRoutes } from './schedule/schedule.module';
 
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { CalendarModule } from 'angular-calendar';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialAppModule } from './shared/material.app.module';
@@ -48,7 +47,6 @@ export const routes: Routes = [
         ScheduleModule,
         AboutModule,
         AccountModule,
-        CalendarModule.forRoot()
     ],
     providers: [AuthHttp],
     bootstrap: [AppComponent]
