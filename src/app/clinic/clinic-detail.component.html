@@ -1,6 +1,6 @@
 <mat-card class="container">
     <mat-card-title>Clinica</mat-card-title>
-    <form [formGroup]="clinicForm" (submit)="onSubmit()">
+    <form [formGroup]="clinicForm" (submit)="onSubmit()" [appLoadingOverlay]="isLoading">
         <input type="hidden" formControlName="id">
 
         <div fxLayout="row">
@@ -57,7 +57,4 @@
             </button>
         </div>
     </form>
-    <div class="overlay" *ngIf="isLoading">
-        <mat-spinner style="margin: 0 auto"></mat-spinner>
-    </div>
 </mat-card>

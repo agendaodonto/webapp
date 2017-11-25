@@ -3,7 +3,7 @@
     <div fxLayoutAlign="end center" fxLayout="row" *ngIf="!patientId">
         <mat-slide-toggle #continuousMode>Modo contínuo</mat-slide-toggle>
     </div>
-    <form [formGroup]="patientForm" (submit)="onSubmit()" appAutoFocus>
+    <form [formGroup]="patientForm" (submit)="onSubmit()" appAutoFocus [appLoadingOverlay]="isLoading">
         <input type="hidden" formControlName="id">
         <div fxLayout="row">
             <mat-input-container fxFlex="50">
@@ -43,9 +43,6 @@
             </button>
         </div>
     </form>
-    <div class="overlay" *ngIf="isLoading">
-        <mat-spinner style="margin: 0 auto"></mat-spinner>
-    </div>
 </mat-card>
 
 <mat-card class="container" *ngIf="patientId">
