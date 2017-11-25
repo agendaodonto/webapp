@@ -3,7 +3,7 @@
     <div fxLayoutAlign="end center" fxLayout="row" *ngIf="!scheduleId">
         <mat-slide-toggle #continuousMode>Modo contínuo</mat-slide-toggle>
     </div>
-    <form [formGroup]="scheduleForm" (submit)="onSubmit()" appAutoFocus>
+    <form [formGroup]="scheduleForm" (submit)="onSubmit()" appAutoFocus [appLoadingOverlay]="isLoading">
         <input type="hidden" formControlName="id">
 
         <div fxLayout="row">
@@ -49,7 +49,4 @@
             </div>
         </mat-dialog-content>
     </form>
-    <div class="overlay" *ngIf="isLoading">
-        <mat-spinner style="margin: 0 auto"></mat-spinner>
-    </div>
 </mat-card>
