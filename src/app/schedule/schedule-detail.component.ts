@@ -96,7 +96,10 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
     }
 
     loadScheduleData(scheduleId: number) {
-        this.scheduleService.get(scheduleId).subscribe(
+        this.isLoading = true;
+        this.scheduleService.get(scheduleId)
+            .finally(() => this.isLoading = false)
+            .subscribe(
             schedule => {
                 this.dentists = schedule.patient.clinic.dentists;
                 this.scheduleForm.setValue({
@@ -107,7 +110,7 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
                     duration: schedule.duration
                 });
             }
-        );
+            );
     }
 
     onDelete() {
