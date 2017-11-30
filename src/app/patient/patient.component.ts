@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { IMatcher, getMatchedField, getReversedMatchField } from '../shared/util';
 import { IPatient, PatientFilter, PatientService } from './patient.service';
+import { IClickEvent } from 'app/shared/components/pager/datatable-pager.component';
 
 @Component({
     selector: 'app-patient',
@@ -49,8 +50,10 @@ export class PatientComponent implements OnInit {
             });
     }
 
-    view(patient: { row: IPatient }) {
-        this.router.navigate(['/pacientes/' + patient.row.id]);
+    view(selectedRow: IClickEvent<IPatient>) {
+        if (selectedRow.type === 'click') {
+            this.router.navigate(['/pacientes/' + selectedRow.row.id]);
+        }
     }
 
     paginate(paginateEvent: { limit: number, offset: number }) {

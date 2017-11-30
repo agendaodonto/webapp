@@ -11,7 +11,7 @@ import { format } from 'date-fns';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  pendingSchedules: ISchedule[];
+  pendingSchedules: ISchedule[] = [];
   isLoading = false;
   selectedSchedules: ISchedule[] = [];
   pageLimit = 10;

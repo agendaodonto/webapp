@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { DentistService } from 'app/shared/services/dentist.service';
 import { DirectivesModule } from '../shared/directives/directives.module';
-import { HttpModule } from '@angular/http';
 import { MaterialAppModule } from 'app/shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';

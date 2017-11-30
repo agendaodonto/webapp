@@ -13,5 +13,5 @@ import { NgModule } from '@angular/core';
     entryComponents: [MatSpinner, LoadingOverlayComponent]
 })
 export class DirectivesModule {
-
+ 
 }

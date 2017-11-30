@@ -1,7 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub, RouterLinkStubDirective, RouterStub } from 'app/shared/testing/stubs/router.stub';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { Http, HttpModule } from '@angular/http';
 
 import { CalendarModule } from 'angular-calendar';
 import { MaterialAppModule } from '../shared/material.app.module';

@@ -1,7 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 
 import { AccountComponent } from './account.component';
-import { AuthGuard } from '../shared/guards/auth.guard';
 import { CommonModule } from '@angular/common';
 import { DentistService } from '../shared/services/dentist.service';
 import { DirectivesModule } from '../shared/directives/directives.module';
