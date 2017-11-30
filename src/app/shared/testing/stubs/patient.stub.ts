@@ -11,22 +11,22 @@ export class PatientServiceStub implements IPatientService {
     getAll(): Observable<{ results: IPatient[]; }> {
         return Observable.of({ results: this.patientDatabase.getMany(50) })
     }
-    get(patientId: number): Observable<IPatient> {
+    get(_patientId: number): Observable<IPatient> {
         return Observable.of(this.patientDatabase.get())
     }
-    create(patient: IPatient) {
+    create(_patient: IPatient) {
         throw new Error('Method not implemented.');
     }
-    update(patient: IPatient) {
+    update(_patient: IPatient) {
         throw new Error('Method not implemented.');
     }
-    remove(patient: IPatient) {
+    remove(_patient: IPatient) {
         throw new Error('Method not implemented.');
     }
-    save(patient: IPatient) {
+    save(_patient: IPatient) {
         throw new Error('Method not implemented.');
     }
-    getSchedules(patientId: number, scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<ISchedule>> {
+    getSchedules(_patientId: number, _scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<ISchedule>> {
         return Observable.of({ count: 10, results: this.scheduleDatabase.getMany(10) });
     }
 
