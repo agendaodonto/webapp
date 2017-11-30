@@ -1,11 +1,11 @@
 import { BaseComponent } from '../shared/components/base.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { FormGroupDirective, Validators } from '@angular/forms';
 import { IPatient, PatientFilter, PatientService } from '../patient/patient.service';
 import { addMinutes, format } from 'date-fns';
-import { MatDialog, MatSlideToggle, MatSnackBar, MatAutocompleteTrigger } from '@angular/material';
+import { MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
 
 import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
 import { IDentist } from '../shared/services/dentist.service';
@@ -129,7 +129,7 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
                 this.scheduleService.remove(this.scheduleForm.value).subscribe(
                     () => {
                         this.snackBar.open('Agendamento excluido.', '', { duration: 2000 });
-                        this.router.navigate(['/agenda/semana']);
+                        this.router.navigate(['/agenda']);
                     }
                 );
             }

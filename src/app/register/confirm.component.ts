@@ -21,11 +21,11 @@ export class ConfirmComponent implements OnInit {
         const token = this.route.snapshot.params['token']
         this.dentistService.activate(uid, token)
             .subscribe(
-            data => {
+            _data => {
                 this.snack.open('Conta ativada com sucesso !', 'Fechar')
                 this.router.navigate(['/login'])
             },
-            error => {
+            _error => {
                 this.snack.open('Não foi possível ativar essa conta. Tente novamente', 'Fechar')
                 this.router.navigate(['/login'])
             }

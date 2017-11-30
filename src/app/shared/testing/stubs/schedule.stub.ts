@@ -4,19 +4,19 @@ import { ScheduleDatabase } from 'app/shared/testing/databases/schedule.database
 
 export class ScheduleServiceStub implements IScheduleService {
     scheduleDatabase = new ScheduleDatabase();
-    get(scheduleId: number): Observable<ISchedule> {
+    get(_scheduleId: number): Observable<ISchedule> {
         return Observable.of(this.scheduleDatabase.get())
     }
-    getAll(filter?: ScheduleFilter): Observable<{ results: ISchedule[]; }> {
+    getAll(_filter?: ScheduleFilter): Observable<{ results: ISchedule[]; }> {
         return Observable.of({ results: this.scheduleDatabase.getMany(100) })
     }
-    create(schedule: ISchedule): Observable<any> {
+    create(_schedule: ISchedule): Observable<any> {
         throw new Error('Method not implemented.');
     }
-    update(schedule: ISchedule): Observable<any> {
+    update(_schedule: ISchedule): Observable<any> {
         throw new Error('Method not implemented.');
     }
-    save(schedule: ISchedule): Observable<any> {
+    save(_schedule: ISchedule): Observable<any> {
         throw new Error('Method not implemented.');
     }
 

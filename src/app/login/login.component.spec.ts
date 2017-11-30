@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { RouterLinkStubDirective, RouterStub } from 'app/shared/testing/stubs/router.stub';
 
 import { DirectivesModule } from '../shared/directives/directives.module';
-import { HttpModule } from '@angular/http';
 import { LoginComponent } from './login.component';
 import { LoginService, LoginServiceStub } from './login.service';
 import { MaterialAppModule } from '../shared/material.app.module';

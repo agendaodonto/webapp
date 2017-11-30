@@ -5,7 +5,6 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { ClinicService } from '../clinic/clinic.service';
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
-import { HttpModule } from '@angular/http';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';

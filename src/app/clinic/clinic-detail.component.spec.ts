@@ -6,7 +6,6 @@ import { ClinicDetailComponent } from './clinic-detail.component';
 import { ClinicService } from './clinic.service';
 import { DentistService } from '../shared/services/dentist.service';
 import { DirectivesModule } from '../shared/directives/directives.module';
-import { HttpModule } from '@angular/http';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';

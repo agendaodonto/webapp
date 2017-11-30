@@ -1,6 +1,4 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { ConnectionBackend, Http, HttpModule } from '@angular/http';
-
 import { DashboardComponent } from './dashboard.component';
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
 import { DirectivesModule } from '../shared/directives/directives.module';

@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { ClickType } from '@swimlane/ngx-datatable/release';
 
 @Component({
     selector: 'app-datatable-pager',
@@ -73,7 +72,7 @@ export interface ISortEvent {
 }
 
 export interface IClickEvent<T> {
-    type: ClickType,
+    type: string,
     value: any;
     row: T;
 }
