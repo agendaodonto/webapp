@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomFG, ValidationService } from '../shared/validation';
-import { FormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 import { CustomFB } from 'app/shared/validation';
 import { DentistService } from '../shared/services/dentist.service';
@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
         this.dentistService.create(dentist)
             .finally(() => this.isSubmitting = false)
             .subscribe(
-            data => {
+            _data => {
                 this.registerForm.reset();
                 this.snackBar.open('Conta criada com sucesso. Verifique o seu email !')
             },

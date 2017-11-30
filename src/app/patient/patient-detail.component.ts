@@ -9,7 +9,6 @@ import { IPatient, PatientService } from 'app/patient/patient.service';
 import { ISchedule, ScheduleFilter } from '../schedule/schedule.service';
 import { MatDialog, MatSlideToggle, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 
-import { ClinicFilter } from '../clinic/clinic.service';
 import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
@@ -22,7 +21,7 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
     clinics: IClinic[];
     patientId: number;
     schedulesLoading = false;
-    schedules: ISchedule[];
+    schedules: ISchedule[] = [];
     scheduleCount = 0;
     pageSize = 10;
     isLoading = true;
@@ -96,7 +95,8 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
         const data: IPatient = this.patientForm.value;
         this.patientService.save(data)
             .finally(() => this.isSubmitting = false)
-            .subscribe(patient => {
+            .subscribe(
+            _patient => {
                 this.snackBar.open('Salvo com sucesso', '', { duration: 2000 });
                 if (this.continuousMode && this.continuousMode.checked) {
                     this.patientFormDirective.resetForm();
@@ -136,8 +136,10 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
         this.getSchedules(event.limit * event.offset);
     }
 
-    viewSchedule(event: IClickEvent<ISchedule>) {
-        this.router.navigate(['agenda', event.row.id]);
+    viewSchedule(selectedRow: IClickEvent<ISchedule>) {
+        if (selectedRow.type === 'click') {
+            this.router.navigate(['agenda', selectedRow.row.id]);
+        }
     }
 
 }

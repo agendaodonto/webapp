@@ -1,5 +1,5 @@
 import { LoadingOverlayComponent } from '../components/loading-overlay/loading-overlay.component';
-import { Directive, Input, ViewContainerRef, ComponentRef, ComponentFactoryResolver, Renderer2 } from '@angular/core';
+import { Directive, Input, ViewContainerRef, ComponentRef, ComponentFactoryResolver } from '@angular/core';
 import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Directive({
@@ -12,18 +12,15 @@ export class LoadingOverlayDirective implements OnChanges {
     constructor(
         private viewContainerRef: ViewContainerRef,
         private componentFactoryResolver: ComponentFactoryResolver,
-        private renderer: Renderer2
     ) {
     }
 
     ngOnChanges() {
         if (this.trigger) {
-            console.log('creating')
             this.destroy();
             const factory = this.componentFactoryResolver.resolveComponentFactory(LoadingOverlayComponent);
             this.overlayComponentRef = this.viewContainerRef.createComponent(factory);
         } else {
-            console.log('destroying')
             this.destroy();
         }
     }

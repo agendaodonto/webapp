@@ -17,7 +17,6 @@ export class ClinicDatabase implements IDatabase<IClinic> {
     }
 
     getMany(qty: number): IClinic[] {
-        return [];
-        // return new Array(qty).fill(null).map(() => this.get());
+        return new Array(qty).fill(null).map(() => this.get());
     }
 }

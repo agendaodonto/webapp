@@ -48,7 +48,7 @@ export class LoginService extends BaseService implements ILoginService {
 
 @Injectable()
 export class LoginServiceStub implements ILoginService {
-    authenticate(formData: { email: string; password: string; }): Observable<any> {
+    authenticate(_formData: { email: string; password: string; }): Observable<any> {
         return Observable.from([{auth_token: 'TEST_TOKEN'}]);
     }
 

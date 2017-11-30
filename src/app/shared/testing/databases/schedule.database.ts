@@ -1,10 +1,7 @@
-import { IDatabase } from 'app/shared/testing/databases/base.database';
-import { IClinic } from 'app/clinic/clinic.service';
-import { DentistDatabase } from 'app/shared/testing/databases/dentist.database';
-import { IPatient } from 'app/patient/patient.service';
-import { ClinicDatabase } from 'app/shared/testing/databases/clinic.database';
-import { ISchedule } from 'app/schedule/schedule.service';
-import { PatientDatabase } from 'app/shared/testing/databases/patient.database';
+import { DentistDatabase } from './dentist.database';
+import { PatientDatabase } from './patient.database';
+import { ISchedule } from '../../../schedule/schedule.service';
+import { IDatabase } from './base.database';
 const faker = require('faker/locale/pt_BR');
 
 export class ScheduleDatabase implements IDatabase<ISchedule> {

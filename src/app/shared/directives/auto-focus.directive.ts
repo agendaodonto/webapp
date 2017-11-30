@@ -1,12 +1,9 @@
 import {
-    AfterContentChecked,
-    AfterViewChecked,
     AfterViewInit,
     ChangeDetectorRef,
     Directive,
     ElementRef,
     HostListener,
-    OnInit,
     Renderer,
 } from '@angular/core';
 

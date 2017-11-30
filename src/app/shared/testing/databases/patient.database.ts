@@ -1,8 +1,6 @@
-import { IDatabase } from 'app/shared/testing/databases/base.database';
-import { IClinic } from 'app/clinic/clinic.service';
-import { DentistDatabase } from 'app/shared/testing/databases/dentist.database';
-import { IPatient } from 'app/patient/patient.service';
-import { ClinicDatabase } from 'app/shared/testing/databases/clinic.database';
+import { ClinicDatabase } from './clinic.database';
+import { IPatient } from '../../../patient/patient.service';
+import { IDatabase } from './base.database';
 const faker = require('faker/locale/pt_BR');
 
 export class PatientDatabase implements IDatabase<IPatient> {

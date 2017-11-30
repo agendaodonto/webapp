@@ -1,5 +1,5 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { ActivatedRouteStub, RouterLinkStubDirective, RouterStub } from '../shared/testing/stubs/router.stub';
+import { Router } from '@angular/router';
+import { RouterLinkStubDirective, RouterStub } from '../shared/testing/stubs/router.stub';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { AboutComponent } from './about.component';

@@ -2,7 +2,6 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { AppComponent } from './app.component';
-import { HttpModule } from '@angular/http';
 import { LoginService, LoginServiceStub } from './login/login.service';
 import { MaterialAppModule } from './shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';

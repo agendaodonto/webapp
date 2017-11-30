@@ -4,22 +4,22 @@ import { ClinicDatabase } from 'app/shared/testing/databases/clinic.database';
 
 export class ClinicServiceStub implements IClinicService {
     clinicDatabase = new ClinicDatabase();
-    getAll(clinicFilter?: ClinicFilter): Observable<{ results: IClinic[]; }> {
+    getAll(_clinicFilter?: ClinicFilter): Observable<{ results: IClinic[]; }> {
         return Observable.of({ results: this.clinicDatabase.getMany(10) });
     }
-    get(clinicId: number): Observable<IClinic> {
+    get(_clinicId: number): Observable<IClinic> {
         return Observable.of(this.clinicDatabase.get());
     }
-    create(clinic: IClinic) {
+    create(_clinic: IClinic) {
         throw new Error('Method not implemented.');
     }
-    update(clinic: IClinic) {
+    update(_clinic: IClinic) {
         throw new Error('Method not implemented.');
     }
-    remove(clinic: IClinic) {
+    remove(_clinic: IClinic) {
         throw new Error('Method not implemented.');
     }
-    save(clinic: IClinic) {
+    save(_clinic: IClinic) {
         throw new Error('Method not implemented.');
     }
 

@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class RouterStub {
-    navigate(url) {
+    navigate(_url) {
 
     }
 }

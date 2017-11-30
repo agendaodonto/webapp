@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {LoginService} from './login.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AppComponent} from '../app.component';
-import {CustomFB, CustomFG} from '../shared/validation';
+import { Component } from '@angular/core';
+import { LoginService } from './login.service';
+import { Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CustomFB, CustomFG } from '../shared/validation';
 
 @Component({
     selector: 'app-login',
@@ -27,19 +26,19 @@ export class LoginComponent {
         this.loginService.authenticate(this.loginForm.value)
             .finally(() => this.isLoading = false)
             .subscribe(
-                response => {
-                    this.loginService.setToken(response.auth_token);
-                    this.loginService.getUserInfo();
-                    this.router.navigate(['/dashboard']);
-                },
-                err => {
-                    const errors = err.json();
-                    if (errors.hasOwnProperty('non_field_errors')) {
-                        this.errors = errors.non_field_errors;
-                    }
-                    this.loginForm.pushFieldErrors(errors);
-
+            response => {
+                this.loginService.setToken(response.auth_token);
+                this.loginService.getUserInfo();
+                this.router.navigate(['/dashboard']);
+            },
+            err => {
+                const errors = err.json();
+                if (errors.hasOwnProperty('non_field_errors')) {
+                    this.errors = errors.non_field_errors;
                 }
+                this.loginForm.pushFieldErrors(errors);
+
+            }
             );
 
     }

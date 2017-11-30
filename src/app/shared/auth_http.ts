@@ -51,23 +51,23 @@ export class AuthHttp implements IAuthHttp {
 export class AuthHttpStub implements IAuthHttp {
 
 
-    public get(url: string, options: RequestOptions) {
+    public get(_url: string, _options: RequestOptions) {
         throw new Error('Not implemented yet.');
     }
 
-    public post(url: string, body: any): Observable<Response> {
+    public post(_url: string, _body: any): Observable<Response> {
         throw new Error('Not implemented yet.');
     }
 
-    public put(url: string, body: any): Observable<Response> {
+    public put(_url: string, _body: any): Observable<Response> {
         throw new Error('Not implemented yet.');
     }
 
-    public remove(url: string): Observable<Response> {
+    public remove(_url: string): Observable<Response> {
         throw new Error('Not implemented yet.');
     }
 
-    public options(url: string): Observable<Response> {
+    public options(_url: string): Observable<Response> {
         throw new Error('Not implemented yet.');
     }
 }
@@ -83,8 +83,4 @@ interface IAuthHttp {
 export interface IPagedResponse<T> {
     count: number;
     results: T[];
-}
-
-export interface IResponse<T> {
-    T;
 }
