@@ -16,6 +16,11 @@ import { NgModule } from '@angular/core';
 import { RegisterModule } from './register/register.module';
 import { registerRoutes } from 'app/register/register.module';
 import { AuthHttp } from 'app/shared/auth_http';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import localePtExtras from '@angular/common/locales/extra/pt';
+
+registerLocaleData(localePt, localePtExtras);
 
 export const routes: Routes = [
     ...dashboardRoutes,

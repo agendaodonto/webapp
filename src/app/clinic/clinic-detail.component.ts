@@ -90,7 +90,7 @@ export class ClinicDetailComponent implements OnInit {
         this.clinicService.save(this.clinicForm.value)
             .finally(() => this.isSubmitting = false)
             .subscribe(
-            clinic => {
+            _clinic => {
                 this.snackBar.open('Salvo com sucesso.', '', { duration: 2000 });
                 this.router.navigate(['clinicas']);
             },

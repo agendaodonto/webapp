@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./clinic.component.scss']
 })
 export class ClinicComponent implements OnInit {
-    clinics: IClinic[];
+    clinics: IClinic[] = [];
     isLoading = false;
     pageLimit = 10;
     clinicCount = 0;

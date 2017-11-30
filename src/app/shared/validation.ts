@@ -1,4 +1,5 @@
 // Original version created by Cory Rylan: https://coryrylan.com/blog/angular-2-form-builder-and-validation-management
+import { Injectable } from '@angular/core';
 
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 
@@ -22,7 +23,7 @@ export class ValidationService {
         return config[validatorName];
     }
 
-    static numberFieldValidator(control) {
+    static numberFieldValidator(_control) {
         // if (control.value.match(/^([0-9]|[0-9][0-9]|[1-9][0-9][0-9])$/)) {
         //     return null;
         // } else {
@@ -61,6 +62,7 @@ export class ValidationService {
     }
 }
 
+@Injectable()
 export class CustomFB extends FormBuilder {
     group(controlsConfig: { [key: string]: any; }, extra?: { [key: string]: any; }): CustomFG {
         const group = super.group(controlsConfig, extra);

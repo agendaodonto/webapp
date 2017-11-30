@@ -1,12 +1,10 @@
 import { BaseFilter, BaseService } from '../shared/services/base.service';
-import { RequestOptions, URLSearchParams } from '@angular/http';
 
 import { AuthHttp } from '../shared/auth_http';
 import { IDentist } from '../shared/services/dentist.service';
 import { IPatient } from '../patient/patient.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { format } from 'date-fns';
 
 @Injectable()
 export class ScheduleService extends BaseService implements IScheduleService {

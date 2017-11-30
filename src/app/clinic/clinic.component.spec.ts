@@ -4,7 +4,6 @@ import { RouterLinkStubDirective, RouterStub } from 'app/shared/testing/stubs/ro
 import { ClinicComponent } from './clinic.component';
 import { ClinicService } from './clinic.service';
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
-import { HttpModule } from '@angular/http';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { Router } from '@angular/router';

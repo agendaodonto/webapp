@@ -5,7 +5,8 @@ import {
     Input,
     OnChanges,
     Renderer2,
-    ViewContainerRef
+    SimpleChange,
+    ViewContainerRef,
 } from '@angular/core';
 import { MatButton, MatSpinner } from '@angular/material';
 
@@ -13,8 +14,7 @@ import { MatButton, MatSpinner } from '@angular/material';
     selector: 'button[appBtnLoader]',
 })
 export class ButtonLoaderDirective implements OnChanges {
-    private static DEFAULT_BTN_WIDTH = 4;
-    private static DEFAULT_BTN_DIAMETER = 36;
+    private static DEFAULT_BTN_DIAMETER = 32;
 
     @Input('appBtnLoader') btnLoader: boolean;
     spinner: MatSpinner;
@@ -32,9 +32,9 @@ export class ButtonLoaderDirective implements OnChanges {
             const factory = this.componentFactoryResolver.resolveComponentFactory(MatSpinner)
             this.componentRef = this.viewContainerRef.createComponent(factory);
             this.spinner = <MatSpinner>this.componentRef.instance;
-            this.spinner.strokeWidth = ButtonLoaderDirective.DEFAULT_BTN_WIDTH;
             this.spinner.diameter = ButtonLoaderDirective.DEFAULT_BTN_DIAMETER;
-            this.spinner._elementRef.nativeElement.style.maxHeight = '36px';
+            this.spinner.ngOnChanges({ diameter: new SimpleChange(null, ButtonLoaderDirective.DEFAULT_BTN_DIAMETER, false) })
+            this.renderer.setStyle(this.spinner._elementRef.nativeElement, 'margin', '0 auto');
             this.renderer.appendChild(this.viewContainerRef.element.nativeElement, this.spinner._elementRef.nativeElement);
         } else {
             this.button.disabled = false;

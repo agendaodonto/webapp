@@ -1,7 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from 'app/shared/guards/auth.guard';
-import { AutoFocusDirective } from '../shared/directives/auto-focus.directive';
 import { ClinicService } from 'app/clinic/clinic.service';
 import { CommonModule } from '@angular/common';
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
