@@ -16,6 +16,8 @@ import {
     MatSnackBarModule,
     MatTabsModule,
     MatToolbarModule,
+    MatTableModule,
+    MatPaginatorModule,
 } from '@angular/material';
 
 import { NgModule } from '@angular/core';
@@ -38,7 +40,9 @@ const IMPORT_LIST = [
     MatProgressBarModule,
     MatDialogModule,
     MatTabsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTableModule,
+    MatPaginatorModule
 ];
 @NgModule({
     imports: [IMPORT_LIST],
