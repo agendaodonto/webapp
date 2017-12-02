@@ -135,9 +135,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/forms@^5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-5.0.3.tgz#207f92c2bd89660dda5858ef58d1eac1f2caf1a7"
+"@angular/forms@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-5.0.4.tgz#7081a7eccb872fbd530d8db76c38ba7fd15c9fd4"
   dependencies:
     tslib "^1.7.1"
 
