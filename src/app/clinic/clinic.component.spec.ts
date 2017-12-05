@@ -1,3 +1,4 @@
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { RouterLinkStubDirective, RouterStub } from 'app/shared/testing/stubs/router.stub';
 
@@ -15,7 +16,7 @@ describe('ClinicComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [MaterialAppModule, NgxDatatableModule, DataTablePagerModule],
+            imports: [MaterialAppModule, NgxDatatableModule, DataTablePagerModule, NoopAnimationsModule],
             declarations: [ClinicComponent, RouterLinkStubDirective],
             providers: [
                 { provide: ClinicService, useClass: ClinicServiceStub },
