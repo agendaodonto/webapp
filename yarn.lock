@@ -147,6 +147,12 @@
   dependencies:
     tslib "^1.7.1"
 
+"@angular/material-moment-adapter@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/material-moment-adapter/-/material-moment-adapter-5.0.0.tgz#08c2832f99be590397f43891347d35c6b035a4ae"
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/material@^5.0.0-rc.2":
   version "5.0.0-rc.2"
   resolved "https://registry.yarnpkg.com/@angular/material/-/material-5.0.0-rc.2.tgz#c96bb3295787aa84aa3788d776e15611f77a70ed"
@@ -4759,6 +4765,10 @@ modelo@^4.2.0:
 moment@2.x.x:
   version "2.19.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
+
+moment@^2.19.3:
+  version "2.19.3"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.3.tgz#bdb99d270d6d7fda78cc0fbace855e27fe7da69f"
 
 morgan@^1.8.2:
   version "1.9.0"

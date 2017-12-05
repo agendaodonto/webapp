@@ -18,6 +18,7 @@ import {
     MatToolbarModule,
     MatTableModule,
     MatPaginatorModule,
+    MatDatepickerModule,
 } from '@angular/material';
 
 import { NgModule } from '@angular/core';
@@ -43,7 +44,8 @@ const IMPORT_LIST = [
     MatSlideToggleModule,
     MatTableModule,
     MatPaginatorModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDatepickerModule,
 ];
 @NgModule({
     imports: [IMPORT_LIST],
