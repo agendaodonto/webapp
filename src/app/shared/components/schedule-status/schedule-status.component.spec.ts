@@ -5,22 +5,22 @@ import { MaterialAppModule } from 'app/shared/material.app.module';
 
 
 describe('ScheduleStatusComponent', () => {
-  let component: ScheduleStatusComponent;
-  let fixture: ComponentFixture<ScheduleStatusComponent>;
+    let component: ScheduleStatusComponent;
+    let fixture: ComponentFixture<ScheduleStatusComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [CommonModule, MaterialAppModule]
-    }).compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [CommonModule, MaterialAppModule]
+        }).compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ScheduleStatusComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ScheduleStatusComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should be created', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(component).toBeTruthy();
+    });
 });

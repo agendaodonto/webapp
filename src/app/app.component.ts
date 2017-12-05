@@ -1,4 +1,4 @@
-import { Component, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { LoginService } from './login/login.service';
 import { MatSidenav } from '@angular/material';
@@ -19,7 +19,7 @@ type Display = 'desktop' | 'mobile';
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }]
+    providers: []
 })
 export class AppComponent implements OnInit {
     date = new Date();
