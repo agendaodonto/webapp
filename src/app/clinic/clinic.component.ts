@@ -1,14 +1,14 @@
 import { ClinicService, IClinic } from 'app/clinic/clinic.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 
 import { ClinicFilter } from './clinic.service';
-import { IPaginateEvent } from '../shared/components/pager/datatable-pager.component';
 import { Router } from '@angular/router';
 import { DataSource, CollectionViewer } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import { MatPaginator } from '@angular/material';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-clinic',
     templateUrl: './clinic.component.html',
     styleUrls: ['./clinic.component.scss']
@@ -24,28 +24,11 @@ export class ClinicComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.getClinics(0);
         this.dataSource = new ClinicDataSource(this.clinicService, this.paginator);
-    }
-    getClinics(page: number) {
-        this.isLoading = true;
-        const filter = new ClinicFilter();
-        filter.setFilterValue('offset', page.toString());
-        this.clinicService.getAll(filter)
-            .finally(() => this.isLoading = false)
-            .subscribe(
-            response => {
-                this.clinics = response.results;
-            });
     }
     view(clinic: IClinic) {
         this.router.navigate(['/clinicas/' + clinic.id]);
     }
-
-    paginate(paginateEvent: IPaginateEvent) {
-        this.getClinics(paginateEvent.offset * paginateEvent.limit);
-    }
-
 }
 
 
