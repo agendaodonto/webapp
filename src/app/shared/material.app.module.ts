@@ -42,7 +42,8 @@ const IMPORT_LIST = [
     MatTabsModule,
     MatSlideToggleModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatChipsModule
 ];
 @NgModule({
     imports: [IMPORT_LIST],
