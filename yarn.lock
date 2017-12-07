@@ -32,9 +32,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/cdk@^5.0.0-rc.2":
-  version "5.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-5.0.0-rc.2.tgz#65a76381a0481e92990af4a105cd3bcbc53ee2af"
+"@angular/cdk@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-5.0.0.tgz#d7cb3294c9e3cc37d3d41c33e6beb044e84636c3"
   dependencies:
     tslib "^1.7.1"
 
