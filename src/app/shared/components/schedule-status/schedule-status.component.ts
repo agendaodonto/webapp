@@ -8,20 +8,29 @@ import { Component, Input } from '@angular/core';
 })
 export class ScheduleStatusComponent {
     private static statusList = {
-        0: { label: 'Agendado', style: { 'background-color': '#2196f3', 'color': 'white'} },
+        0: { label: 'Agendado', style: { 'background-color': '#2196f3', 'color': 'white' } },
         1: { label: 'Compareceu', style: { 'background-color': '#4CAF50', 'color': 'white' } },
         2: { label: 'Faltou', style: { 'background-color': '#f44336', 'color': 'white' } },
-        3: { label: 'Cancelou', style: { 'background-color': '#e0e0e0' } }
+        3: { label: 'Cancelou', style: { 'background-color': '#e0e0e0' } },
+        'default': { label: 'Desconhecido', style: { 'background-color': '#e0e0e0' } }
     }
 
     @Input() status: number;
     constructor() { }
 
+    private statusLookup(status: number) {
+        let statusData = ScheduleStatusComponent.statusList[status]
+        if (statusData === undefined) {
+            statusData = ScheduleStatusComponent.statusList['default'];
+        }
+        return statusData;
+    }
+
     getStatusLabel() {
-        return ScheduleStatusComponent.statusList[this.status].label;
+        return this.statusLookup(this.status).label;
     }
 
     getStatusStyle() {
-        return ScheduleStatusComponent.statusList[this.status].style;
+        return this.statusLookup(this.status).style;
     }
 }
