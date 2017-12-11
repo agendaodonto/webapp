@@ -27,9 +27,30 @@
                 </button>
             </form>
         </div>
+        <div fxLayoutAlign="end center" fxLayoutGap="10px" *ngIf="selection.selected.length > 0">
+            <button type="button" mat-raised-button class="attended" (click)="setScheduleStatus(1)" [appBtnLoader]="isUpdating">
+                <span *ngIf="!isUpdating">Compareceu</span>
+            </button>
+            <button type="button" mat-raised-button color="warn" (click)="setScheduleStatus(2)" [appBtnLoader]="isUpdating">
+                <span *ngIf="!isUpdating">Faltou</span>
+            </button>
+            <button type="button" mat-raised-button (click)="setScheduleStatus(3)" [appBtnLoader]="isUpdating">
+                <span *ngIf="!isUpdating">Cancelou</span>
+            </button>
+        </div>
     </div>
     <mat-progress-bar [mode]="'query'" *ngIf="dataSource.isLoading"></mat-progress-bar>
     <mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+            </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="date">
             <mat-header-cell *matHeaderCellDef> Data </mat-header-cell>
             <mat-cell *matCellDef="let schedule"> {{ schedule.date | date:'short' }}</mat-cell>
@@ -41,7 +62,7 @@
         <ng-container matColumnDef="status">
             <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
             <mat-cell *matCellDef="let schedule">
-              <app-schedule-status [status]="schedule.status"></app-schedule-status>
+                <app-schedule-status [status]="schedule.status"></app-schedule-status>
             </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

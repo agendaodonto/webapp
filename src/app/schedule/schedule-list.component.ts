@@ -1,12 +1,12 @@
 import * as moment from 'moment';
 
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { CustomFB, CustomFG } from 'app/shared/validation';
 import { ScheduleFilter, ScheduleService } from './schedule.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { CollectionViewer } from '@angular/cdk/collections';
 import { DataSource } from '@angular/cdk/collections';
 import { ISchedule } from 'app/schedule/schedule.service';
 import { MatPaginator } from '@angular/material';
@@ -21,13 +21,17 @@ import { Router } from '@angular/router';
 })
 export class ScheduleListComponent implements OnInit {
     @ViewChild(MatPaginator) paginator;
-    displayedColumns = ['date', 'patient', 'status'];
+    displayedColumns = ['select', 'date', 'patient', 'status'];
     dataSource: ScheduleDatasource;
     filterForm: CustomFG;
+    selection = new SelectionModel<ISchedule>(true);
+    isUpdating = false;
 
-    constructor(private scheduleService: ScheduleService,
+    constructor(
+        private scheduleService: ScheduleService,
         private router: Router,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private cdr: ChangeDetectorRef) {
         const fb = new CustomFB();
         this.filterForm = fb.group({
             startDate: [''],
@@ -47,6 +51,7 @@ export class ScheduleListComponent implements OnInit {
         let endDate = this.filterForm.controls.endDate.value;
         startDate = moment.isMoment(startDate) && startDate.isValid() ? startDate.format('DD-MM-YYYY') : '';
         endDate = moment.isMoment(endDate) && endDate.isValid() ? endDate.format('DD-MM-YYYY') : '';
+        this.selection.clear();
 
         const navigationExtras = {
             queryParams: {
@@ -83,6 +88,39 @@ export class ScheduleListComponent implements OnInit {
             this.dataSource.filterChanges.next(null)
         });
     }
+
+    isAllSelected() {
+        const numSelected = this.selection.selected.length;
+        const numRows = this.dataSource.schedules.length;
+        return numSelected === numRows;
+    }
+
+    /** Selects all rows if they are not all selected; otherwise clear selection. */
+    masterToggle() {
+        if (this.isAllSelected()) {
+            this.selection.clear()
+        } else {
+            this.dataSource.schedules.forEach(row => this.selection.select(row));
+        }
+    }
+
+    setScheduleStatus(status) {
+        const jobs = [];
+        this.isUpdating = true;
+        this.selection.selected.forEach((schedule) => {
+            const selectedSchedule = Object.assign({}, schedule); // Copy the object without reference
+            selectedSchedule.status = status;
+            jobs.push(this.scheduleService.save(selectedSchedule));
+        })
+        Observable.merge(...jobs)
+            .finally(() => {
+                this.selection.clear();
+                this.dataSource.filterChanges.next(null);
+                this.isUpdating = false;
+                this.cdr.detectChanges();
+            }).subscribe()
+
+    }
 }
 
 class ScheduleDatasource extends DataSource<ISchedule> {
@@ -91,6 +129,7 @@ class ScheduleDatasource extends DataSource<ISchedule> {
     filterChanges = new BehaviorSubject(null);
     changeEvents = [this.paginator.page, this.filterChanges]
     scheduleFilter = new ScheduleFilter();
+    schedules: ISchedule[];
 
     constructor(private scheduleService: ScheduleService, private paginator: MatPaginator) {
         super();
@@ -113,6 +152,7 @@ class ScheduleDatasource extends DataSource<ISchedule> {
                             this.paginator.pageIndex = 0;
                             this.filterChanges.next(null)
                         }
+                        this.schedules = response.results;
                         return response.results;
                     });
             })
