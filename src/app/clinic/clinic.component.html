@@ -9,24 +9,46 @@
         <a mat-raised-button color="accent" [routerLink]="['/clinicas', 'criar']">Novo</a>
     </div>
     <div fxLayout="column">
-        <mat-progress-bar [mode]="'query'" *ngIf="dataSource.isLoading"></mat-progress-bar>
-        <mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
-                <mat-cell *matCellDef="let clinic"> {{ clinic.name }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef> Ação </mat-header-cell>
-                <mat-cell *matCellDef="let clinic">
-                    <button mat-icon-button (click)="view(clinic)">
-                        <mat-icon>launch</mat-icon>
-                    </button>
-                </mat-cell>
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-        </mat-table>
-        <mat-paginator [length]="dataSource.count" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
-        </mat-paginator>
+        <mat-progress-bar [mode]="'query'" *ngIf="isLoading"></mat-progress-bar>
+        <ngx-datatable #clinicTable
+            [footerHeight]="50"
+            [columnMode]="'force'"
+            [rowHeight]="'auto'"
+            [rows]="clinics"
+            [externalSorting]="true"
+            [externalPaging]="true"
+            [reorderable]="false"
+            [selectionType]="'single'"
+            [loadingIndicator]="isLoading"
+            (select)="view($event)"
+            [limit]="pageLimit"
+            [count]="clinicCount"
+            [offset]="0"
+            (page)="paginate($event)">
+            <ngx-datatable-column name="Nome" prop="name" [width]="1">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-footer>
+                <ng-template
+                    ngx-datatable-footer-template
+                    let-rowCount="rowCount"
+                    let-pageSize="pageSize"
+                    let-selectedCount="selectedCount",
+                    let-curPage="curPage"
+                    let-offset="offset">
+                    <app-datatable-pager
+                        style="width:100%"
+                        [page]="curPage"
+                        [size]="pageSize"
+                        [count]="rowCount"
+                        [hidden]="!((rowCount / pageSize) > 1)"
+                        (change)="clinicTable.onFooterPage($event)">
+                    </app-datatable-pager>
+                </ng-template>
+            </ngx-datatable-footer>
+        </ngx-datatable>
     </div>
 </mat-card>
+
