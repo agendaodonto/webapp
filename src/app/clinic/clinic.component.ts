@@ -1,14 +1,11 @@
 import { ClinicService, IClinic } from 'app/clinic/clinic.service';
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ClinicFilter } from './clinic.service';
+import { IPaginateEvent } from '../shared/components/pager/datatable-pager.component';
 import { Router } from '@angular/router';
-import { DataSource, CollectionViewer } from '@angular/cdk/collections';
-import { Observable } from 'rxjs/Observable';
-import { MatPaginator } from '@angular/material';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-clinic',
     templateUrl: './clinic.component.html',
     styleUrls: ['./clinic.component.scss']
@@ -16,48 +13,33 @@ import { MatPaginator } from '@angular/material';
 export class ClinicComponent implements OnInit {
     clinics: IClinic[] = [];
     isLoading = false;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    dataSource: ClinicDataSource;
-    displayedColumns = ['name', 'actions']
+    pageLimit = 10;
+    clinicCount = 0;
 
     constructor(private clinicService: ClinicService, private router: Router) {
     }
 
     ngOnInit() {
-        this.dataSource = new ClinicDataSource(this.clinicService, this.paginator);
+        this.getClinics(0);
     }
-    view(clinic: IClinic) {
-        this.router.navigate(['/clinicas/' + clinic.id]);
+    getClinics(page: number) {
+        this.isLoading = true;
+        const filter = new ClinicFilter();
+        filter.setFilterValue('offset', page.toString());
+        this.clinicService.getAll(filter)
+            .finally(() => this.isLoading = false)
+            .subscribe(
+            response => {
+                this.clinics = response.results;
+                this.clinicCount = response.count;
+            });
     }
-}
-
-
-class ClinicDataSource extends DataSource<IClinic> {
-    count = 0;
-    isLoading = true;
-
-    constructor(private clinicService: ClinicService, private paginator: MatPaginator) {
-        super();
-    }
-
-    connect(_collectionViewer: CollectionViewer): Observable<IClinic[]> {
-        const displayDataChages = [this.paginator.page];
-
-        return Observable.merge(...displayDataChages)
-            .startWith(null)
-            .switchMap(() => {
-                this.isLoading = true;
-                const clinicFilter = new ClinicFilter();
-                const offset = this.paginator.pageSize * this.paginator.pageIndex;
-                clinicFilter.setFilterValue('pageSize', this.paginator.pageSize.toString());
-                clinicFilter.setFilterValue('offset', offset.toString());
-                return this.clinicService.getAll(clinicFilter).map(response => {
-                    this.count = response.count;
-                    return response.results;
-                }).finally(() => this.isLoading = false);
-            })
+    view(clinic: { selected: Array<IClinic> }) {
+        this.router.navigate(['/clinicas/' + clinic.selected[0].id]);
     }
 
-    disconnect(_collectionViewer: CollectionViewer): void { }
+    paginate(paginateEvent: IPaginateEvent) {
+        this.getClinics(paginateEvent.offset * paginateEvent.limit);
+    }
 
 }
