@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub, RouterStub } from 'app/shared/testing/stubs/router.stub';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
+import { DirectivesModule } from 'app/shared/directives/directives.module';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MaterialAppModule } from 'app/shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,7 +19,14 @@ describe('ScheduleListComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ReactiveFormsModule, MaterialAppModule, SharedComponentsModule, NoopAnimationsModule, MatMomentDateModule],
+            imports: [
+                DirectivesModule,
+                ReactiveFormsModule,
+                MaterialAppModule,
+                SharedComponentsModule,
+                NoopAnimationsModule,
+                MatMomentDateModule
+            ],
             declarations: [ScheduleListComponent],
             providers: [
                 { provide: ScheduleService, useClass: ScheduleServiceStub },

@@ -2,23 +2,24 @@ import {
     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatChipsModule,
+    MatDatepickerModule,
     MatDialogModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
     MatOptionModule,
+    MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatSelectModule,
     MatSidenavModule,
     MatSlideToggleModule,
     MatSnackBarModule,
+    MatTableModule,
     MatTabsModule,
     MatToolbarModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatDatepickerModule,
 } from '@angular/material';
 
 import { NgModule } from '@angular/core';
@@ -46,6 +47,7 @@ const IMPORT_LIST = [
     MatPaginatorModule,
     MatChipsModule,
     MatDatepickerModule,
+    MatCheckboxModule
 ];
 @NgModule({
     imports: [IMPORT_LIST],
