@@ -2,7 +2,7 @@ import 'rxjs/add/operator/map';
 
 import { BaseFilter, BaseService } from '../shared/services/base.service';
 
-import { AuthHttp } from '../shared/auth_http';
+import { AuthHttp, IPagedResponse } from '../shared/auth_http';
 import { IDentist } from 'app/shared/services/dentist.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
@@ -23,7 +23,7 @@ export class ClinicService extends BaseService implements IClinicService {
         super();
     }
 
-    getAll(clinicFilter?: ClinicFilter): Observable<{ count: number, results: IClinic[] }> {
+    getAll(clinicFilter?: ClinicFilter): Observable<IPagedResponse<IClinic>> {
         const filter = clinicFilter ? clinicFilter : new ClinicFilter();
         return this.http.get(this.url(['clinics']), filter.getFilter()).map(response => response.json());
     }
