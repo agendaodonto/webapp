@@ -1,4 +1,3 @@
-import { SharedComponentsModule } from '../shared/components/shared-components.module';
 import { Route, RouterModule } from '@angular/router';
 
 import { AuthGuard } from 'app/shared/guards/auth.guard';
@@ -13,11 +12,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ScheduleComponent } from './schedule.component';
 import { ScheduleDetailComponent } from './schedule-detail.component';
 import { ScheduleService } from './schedule.service';
-import { ScheduleListComponent } from './schedule-list.component';
 
 export const scheduleRoutes: Route[] = [
     { path: 'agenda/criar', component: ScheduleDetailComponent, canActivate: [AuthGuard] },
-    { path: 'agenda/lista', component: ScheduleListComponent, canActivate: [AuthGuard] },
     { path: 'agenda/:id', component: ScheduleDetailComponent, canActivate: [AuthGuard] },
     { path: 'agenda/:view/:date', component: ScheduleComponent, canActivate: [AuthGuard] },
     { path: 'agenda/:view', component: ScheduleComponent, canActivate: [AuthGuard] },
@@ -32,10 +29,9 @@ export const scheduleRoutes: Route[] = [
         FlexLayoutModule,
         ReactiveFormsModule,
         DirectivesModule,
-        SharedComponentsModule,
         CalendarModule.forRoot(),
     ],
-    declarations: [ScheduleComponent, ScheduleDetailComponent, ScheduleListComponent],
+    declarations: [ScheduleComponent, ScheduleDetailComponent],
     providers: [ScheduleService, PatientService, AuthGuard]
 })
 export class ScheduleModule {
