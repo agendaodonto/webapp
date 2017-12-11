@@ -12,13 +12,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialAppModule } from './shared/material.app.module';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { RegisterModule } from './register/register.module';
 import { registerRoutes } from 'app/register/register.module';
 import { AuthHttp } from 'app/shared/auth_http';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import localePtExtras from '@angular/common/locales/extra/pt';
+// import { MatNativeDateModule } from '@angular/material';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 registerLocaleData(localePt, localePtExtras);
 
@@ -43,6 +45,7 @@ export const routes: Routes = [
         HttpModule,
         RouterModule.forRoot(routes),
         MaterialAppModule,
+        MatMomentDateModule,
         // App Modules
         DashboardModule,
         RegisterModule,
@@ -53,7 +56,10 @@ export const routes: Routes = [
         AboutModule,
         AccountModule,
     ],
-    providers: [AuthHttp],
+    providers: [
+        AuthHttp,
+        { provide: LOCALE_ID, useValue: 'pt-BR' },
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
