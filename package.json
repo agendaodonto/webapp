@@ -29,7 +29,7 @@
     "@swimlane/ngx-datatable": "^11.1.4",
     "angular-calendar": "^0.22.1",
     "calendar-utils": "^0.0.58",
-    "core-js": "^2.5.1",
+    "core-js": "^2.5.3",
     "coveralls": "^3.0.0",
     "date-fns": "^1.29.0",
     "faker": "^4.1.0",
