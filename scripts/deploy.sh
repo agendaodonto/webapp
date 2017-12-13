@@ -13,7 +13,7 @@ else
   echo "Skipping deploy to production. (Not a tag)"
 fi
 
-if [[ ! -z $TRAVIS_TAG ]]; then
+if [[ $TRAVIS_BRANCH == "develop" ]]; then
   echo "Deploying to Staging"
   ng build --aot -env=staging
   firebase use --token $FIREBASE_TOKEN agendaodontoweb-staging
