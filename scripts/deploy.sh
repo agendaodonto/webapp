@@ -19,10 +19,6 @@ if [[ $TRAVIS_BRANCH == "develop" ]]; then
   firebase use --token $FIREBASE_TOKEN agendaodontoweb-staging
   firebase deploy --non-interactive --token $FIREBASE_TOKEN
 else
-<<<<<<< HEAD
-  echo "Skipping deploy to production. (Not on develop branch)"
-=======
   echo "Skipping deploy to staging. (Not on develop branch)"
->>>>>>> 1135dbe... fix: Deploy only tags to production
 fi
 
