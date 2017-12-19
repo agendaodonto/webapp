@@ -109,9 +109,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/compiler-cli@^5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-5.1.0.tgz#9512abf2515c7d3b7e9ee45650801ee78d63223e"
+"@angular/compiler-cli@^5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-5.1.1.tgz#579e6846ed493e7202e36eb5cea00cb1a61c927c"
   dependencies:
     chokidar "^1.4.2"
     minimist "^1.2.0"
