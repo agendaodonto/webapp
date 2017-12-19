@@ -1,77 +1,78 @@
-<div class="container">
-  <div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="20px">
-    <mat-card fxFlex="100">
-      <mat-card-title>Consultas a confirmar</mat-card-title>
-      <div class="app-actions" fxLayoutGap="10px" fxLayoutAlign="end center">
-        <button type="button" mat-raised-button color="accent" (click)="setStatus(1)" [appBtnLoader]="isLoading">
-          <span *ngIf="!isLoading">Compareceu</span>
-        </button>
-        <button type="button" mat-raised-button color="warn" (click)="setStatus(2)" [appBtnLoader]="isLoading">
-          <span *ngIf="!isLoading">Faltou</span>
-        </button>
-        <button type="button" mat-raised-button (click)="setStatus(3)" [appBtnLoader]="isLoading">
-          <span *ngIf="!isLoading">Cancelou</span>
-        </button>
-      </div>
-      <mat-progress-bar [mode]="'query'" *ngIf="isLoading"></mat-progress-bar>
-      <ngx-datatable #pendingSchedulesTable
-        [columnMode]="'force'"
-        [footerHeight]="50"
-        [externalSorting]="true"
-        [externalPaging]="true"
-        [rows]="pendingSchedules"
-        [selected]="selectedSchedules"
-        [selectionType]="'multiClick'"
-        [limit]="pageLimit"
-        [count]="scheduleCount"
-        [offset]="0"
-        (page)="paginate($event)"
-        (sort)="sort($event)">
-        <ngx-datatable-column name="Nome" prop="patient.name" [width]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    {{value}}
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Sobrenome" prop="patient.last_name" [width]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    {{value}}
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Data" prop="date" [width]="1">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    {{value | date:'dd/MM/yy H:mm'}}
-                </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-footer>
-                <ng-template
-                    ngx-datatable-footer-template
-                    let-rowCount="rowCount"
-                    let-pageSize="pageSize"
-                    let-selectedCount="selectedCount",
-                    let-curPage="curPage"
-                    let-offset="offset">
-                    <app-datatable-pager
-                        style="width:100%"
-                        [page]="curPage"
-                        [size]="pageSize"
-                        [count]="rowCount"
-                        [hidden]="!((rowCount / pageSize) > 1)"
-                        (change)="pendingSchedulesTable.onFooterPage($event)">
-                    </app-datatable-pager>
-                </ng-template>
-            </ngx-datatable-footer>
-      </ngx-datatable>
-      <div fxLayoutGap="10px" fxLayoutAlign="end center">
-        <mat-hint>Selecione vários agendamentos utilizando SHIFT</mat-hint>
-      </div>
-    </mat-card>
-    <!--<mat-card fxFlex="30">
-      <mat-card-title>Informações de Janeiro</mat-card-title>
-    </mat-card>-->
-  </div>
-  <!--<div fxLayout="row">
-    <mat-card fxFlex="100">
-      <mat-card-title>Gráficos</mat-card-title>
-    </mat-card>
-  </div>-->
+<div class="container" fxLayout="column" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center start" fxLayoutAlign.lt-md="start stretch" fxLayoutGap="20px">
+        <!--Pending schedules cards -->
+        <mat-card class="mini-report" fxFlex="25" fxLayout="column" (click)="viewPendingSchedules()">
+            <mat-card-title>Consultas a confirmar</mat-card-title>
+            <div fxLayoutAlign="start start" *ngIf="pendingSchedules | async as pendingSchedules; else pendingSchedulesLoading">
+                <mat-icon class="mini-report">schedule</mat-icon>
+                <p fxFlex class="huge" fxLayoutAlign="end end">{{ pendingSchedules?.count }}</p>
+            </div>
+            <ng-template #pendingSchedulesLoading>
+                <app-loading-overlay></app-loading-overlay>
+            </ng-template>
+            <div fxLayoutAlign="end end">
+                <mat-hint>Clique para visualizar</mat-hint>
+            </div>
+        </mat-card>
+        <!--Attendance rate card -->
+        <!-- <mat-card class="mini-report" fxFlex="25" fxLayout="column">
+            <mat-card-title>Taxa de comparecimento</mat-card-title>
+            <div fxLayoutAlign="start start">
+                <mat-icon class="mini-report">account_circle</mat-icon>
+                <div fxFlex fxLayoutAlign="end end">
+                    <p class="huge">88%</p>
+                    <span style="color:green">(+10%)</span>
+                </div>
+            </div>
+            <div fxLayoutAlign="end end">
+                <mat-hint>Clique para visualizar</mat-hint>
+            </div>
+        </mat-card> -->
+        <!--Schedule count card -->
+        <mat-card class="mini-report" fxFlex="25" fxLayout="column" (click)="viewSchedules()">
+            <mat-card-title>Agendamentos</mat-card-title>
+            <div fxLayoutAlign="start start" *ngIf="schedules | async as schedules; else schedulesLoading">
+                <mat-icon class="mini-report">insert_invitation</mat-icon>
+                <div fxFlex fxLayoutAlign="end end">
+                    <p class="huge">{{ schedules?.count }}</p>
+                    <!-- <span style="color:red">(-27%)</span> -->
+                </div>
+            </div>
+            <ng-template #schedulesLoading>
+                <app-loading-overlay></app-loading-overlay>
+            </ng-template>
+            <div fxLayoutAlign="end end">
+                <mat-hint>Clique para visualizar</mat-hint>
+            </div>
+        </mat-card>
+        <!--Patient count card -->
+        <mat-card class="mini-report" fxFlex="25" fxLayout="column" (click)="viewPatients()">
+            <mat-card-title>Pacientes</mat-card-title>
+            <div fxLayoutAlign="start start" *ngIf="patients | async as patients; else patientsLoading">
+                <mat-icon class="mini-report">person_add</mat-icon>
+                <div fxFlex fxLayoutAlign="end end">
+                    <p class="huge">{{ patients?.count }}</p>
+                    <!-- <span style="color:green">(+12)</span> -->
+                </div>
+            </div>
+            <ng-template #patientsLoading>
+                <app-loading-overlay></app-loading-overlay>
+            </ng-template>
+            <div fxLayoutAlign="end end">
+                <mat-hint>Clique para visualizar</mat-hint>
+            </div>
+        </mat-card>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center start" fxLayoutAlign.lt-md="start stretch">
+        <mat-card class="chart-report" fxFlex="100" fxLayout="column" style="padding-left:0">
+            <div *ngIf="attendance | async as attendance; else chartLoading" style="min-height: 400px">
+                <ngx-charts-area-chart [results]="attendance" [xAxis]="true" [yAxis]="true" [curve]="curveFunction" [customColors]="attendanceChartColors">
+
+                </ngx-charts-area-chart>
+            </div>
+            <ng-template #chartLoading>
+                <app-loading-overlay></app-loading-overlay>
+            </ng-template>
+        </mat-card>
+    </div>
 </div>
