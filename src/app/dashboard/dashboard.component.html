@@ -15,19 +15,22 @@
             </div>
         </mat-card>
         <!--Attendance rate card -->
-        <!-- <mat-card class="mini-report" fxFlex="25" fxLayout="column">
+        <mat-card class="mini-report" fxFlex="25" fxLayout="column">
             <mat-card-title>Taxa de comparecimento</mat-card-title>
-            <div fxLayoutAlign="start start">
+            <div fxLayoutAlign="start start" *ngIf="attendanceRatio | async as attendanceRatio; else attendanceLoading">
                 <mat-icon class="mini-report">account_circle</mat-icon>
                 <div fxFlex fxLayoutAlign="end end">
-                    <p class="huge">88%</p>
-                    <span style="color:green">(+10%)</span>
+                    <p class="huge">{{ attendanceRatio[startDate].ratio * 100 | number }}%</p>
+                    <!-- <span style="color:green">(+10%)</span> -->
                 </div>
             </div>
+            <ng-template #attendanceLoading>
+                <app-loading-overlay></app-loading-overlay>
+            </ng-template>
             <div fxLayoutAlign="end end">
                 <mat-hint>Clique para visualizar</mat-hint>
             </div>
-        </mat-card> -->
+        </mat-card>
         <!--Schedule count card -->
         <mat-card class="mini-report" fxFlex="25" fxLayout="column" (click)="viewSchedules()">
             <mat-card-title>Agendamentos</mat-card-title>
