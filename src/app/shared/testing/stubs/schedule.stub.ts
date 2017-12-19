@@ -1,4 +1,4 @@
-import { IScheduleService, ScheduleFilter, ISchedule } from 'app/schedule/schedule.service';
+import { IScheduleService, ScheduleFilter, ISchedule, IAttendanceData } from 'app/schedule/schedule.service';
 import { Observable } from 'rxjs/Observable';
 import { ScheduleDatabase } from 'app/shared/testing/databases/schedule.database';
 
@@ -19,5 +19,18 @@ export class ScheduleServiceStub implements IScheduleService {
     save(_schedule: ISchedule): Observable<any> {
         throw new Error('Method not implemented.');
     }
-
+    getAttendanceData(_referenceDate?: Date): Observable<IAttendanceData> {
+        return Observable.of({
+            '2017-12-18': {
+                attendances: 10,
+                absences: 10,
+                cancellations: 10
+            },
+            '2017-11-18': {
+                attendances: 5,
+                absences: 8,
+                cancellations: 2
+            }
+        });
+    }
 }

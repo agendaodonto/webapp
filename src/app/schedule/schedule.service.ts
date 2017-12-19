@@ -1,10 +1,12 @@
 import { BaseFilter, BaseService } from '../shared/services/base.service';
 
-import { AuthHttp } from '../shared/auth_http';
+import { AuthHttp, IPagedResponse } from '../shared/auth_http';
 import { IDentist } from '../shared/services/dentist.service';
 import { IPatient } from '../patient/patient.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { RequestOptions, URLSearchParams } from '@angular/http';
+import { format } from 'date-fns';
 
 @Injectable()
 export class ScheduleService extends BaseService implements IScheduleService {
@@ -17,7 +19,7 @@ export class ScheduleService extends BaseService implements IScheduleService {
         return this.http.get(this.url(['schedules', scheduleId])).map(data => data.json());
     }
 
-    getAll(scheduleFilter?: ScheduleFilter): Observable<{ count: number, results: ISchedule[] }> {
+    getAll(scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<ISchedule>> {
         const filter = scheduleFilter ? scheduleFilter : new ScheduleFilter();
         return this.http.get(this.url(['schedules']), filter.getFilter()).map(data => data.json());
     }
@@ -48,6 +50,14 @@ export class ScheduleService extends BaseService implements IScheduleService {
         }
     }
 
+    getAttendanceData(referenceDate?: Date): Observable<IAttendanceData> {
+        const requestOptions = new RequestOptions()
+        const params = new URLSearchParams()
+        params.set('date', format(referenceDate, 'YYYY-MM-DD'))
+        requestOptions.params = params;
+        return this.http.get(this.url(['schedules', 'attendance'])).map(d => d.json());
+    }
+
 }
 
 export interface IScheduleService {
@@ -56,6 +66,15 @@ export interface IScheduleService {
     create(schedule: ISchedule): Observable<any>;
     update(schedule: ISchedule): Observable<any>;
     save(schedule: ISchedule): Observable<any>;
+    getAttendanceData(referenceDate?: Date): Observable<IAttendanceData>;
+}
+
+export interface IAttendanceData {
+    [key: string]: {
+        absences: number,
+        attendances: number,
+        cancellations: number
+    }
 }
 
 export enum ScheduleStatus {
