@@ -24,7 +24,8 @@ export class DashboardComponent implements OnInit {
     pendingSchedules: Observable<IPagedResponse<ISchedule>>;
     schedules: Observable<IPagedResponse<ISchedule>>;
     patients: Observable<IPagedResponse<IPatient>>;
-    attendance: Observable<any>
+    attendance: Observable<any>;
+    attendanceRatio: Observable<any>;
     refDate = subMonths(new Date(), 1);
     startDate = format(startOfMonth(this.refDate), 'YYYY-MM-DD');
     endDate = format(endOfMonth(this.refDate), 'YYYY-MM-DD');
@@ -64,6 +65,7 @@ export class DashboardComponent implements OnInit {
             .map(data => {
                 return parseAttendanceData(data)
             })
+        this.attendanceRatio = this.scheduleService.getAttendanceData();
     }
 
     viewPendingSchedules() {
