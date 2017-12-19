@@ -6,7 +6,7 @@ import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
     selector: '[appLoadingOverlay]'
 })
 export class LoadingOverlayDirective implements OnChanges {
-    @Input('appLoadingOverlay') trigger: boolean;
+    @Input('appLoadingOverlay') trigger: any;
     overlayComponentRef: ComponentRef<LoadingOverlayComponent>;
 
     constructor(
@@ -16,7 +16,7 @@ export class LoadingOverlayDirective implements OnChanges {
     }
 
     ngOnChanges() {
-        if (this.trigger) {
+        if (this.trigger === 'true' || this.trigger === true) {
             this.destroy();
             const factory = this.componentFactoryResolver.resolveComponentFactory(LoadingOverlayComponent);
             this.overlayComponentRef = this.viewContainerRef.createComponent(factory);
