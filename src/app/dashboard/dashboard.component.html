@@ -5,7 +5,7 @@
             <mat-card-title>Consultas a confirmar</mat-card-title>
             <div fxLayoutAlign="start start" *ngIf="pendingSchedules | async as pendingSchedules; else pendingSchedulesLoading">
                 <mat-icon class="mini-report">schedule</mat-icon>
-                <p fxFlex class="huge" fxLayoutAlign="end end">{{ pendingSchedules?.count }}</p>
+                <p fxFlex class="huge" fxLayoutAlign="end end">{{ pendingSchedules.count }}</p>
             </div>
             <ng-template #pendingSchedulesLoading>
                 <app-loading-overlay></app-loading-overlay>
@@ -15,13 +15,21 @@
             </div>
         </mat-card>
         <!--Attendance rate card -->
-        <mat-card class="mini-report" fxFlex="25" fxLayout="column">
+        <mat-card class="mini-report" fxFlex="25" fxLayout="column" (click)="viewSchedules()">
             <mat-card-title>Taxa de comparecimento</mat-card-title>
             <div fxLayoutAlign="start start" *ngIf="attendanceRatio | async as attendanceRatio; else attendanceLoading">
                 <mat-icon class="mini-report">account_circle</mat-icon>
                 <div fxFlex fxLayoutAlign="end end">
                     <p class="huge">{{ attendanceRatio[startDate].ratio * 100 | number }}%</p>
-                    <!-- <span style="color:green">(+10%)</span> -->
+                    <span style="color:#FFEB3B" *ngIf="calculatePercentage(attendanceRatio[startDate].ratio, attendanceRatio[refStartDate].ratio) == 0">
+                        ({{ calculatePercentage(attendanceRatio[startDate].ratio, attendanceRatio[refStartDate].ratio) }}%)
+                    </span>
+                    <span style="color:red" *ngIf="calculatePercentage(attendanceRatio[startDate].ratio, attendanceRatio[refStartDate].ratio) < 0">
+                        ({{ calculatePercentage(attendanceRatio[startDate].ratio, attendanceRatio[refStartDate].ratio) }}%)
+                    </span>
+                    <span style="color:green" *ngIf="calculatePercentage(attendanceRatio[startDate].ratio, attendanceRatio[refStartDate].ratio) > 0">
+                        (+ {{ calculatePercentage(attendanceRatio[startDate].ratio, attendanceRatio[refStartDate].ratio) }}%)
+                    </span>
                 </div>
             </div>
             <ng-template #attendanceLoading>
@@ -37,8 +45,18 @@
             <div fxLayoutAlign="start start" *ngIf="schedules | async as schedules; else schedulesLoading">
                 <mat-icon class="mini-report">insert_invitation</mat-icon>
                 <div fxFlex fxLayoutAlign="end end">
-                    <p class="huge">{{ schedules?.count }}</p>
-                    <!-- <span style="color:red">(-27%)</span> -->
+                    <p class="huge">{{ schedules.count }}</p>
+                    <div *ngIf="refSchedules | async as refSchedules;">
+                        <span style="color:#FFEB3B" *ngIf="calculatePercentage(schedules.count, refSchedules.count) == 0">
+                            ({{ calculatePercentage(schedules.count, refSchedules.count) }}%)
+                        </span>
+                        <span style="color:red" *ngIf="calculatePercentage(schedules.count, refSchedules.count) < 0">
+                            ({{ calculatePercentage(schedules.count, refSchedules.count) }}%)
+                        </span>
+                        <span style="color:green" *ngIf="calculatePercentage(schedules.count, refSchedules.count) > 0">
+                            (+{{ calculatePercentage(schedules.count, refSchedules.count) }}%)
+                        </span>
+                    </div>
                 </div>
             </div>
             <ng-template #schedulesLoading>
@@ -54,7 +72,7 @@
             <div fxLayoutAlign="start start" *ngIf="patients | async as patients; else patientsLoading">
                 <mat-icon class="mini-report">person_add</mat-icon>
                 <div fxFlex fxLayoutAlign="end end">
-                    <p class="huge">{{ patients?.count }}</p>
+                    <p class="huge">{{ patients.count }}</p>
                     <!-- <span style="color:green">(+12)</span> -->
                 </div>
             </div>

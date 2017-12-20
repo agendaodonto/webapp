@@ -73,7 +73,8 @@ export interface IAttendanceData {
     [key: string]: {
         absences: number,
         attendances: number,
-        cancellations: number
+        cancellations: number,
+        ratio: number;
     }
 }
 
