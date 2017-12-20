@@ -23,12 +23,16 @@ export class DashboardComponent implements OnInit {
 
     pendingSchedules: Observable<IPagedResponse<ISchedule>>;
     schedules: Observable<IPagedResponse<ISchedule>>;
+    refSchedules: Observable<IPagedResponse<ISchedule>>;
     patients: Observable<IPagedResponse<IPatient>>;
     attendance: Observable<any>;
     attendanceRatio: Observable<any>;
-    refDate = subMonths(new Date(), 1);
-    startDate = format(startOfMonth(this.refDate), 'YYYY-MM-DD');
-    endDate = format(endOfMonth(this.refDate), 'YYYY-MM-DD');
+    date = subMonths(new Date(), 1);
+    startDate = format(startOfMonth(this.date), 'YYYY-MM-DD');
+    endDate = format(endOfMonth(this.date), 'YYYY-MM-DD');
+    refDate = subMonths(new Date(), 2);
+    refStartDate = format(startOfMonth(this.refDate), 'YYYY-MM-DD');
+    refEndDate = format(endOfMonth(this.refDate), 'YYYY-MM-DD');
     curveFunction = d3.curveMonotoneX;
     attendanceChartColors = [
         { name: 'Comparecimentos', value: '#4CAF50' },
@@ -40,6 +44,10 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.setupObservables();
+    }
+
+    calculatePercentage(n1: number, n2: number) {
+        return Math.round(((n1 / n2) - 1) * 100)
     }
 
     setupObservables() {
@@ -59,6 +67,9 @@ export class DashboardComponent implements OnInit {
         scheduleFilter.setFilterValue('startDate', this.startDate)
         scheduleFilter.setFilterValue('endDate', this.endDate)
         this.schedules = this.scheduleService.getAll(scheduleFilter);
+        scheduleFilter.setFilterValue('startDate', this.refStartDate)
+        scheduleFilter.setFilterValue('endDate', this.refEndDate)
+        this.refSchedules = this.scheduleService.getAll(scheduleFilter);
         // Attendance
         this.attendance = this.scheduleService
             .getAttendanceData()
@@ -80,9 +91,8 @@ export class DashboardComponent implements OnInit {
     viewSchedules() {
         const extras: NavigationExtras = {};
         extras.queryParams = {
-            dataInicio: format(startOfMonth(this.refDate), 'DD-MM-YYYY'),
-            dataFim: format(endOfMonth(this.refDate), 'DD-MM-YYYY'),
-            status: '0'
+            dataInicio: format(startOfMonth(this.date), 'DD-MM-YYYY'),
+            dataFim: format(endOfMonth(this.date), 'DD-MM-YYYY'),
         }
         this.router.navigate(['/agenda/lista'], extras)
     }
