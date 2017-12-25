@@ -1273,9 +1273,13 @@ cacache@^10.0.0:
     unique-filename "^1.1.0"
     y18n "^3.2.1"
 
-calendar-utils@0.0.58, calendar-utils@^0.0.58:
+calendar-utils@0.0.58:
   version "0.0.58"
   resolved "https://registry.yarnpkg.com/calendar-utils/-/calendar-utils-0.0.58.tgz#4504bf8eff4bf8a781d88c0181ed8dd939a5fe93"
+
+calendar-utils@^0.0.59:
+  version "0.0.59"
+  resolved "https://registry.yarnpkg.com/calendar-utils/-/calendar-utils-0.0.59.tgz#ab809c215e7811eb0f8d961985cacce6af3d3db3"
 
 callsite@1.0.0:
   version "1.0.0"
