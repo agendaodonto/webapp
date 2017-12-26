@@ -20,7 +20,7 @@
             <div fxLayoutAlign="start start" *ngIf="attendanceRatio | async as attendanceRatio; else attendanceLoading">
                 <mat-icon class="mini-report">account_circle</mat-icon>
                 <div fxFlex fxLayoutAlign="end end">
-                    <p class="huge">{{ attendanceRatio[startDate].ratio * 100 | number }}%</p>
+                    <p class="huge">{{ attendanceRatio[startDate].ratio | percent:'0.0-1' }}</p>
                     <span style="color:#FFEB3B" *ngIf="calculatePercentage(attendanceRatio[startDate].ratio, attendanceRatio[refStartDate].ratio) == 0">
                         ({{ calculatePercentage(attendanceRatio[startDate].ratio, attendanceRatio[refStartDate].ratio) }}%)
                     </span>
