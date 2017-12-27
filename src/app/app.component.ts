@@ -5,6 +5,7 @@ import { MatSidenav } from '@angular/material';
 import { Md5 } from 'ts-md5/dist/md5';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import './shared/rxjs.operators';
 
 interface IMenu {
     name: string;

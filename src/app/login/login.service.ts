@@ -49,7 +49,7 @@ export class LoginService extends BaseService implements ILoginService {
 @Injectable()
 export class LoginServiceStub implements ILoginService {
     authenticate(_formData: { email: string; password: string; }): Observable<any> {
-        return Observable.from([{auth_token: 'TEST_TOKEN'}]);
+        return Observable.of([{auth_token: 'TEST_TOKEN'}]);
     }
 
     setToken(token: string) {

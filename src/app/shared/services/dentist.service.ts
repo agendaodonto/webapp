@@ -1,7 +1,7 @@
 import { AuthHttp } from '../auth_http';
 import { BaseService } from './base.service';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 export interface IDentistService {
     get(cro: string): Observable<IDentist[]>;

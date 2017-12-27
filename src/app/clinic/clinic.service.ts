@@ -1,11 +1,9 @@
-import 'rxjs/add/operator/map';
-
 import { BaseFilter, BaseService } from '../shared/services/base.service';
 
 import { AuthHttp, IPagedResponse } from '../shared/auth_http';
 import { IDentist } from 'app/shared/services/dentist.service';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 export interface IClinicService {
     getAll(clinicFilter?: ClinicFilter): Observable<{ results: IClinic[] }>;
