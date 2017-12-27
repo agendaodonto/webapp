@@ -11,9 +11,11 @@ export function parseAttendanceData(response: IAttendanceData) {
     Object.keys(response)
         .sort((a, b) => moment(a) > moment(b) ? 1 : -1)
         .forEach(key => {
-            parsedData[0].series.push({name: moment(key).format('MMMM/YY'), value: response[key].attendances})
-            parsedData[1].series.push({name: moment(key).format('MMMM/YY'), value: response[key].absences})
-            parsedData[2].series.push({name: moment(key).format('MMMM/YY'), value: response[key].cancellations})
+            const date = moment(key);
+            date.locale('pt-BR');
+            parsedData[0].series.push({name: date.format('MMMM/YY'), value: response[key].attendances})
+            parsedData[1].series.push({name: date.format('MMMM/YY'), value: response[key].absences})
+            parsedData[2].series.push({name: date.format('MMMM/YY'), value: response[key].cancellations})
         });
     return parsedData;
 }
