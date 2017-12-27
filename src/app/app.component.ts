@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
             .debounceTime(200);
 
         resizeEvent.subscribe(data => {
-            if (data > 1360) {
+            if (data > 1600) {
                 this.displayType = 'desktop';
                 this.sideNav.mode = 'side';
                 this.sideNav.toggle(true);
