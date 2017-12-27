@@ -1,32 +1,32 @@
 <mat-card class="container">
     <mat-card-title>Lista de Agendamentos</mat-card-title>
-    <div class="app-actions" fxLayout="column">
-        <div fxLayoutAlign="end center">
-            <form [formGroup]="filterForm" (submit)="filter()">
-                <mat-input-container>
-                    <input placeholder="Data Inicio" matInput [matDatepicker]="startDatePicker" formControlName="startDate">
-                    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #startDatePicker></mat-datepicker>
-                </mat-input-container>
-                <mat-input-container>
-                    <input placeholder="Data Fim" matInput [matDatepicker]="endDatePicker" formControlName="endDate">
-                    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-                    <mat-datepicker #endDatePicker></mat-datepicker>
-                </mat-input-container>
-                <mat-input-container>
-                    <mat-select placeholder="Status" formControlName="status">
-                        <mat-option> - </mat-option>
-                        <mat-option [value]="'0'">Agendado</mat-option>
-                        <mat-option [value]="'1'">Compareceu</mat-option>
-                        <mat-option [value]="'2'">Faltou</mat-option>
-                        <mat-option [value]="'3'">Cancelou</mat-option>
-                    </mat-select>
-                </mat-input-container>
-                <button mat-button>
-                    <mat-icon>search</mat-icon>
-                </button>
-            </form>
-        </div>
+    <div class="app-actions">
+        <form [formGroup]="filterForm" (submit)="filter()" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutAlign.gt-md="end center"
+            fxLayoutAlign.lt-md="start stretch">
+            <mat-input-container fxLayout.lt-md="column" fxLayout.gt-md="row">
+                <input placeholder="Data Inicio" matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+            </mat-input-container>
+            <mat-input-container fxLayout.lt-md="column">
+                <input placeholder="Data Fim" matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #endDatePicker></mat-datepicker>
+            </mat-input-container>
+            <mat-input-container fxLayout.lt-md="column">
+                <mat-select placeholder="Status" formControlName="status">
+                    <mat-option> - </mat-option>
+                    <mat-option [value]="'0'">Agendado</mat-option>
+                    <mat-option [value]="'1'">Compareceu</mat-option>
+                    <mat-option [value]="'2'">Faltou</mat-option>
+                    <mat-option [value]="'3'">Cancelou</mat-option>
+                </mat-select>
+            </mat-input-container>
+            <button mat-button fxLayout.lt-md="column" fxLayoutAlign="center center">
+                <mat-icon>search</mat-icon>
+            </button>
+
+        </form>
         <div fxLayoutAlign="end center" fxLayoutGap="10px" *ngIf="selection.selected.length > 0">
             <button type="button" mat-raised-button class="attended" (click)="setScheduleStatus(1)" [appBtnLoader]="isUpdating">
                 <span *ngIf="!isUpdating">Compareceu</span>
