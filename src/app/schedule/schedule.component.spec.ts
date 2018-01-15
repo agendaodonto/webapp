@@ -1,8 +1,10 @@
+import * as moment from 'moment';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub, RouterLinkStubDirective, RouterStub } from 'app/shared/testing/stubs/router.stub';
+import { CalendarModule, MOMENT } from 'angular-calendar';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
-import { CalendarModule } from 'angular-calendar';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { ScheduleComponent } from './schedule.component';
 import { ScheduleService } from './schedule.service';
@@ -22,6 +24,7 @@ describe('ScheduleComponent', () => {
                 { provide: ScheduleService, useClass: ScheduleServiceStub },
                 { provide: Router, useClass: RouterStub },
                 { provide: ActivatedRoute, useValue: route },
+                { provide: MOMENT, useValue: moment}
             ]
         }).compileComponents();
 

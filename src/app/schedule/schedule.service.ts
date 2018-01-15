@@ -1,11 +1,11 @@
-import { BaseFilter, BaseService } from '../shared/services/base.service';
-
 import { AuthHttp, IPagedResponse } from '../shared/auth_http';
+import { BaseFilter, BaseService } from '../shared/services/base.service';
+import { RequestOptions, URLSearchParams } from '@angular/http';
+
 import { IDentist } from '../shared/services/dentist.service';
 import { IPatient } from '../patient/patient.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { RequestOptions, URLSearchParams } from '@angular/http';
 import { format } from 'date-fns';
 
 @Injectable()
