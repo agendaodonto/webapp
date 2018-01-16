@@ -4,7 +4,12 @@ if [[ ${TRAVIS_TEST_RESULT=0} == 1 ]]; then
   exit 1;
 fi
 
-if [[ ! -z $TRAVIS_TAG ]]; then
+if [[ $TRAVIS_PULL_REQUEST == "false" ]]; then
+  echo "Skipping pull request"
+  exit 0;
+fi
+
+if [[ $TRAVIS_BRANCH == "master" ]]; then
   echo "Deploying to Production"
   ng build --env=prod --prod
   firebase use --token $FIREBASE_TOKEN agendaodonto-29023
