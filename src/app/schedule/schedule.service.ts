@@ -16,30 +16,30 @@ export class ScheduleService extends BaseService implements IScheduleService {
     }
 
     get(scheduleId: number): Observable<ISchedule> {
-        return this.http.get(this.url(['schedules', scheduleId])).map(data => data.json());
+        return this.http.get<ISchedule>(this.url(['schedules', scheduleId]));
     }
 
     getAll(scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<ISchedule>> {
         const filter = scheduleFilter ? scheduleFilter : new ScheduleFilter();
-        return this.http.get(this.url(['schedules']), filter.getFilter()).map(data => data.json());
+        return this.http.get<IPagedResponse<ISchedule>>(this.url(['schedules']), filter.getFilter());
     }
 
     create(schedule: ISchedule): Observable<any> {
         const tmpSchedule: any = schedule;
         tmpSchedule.dentist = schedule.dentist.id;
         tmpSchedule.patient = schedule.patient.id;
-        return this.http.post(this.url(['schedules']), JSON.stringify(tmpSchedule)).map(d => d.json());
+        return this.http.post<ISchedule>(this.url(['schedules']), JSON.stringify(tmpSchedule));
     }
 
     update(schedule: ISchedule): Observable<any> {
         const tmpSchedule: any = schedule;
         tmpSchedule.dentist = schedule.dentist.id;
         tmpSchedule.patient = schedule.patient.id;
-        return this.http.put(this.url(['schedules', schedule.id]), JSON.stringify(tmpSchedule)).map(d => d.json());
+        return this.http.put<ISchedule>(this.url(['schedules', schedule.id]), JSON.stringify(tmpSchedule));
     }
 
     remove(schedule: ISchedule): Observable<any> {
-        return this.http.remove(this.url(['schedules', schedule.id])).map(d => d.json());
+        return this.http.remove(this.url(['schedules', schedule.id]));
     }
 
     save(schedule: ISchedule): Observable<any> {
@@ -55,7 +55,7 @@ export class ScheduleService extends BaseService implements IScheduleService {
         const params = new URLSearchParams()
         params.set('date', format(referenceDate, 'YYYY-MM-DD'))
         requestOptions.params = params;
-        return this.http.get(this.url(['schedules', 'attendance'])).map(d => d.json());
+        return this.http.get(this.url(['schedules', 'attendance']));
     }
 
 }

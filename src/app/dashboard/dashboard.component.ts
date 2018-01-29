@@ -42,6 +42,9 @@ export class DashboardComponent implements OnInit {
     }
 
     calculatePercentage(n1: number, n2: number) {
+        if (n2 === 0) {
+            return 0;
+        }
         return Math.round(((n1 / n2) - 1) * 100)
     }
 

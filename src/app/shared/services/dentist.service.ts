@@ -19,28 +19,28 @@ export class DentistService extends BaseService implements IDentistService {
 
     get(cro: string): Observable<IDentist[]> {
         return this.http.get(this.url(['dentists']) + '?cro=' + cro)
-            .map(data => data.json().results);
+            .map((data: any) => data.results);
     }
 
     create(dentist: IDentist): Observable<IDentist[]> {
-        return this.http.post(BaseService.API_AUTH_URL + 'register/', JSON.stringify(dentist)).map(data => data.json());
+        return this.http.post(BaseService.API_AUTH_URL + 'register/', JSON.stringify(dentist));
     }
 
     activate(uid, token): Observable<any> {
         const body = { uid: uid, token: token };
-        return this.http.post(BaseService.API_AUTH_URL + 'activate/', JSON.stringify(body)).map(data => data.json());
+        return this.http.post(BaseService.API_AUTH_URL + 'activate/', JSON.stringify(body));
     }
 
     getStates(): Observable<any> {
-        return this.http.options(BaseService.API_AUTH_URL + 'register/').map(data => data.json().actions.POST.cro_state.choices)
+        return this.http.options(BaseService.API_AUTH_URL + 'register/').map((data: any) => data.actions.POST.cro_state.choices)
     }
 
     me(): Observable<IDentist> {
-        return this.http.get(this.url(['dentists', 'me'])).map(data => data.json())
+        return this.http.get(this.url(['dentists', 'me']))
     }
 
     update(dentist: IDentist): Observable<IDentist> {
-        return this.http.put(this.url(['dentists', 'me']), JSON.stringify(dentist)).map(data => data.json())
+        return this.http.put(this.url(['dentists', 'me']), JSON.stringify(dentist))
     }
 }
 

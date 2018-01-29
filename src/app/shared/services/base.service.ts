@@ -1,6 +1,5 @@
-import { RequestOptions, URLSearchParams } from '@angular/http';
-
 import { environment } from '../../../environments/environment';
+import { HttpParams } from '@angular/common/http';
 
 export abstract class BaseService {
     static BASE_URL = environment.api;
@@ -45,16 +44,14 @@ export abstract class BaseFilter {
         this.fields[filterIndex].value = value;
     }
 
-    getFilter(): RequestOptions {
-        const params = new URLSearchParams();
+    getFilter(): { params: HttpParams } {
+        let params = new HttpParams();
         this.fields.forEach(field => {
-            if (field.value !== null) {
-                params.set(field.mapsTo, field.value);
+            if (field.value !== null && field.value !== undefined) {
+                params = params.set(field.mapsTo, field.value);
             }
         });
-        const options = new RequestOptions();
-        options.params = params;
-        return options;
+        return { params: params };
     }
 
     reset() {

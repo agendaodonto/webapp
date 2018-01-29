@@ -10,7 +10,6 @@ import { ScheduleModule, scheduleRoutes } from './schedule/schedule.module';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { MaterialAppModule } from './shared/material.app.module';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { RegisterModule } from './register/register.module';
@@ -21,6 +20,7 @@ import localePt from '@angular/common/locales/pt';
 import localePtExtras from '@angular/common/locales/extra/pt';
 // import { MatNativeDateModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { HttpClientModule } from '@angular/common/http';
 
 registerLocaleData(localePt, localePtExtras);
 
@@ -42,10 +42,10 @@ export const routes: Routes = [
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule,
         RouterModule.forRoot(routes),
         MaterialAppModule,
         MatMomentDateModule,
+        HttpClientModule,
         // App Modules
         DashboardModule,
         RegisterModule,

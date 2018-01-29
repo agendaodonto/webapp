@@ -1,48 +1,48 @@
-import { Headers, Http, RequestOptions, Response } from '@angular/http';
-
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import {} from '@angular/http'
 
 @Injectable()
 export class AuthHttp implements IAuthHttp {
 
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
 
     }
 
-    private getHeaders(): RequestOptions {
+    private getHeaders(): { headers: HttpHeaders } {
         const token = localStorage.getItem('auth_token');
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'application/json');
         if (token) {
-            headers.append('Authorization', 'Token ' + token);
+            headers = headers.append('Authorization', 'Token ' + token);
         }
-        return new RequestOptions({ headers: headers });
+        return { headers: headers };
     }
 
-    get(url: string, options?: RequestOptions): Observable<Response> {
+    get<T>(url: string, options?: IOptions): Observable<T> {
         console.log('Getting: ' + url);
-        return this.http.get(url, this.getHeaders().merge(options));
+        return this.http.get<T>(url, Object.assign(this.getHeaders(), options));
     }
 
-    post(url: string, body: any): Observable<Response> {
+    post<T>(url: string, body: any): Observable<T> {
         console.log('Posting: ' + url);
-        return this.http.post(url, body, this.getHeaders());
+        return this.http.post<T>(url, body, this.getHeaders());
     }
 
-    put(url: string, body: any): Observable<Response> {
+    put<T>(url: string, body: any): Observable<T> {
         console.log('Putting: ' + url);
-        return this.http.put(url, body, this.getHeaders());
+        return this.http.put<T>(url, body, this.getHeaders());
     }
 
-    remove(url: string): Observable<Response> {
+    remove<T>(url: string): Observable<T> {
         console.log('Removing: ' + url);
-        return this.http.delete(url, this.getHeaders());
+        return this.http.delete<T>(url, this.getHeaders());
     }
 
-    options(url): Observable<Response> {
+    options<T>(url): Observable<T> {
         console.log('Options', url);
-        return this.http.options(url);
+        return this.http.options<T>(url);
     }
 
 }
@@ -51,33 +51,38 @@ export class AuthHttp implements IAuthHttp {
 export class AuthHttpStub implements IAuthHttp {
 
 
-    public get(_url: string, _options: RequestOptions) {
+    public get(_url: string, _options): Observable<Object> {
         throw new Error('Not implemented yet.');
     }
 
-    public post(_url: string, _body: any): Observable<Response> {
+    public post(_url: string, _body: any): Observable<Object> {
         throw new Error('Not implemented yet.');
     }
 
-    public put(_url: string, _body: any): Observable<Response> {
+    public put(_url: string, _body: any): Observable<Object> {
         throw new Error('Not implemented yet.');
     }
 
-    public remove(_url: string): Observable<Response> {
+    public remove(_url: string): Observable<Object> {
         throw new Error('Not implemented yet.');
     }
 
-    public options(_url: string): Observable<Response> {
+    public options(_url: string): Observable<Object> {
         throw new Error('Not implemented yet.');
     }
 }
 
 interface IAuthHttp {
-    get(url: string, options?: RequestOptions);
-    post(url: string, body: any): Observable<Response>;
-    put(url: string, body: any): Observable<Response>;
-    remove(url: string): Observable<Response>;
-    options(url: string): Observable<Response>;
+    get(url: string, options?: IOptions): Observable<Object>;
+    post(url: string, body: any): Observable<Object>;
+    put(url: string, body: any): Observable<Object>;
+    remove(url: string): Observable<Object>;
+    options(url: string): Observable<Object>;
+}
+
+interface IOptions {
+    headers?: HttpHeaders,
+    params?: HttpParams
 }
 
 export interface IPagedResponse<T> {
