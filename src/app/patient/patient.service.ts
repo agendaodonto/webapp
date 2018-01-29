@@ -1,6 +1,5 @@
 import { AuthHttp, IPagedResponse } from '../shared/auth_http';
 import { BaseFilter, BaseService } from '../shared/services/base.service';
-import { RequestOptions, URLSearchParams } from '@angular/http';
 
 import { IClinic } from '../clinic/clinic.service';
 import { ISchedule } from '../schedule/schedule.service';
@@ -15,29 +14,29 @@ export class PatientService extends BaseService implements IPatientService {
         super();
     }
 
-    getAll(patientFilter?: PatientFilter): Observable<{ count: number, results: IPatient[] }> {
+    getAll(patientFilter?: PatientFilter): Observable<IPagedResponse<IPatient>> {
         const filter = patientFilter ? patientFilter.getFilter() : new PatientFilter().getFilter();
-        return this.http.get(this.url(['patients']), filter).map(data => data.json());
+        return this.http.get<IPagedResponse<IPatient>>(this.url(['patients']), filter);
     }
 
     get(patientId: number): Observable<IPatient> {
-        return this.http.get(this.url(['patients', patientId])).map(response => response.json());
+        return this.http.get<IPatient>(this.url(['patients', patientId]));
     }
 
     create(patient: IPatient) {
         const data: any = patient;
         data.clinic = patient.clinic.id;
-        return this.http.post(this.url(['patients']), JSON.stringify(data)).map(response => response.json());
+        return this.http.post<IPatient>(this.url(['patients']), JSON.stringify(data));
     }
 
     update(patient: IPatient) {
         const data: any = patient;
         data.clinic = patient.clinic.id;
-        return this.http.put(this.url(['patients', patient.id]), JSON.stringify(data)).map(response => response.json());
+        return this.http.put<IPatient>(this.url(['patients', patient.id]), JSON.stringify(data));
     }
 
     remove(patient: IPatient) {
-        return this.http.remove(this.url(['patients', patient.id])).map(response => response.json());
+        return this.http.remove(this.url(['patients', patient.id]));
     }
 
     save(patient: IPatient): Observable<IPatient> {
@@ -49,16 +48,14 @@ export class PatientService extends BaseService implements IPatientService {
     }
 
     count() {
-        const params = new URLSearchParams();
-        params.set('limit', '1');
-        const options = new RequestOptions();
-        options.params = params;
-        return this.http.get(this.url(['patients']), options).map(data => data.json().count);
+        const filter = new PatientFilter()
+        filter.setFilterValue('pageSize', '1');
+        return this.http.get(this.url(['patients']), filter.getFilter()).map((data: any) => data.count);
     }
 
     getSchedules(patientId: number, scheduleFilter?: ScheduleFilter): Observable<{ count: number, results: ISchedule[] }> {
         const filter = scheduleFilter ? scheduleFilter.getFilter() : new ScheduleFilter().getFilter()
-        return this.http.get(this.url(['patients', patientId, 'schedules']), filter).map(data => data.json());
+        return this.http.get(this.url(['patients', patientId, 'schedules']), filter);
     }
 }
 

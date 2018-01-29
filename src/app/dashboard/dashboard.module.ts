@@ -4,7 +4,6 @@ import { DashboardComponent } from 'app/dashboard/dashboard.component';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { MaterialAppModule } from 'app/shared/material.app.module';
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
@@ -25,7 +24,6 @@ export const dashboardRoutes: Routes = [
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule,
         MaterialAppModule,
         FlexLayoutModule,
         DirectivesModule,
