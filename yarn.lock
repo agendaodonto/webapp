@@ -7578,9 +7578,9 @@ try-require@^1.0.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/try-require/-/try-require-1.2.1.tgz#34489a2cac0c09c1cc10ed91ba011594d4333be2"
 
-ts-md5@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/ts-md5/-/ts-md5-1.2.2.tgz#d176bcb9daca485a0fd29e6092bd4f6d658cf727"
+ts-md5@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/ts-md5/-/ts-md5-1.2.4.tgz#7030d7ba9134449deedf6f609d4b4509b94a5712"
 
 ts-node@~3.3.0:
   version "3.3.0"
