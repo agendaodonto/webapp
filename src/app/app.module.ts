@@ -22,6 +22,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'app/shared/interceptors/token.interceptor';
+import { ErrorInterceptor } from 'app/shared/interceptors/error.interceptor';
 import { TokenService } from 'app/shared/services/token.service';
 
 registerLocaleData(localePt, localePtExtras);
@@ -61,7 +62,8 @@ export const routes: Routes = [
     providers: [
         TokenService,
         { provide: LOCALE_ID, useValue: 'pt-BR' },
-        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     ],
     bootstrap: [AppComponent]
 })
