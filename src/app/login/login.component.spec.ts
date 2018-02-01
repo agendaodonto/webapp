@@ -8,6 +8,7 @@ import { MaterialAppModule } from '../shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TokenService } from 'app/shared/services/token.service';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
@@ -18,6 +19,7 @@ describe('LoginComponent', () => {
             declarations: [LoginComponent, RouterLinkStubDirective],
             imports: [MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule, DirectivesModule],
             providers: [
+                TokenService,
                 { provide: LoginService, useClass: LoginServiceStub },
                 { provide: Router, useClass: RouterStub },
             ]
