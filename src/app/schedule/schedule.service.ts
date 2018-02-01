@@ -1,4 +1,4 @@
-import { AuthHttp, IPagedResponse } from '../shared/auth_http';
+import { IPagedResponse } from 'app/shared/interceptors/responses';
 import { BaseFilter, BaseService } from '../shared/services/base.service';
 import { RequestOptions, URLSearchParams } from '@angular/http';
 
@@ -7,11 +7,12 @@ import { IPatient } from '../patient/patient.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { format } from 'date-fns';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ScheduleService extends BaseService implements IScheduleService {
 
-    constructor(private http: AuthHttp) {
+    constructor(private http: HttpClient) {
         super();
     }
 
@@ -39,7 +40,7 @@ export class ScheduleService extends BaseService implements IScheduleService {
     }
 
     remove(schedule: ISchedule): Observable<any> {
-        return this.http.remove(this.url(['schedules', schedule.id]));
+        return this.http.delete(this.url(['schedules', schedule.id]));
     }
 
     save(schedule: ISchedule): Observable<any> {
@@ -55,7 +56,7 @@ export class ScheduleService extends BaseService implements IScheduleService {
         const params = new URLSearchParams()
         params.set('date', format(referenceDate, 'YYYY-MM-DD'))
         requestOptions.params = params;
-        return this.http.get(this.url(['schedules', 'attendance']));
+        return this.http.get<IAttendanceData>(this.url(['schedules', 'attendance']));
     }
 
 }

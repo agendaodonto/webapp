@@ -1,4 +1,3 @@
-import { AuthHttp, AuthHttpStub } from 'app/shared/auth_http';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { LoginService } from './login.service';
@@ -9,7 +8,6 @@ describe('LoginService', () => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [
-                { provide: AuthHttp, useClass: AuthHttpStub },
                 LoginService
             ]
 

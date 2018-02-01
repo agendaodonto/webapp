@@ -1,7 +1,7 @@
 import { IPatientService, IPatient } from 'app/patient/patient.service';
 import { Observable } from 'rxjs/Observable';
 import { ScheduleFilter, ISchedule } from 'app/schedule/schedule.service';
-import { IPagedResponse } from 'app/shared/auth_http';
+import { IPagedResponse } from 'app/shared/interceptors/responses';
 import { PatientDatabase } from 'app/shared/testing/databases/patient.database';
 import { ScheduleDatabase } from 'app/shared/testing/databases/schedule.database';
 

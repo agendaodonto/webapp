@@ -1,4 +1,3 @@
-import { AuthHttp } from '../shared/auth_http';
 import { BaseService } from 'app/shared/services/base.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -7,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class LoginService extends BaseService implements ILoginService {
 
-    constructor(private http: HttpClient, private authHttp: AuthHttp) {
+    constructor(private http: HttpClient) {
         super();
     }
 
@@ -23,16 +22,12 @@ export class LoginService extends BaseService implements ILoginService {
         localStorage.removeItem('user_info');
     }
 
-    setToken(token: string) {
-        localStorage.setItem('auth_token', token);
-    }
-
     isLogged(): boolean {
         return !!localStorage.getItem('auth_token');
     }
 
     getUserInfo() {
-        this.authHttp.get(BaseService.API_AUTH_URL + 'me/').subscribe(
+        this.http.get(BaseService.API_AUTH_URL + 'me/').subscribe(
             response => {
                 localStorage.setItem('user_info', JSON.stringify(response));
                 return JSON.parse(localStorage.getItem('user_info'));
@@ -49,10 +44,6 @@ export class LoginService extends BaseService implements ILoginService {
 export class LoginServiceStub implements ILoginService {
     authenticate(_formData: { email: string; password: string; }): Observable<any> {
         return Observable.of([{ auth_token: 'TEST_TOKEN' }]);
-    }
-
-    setToken(token: string) {
-        localStorage.setItem('auth_token', token);
     }
 
     isLogged(): boolean {
@@ -82,7 +73,6 @@ export class LoginServiceStub implements ILoginService {
 
 interface ILoginService {
     authenticate(formData: { email: string, password: string }): Observable<any>;
-    setToken(token: string);
     isLogged(): boolean;
     getUserInfo();
 }

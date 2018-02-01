@@ -1,9 +1,10 @@
 import { BaseFilter, BaseService } from '../shared/services/base.service';
 
-import { AuthHttp, IPagedResponse } from '../shared/auth_http';
 import { IDentist } from 'app/shared/services/dentist.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { IPagedResponse } from 'app/shared/interceptors/responses';
 
 export interface IClinicService {
     getAll(clinicFilter?: ClinicFilter): Observable<{ results: IClinic[] }>;
@@ -17,7 +18,7 @@ export interface IClinicService {
 @Injectable()
 export class ClinicService extends BaseService implements IClinicService {
 
-    constructor(private http: AuthHttp) {
+    constructor(private http: HttpClient) {
         super();
     }
 
@@ -43,7 +44,7 @@ export class ClinicService extends BaseService implements IClinicService {
     }
 
     remove(clinic: IClinic) {
-        return this.http.remove(this.url(['clinics', clinic.id]));
+        return this.http.delete(this.url(['clinics', clinic.id]));
     }
 
     save(clinic: IClinic) {

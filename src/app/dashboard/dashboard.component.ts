@@ -3,7 +3,7 @@ import { ScheduleService, ISchedule, ScheduleFilter } from 'app/schedule/schedul
 import { Observable } from 'rxjs/Observable';
 import { IPatient, PatientFilter, PatientService } from 'app/patient/patient.service';
 import { startOfMonth, endOfMonth, format, subMonths } from 'date-fns';
-import { IPagedResponse } from 'app/shared/auth_http';
+import { IPagedResponse } from 'app/shared/interceptors/responses';
 import * as d3 from 'd3';
 import { parseAttendanceData } from 'app/dashboard/dashboard.utils';
 import { Router, NavigationExtras } from '@angular/router';

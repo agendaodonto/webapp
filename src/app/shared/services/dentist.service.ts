@@ -1,7 +1,7 @@
-import { AuthHttp } from '../auth_http';
 import { BaseService } from './base.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 export interface IDentistService {
     get(cro: string): Observable<IDentist[]>;
@@ -13,7 +13,7 @@ export interface IDentistService {
 
 @Injectable()
 export class DentistService extends BaseService implements IDentistService {
-    constructor(private http: AuthHttp) {
+    constructor(private http: HttpClient) {
         super();
     }
 
@@ -23,7 +23,7 @@ export class DentistService extends BaseService implements IDentistService {
     }
 
     create(dentist: IDentist): Observable<IDentist[]> {
-        return this.http.post(BaseService.API_AUTH_URL + 'register/', JSON.stringify(dentist));
+        return this.http.post<IDentist[]>(BaseService.API_AUTH_URL + 'register/', JSON.stringify(dentist));
     }
 
     activate(uid, token): Observable<any> {
@@ -36,11 +36,11 @@ export class DentistService extends BaseService implements IDentistService {
     }
 
     me(): Observable<IDentist> {
-        return this.http.get(this.url(['dentists', 'me']))
+        return this.http.get<IDentist>(this.url(['dentists', 'me']))
     }
 
     update(dentist: IDentist): Observable<IDentist> {
-        return this.http.put(this.url(['dentists', 'me']), JSON.stringify(dentist))
+        return this.http.put<IDentist>(this.url(['dentists', 'me']), JSON.stringify(dentist))
     }
 }
 

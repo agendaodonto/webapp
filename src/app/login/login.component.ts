@@ -3,6 +3,7 @@ import { LoginService } from './login.service';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomFB, CustomFG } from '../shared/validation';
+import { TokenService } from 'app/shared/services/token.service';
 
 @Component({
     selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent {
     loginForm: CustomFG;
     errors: Array<string> = [];
 
-    constructor(private loginService: LoginService, private router: Router) {
+    constructor(private loginService: LoginService, private router: Router, private tokenService: TokenService) {
         this.loginForm = new CustomFB().group({
             email: ['', Validators.required],
             password: ['', Validators.required]
@@ -27,7 +28,7 @@ export class LoginComponent {
             .finally(() => this.isLoading = false)
             .subscribe(
             response => {
-                this.loginService.setToken(response.auth_token);
+                this.tokenService.setToken(response.auth_token);
                 this.loginService.getUserInfo();
                 this.router.navigate(['/dashboard']);
             },

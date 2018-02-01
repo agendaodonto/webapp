@@ -1,16 +1,16 @@
-import { AuthHttp, IPagedResponse } from '../shared/auth_http';
+import { IPagedResponse } from 'app/shared/interceptors/responses';
 import { BaseFilter, BaseService } from '../shared/services/base.service';
-
 import { IClinic } from '../clinic/clinic.service';
 import { ISchedule } from '../schedule/schedule.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ScheduleFilter } from 'app/schedule/schedule.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class PatientService extends BaseService implements IPatientService {
 
-    constructor(private http: AuthHttp) {
+    constructor(private http: HttpClient) {
         super();
     }
 
@@ -36,7 +36,7 @@ export class PatientService extends BaseService implements IPatientService {
     }
 
     remove(patient: IPatient) {
-        return this.http.remove(this.url(['patients', patient.id]));
+        return this.http.delete(this.url(['patients', patient.id]));
     }
 
     save(patient: IPatient): Observable<IPatient> {
@@ -53,9 +53,9 @@ export class PatientService extends BaseService implements IPatientService {
         return this.http.get(this.url(['patients']), filter.getFilter()).map((data: any) => data.count);
     }
 
-    getSchedules(patientId: number, scheduleFilter?: ScheduleFilter): Observable<{ count: number, results: ISchedule[] }> {
+    getSchedules(patientId: number, scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<ISchedule>> {
         const filter = scheduleFilter ? scheduleFilter.getFilter() : new ScheduleFilter().getFilter()
-        return this.http.get(this.url(['patients', patientId, 'schedules']), filter);
+        return this.http.get<IPagedResponse<ISchedule>>(this.url(['patients', patientId, 'schedules']), filter);
     }
 }
 

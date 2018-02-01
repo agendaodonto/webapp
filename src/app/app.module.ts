@@ -14,13 +14,15 @@ import { MaterialAppModule } from './shared/material.app.module';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { RegisterModule } from './register/register.module';
 import { registerRoutes } from 'app/register/register.module';
-import { AuthHttp } from 'app/shared/auth_http';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import localePtExtras from '@angular/common/locales/extra/pt';
 // import { MatNativeDateModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from 'app/shared/interceptors/token.interceptor';
+import { TokenService } from 'app/shared/services/token.service';
 
 registerLocaleData(localePt, localePtExtras);
 
@@ -57,8 +59,9 @@ export const routes: Routes = [
         AccountModule,
     ],
     providers: [
-        AuthHttp,
+        TokenService,
         { provide: LOCALE_ID, useValue: 'pt-BR' },
+        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })
