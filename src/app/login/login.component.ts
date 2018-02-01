@@ -32,12 +32,11 @@ export class LoginComponent {
                 this.loginService.getUserInfo();
                 this.router.navigate(['/dashboard']);
             },
-            err => {
-                const errors = err.json();
+            errors => {
                 if (errors.hasOwnProperty('non_field_errors')) {
                     this.errors = errors.non_field_errors;
                 }
-                this.loginForm.pushFieldErrors(errors);
+                this.loginForm.pushFieldErrors(errors.error);
 
             }
             );

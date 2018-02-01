@@ -94,7 +94,7 @@ export class ClinicDetailComponent implements OnInit {
             },
             errors => {
                 this.snackBar.open('Não foi possível salvar.', '', { duration: 2000 });
-                this.clinicForm.pushFieldErrors(errors.json());
+                this.clinicForm.pushFieldErrors(errors.error);
             });
     }
 

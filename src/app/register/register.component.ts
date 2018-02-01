@@ -56,8 +56,7 @@ export class RegisterComponent implements OnInit {
                 this.snackBar.open('Conta criada com sucesso. Verifique o seu email !')
             },
             errors => {
-                errors = errors.json();
-                this.registerForm.pushFieldErrors(errors);
+                this.registerForm.pushFieldErrors(errors.error);
                 if (errors.hasOwnProperty('non_field_errors')) {
                     this.errors = errors.non_field_errors;
                 }

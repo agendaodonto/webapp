@@ -106,7 +106,7 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
             },
             errors => {
                 this.snackBar.open('Não foi possível salvar.', '', { duration: 2000 });
-                this.patientForm.pushFieldErrors(errors.json());
+                this.patientForm.pushFieldErrors(errors.error);
             });
     }
 
