@@ -3,7 +3,7 @@ import { CustomFB, CustomFG } from '../shared/validation';
 
 import { DentistService } from '../shared/services/dentist.service';
 import { MatSnackBar } from '@angular/material';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Validators } from '@angular/forms';
 
 @Component({

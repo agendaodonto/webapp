@@ -37,4 +37,9 @@ describe('DashboardComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should display the percentage as zero when there is no data from previous month',  () => {
+        expect(component.calculatePercentage(0, 1)).toBe(-100);
+        expect(component.calculatePercentage(1, 0)).toBe(0);
+    });
 });

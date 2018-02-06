@@ -1,11 +1,10 @@
-import 'rxjs/add/operator/map';
-
 import { BaseFilter, BaseService } from '../shared/services/base.service';
 
-import { AuthHttp, IPagedResponse } from '../shared/auth_http';
 import { IDentist } from 'app/shared/services/dentist.service';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { IPagedResponse } from 'app/shared/interceptors/responses';
 
 export interface IClinicService {
     getAll(clinicFilter?: ClinicFilter): Observable<{ results: IClinic[] }>;
@@ -19,33 +18,33 @@ export interface IClinicService {
 @Injectable()
 export class ClinicService extends BaseService implements IClinicService {
 
-    constructor(private http: AuthHttp) {
+    constructor(private http: HttpClient) {
         super();
     }
 
     getAll(clinicFilter?: ClinicFilter): Observable<IPagedResponse<IClinic>> {
         const filter = clinicFilter ? clinicFilter : new ClinicFilter();
-        return this.http.get(this.url(['clinics']), filter.getFilter()).map(response => response.json());
+        return this.http.get<IPagedResponse<IClinic>>(this.url(['clinics']), filter.getFilter());
     }
 
     get(clinicId: number): Observable<IClinic> {
-        return this.http.get(this.url(['clinics', clinicId])).map(response => response.json());
+        return this.http.get<IClinic>(this.url(['clinics', clinicId]));
     }
 
     create(clinic: IClinic) {
         const data: any = clinic;
         data.dentists = data.dentists.map(dentist => dentist.id);
-        return this.http.post(this.url(['clinics']), JSON.stringify(data)).map(response => response.json());
+        return this.http.post<IClinic>(this.url(['clinics']), JSON.stringify(data));
     }
 
     update(clinic: IClinic) {
         const data: any = clinic;
         data.dentists = data.dentists.map(dentist => dentist.id);
-        return this.http.put(this.url(['clinics', clinic.id]), JSON.stringify(data)).map(response => response.json());
+        return this.http.put<IClinic>(this.url(['clinics', clinic.id]), JSON.stringify(data));
     }
 
     remove(clinic: IClinic) {
-        return this.http.remove(this.url(['clinics', clinic.id])).map(response => response.json());
+        return this.http.delete(this.url(['clinics', clinic.id]));
     }
 
     save(clinic: IClinic) {

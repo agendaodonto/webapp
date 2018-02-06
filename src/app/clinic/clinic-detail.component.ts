@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/debounceTime';
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
@@ -96,7 +94,7 @@ export class ClinicDetailComponent implements OnInit {
             },
             errors => {
                 this.snackBar.open('Não foi possível salvar.', '', { duration: 2000 });
-                this.clinicForm.pushFieldErrors(errors.json());
+                this.clinicForm.pushFieldErrors(errors.error);
             });
     }
 

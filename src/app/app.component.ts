@@ -5,6 +5,7 @@ import { MatSidenav } from '@angular/material';
 import { Md5 } from 'ts-md5/dist/md5';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import './shared/rxjs.operators';
 
 interface IMenu {
     name: string;
@@ -53,7 +54,7 @@ export class AppComponent implements OnInit {
             .debounceTime(200);
 
         resizeEvent.subscribe(data => {
-            if (data > 1360) {
+            if (data > 1600) {
                 this.displayType = 'desktop';
                 this.sideNav.mode = 'side';
                 this.sideNav.toggle(true);

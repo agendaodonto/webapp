@@ -4,22 +4,21 @@
         <div fxLayoutAlign="end center">
             <a mat-raised-button color="accent" [routerLink]="['/pacientes/criar']">Novo</a>
         </div>
-        <div fxLayoutAlign="end center">
-            <form [formGroup]="filterForm" (submit)="filter()">
-                <mat-input-container>
-                    <mat-select placeholder="Filtro" formControlName="field">
-                        <mat-option [value]="'fullName'">Nome</mat-option>
-                        <mat-option [value]="'phone'">Telefone</mat-option>
-                    </mat-select>
-                </mat-input-container>
-                <mat-input-container>
-                    <input matInput placeholder="Pesquisar" formControlName="value">
-                </mat-input-container>
-                <button mat-button>
+        <form [formGroup]="filterForm" (submit)="filter()" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutAlign.gt-md="end center"
+            fxLayoutAlign.lt-md="start stretch">
+            <mat-input-container>
+                <mat-select placeholder="Filtro" formControlName="field">
+                    <mat-option [value]="'fullName'">Nome</mat-option>
+                    <mat-option [value]="'phone'">Telefone</mat-option>
+                </mat-select>
+            </mat-input-container>
+            <mat-input-container>
+                <input matInput placeholder="Pesquisar" formControlName="value">
+                <button mat-button mat-icon-button matSuffix>
                     <mat-icon>search</mat-icon>
                 </button>
-            </form>
-        </div>
+            </mat-input-container>
+        </form>
     </div>
     <div fxLayout="column">
         <mat-progress-bar [mode]="'query'" *ngIf="isLoading"></mat-progress-bar>

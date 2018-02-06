@@ -4,9 +4,9 @@ if [[ ${TRAVIS_TEST_RESULT=0} == 1 ]]; then
   exit 1;
 fi
 
-if [[ ! -z $TRAVIS_TAG ]]; then
+if [[ $TRAVIS_BRANCH == "master" ]]; then
   echo "Deploying to Production"
-  ng build --aot --env=prod
+  ng build --env=prod --prod
   firebase use --token $FIREBASE_TOKEN agendaodonto-29023
   firebase deploy --non-interactive --token $FIREBASE_TOKEN
 else
@@ -15,7 +15,7 @@ fi
 
 if [[ $TRAVIS_BRANCH == "develop" ]]; then
   echo "Deploying to Staging"
-  ng build --aot -env=staging
+  ng build -env=staging --prod
   firebase use --token $FIREBASE_TOKEN agendaodontoweb-staging
   firebase deploy --non-interactive --token $FIREBASE_TOKEN
 else

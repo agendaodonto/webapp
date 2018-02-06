@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ScheduleService, ISchedule, ScheduleFilter } from 'app/schedule/schedule.service';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/finally';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/switchMap';
 import { IPatient, PatientFilter, PatientService } from 'app/patient/patient.service';
 import { startOfMonth, endOfMonth, format, subMonths } from 'date-fns';
-import { IPagedResponse } from 'app/shared/auth_http';
+import { IPagedResponse } from 'app/shared/interceptors/responses';
 import * as d3 from 'd3';
 import { parseAttendanceData } from 'app/dashboard/dashboard.utils';
 import { Router, NavigationExtras } from '@angular/router';
@@ -47,6 +42,9 @@ export class DashboardComponent implements OnInit {
     }
 
     calculatePercentage(n1: number, n2: number) {
+        if (n2 === 0) {
+            return 0;
+        }
         return Math.round(((n1 / n2) - 1) * 100)
     }
 
