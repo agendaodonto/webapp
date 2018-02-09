@@ -11,6 +11,7 @@ import { ScheduleDetailComponent } from './schedule-detail.component';
 import { ScheduleService } from './schedule.service';
 import { PatientServiceStub } from 'app/shared/testing/stubs/patient.stub';
 import { ScheduleServiceStub } from 'app/shared/testing/stubs/schedule.stub';
+import { SharedComponentsModule } from 'app/shared/components/shared-components.module';
 
 describe('ScheduleDetailComponent', () => {
     let component: ScheduleDetailComponent;
@@ -20,7 +21,7 @@ describe('ScheduleDetailComponent', () => {
     beforeEach(async(() => {
         route.testParams = { id: 1 };
         TestBed.configureTestingModule({
-            imports: [MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule, DirectivesModule],
+            imports: [MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule, DirectivesModule, SharedComponentsModule],
             declarations: [ScheduleDetailComponent],
             providers: [
                 { provide: ScheduleService, useClass: ScheduleServiceStub },

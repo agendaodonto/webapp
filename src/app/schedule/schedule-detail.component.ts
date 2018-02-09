@@ -10,7 +10,7 @@ import { MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
 import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
 import { IDentist } from '../shared/services/dentist.service';
 import { Observable } from 'rxjs/Observable';
-import { ScheduleService } from './schedule.service';
+import { ScheduleService, ISchedule } from './schedule.service';
 import { isString } from 'util';
 import { PatientDetailComponent } from 'app/patient/patient-detail.component';
 
@@ -26,6 +26,7 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
     dentists: IDentist[] = [];
     filteredPatients: Observable<{ results: IPatient[] }>;
     scheduleId: number;
+    schedule: ISchedule;
     @ViewChild('continuousMode') continuousMode: MatSlideToggle;
     @ViewChild(FormGroupDirective) scheduleFormDirective: FormGroupDirective;
 
@@ -101,6 +102,7 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
             .finally(() => this.isLoading = false)
             .subscribe(
             schedule => {
+                this.schedule = schedule;
                 this.dentists = schedule.patient.clinic.dentists;
                 this.scheduleForm.setValue({
                     id: schedule.id,

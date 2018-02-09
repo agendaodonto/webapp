@@ -6,13 +6,15 @@ import { addDays, addMinutes, addWeeks, endOfWeek, format, parse, startOfWeek, s
 
 import { ActivatedRoute } from '@angular/router';
 import { EventColor } from 'calendar-utils';
-import { LocalizedCalendarHeader } from 'app/shared/components/providers/localizedheader.provider';
 import { Router } from '@angular/router';
+import { LocalizedCalendarHeader } from 'app/shared/providers/localizedheader.provider';
+import { NotificationStatusComponent } from '../shared/components/notification-status/notification-status.component';
 
 type ViewType = 'week' | 'day';
 
 interface ScheduleEvent extends CalendarEvent {
     id: number;
+    notificationStatusIcon: string;
 }
 
 @Component({
@@ -64,6 +66,7 @@ export class ScheduleComponent implements OnInit {
             .subscribe(schedules => {
                 const tmpArray = [];
                 schedules.results.map(schedule => {
+                    const notificationStatus = NotificationStatusComponent.statusLookup(schedule.notification_status)
                     const text = schedule.patient.name + ' ' + schedule.patient.last_name;
                     tmpArray.push({
                         id: schedule.id,
@@ -71,6 +74,7 @@ export class ScheduleComponent implements OnInit {
                         end: addMinutes(new Date(schedule.date), schedule.duration),
                         title: text,
                         color: ScheduleComponent.COLORS[schedule.status],
+                        notificationStatus: notificationStatus
                     });
                     this.schedules = tmpArray;
                 });

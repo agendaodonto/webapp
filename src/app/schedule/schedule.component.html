@@ -25,14 +25,50 @@
             [events]="schedules"
             [dayStartHour]="7"
             [dayEndHour]="21"
-            (eventClicked)="eventClick($event)">
+            (eventClicked)="eventClick($event)"
+            [eventTemplate]="customDayEventTemplate">
         </mwl-calendar-day-view>
         <mwl-calendar-week-view
             *ngIf="view=='week'"
             [viewDate]="currentDate"
             [events]="schedules"
-            (eventClicked)="eventClick($event)">
+            (eventClicked)="eventClick($event)"
+            [eventTemplate]="customWeekEventTemplate">
         </mwl-calendar-week-view>
     </div>
 </mat-card>
 
+<ng-template
+    #customWeekEventTemplate
+    let-weekEvent="weekEvent"
+    let-eventClicked="eventClicked">
+    <div
+        class="cal-event"
+        [style.backgroundColor]="weekEvent.event.color.secondary"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        matTooltip="{{ weekEvent.event.notificationStatus.hint }}"
+        (mwlClick)="eventClicked.emit()">
+        <mwl-calendar-event-title [event]="weekEvent.event" view="week" (mwlClick)="eventClicked.emit()">
+        </mwl-calendar-event-title>
+        <mat-icon>{{ weekEvent.event.notificationStatus.icon }}</mat-icon>
+    </div>
+</ng-template>
+
+<ng-template
+    #customDayEventTemplate
+    let-dayEvent="dayEvent"
+    let-eventClicked="eventClicked">
+    <div
+        class="cal-event"
+        [style.backgroundColor]="dayEvent.event.color.secondary"
+        [style.borderColor]="dayEvent.event.color.primary"
+        fxLayout="row"
+        fxLayoutAlign="space-between start"
+        matTooltip="{{ dayEvent.event.notificationStatus.hint }}"
+        (mwlClick)="eventClicked.emit()">
+        <mwl-calendar-event-title [event]="dayEvent.event" view="day" (mwlClick)="eventClicked.emit()">
+        </mwl-calendar-event-title>
+        <mat-icon>{{ dayEvent.event.notificationStatus.icon }}</mat-icon>
+    </div>
+</ng-template>
