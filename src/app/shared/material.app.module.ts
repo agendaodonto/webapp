@@ -20,6 +20,7 @@ import {
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
+    MatTooltipModule
 } from '@angular/material';
 
 import { NgModule } from '@angular/core';
@@ -47,7 +48,8 @@ const IMPORT_LIST = [
     MatPaginatorModule,
     MatChipsModule,
     MatDatepickerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTooltipModule
 ];
 @NgModule({
     imports: [IMPORT_LIST],

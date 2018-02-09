@@ -1,5 +1,8 @@
 <mat-card class="container">
-    <mat-card-title>Agendamento</mat-card-title>
+    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+        Agendamento
+        <app-notification-status *ngIf="schedule" [status]="schedule.notification_status"></app-notification-status>
+    </mat-card-title>
     <div fxLayoutAlign="end center" fxLayout="row" *ngIf="!scheduleId">
         <mat-slide-toggle #continuousMode>Modo contínuo</mat-slide-toggle>
     </div>

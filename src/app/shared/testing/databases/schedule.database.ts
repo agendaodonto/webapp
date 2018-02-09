@@ -16,7 +16,8 @@ export class ScheduleDatabase implements IDatabase<ISchedule> {
             dentist: this.dentistDatabase.get(),
             duration: Math.floor((Math.random() * 100) + 1),
             status: Math.floor((Math.random() * 3) + 1),
-            date: faker.date.recent()
+            date: faker.date.recent(),
+            notification_status: 'ENVIADO'
         }
         return schedule;
     }

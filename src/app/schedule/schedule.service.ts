@@ -107,4 +107,5 @@ export interface ISchedule {
     date: string;
     duration: number;
     status: number;
+    notification_status: string;
 }
