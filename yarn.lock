@@ -148,9 +148,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/material-moment-adapter@^5.0.2":
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/@angular/material-moment-adapter/-/material-moment-adapter-5.0.2.tgz#3d081acb4a4b63b32f1e68f8a4c4e2471d2275ac"
+"@angular/material-moment-adapter@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@angular/material-moment-adapter/-/material-moment-adapter-5.2.1.tgz#d4647c244bb1f23ff00e9885a11a4554a2029c23"
   dependencies:
     tslib "^1.7.1"
 
