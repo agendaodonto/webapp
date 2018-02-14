@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
-export class LoginService extends BaseService implements ILoginService {
+export class LoginService extends BaseService {
 
     constructor(private http: HttpClient) {
         super();
@@ -38,41 +38,4 @@ export class LoginService extends BaseService implements ILoginService {
     getLocalUserInfo() {
         return JSON.parse(localStorage.getItem('user_info'));
     }
-}
-
-@Injectable()
-export class LoginServiceStub implements ILoginService {
-    authenticate(_formData: { email: string; password: string; }): Observable<any> {
-        return Observable.of([{ auth_token: 'TEST_TOKEN' }]);
-    }
-
-    isLogged(): boolean {
-        return !!localStorage.getItem('auth_token');
-    }
-
-    getUserInfo() {
-        if (localStorage.getItem('user_info')) {
-            return JSON.parse(localStorage.getItem('user_info'));
-        } else {
-            localStorage.setItem('user_info', JSON.stringify({
-                first_name: 'John',
-                last_name: 'Snow',
-                cro: '123456',
-                cro_state: 'SP',
-                sex: 'M',
-                id: 1,
-                email: 'john@snow.com'
-            }));
-            return JSON.parse(localStorage.getItem('user_info'));
-        }
-
-    }
-
-
-}
-
-interface ILoginService {
-    authenticate(formData: { email: string, password: string }): Observable<any>;
-    isLogged(): boolean;
-    getUserInfo();
 }
