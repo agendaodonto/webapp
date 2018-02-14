@@ -30,10 +30,6 @@ export class NotificationStatusComponent {
         return NotificationStatusComponent.statusLookup(this.status).hint;
     }
 
-    getStatusStyle() {
-        return NotificationStatusComponent.statusLookup(this.status).style;
-    }
-
     getIcon() {
         return NotificationStatusComponent.statusLookup(this.status).icon
     }
