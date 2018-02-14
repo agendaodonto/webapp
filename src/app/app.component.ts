@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild, HostListener } from '@angular/core';
 
 import { LoginService } from './login/login.service';
 import { MatSidenav } from '@angular/material';
 import { Md5 } from 'ts-md5/dist/md5';
-import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import './shared/rxjs.operators';
 
@@ -19,13 +18,11 @@ type Display = 'desktop' | 'mobile';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    providers: []
+    styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-    date = new Date();
+export class AppComponent {
     @ViewChild('sidenav') sideNav: MatSidenav;
-    displayType: Display;
+    displayType: Display = 'desktop';
     sideNavMenus: IMenu[] = [
         { name: 'Dashboard', link: '/dashboard', requiresLogin: true, hideWhenLogged: false },
         { name: 'Clinicas', link: '/clinicas', requiresLogin: true, hideWhenLogged: false },
@@ -45,16 +42,10 @@ export class AppComponent implements OnInit {
         this.router.navigate(['/login']);
     }
 
-    ngOnInit() {
-        const resizeEvent = Observable.fromEvent(window, 'resize')
-            .map(() => {
-                return document.documentElement.clientWidth;
-            })
-            .startWith(document.documentElement.clientWidth)
-            .debounceTime(200);
-
-        resizeEvent.subscribe(data => {
-            if (data > 1600) {
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        if (event.type === 'resize') {
+            if (event.target.innerWidth > 1600) {
                 this.displayType = 'desktop';
                 this.sideNav.mode = 'side';
                 this.sideNav.toggle(true);
@@ -63,7 +54,7 @@ export class AppComponent implements OnInit {
                 this.sideNav.mode = 'over';
                 this.sideNav.toggle(false);
             }
-        });
+        }
     }
 
     closeSideNav() {
@@ -81,7 +72,7 @@ export class AppComponent implements OnInit {
         }
     }
 
-    displayMenu(menu: IMenu) {
+    shouldDisplayMenu(menu: IMenu): boolean {
         if (this.loginService.isLogged()) {
             return !menu.hideWhenLogged;
         } else {

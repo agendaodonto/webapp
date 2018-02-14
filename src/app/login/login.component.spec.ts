@@ -3,12 +3,13 @@ import { RouterLinkStubDirective, RouterStub } from 'app/shared/testing/stubs/ro
 
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { LoginComponent } from './login.component';
-import { LoginService, LoginServiceStub } from './login.service';
+import { LoginService } from './login.service';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TokenService } from 'app/shared/services/token.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
@@ -17,10 +18,10 @@ describe('LoginComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [LoginComponent, RouterLinkStubDirective],
-            imports: [MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule, DirectivesModule],
+            imports: [HttpClientModule, MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule, DirectivesModule],
             providers: [
                 TokenService,
-                { provide: LoginService, useClass: LoginServiceStub },
+                LoginService,
                 { provide: Router, useClass: RouterStub },
             ]
         });
