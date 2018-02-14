@@ -23,7 +23,7 @@
     "@angular/http": "^5.1.2",
     "@angular/material": "^5.0.2",
     "@angular/material-moment-adapter": "^5.0.2",
-    "@angular/platform-browser": "^5.1.2",
+    "@angular/platform-browser": "^5.2.5",
     "@angular/platform-browser-dynamic": "^5.1.2",
     "@angular/router": "^5.1.2",
     "@swimlane/ngx-charts": "^7.0.1",
