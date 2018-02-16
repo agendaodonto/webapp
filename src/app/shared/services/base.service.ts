@@ -3,11 +3,12 @@ import { HttpParams } from '@angular/common/http';
 
 export abstract class BaseService {
     static BASE_URL = environment.api;
-    static API_URL = 'v1/';
+    static API_VERSION = 'v1/';
+    static API_ENDPOINT = BaseService.BASE_URL + BaseService.API_VERSION;
     static API_AUTH_URL = BaseService.BASE_URL + 'auth/';
 
     url(blocks: Array<string | number>): string {
-        let final = BaseService.BASE_URL + BaseService.API_URL;
+        let final = BaseService.API_ENDPOINT
         blocks.forEach(u => {
             final = final.concat(String(u) + '/');
         });

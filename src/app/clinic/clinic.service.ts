@@ -62,18 +62,6 @@ export interface IClinic {
     dentists: IDentist[];
 }
 
-export class Clinic implements IClinic {
-    id: number;
-    name: string;
-    owner: number;
-    dentists: Array<any> = [];
-}
-
-export class ClinicModel implements Clinic {
-    constructor(public id, public name, public owner, public dentists) {
-    }
-}
-
 export class ClinicFilter extends BaseFilter {
 
 }
