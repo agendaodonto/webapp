@@ -13,12 +13,12 @@ const STATE_CHOICES = {
             cro_state: {
                 choices: [
                     {
-                        "value": "AC",
-                        "display_name": "Acre"
+                        value: 'AC',
+                        display_name: 'Acre'
                     },
                     {
-                        "value": "AL",
-                        "display_name": "Alagoas"
+                        value: 'AL',
+                        display_name: 'Alagoas'
                     }
                 ]
             }
