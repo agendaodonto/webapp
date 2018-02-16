@@ -21,7 +21,6 @@ export class ScheduleService extends BaseService implements IScheduleService {
 
     getAll(scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<ISchedule>> {
         const filter = scheduleFilter ? scheduleFilter : new ScheduleFilter();
-        console.log(filter.getFilter().params.toString());
         return this.http.get<IPagedResponse<ISchedule>>(this.url(['schedules']), filter.getFilter());
     }
 
