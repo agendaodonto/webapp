@@ -1,13 +1,12 @@
 import { IPagedResponse } from 'app/shared/interceptors/responses';
 import { BaseFilter, BaseService } from '../shared/services/base.service';
-import { RequestOptions, URLSearchParams } from '@angular/http';
 
 import { IDentist } from '../shared/services/dentist.service';
 import { IPatient } from '../patient/patient.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { format } from 'date-fns';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class ScheduleService extends BaseService implements IScheduleService {
@@ -22,6 +21,7 @@ export class ScheduleService extends BaseService implements IScheduleService {
 
     getAll(scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<ISchedule>> {
         const filter = scheduleFilter ? scheduleFilter : new ScheduleFilter();
+        console.log(filter.getFilter().params.toString());
         return this.http.get<IPagedResponse<ISchedule>>(this.url(['schedules']), filter.getFilter());
     }
 
@@ -52,11 +52,11 @@ export class ScheduleService extends BaseService implements IScheduleService {
     }
 
     getAttendanceData(referenceDate?: Date): Observable<IAttendanceData> {
-        const requestOptions = new RequestOptions()
-        const params = new URLSearchParams()
-        params.set('date', format(referenceDate, 'YYYY-MM-DD'))
-        requestOptions.params = params;
-        return this.http.get<IAttendanceData>(this.url(['schedules', 'attendance']));
+        let params = new HttpParams()
+        if (referenceDate) {
+            params = params.set('date', format(referenceDate, 'YYYY-MM-DD'))
+        }
+        return this.http.get<IAttendanceData>(this.url(['schedules', 'attendance']), { params: params });
     }
 
 }
