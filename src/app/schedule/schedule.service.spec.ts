@@ -6,7 +6,14 @@ import { DENTISTS } from '../shared/services/dentist.service.spec';
 import { PATIENTS } from '../patient/patient.service.spec';
 
 export const SCHEDULES: Array<ISchedule> = [
-    { id: 1, date: '2018-01-29T19:12:49.690973Z', dentist: DENTISTS[0], duration: 30, notification_status: '1', patient: PATIENTS[0], status: 1 }
+    {
+        id: 1,
+        date: '2018-01-29T19:12:49.690973Z',
+        dentist: DENTISTS[0], duration: 30,
+        notification_status: '1',
+        patient: PATIENTS[0],
+        status: 1
+    }
 ]
 
 describe('ScheduleService', () => {
