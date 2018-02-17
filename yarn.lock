@@ -601,23 +601,24 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-angular-calendar@^0.22.1:
-  version "0.22.1"
-  resolved "https://registry.yarnpkg.com/angular-calendar/-/angular-calendar-0.22.1.tgz#3f9a81e296df38bba94a465302da3bafcca03809"
+angular-calendar@^0.23.6:
+  version "0.23.6"
+  resolved "https://registry.yarnpkg.com/angular-calendar/-/angular-calendar-0.23.6.tgz#92c59a19960a6561324c52dedaf0a9f16f583335"
   dependencies:
-    angular-draggable-droppable "^1.1.1"
-    angular-resizable-element "^1.2.4"
-    calendar-utils "0.0.58"
+    angular-draggable-droppable "^2.0.0"
+    angular-resizable-element "^2.0.0"
+    calendar-utils "^0.1.1"
     date-fns "^1.28.5"
     positioning "^1.3.1"
+    tslib "^1.7.1"
 
-angular-draggable-droppable@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/angular-draggable-droppable/-/angular-draggable-droppable-1.1.1.tgz#70b3b601daaf65a1b3f73d8a4de8683e7fa22356"
+angular-draggable-droppable@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/angular-draggable-droppable/-/angular-draggable-droppable-2.0.0.tgz#6b3ca7a0ddf36c55c30cdebea9de0592de29d76f"
 
-angular-resizable-element@^1.2.4:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/angular-resizable-element/-/angular-resizable-element-1.2.4.tgz#983828eaced18f432814581ab4c25892c26197d9"
+angular-resizable-element@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/angular-resizable-element/-/angular-resizable-element-2.0.0.tgz#10a437cce317e459e07c3189519ef395e6b86130"
 
 ansi-align@^1.1.0:
   version "1.1.0"
@@ -1277,9 +1278,13 @@ cacache@^10.0.0:
     unique-filename "^1.1.0"
     y18n "^3.2.1"
 
-calendar-utils@0.0.58, calendar-utils@^0.0.58:
+calendar-utils@^0.0.58:
   version "0.0.58"
   resolved "https://registry.yarnpkg.com/calendar-utils/-/calendar-utils-0.0.58.tgz#4504bf8eff4bf8a781d88c0181ed8dd939a5fe93"
+
+calendar-utils@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/calendar-utils/-/calendar-utils-0.1.1.tgz#0230652a08ba85810e2f206335321ef7cb54c1b4"
 
 callsite@1.0.0:
   version "1.0.0"
