@@ -205,9 +205,9 @@
     string-format-obj "^1.1.0"
     through2 "^2.0.3"
 
-"@google-cloud/functions-emulator@^1.0.0-alpha.23":
-  version "1.0.0-alpha.25"
-  resolved "https://registry.yarnpkg.com/@google-cloud/functions-emulator/-/functions-emulator-1.0.0-alpha.25.tgz#b443e148244f3887633f1fc3678d03735b2a9587"
+"@google-cloud/functions-emulator@1.0.0-alpha.23":
+  version "1.0.0-alpha.23"
+  resolved "https://registry.yarnpkg.com/@google-cloud/functions-emulator/-/functions-emulator-1.0.0-alpha.23.tgz#5f2916934a31369318dc81c23eb917a0400f6ead"
   dependencies:
     "@google-cloud/storage" "1.2.1"
     adm-zip "0.4.7"
@@ -227,7 +227,7 @@
     rimraf "2.6.1"
     semver "5.4.1"
     serializerr "1.0.3"
-    tmp "0.0.33"
+    tmp "0.0.31"
     uuid "3.1.0"
     winston "2.3.1"
     yargs "8.0.2"
@@ -683,9 +683,9 @@ archiver-utils@^1.3.0:
     normalize-path "^2.0.0"
     readable-stream "^2.0.0"
 
-archiver@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/archiver/-/archiver-2.1.0.tgz#d2df2e8d5773a82c1dcce925ccc41450ea999afd"
+archiver@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/archiver/-/archiver-2.1.1.tgz#ff662b4a78201494a3ee544d3a33fe7496509ebc"
   dependencies:
     archiver-utils "^1.3.0"
     async "^2.0.0"
@@ -3152,12 +3152,12 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-firebase-tools@^3.16.0:
-  version "3.16.0"
-  resolved "https://registry.yarnpkg.com/firebase-tools/-/firebase-tools-3.16.0.tgz#1389fc160215ec241145441c76a848cfce9b7941"
+firebase-tools@^3.17.4:
+  version "3.17.4"
+  resolved "https://registry.yarnpkg.com/firebase-tools/-/firebase-tools-3.17.4.tgz#dde15ee12a6fa9930a4142b7dafd12313f6555d8"
   dependencies:
     JSONStream "^1.2.1"
-    archiver "^2.1.0"
+    archiver "^2.1.1"
     chalk "^1.1.0"
     cjson "^0.3.1"
     cli-table "^0.3.1"
@@ -3195,7 +3195,7 @@ firebase-tools@^3.16.0:
     uuid "^3.0.0"
     winston "^1.0.1"
   optionalDependencies:
-    "@google-cloud/functions-emulator" "^1.0.0-alpha.23"
+    "@google-cloud/functions-emulator" "1.0.0-alpha.23"
 
 firebase@2.x.x:
   version "2.4.2"
