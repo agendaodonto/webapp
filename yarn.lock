@@ -166,9 +166,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/platform-browser@^5.2.5":
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-5.2.5.tgz#eae4af2b742fb901d84d6367cd99f9e88102151f"
+"@angular/platform-browser@^5.2.9":
+  version "5.2.9"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-5.2.9.tgz#9ee76327b1b3affad68ffa839058661b7704bc2c"
   dependencies:
     tslib "^1.7.1"
 
@@ -7684,11 +7684,7 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@~2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.2.tgz#f8395f85d459276067c988aa41837a8f82870844"
-
-typescript@~2.6.1:
+typescript@~2.6.1, typescript@~2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
 
