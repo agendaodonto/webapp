@@ -33,9 +33,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/cdk@^5.2.1":
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-5.2.1.tgz#11500502deeaf42f88f92ca7d78d9a7642b07761"
+"@angular/cdk@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-6.0.2.tgz#65089561f91038ba6d744b9a251998bf99c75097"
   dependencies:
     tslib "^1.7.1"
 
@@ -7684,11 +7684,7 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@~2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.2.tgz#f8395f85d459276067c988aa41837a8f82870844"
-
-typescript@~2.6.1:
+typescript@~2.6.1, typescript@~2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
 
