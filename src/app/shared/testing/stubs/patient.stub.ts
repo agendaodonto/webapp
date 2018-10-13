@@ -1,18 +1,18 @@
-import { IPatientService, IPatient } from 'app/patient/patient.service';
-import { Observable } from 'rxjs/Observable';
-import { ScheduleFilter, ISchedule } from 'app/schedule/schedule.service';
-import { IPagedResponse } from 'app/shared/interceptors/responses';
-import { PatientDatabase } from 'app/shared/testing/databases/patient.database';
-import { ScheduleDatabase } from 'app/shared/testing/databases/schedule.database';
+import { PatientDatabase } from '../databases/patient.database';
+import { IPatientService, IPatient } from '../../../patient/patient.service';
+import { ScheduleDatabase } from '../databases/schedule.database';
+import { Observable, of } from 'rxjs';
+import { ScheduleFilter, ISchedule } from '../../../schedule/schedule.service';
+import { IPagedResponse } from '../../interceptors/responses';
 
 export class PatientServiceStub implements IPatientService {
     patientDatabase = new PatientDatabase();
     scheduleDatabase = new ScheduleDatabase();
     getAll(): Observable<{ results: IPatient[]; }> {
-        return Observable.of({ results: this.patientDatabase.getMany(50) })
+        return of({ results: this.patientDatabase.getMany(50) });
     }
     get(_patientId: number): Observable<IPatient> {
-        return Observable.of(this.patientDatabase.get())
+        return of(this.patientDatabase.get());
     }
     create(_patient: IPatient) {
         throw new Error('Method not implemented.');
@@ -27,7 +27,7 @@ export class PatientServiceStub implements IPatientService {
         throw new Error('Method not implemented.');
     }
     getSchedules(_patientId: number, _scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<ISchedule>> {
-        return Observable.of({ count: 10, results: this.scheduleDatabase.getMany(10) });
+        return of({ count: 10, results: this.scheduleDatabase.getMany(10) });
     }
 
 }

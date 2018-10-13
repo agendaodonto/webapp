@@ -1,12 +1,12 @@
-import { IPagedResponse } from 'app/shared/interceptors/responses';
 import { BaseFilter, BaseService } from '../shared/services/base.service';
 
 import { IDentist } from '../shared/services/dentist.service';
 import { IPatient } from '../patient/patient.service';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { format } from 'date-fns';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { IPagedResponse } from '../shared/interceptors/responses';
 
 @Injectable()
 export class ScheduleService extends BaseService implements IScheduleService {
@@ -51,10 +51,8 @@ export class ScheduleService extends BaseService implements IScheduleService {
     }
 
     getAttendanceData(referenceDate?: Date): Observable<IAttendanceData> {
-        let params = new HttpParams()
-        if (referenceDate) {
-            params = params.set('date', format(referenceDate, 'YYYY-MM-DD'))
-        }
+        let params = new HttpParams();
+        params = params.set('date', format(referenceDate, 'YYYY-MM-DD'));
         return this.http.get<IAttendanceData>(this.url(['schedules', 'attendance']), { params: params });
     }
 
@@ -75,7 +73,7 @@ export interface IAttendanceData {
         attendances: number,
         cancellations: number,
         ratio: number;
-    }
+    };
 }
 
 export enum ScheduleStatus {

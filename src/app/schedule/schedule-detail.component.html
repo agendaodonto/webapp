@@ -10,13 +10,13 @@
         <input type="hidden" formControlName="id">
 
         <div fxLayout="row">
-            <mat-input-container fxFlex="100">
+            <mat-form-field fxFlex="100">
                 <input matInput placeholder="Paciente" formControlName="patient" [matAutocomplete]="auto">
                 <button type="button" mat-button matSuffix (click)="patientDialog()" *ngIf="scheduleForm.controls.patient.value?.id">
                     <mat-icon>face</mat-icon>
                 </button>
                 <mat-error>{{ scheduleForm.getControlMessages('patient') }}</mat-error>
-            </mat-input-container>
+            </mat-form-field>
         </div>
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPatient" (optionSelected)="patientSelected()">
             <ng-container *ngIf="filteredPatients | async; let filteredPatients">
@@ -27,19 +27,19 @@
         </mat-autocomplete>
         <div fxLayout.gt-lg="row" fxLayout.lt-lg="column">
             <!-- Remove this after fixed (https://github.com/angular/material2/issues/8012)-->
-            <mat-input-container fxFlex="70">
+            <mat-form-field fxFlex="70">
                 <input matInput type="datetime-local" placeholder="Data" formControlName="date">
-            </mat-input-container>
-            <mat-input-container fxFlex="30" style="top:5px;">
+            </mat-form-field>
+            <mat-form-field fxFlex="30" style="top:5px;">
                 <input matInput type="number" placeholder="Duração (Minutos)" formControlName="duration">
-            </mat-input-container>
+            </mat-form-field>
         </div>
         <div fxLayout="row">
-            <mat-input-container fxFlex="100">
+            <mat-form-field fxFlex="100">
                 <mat-select placeholder="Dentista" formControlName="dentist" [compareWith]="defaultMatcher">
                     <mat-option *ngFor="let dentist of dentists" [value]="dentist">{{ dentist.first_name }}</mat-option>
                 </mat-select>
-            </mat-input-container>
+            </mat-form-field>
         </div>
         <mat-dialog-content>
             <div class="app-actions" fxLayoutGap="10px" fxLayoutAlign="end center">

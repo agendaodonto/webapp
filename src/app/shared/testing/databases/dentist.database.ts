@@ -1,5 +1,6 @@
-import { IDatabase } from 'app/shared/testing/databases/base.database';
-import { IDentist } from 'app/shared/services/dentist.service';
+import { IDentist } from '../../services/dentist.service';
+import { IDatabase } from './base.database';
+
 const faker = require('faker/locale/pt_BR');
 
 export class DentistDatabase implements IDatabase<IDentist> {
@@ -14,7 +15,7 @@ export class DentistDatabase implements IDatabase<IDentist> {
             last_name: faker.name.lastName(),
             email: faker.internet.email(),
             sex: 'M'
-        }
+        };
         return dentist;
     }
 

@@ -7,7 +7,8 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { ClinicService } from './clinic.service';
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
+import { debounceTime, finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'app-clinic-detail',
@@ -39,9 +40,9 @@ export class ClinicDetailComponent implements OnInit {
     ngOnInit() {
         this.clinicId = +this.route.snapshot.params['id'];
         if (this.clinicId) {
-            this.clinicService.get(this.clinicId)
-                .finally(() => this.isLoading = false)
-                .subscribe(
+            this.clinicService.get(this.clinicId).pipe(
+                finalize(() => this.isLoading = false)
+            ).subscribe(
                 response => {
                     this.clinicForm.setValue({
                         id: response.id,
@@ -49,17 +50,17 @@ export class ClinicDetailComponent implements OnInit {
                         dentists: response.dentists
                     });
                 }
-                );
+            );
         } else {
             this.isLoading = false;
         }
         this.dentistCompleter.valueChanges
-            .debounceTime(500)
+            .pipe(debounceTime(500))
             .subscribe(e => {
                 if (e instanceof Object) {
                     this.addDentist(e);
                     this.dentistCompleter.setValue('');
-                    this.filteredOptions = Observable.of();
+                    this.filteredOptions = of();
                 } else {
                     this.filteredOptions = this.dentistService.get(e);
                 }
@@ -86,16 +87,16 @@ export class ClinicDetailComponent implements OnInit {
     onSubmit() {
         this.isSubmitting = true;
         this.clinicService.save(this.clinicForm.value)
-            .finally(() => this.isSubmitting = false)
+            .pipe(finalize(() => this.isSubmitting = false))
             .subscribe(
-            _clinic => {
-                this.snackBar.open('Salvo com sucesso.', '', { duration: 2000 });
-                this.router.navigate(['clinicas']);
-            },
-            errors => {
-                this.snackBar.open('Não foi possível salvar.', '', { duration: 2000 });
-                this.clinicForm.pushFieldErrors(errors.error);
-            });
+                _clinic => {
+                    this.snackBar.open('Salvo com sucesso.', '', { duration: 2000 });
+                    this.router.navigate(['clinicas']);
+                },
+                errors => {
+                    this.snackBar.open('Não foi possível salvar.', '', { duration: 2000 });
+                    this.clinicForm.pushFieldErrors(errors.error);
+                });
     }
 
     onDelete() {

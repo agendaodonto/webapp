@@ -1,5 +1,4 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActivatedRouteStub, RouterStub } from 'app/shared/testing/stubs/router.stub';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { DirectivesModule } from '../shared/directives/directives.module';
@@ -9,9 +8,10 @@ import { PatientService } from '../patient/patient.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ScheduleDetailComponent } from './schedule-detail.component';
 import { ScheduleService } from './schedule.service';
-import { PatientServiceStub } from 'app/shared/testing/stubs/patient.stub';
-import { ScheduleServiceStub } from 'app/shared/testing/stubs/schedule.stub';
-import { SharedComponentsModule } from 'app/shared/components/shared-components.module';
+import { ActivatedRouteStub, RouterStub } from '../shared/testing/stubs/router.stub';
+import { ScheduleServiceStub } from '../shared/testing/stubs/schedule.stub';
+import { PatientServiceStub } from '../shared/testing/stubs/patient.stub';
+import { SharedComponentsModule } from '../shared/components/shared-components.module';
 
 describe('ScheduleDetailComponent', () => {
     let component: ScheduleDetailComponent;

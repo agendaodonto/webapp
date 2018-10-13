@@ -5,9 +5,8 @@ import {
     HttpEvent,
     HttpInterceptor
 } from '@angular/common/http';
-
-import { Observable } from 'rxjs/Observable';
-import { TokenService } from 'app/shared/services/token.service';
+import { TokenService } from '../services/token.service';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
@@ -19,7 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
             setHeaders: {
                 'Content-Type': 'application/json'
             }
-        })
+        });
         if (this.tokenService.isTokenAvailable()) {
             request = request.clone({
                 setHeaders: {

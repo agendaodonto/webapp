@@ -1,7 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from 'app/shared/guards/auth.guard';
-import { ClinicService } from 'app/clinic/clinic.service';
 import { CommonModule } from '@angular/common';
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
@@ -13,6 +11,8 @@ import { PatientComponent } from './patient.component';
 import { PatientDetailComponent } from './patient-detail.component';
 import { PatientService } from './patient.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthGuard } from '../shared/guards/auth.guard';
+import { ClinicService } from '../clinic/clinic.service';
 
 export const patientRoutes: Routes = [
     { path: 'pacientes', component: PatientComponent, canActivate: [AuthGuard] },

@@ -6,33 +6,33 @@
     <form [formGroup]="patientForm" (submit)="onSubmit()" appAutoFocus [appLoadingOverlay]="isLoading">
         <input type="hidden" formControlName="id">
         <div fxLayout="row">
-            <mat-input-container fxFlex="50">
+            <mat-form-field fxFlex="50">
                 <input matInput placeholder="Nome" formControlName="name">
                 <mat-error>{{ patientForm.getControlMessages('name') }}</mat-error>
-            </mat-input-container>
-            <mat-input-container fxFlex="50">
+            </mat-form-field>
+            <mat-form-field fxFlex="50">
                 <input matInput placeholder="Sobrenome" formControlName="last_name">
                 <mat-error>{{ patientForm.getControlMessages('last_name') }}</mat-error>
-            </mat-input-container>
+            </mat-form-field>
         </div>
         <div fxLayout="row">
-            <mat-input-container fxFlex="50">
+            <mat-form-field fxFlex="50">
                 <input matInput placeholder="Telefone" formControlName="phone">
                 <mat-error>{{ patientForm.getControlMessages('phone') }}</mat-error>
-            </mat-input-container>
-            <mat-input-container fxFlex="50">
+            </mat-form-field>
+            <mat-form-field fxFlex="50">
                 <mat-select placeholder="Sexo" formControlName="sex">
                     <mat-option [value]="'M'">Masculino</mat-option>
                     <mat-option [value]="'F'">Feminino</mat-option>
                 </mat-select>
-            </mat-input-container>
+            </mat-form-field>
         </div>
         <div fxLayout="row">
-            <mat-input-container fxFlex="100">
+            <mat-form-field fxFlex="100">
                 <mat-select placeholder="Clinica" formControlName="clinic" [compareWith]="defaultMatcher">
                     <mat-option *ngFor="let clinic of clinics" [value]="clinic">{{ clinic.name }}</mat-option>
                 </mat-select>
-            </mat-input-container>
+            </mat-form-field>
         </div>
         <div class="app-actions" fxLayoutGap="10px" fxLayoutAlign="end center">
             <button type="button" mat-raised-button color="warn" *ngIf="patientForm.controls.id.value != ''" (click)="onDelete()" [appBtnLoader]="isSubmitting">

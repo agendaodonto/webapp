@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { RouterLinkStubDirective, RouterStub, ActivatedRouteStub } from 'app/shared/testing/stubs/router.stub';
 
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
 import { MaterialAppModule } from '../shared/material.app.module';
@@ -9,12 +8,13 @@ import { PatientComponent } from './patient.component';
 import { PatientService } from './patient.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PatientServiceStub } from 'app/shared/testing/stubs/patient.stub';
+import { PatientServiceStub } from '../shared/testing/stubs/patient.stub';
+import { RouterLinkStubDirective, ActivatedRouteStub, RouterStub } from '../shared/testing/stubs/router.stub';
 
 describe('PatientComponent', () => {
     let component: PatientComponent;
     let fixture: ComponentFixture<PatientComponent>;
-    const route = new ActivatedRouteStub()
+    const route = new ActivatedRouteStub();
 
     beforeEach(async(() => {
         route.testParams = {};

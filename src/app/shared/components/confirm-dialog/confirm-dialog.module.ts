@@ -1,7 +1,7 @@
-import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialAppModule } from '../../material.app.module';
 import { NgModule } from '@angular/core';
+import { ConfirmDialogComponent } from './confirm-dialog.component';
 
 @NgModule({
     imports: [MaterialAppModule, FlexLayoutModule],

@@ -1,15 +1,15 @@
-import { IScheduleService, ScheduleFilter, ISchedule, IAttendanceData } from 'app/schedule/schedule.service';
-import { Observable } from 'rxjs/Observable';
-import { ScheduleDatabase } from 'app/shared/testing/databases/schedule.database';
 import { format, subMonths } from 'date-fns';
+import { IScheduleService, ISchedule, ScheduleFilter, IAttendanceData } from '../../../schedule/schedule.service';
+import { ScheduleDatabase } from '../databases/schedule.database';
+import { Observable, of } from 'rxjs';
 
 export class ScheduleServiceStub implements IScheduleService {
     scheduleDatabase = new ScheduleDatabase();
     get(_scheduleId: number): Observable<ISchedule> {
-        return Observable.of(this.scheduleDatabase.get())
+        return of(this.scheduleDatabase.get());
     }
     getAll(_filter?: ScheduleFilter): Observable<{ results: ISchedule[]; }> {
-        return Observable.of({ results: this.scheduleDatabase.getMany(100) })
+        return of({ results: this.scheduleDatabase.getMany(100) });
     }
     create(_schedule: ISchedule): Observable<any> {
         throw new Error('Method not implemented.');
@@ -25,7 +25,7 @@ export class ScheduleServiceStub implements IScheduleService {
         const d1 = format(date, 'YYYY-MM-01');
         const d2 = format(subMonths(date, 1), 'YYYY-MM-01');
         const d3 = format(subMonths(date, 2), 'YYYY-MM-01');
-        return Observable.of({
+        return of({
             [d1]: {
                 attendances: 10,
                 absences: 10,

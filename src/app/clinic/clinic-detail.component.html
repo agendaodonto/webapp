@@ -4,15 +4,15 @@
         <input type="hidden" formControlName="id">
 
         <div fxLayout="row">
-            <mat-input-container fxFlex="100">
+            <mat-form-field fxFlex="100">
                 <input matInput placeholder="Nome" formControlName="name">
                 <mat-error> {{ clinicForm.getControlMessages('name') }} </mat-error>
-            </mat-input-container>
+            </mat-form-field>
         </div>
         <div fxLayout="row">
-            <mat-input-container fxFlex="100">
+            <mat-form-field fxFlex="100">
                 <input type="text" matInput [formControl]="dentistCompleter" placeholder="Digite o CRO" [matAutocomplete]="auto">
-            </mat-input-container>
+            </mat-form-field>
         </div>
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayDentist">
             <mat-option *ngFor="let dentist of filteredOptions | async" [value]="dentist">

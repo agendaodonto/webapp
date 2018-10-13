@@ -1,8 +1,8 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
-import { DentistService } from 'app/shared/services/dentist.service';
 import { MatSnackBar } from '@angular/material';
+import { DentistService } from '../shared/services/dentist.service';
 
 @Component({
     selector: 'app-confirm',
@@ -17,19 +17,19 @@ export class ConfirmComponent implements OnInit {
         private snack: MatSnackBar) { }
 
     ngOnInit() {
-        const uid = this.route.snapshot.params['uid']
-        const token = this.route.snapshot.params['token']
+        const uid = this.route.snapshot.params['uid'];
+        const token = this.route.snapshot.params['token'];
         this.dentistService.activate(uid, token)
             .subscribe(
             _data => {
-                this.snack.open('Conta ativada com sucesso !', 'Fechar')
-                this.router.navigate(['/login'])
+                this.snack.open('Conta ativada com sucesso !', 'Fechar');
+                this.router.navigate(['/login']);
             },
             _error => {
-                this.snack.open('Não foi possível ativar essa conta. Tente novamente', 'Fechar')
-                this.router.navigate(['/login'])
+                this.snack.open('Não foi possível ativar essa conta. Tente novamente', 'Fechar');
+                this.router.navigate(['/login']);
             }
-            )
+            );
     }
 
 }

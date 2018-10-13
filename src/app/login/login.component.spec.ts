@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { RouterLinkStubDirective, RouterStub } from 'app/shared/testing/stubs/router.stub';
 
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { LoginComponent } from './login.component';
@@ -8,8 +7,8 @@ import { MaterialAppModule } from '../shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TokenService } from 'app/shared/services/token.service';
-import { HttpClientModule } from '@angular/common/http';
+import { RouterLinkStubDirective, RouterStub } from '../shared/testing/stubs/router.stub';
+import { TokenService } from '../shared/services/token.service';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
@@ -18,7 +17,7 @@ describe('LoginComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [LoginComponent, RouterLinkStubDirective],
-            imports: [HttpClientModule, MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule, DirectivesModule],
+            imports: [MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule, DirectivesModule],
             providers: [
                 TokenService,
                 LoginService,

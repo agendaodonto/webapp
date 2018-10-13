@@ -3,7 +3,6 @@ import * as moment from 'moment';
 import { CalendarModule, MOMENT } from 'angular-calendar';
 import { Route, RouterModule } from '@angular/router';
 
-import { AuthGuard } from 'app/shared/guards/auth.guard';
 import { CommonModule } from '@angular/common';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -16,6 +15,7 @@ import { ScheduleDetailComponent } from './schedule-detail.component';
 import { ScheduleListComponent } from './schedule-list.component';
 import { ScheduleService } from './schedule.service';
 import { SharedComponentsModule } from '../shared/components/shared-components.module';
+import { AuthGuard } from '../shared/guards/auth.guard';
 
 export const scheduleRoutes: Route[] = [
     { path: 'agenda/criar', component: ScheduleDetailComponent, canActivate: [AuthGuard] },

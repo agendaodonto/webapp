@@ -7,8 +7,8 @@ import { addDays, addMinutes, addWeeks, endOfWeek, format, parse, startOfWeek, s
 import { ActivatedRoute } from '@angular/router';
 import { EventColor } from 'calendar-utils';
 import { Router } from '@angular/router';
-import { LocalizedCalendarHeader } from 'app/shared/providers/localizedheader.provider';
-import { NotificationStatusComponent } from '../shared/components/notification-status/notification-status.component';
+import { finalize } from 'rxjs/operators';
+import { LocalizedCalendarHeader } from '../shared/providers/localizedheader.provider';
 
 type ViewType = 'week' | 'day';
 
@@ -38,7 +38,7 @@ export class ScheduleComponent implements OnInit {
     urlViews: IMatcher[] = [
         { name: 'day', prettyName: 'dia' },
         { name: 'week', prettyName: 'semana' },
-    ]
+    ];
 
     constructor(
         private router: Router,
@@ -55,31 +55,29 @@ export class ScheduleComponent implements OnInit {
         this.isLoading = true;
         this.scheduleFilter.setFilterValue('pageSize', '100');
         if (this.view === 'day') {
-            this.scheduleFilter.setFilterValue('startDate', format(this.currentDate, 'YYYY-MM-DD'))
-            this.scheduleFilter.setFilterValue('endDate', format(this.currentDate, 'YYYY-MM-DD'))
+            this.scheduleFilter.setFilterValue('startDate', format(this.currentDate, 'YYYY-MM-DD'));
+            this.scheduleFilter.setFilterValue('endDate', format(this.currentDate, 'YYYY-MM-DD'));
         } else {
-            this.scheduleFilter.setFilterValue('startDate', format(startOfWeek(this.currentDate), 'YYYY-MM-DD'))
-            this.scheduleFilter.setFilterValue('endDate', format(endOfWeek(this.currentDate), 'YYYY-MM-DD'))
+            this.scheduleFilter.setFilterValue('startDate', format(startOfWeek(this.currentDate), 'YYYY-MM-DD'));
+            this.scheduleFilter.setFilterValue('endDate', format(endOfWeek(this.currentDate), 'YYYY-MM-DD'));
         }
-        this.scheduleService.getAll(this.scheduleFilter)
-            .finally(() => this.isLoading = false)
-            .subscribe(schedules => {
-                const tmpArray = [];
-                schedules.results.map(schedule => {
-                    const notificationStatus = NotificationStatusComponent.statusLookup(schedule.notification_status)
-                    const text = schedule.patient.name + ' ' + schedule.patient.last_name;
-                    tmpArray.push({
-                        id: schedule.id,
-                        start: new Date(schedule.date),
-                        end: addMinutes(new Date(schedule.date), schedule.duration),
-                        title: text,
-                        color: ScheduleComponent.COLORS[schedule.status],
-                        notificationStatus: notificationStatus
-                    });
-                    this.schedules = tmpArray;
+        this.scheduleService.getAll(this.scheduleFilter).pipe(
+            finalize(() => this.isLoading = false)
+        ).subscribe(schedules => {
+            const tmpArray = [];
+            schedules.results.map(schedule => {
+                const text = schedule.patient.name + ' ' + schedule.patient.last_name;
+                tmpArray.push({
+                    id: schedule.id,
+                    start: new Date(schedule.date),
+                    end: addMinutes(new Date(schedule.date), schedule.duration),
+                    title: text,
+                    color: ScheduleComponent.COLORS[schedule.status],
                 });
-            }
-            );
+                this.schedules = tmpArray;
+            });
+        }
+        );
     }
 
     setView(view: ViewType) {
@@ -132,7 +130,7 @@ export class ScheduleComponent implements OnInit {
 
                 this.getSchedules();
             }
-        )
+        );
     }
 
     getDateForUrl(): string {

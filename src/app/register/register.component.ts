@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomFG, ValidationService } from '../shared/validation';
+import { CustomFG, ValidationService, CustomFB } from '../shared/validation';
 import { Validators } from '@angular/forms';
 
-import { CustomFB } from 'app/shared/validation';
 import { DentistService } from '../shared/services/dentist.service';
 import { MatSnackBar } from '@angular/material';
+import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'app-register',
@@ -31,13 +31,13 @@ export class RegisterComponent implements OnInit {
                 password: ['', Validators.required],
                 confirm_password: ['', Validators.required],
             }, { validator: ValidationService.passwordCompareValidator })
-        })
+        });
     }
 
     ngOnInit() {
-        this.dentistService.getStates()
-            .finally(() => this.isLoading = false)
-            .subscribe(
+        this.dentistService.getStates().pipe(
+            finalize(() => this.isLoading = false)
+        ).subscribe(
             data => {
                 this.states = data;
             });
@@ -45,15 +45,15 @@ export class RegisterComponent implements OnInit {
 
     onSubmit() {
         this.isSubmitting = true;
-        this.errors = []
+        this.errors = [];
         const dentist = this.registerForm.value;
         dentist.password = dentist.password.password;
-        this.dentistService.create(dentist)
-            .finally(() => this.isSubmitting = false)
-            .subscribe(
+        this.dentistService.create(dentist).pipe(
+            finalize(() => this.isSubmitting = false)
+        ).subscribe(
             _data => {
                 this.registerForm.reset();
-                this.snackBar.open('Conta criada com sucesso. Verifique o seu email !')
+                this.snackBar.open('Conta criada com sucesso. Verifique o seu email !');
             },
             errors => {
                 this.registerForm.pushFieldErrors(errors.error);

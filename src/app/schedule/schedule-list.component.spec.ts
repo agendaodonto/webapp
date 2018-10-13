@@ -1,21 +1,21 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActivatedRouteStub, RouterStub } from 'app/shared/testing/stubs/router.stub';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
-import { DirectivesModule } from 'app/shared/directives/directives.module';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MaterialAppModule } from 'app/shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ScheduleListComponent } from './schedule-list.component';
-import { ScheduleService } from 'app/schedule/schedule.service';
-import { ScheduleServiceStub } from 'app/shared/testing/stubs/schedule.stub';
-import { SharedComponentsModule } from 'app/shared/components/shared-components.module';
+import { ActivatedRouteStub, RouterStub } from '../shared/testing/stubs/router.stub';
+import { DirectivesModule } from '../shared/directives/directives.module';
+import { MaterialAppModule } from '../shared/material.app.module';
+import { SharedComponentsModule } from '../shared/components/shared-components.module';
+import { ScheduleService } from './schedule.service';
+import { ScheduleServiceStub } from '../shared/testing/stubs/schedule.stub';
 
 describe('ScheduleListComponent', () => {
     let component: ScheduleListComponent;
     let fixture: ComponentFixture<ScheduleListComponent>;
-    const route = new ActivatedRouteStub()
+    const route = new ActivatedRouteStub();
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({

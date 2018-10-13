@@ -3,7 +3,8 @@ import { LoginService } from './login.service';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomFB, CustomFG } from '../shared/validation';
-import { TokenService } from 'app/shared/services/token.service';
+import { TokenService } from '../shared/services/token.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'app-login',
@@ -24,9 +25,9 @@ export class LoginComponent {
 
     onSubmit() {
         this.isLoading = true;
-        this.loginService.authenticate(this.loginForm.value)
-            .finally(() => this.isLoading = false)
-            .subscribe(
+        this.loginService.authenticate(this.loginForm.value).pipe(
+            finalize(() => this.isLoading = false)
+        ).subscribe(
             response => {
                 this.tokenService.setToken(response.auth_token);
                 this.loginService.getUserInfo();
@@ -39,7 +40,7 @@ export class LoginComponent {
                 this.loginForm.pushFieldErrors(errors.error);
 
             }
-            );
+        );
 
     }
 

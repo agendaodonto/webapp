@@ -9,7 +9,7 @@
         <a mat-raised-button color="accent" [routerLink]="['/clinicas', 'criar']">Novo</a>
     </div>
     <div fxLayout="column">
-        <mat-progress-bar [mode]="'query'" *ngIf="dataSource.isLoading"></mat-progress-bar>
+        <mat-progress-bar [mode]="'query'" *ngIf="isLoading"></mat-progress-bar>
         <mat-table [dataSource]="dataSource">
             <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
@@ -26,7 +26,7 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
         </mat-table>
-        <mat-paginator [length]="dataSource.count" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+        <mat-paginator [length]="count" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
         </mat-paginator>
     </div>
 </mat-card>

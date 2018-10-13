@@ -1,5 +1,4 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActivatedRouteStub, RouterStub } from 'app/shared/testing/stubs/router.stub';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { ClinicService } from '../clinic/clinic.service';
@@ -9,10 +8,11 @@ import { MaterialAppModule } from '../shared/material.app.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PatientDetailComponent } from './patient-detail.component';
-import { PatientService } from 'app/patient/patient.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PatientServiceStub } from 'app/shared/testing/stubs/patient.stub';
-import { ClinicServiceStub } from 'app/shared/testing/stubs/clinic.stub';
+import { ActivatedRouteStub, RouterStub } from '../shared/testing/stubs/router.stub';
+import { PatientService } from './patient.service';
+import { PatientServiceStub } from '../shared/testing/stubs/patient.stub';
+import { ClinicServiceStub } from '../shared/testing/stubs/clinic.stub';
 
 describe('PatientDetailComponent', () => {
     let component: PatientDetailComponent;
