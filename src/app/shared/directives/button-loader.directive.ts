@@ -29,11 +29,10 @@ export class ButtonLoaderDirective implements OnChanges {
     ngOnChanges() {
         if (this.btnLoader) {
             this.button.disabled = true;
-            const factory = this.componentFactoryResolver.resolveComponentFactory(MatSpinner)
+            const factory = this.componentFactoryResolver.resolveComponentFactory(MatSpinner);
             this.componentRef = this.viewContainerRef.createComponent(factory);
             this.spinner = <MatSpinner>this.componentRef.instance;
             this.spinner.diameter = ButtonLoaderDirective.DEFAULT_BTN_DIAMETER;
-            this.spinner.ngOnChanges({ diameter: new SimpleChange(null, ButtonLoaderDirective.DEFAULT_BTN_DIAMETER, false) })
             this.renderer.setStyle(this.spinner._elementRef.nativeElement, 'margin', '0 auto');
             this.renderer.appendChild(this.viewContainerRef.element.nativeElement, this.spinner._elementRef.nativeElement);
         } else {

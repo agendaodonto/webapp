@@ -1,11 +1,11 @@
-import { IPagedResponse } from 'app/shared/interceptors/responses';
 import { BaseFilter, BaseService } from '../shared/services/base.service';
 import { IClinic } from '../clinic/clinic.service';
-import { ISchedule } from '../schedule/schedule.service';
+import { ISchedule, ScheduleFilter } from '../schedule/schedule.service';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { ScheduleFilter } from 'app/schedule/schedule.service';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { IPagedResponse } from '../shared/interceptors/responses';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class PatientService extends BaseService implements IPatientService {
@@ -48,13 +48,13 @@ export class PatientService extends BaseService implements IPatientService {
     }
 
     count() {
-        const filter = new PatientFilter()
+        const filter = new PatientFilter();
         filter.setFilterValue('pageSize', '1');
-        return this.http.get(this.url(['patients']), filter.getFilter()).map((data: any) => data.count);
+        return this.http.get(this.url(['patients']), filter.getFilter()).pipe(map((data: any) => data.count));
     }
 
     getSchedules(patientId: number, scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<ISchedule>> {
-        const filter = scheduleFilter ? scheduleFilter.getFilter() : new ScheduleFilter().getFilter()
+        const filter = scheduleFilter ? scheduleFilter.getFilter() : new ScheduleFilter().getFilter();
         return this.http.get<IPagedResponse<ISchedule>>(this.url(['patients', patientId, 'schedules']), filter);
     }
 }
@@ -96,7 +96,7 @@ export class PatientFilter extends BaseFilter {
             { name: 'phone', mapsTo: 'phone', value: null, type: 'filter' },
             { name: 'lastName', mapsTo: 'last_name', value: null, type: 'filter' },
             { name: 'fullName', mapsTo: 'full_name', value: null, type: 'filter' },
-        )
-        this.setFilterValue('orderBy', 'name')
+        );
+        this.setFilterValue('orderBy', 'name');
     }
 }

@@ -1,10 +1,10 @@
 import { BaseFilter, BaseService } from '../shared/services/base.service';
 
-import { IDentist } from 'app/shared/services/dentist.service';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
-import { IPagedResponse } from 'app/shared/interceptors/responses';
+import { Observable } from 'rxjs';
+import { IPagedResponse } from '../shared/interceptors/responses';
+import { IDentist } from '../shared/services/dentist.service';
 
 export interface IClinicService {
     getAll(clinicFilter?: ClinicFilter): Observable<{ results: IClinic[] }>;

@@ -1,7 +1,8 @@
 import { BaseService } from './base.service';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface IDentistService {
     get(cro: string): Observable<IDentist[]>;
@@ -19,7 +20,7 @@ export class DentistService extends BaseService implements IDentistService {
 
     get(cro: string): Observable<IDentist[]> {
         return this.http.get(this.url(['dentists']) + '?cro=' + cro)
-            .map((data: any) => data.results);
+            .pipe(map((data: any) => data.results));
     }
 
     create(dentist: IDentist): Observable<IDentist[]> {
@@ -32,15 +33,15 @@ export class DentistService extends BaseService implements IDentistService {
     }
 
     getStates(): Observable<any> {
-        return this.http.options(BaseService.API_AUTH_URL + 'register/').map((data: any) => data.actions.POST.cro_state.choices);
+        return this.http.options(BaseService.API_AUTH_URL + 'register/').pipe(map((data: any) => data.actions.POST.cro_state.choices));
     }
 
     me(): Observable<IDentist> {
-        return this.http.get<IDentist>(this.url(['dentists', 'me']))
+        return this.http.get<IDentist>(this.url(['dentists', 'me']));
     }
 
     update(dentist: IDentist): Observable<IDentist> {
-        return this.http.put<IDentist>(this.url(['dentists', 'me']), JSON.stringify(dentist))
+        return this.http.put<IDentist>(this.url(['dentists', 'me']), JSON.stringify(dentist));
     }
 }
 

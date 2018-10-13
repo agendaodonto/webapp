@@ -1,17 +1,16 @@
 import * as moment from 'moment';
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
-import { CustomFB, CustomFG } from 'app/shared/validation';
-import { ScheduleFilter, ScheduleService } from './schedule.service';
+import { ScheduleFilter, ScheduleService, ISchedule } from './schedule.service';
 
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { DataSource } from '@angular/cdk/collections';
-import { ISchedule } from 'app/schedule/schedule.service';
-import { MatPaginator } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { Router } from '@angular/router';
+import { CustomFG, CustomFB } from '../shared/validation';
+import { Observable, BehaviorSubject, merge } from 'rxjs';
+import { startWith, switchMap, finalize, map } from 'rxjs/operators';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,25 +22,52 @@ export class ScheduleListComponent implements OnInit {
     @ViewChild(MatPaginator) paginator;
     displayedColumns = ['select', 'date', 'patient', 'status'];
     dataSource: ScheduleDatasource;
+    ds: MatTableDataSource<ISchedule>;
     filterForm: CustomFG;
+    scheduleFilter = new ScheduleFilter();
+    scheduleCount: number;
     selection = new SelectionModel<ISchedule>(true);
     isUpdating = false;
+    isLoading = false;
+    eventWatcher: Observable<any>;
+    filterChanges = new BehaviorSubject(null);
 
     constructor(
         private scheduleService: ScheduleService,
         private router: Router,
-        private route: ActivatedRoute,
-        private cdr: ChangeDetectorRef) {
+        private route: ActivatedRoute) {
         const fb = new CustomFB();
         this.filterForm = fb.group({
             startDate: [''],
             endDate: [''],
             status: ['']
-        })
+        });
     }
 
     ngOnInit() {
-        this.dataSource = new ScheduleDatasource(this.scheduleService, this.paginator);
+        this.ds = new MatTableDataSource();
+        this.eventWatcher = merge(this.paginator.page, this.filterChanges).pipe(
+            startWith(null),
+            switchMap(() => {
+                this.isLoading = true;
+                let offset = 0;
+                offset = this.paginator.pageSize * this.paginator.pageIndex;
+                this.scheduleFilter.setFilterValue('pageSize', this.paginator.pageSize.toString());
+                this.scheduleFilter.setFilterValue('offset', offset.toString());
+                return this.scheduleService.getAll(this.scheduleFilter).pipe(
+                    finalize(() => this.isLoading = false),
+                    map(response => {
+                        this.scheduleCount = response.count;
+                        if (this.scheduleCount < offset) {
+                            this.paginator.pageIndex = 0;
+                            this.filterChanges.next(null);
+                        }
+                        this.ds.data = response.results;
+                        return response.results;
+                    })
+                );
+            }));
+        // this.dataSource = new ScheduleDatasource(this.scheduleService, this.paginator);
         this.setupUrlFilter();
     }
 
@@ -59,8 +85,8 @@ export class ScheduleListComponent implements OnInit {
                 dataFim: endDate,
                 status: status
             }
-        }
-        this.router.navigate(['/agenda/lista'], navigationExtras)
+        };
+        this.router.navigate(['/agenda/lista'], navigationExtras);
     }
 
     private parseDate(date: string): moment.Moment {
@@ -78,14 +104,14 @@ export class ScheduleListComponent implements OnInit {
             this.filterForm.controls.startDate.setValue(startDate);
             this.filterForm.controls.endDate.setValue(endDate);
             this.dataSource.scheduleFilter.reset();
-            this.dataSource.scheduleFilter.setFilterValue('status', status)
+            this.dataSource.scheduleFilter.setFilterValue('status', status);
             if (startDate.isValid()) {
-                this.dataSource.scheduleFilter.setFilterValue('startDate', startDate.format('YYYY-MM-DD'))
+                this.dataSource.scheduleFilter.setFilterValue('startDate', startDate.format('YYYY-MM-DD'));
             }
             if (endDate.isValid()) {
-                this.dataSource.scheduleFilter.setFilterValue('endDate', endDate.format('YYYY-MM-DD'))
+                this.dataSource.scheduleFilter.setFilterValue('endDate', endDate.format('YYYY-MM-DD'));
             }
-            this.dataSource.filterChanges.next(null)
+            this.dataSource.filterChanges.next(null);
         });
     }
 
@@ -98,7 +124,7 @@ export class ScheduleListComponent implements OnInit {
     /** Selects all rows if they are not all selected; otherwise clear selection. */
     masterToggle() {
         if (this.isAllSelected()) {
-            this.selection.clear()
+            this.selection.clear();
         } else {
             this.dataSource.schedules.forEach(row => this.selection.select(row));
         }
@@ -111,14 +137,13 @@ export class ScheduleListComponent implements OnInit {
             const selectedSchedule = Object.assign({}, schedule); // Copy the object without reference
             selectedSchedule.status = status;
             jobs.push(this.scheduleService.save(selectedSchedule));
-        })
-        Observable.merge(...jobs)
-            .finally(() => {
+        });
+        merge(...jobs)
+            .pipe(finalize(() => {
                 this.selection.clear();
                 this.dataSource.filterChanges.next(null);
                 this.isUpdating = false;
-                this.cdr.detectChanges();
-            }).subscribe()
+            })).subscribe();
 
     }
 }
@@ -127,7 +152,7 @@ class ScheduleDatasource extends DataSource<ISchedule> {
     isLoading = true;
     count = 0;
     filterChanges = new BehaviorSubject(null);
-    changeEvents = [this.paginator.page, this.filterChanges]
+    changeEvents = [this.paginator.page, this.filterChanges];
     scheduleFilter = new ScheduleFilter();
     schedules: ISchedule[];
 
@@ -136,26 +161,27 @@ class ScheduleDatasource extends DataSource<ISchedule> {
     }
 
     connect(_collectionViewer: CollectionViewer): Observable<ISchedule[]> {
-        return Observable.merge(...this.changeEvents)
-            .startWith(null)
-            .switchMap(() => {
+        return merge(...this.changeEvents).pipe(
+            startWith(null),
+            switchMap(() => {
                 this.isLoading = true;
                 let offset = 0;
                 offset = this.paginator.pageSize * this.paginator.pageIndex;
                 this.scheduleFilter.setFilterValue('pageSize', this.paginator.pageSize.toString());
                 this.scheduleFilter.setFilterValue('offset', offset.toString());
-                return this.scheduleService.getAll(this.scheduleFilter)
-                    .finally(() => this.isLoading = false)
-                    .map(response => {
+                return this.scheduleService.getAll(this.scheduleFilter).pipe(
+                    finalize(() => this.isLoading = false),
+                    map(response => {
                         this.count = response.count;
                         if (this.count < offset) {
                             this.paginator.pageIndex = 0;
-                            this.filterChanges.next(null)
+                            this.filterChanges.next(null);
                         }
                         this.schedules = response.results;
                         return response.results;
-                    });
-            })
+                    })
+                );
+            }));
     }
     disconnect(_collectionViewer: CollectionViewer): void { }
 

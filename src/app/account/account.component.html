@@ -2,24 +2,24 @@
     <mat-card-title>Minha Conta</mat-card-title>
     <form [formGroup]="accountForm" (submit)="onSubmit()">
         <div fxLayout="row">
-            <mat-input-container fxFlex="25">
+            <mat-form-field fxFlex="25">
                 <input matInput placeholder="Nome" formControlName="first_name">
-            </mat-input-container>
-            <mat-input-container fxFlex="50">
+            </mat-form-field>
+            <mat-form-field fxFlex="50">
                 <input matInput placeholder="Sobrenome" formControlName="last_name">
-            </mat-input-container>
+            </mat-form-field>
             <mat-select placeholder="Sexo" fxFlex="25" formControlName="sex" class="flex">
                 <mat-option [value]="'M'">Masculino</mat-option>
                 <mat-option [value]="'F'">Feminino</mat-option>
             </mat-select>
         </div>
         <div fxLayout="row">
-            <mat-input-container fxFlex="30">
+            <mat-form-field fxFlex="30">
                 <input matInput placeholder="Email" formControlName="email" readonly>
-            </mat-input-container>
-            <mat-input-container fxFlex="20">
+            </mat-form-field>
+            <mat-form-field fxFlex="20">
                 <input matInput placeholder="CRO" formControlName="cro">
-            </mat-input-container>
+            </mat-form-field>
             <mat-select placeholder="Estado Emissor" fxFlex="50" formControlName="cro_state" class="flex">
                 <mat-option *ngFor="let state of states" [value]="state.value">
                     {{ state.display_name }}
@@ -27,14 +27,14 @@
             </mat-select>
         </div>
         <div fxLayout="row">
-             <mat-input-container fxFlex="50">
+             <mat-form-field fxFlex="50">
                 <input matInput placeholder="Email SMS Gateway" formControlName="sg_user">
                 <mat-hint>Utilize o email de sua conta <a href="https://smsgateway.me">SMSGateway</a></mat-hint>
-            </mat-input-container>
-            <mat-input-container fxFlex="50">
+            </mat-form-field>
+            <mat-form-field fxFlex="50">
                 <input matInput placeholder="Senha SMS Gateway" type="password" formControlName="sg_password">
                 <mat-hint>Utilize a senha de sua conta <a href="https://smsgateway.me">SMSGateway</a></mat-hint>
-            </mat-input-container>
+            </mat-form-field>
         </div>
         <div class="app-actions" fxLayoutGap="10px" fxLayoutAlign="end center">
             <button mat-raised-button color="accent" [disabled]="!accountForm.valid" [appBtnLoader]="isSubmitting">

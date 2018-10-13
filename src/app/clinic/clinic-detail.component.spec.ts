@@ -1,5 +1,4 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActivatedRouteStub, RouterStub } from 'app/shared/testing/stubs/router.stub';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { ClinicDetailComponent } from './clinic-detail.component';
@@ -9,8 +8,9 @@ import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ClinicServiceStub } from 'app/shared/testing/stubs/clinic.stub';
-import { DentistServiceStub } from 'app/shared/testing/stubs/dentist.stub';
+import { ActivatedRouteStub, RouterStub } from '../shared/testing/stubs/router.stub';
+import { ClinicServiceStub } from '../shared/testing/stubs/clinic.stub';
+import { DentistServiceStub } from '../shared/testing/stubs/dentist.stub';
 
 describe('ClinicDetailComponent', () => {
     let component: ClinicDetailComponent;

@@ -8,7 +8,7 @@ import { LoginService } from './login.service';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TokenService } from 'app/shared/services/token.service';
+import { TokenService } from '../shared/services/token.service';
 
 export const loginRoutes: Routes = [
     { path: 'login', component: LoginComponent },

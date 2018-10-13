@@ -3,8 +3,9 @@ import { CustomFB, CustomFG } from '../shared/validation';
 
 import { DentistService } from '../shared/services/dentist.service';
 import { MatSnackBar } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
 import { Validators } from '@angular/forms';
+import { forkJoin } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'app-account',
@@ -18,7 +19,7 @@ export class AccountComponent implements OnInit {
     isSubmitting = false;
 
     constructor(private dentistService: DentistService, private snackBar: MatSnackBar) {
-        const fb = new CustomFB()
+        const fb = new CustomFB();
         this.accountForm = fb.group({
             first_name: ['', Validators.required],
             last_name: ['', Validators.required],
@@ -28,15 +29,15 @@ export class AccountComponent implements OnInit {
             sex: ['', Validators.required],
             sg_user: ['', Validators.required],
             sg_password: ['', Validators.required]
-        })
+        });
     }
 
     ngOnInit() {
         this.isLoading = true;
-        Observable.forkJoin(
+        forkJoin(
             this.dentistService.getStates(),
             this.dentistService.me())
-            .finally(() => this.isLoading = false)
+            .pipe(finalize(() => this.isLoading = false))
             .subscribe(response => {
                 const states = response[0];
                 const dentist = response[1];
@@ -55,11 +56,11 @@ export class AccountComponent implements OnInit {
     onSubmit() {
         this.isSubmitting = true;
         this.dentistService.update(this.accountForm.value)
-            .finally(() => this.isSubmitting = false)
+            .pipe(finalize(() => this.isSubmitting = false))
             .subscribe(
-            () => {
-                this.snackBar.open('Salvo com sucesso', '', { duration: 2000 })
-            }
+                () => {
+                    this.snackBar.open('Salvo com sucesso', '', { duration: 2000 });
+                }
             );
     }
 

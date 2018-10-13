@@ -3,17 +3,17 @@
     <div class="app-actions">
         <form [formGroup]="filterForm" (submit)="filter()" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutAlign.gt-md="end center"
             fxLayoutAlign.lt-md="start stretch">
-            <mat-input-container fxLayout.lt-md="column" fxLayout.gt-md="row">
+            <mat-form-field fxLayout.lt-md="column" fxLayout.gt-md="row">
                 <input placeholder="Data Inicio" matInput [matDatepicker]="startDatePicker" formControlName="startDate">
                 <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #startDatePicker></mat-datepicker>
-            </mat-input-container>
-            <mat-input-container fxLayout.lt-md="column">
+            </mat-form-field>
+            <mat-form-field fxLayout.lt-md="column">
                 <input placeholder="Data Fim" matInput [matDatepicker]="endDatePicker" formControlName="endDate">
                 <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #endDatePicker></mat-datepicker>
-            </mat-input-container>
-            <mat-input-container fxLayout.lt-md="column">
+            </mat-form-field>
+            <mat-form-field fxLayout.lt-md="column">
                 <mat-select placeholder="Status" formControlName="status">
                     <mat-option> - </mat-option>
                     <mat-option [value]="'0'">Agendado</mat-option>
@@ -21,7 +21,7 @@
                     <mat-option [value]="'2'">Faltou</mat-option>
                     <mat-option [value]="'3'">Cancelou</mat-option>
                 </mat-select>
-            </mat-input-container>
+            </mat-form-field>
             <button mat-button fxLayout.lt-md="column" fxLayoutAlign="center center">
                 <mat-icon>search</mat-icon>
             </button>
@@ -39,8 +39,8 @@
             </button>
         </div>
     </div>
-    <mat-progress-bar [mode]="'query'" *ngIf="dataSource.isLoading"></mat-progress-bar>
-    <mat-table [dataSource]="dataSource">
+    <mat-progress-bar [mode]="'query'" *ngIf="isLoading"></mat-progress-bar>
+    <mat-table [dataSource]="ds">
         <ng-container matColumnDef="select">
             <mat-header-cell *matHeaderCellDef>
                 <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
@@ -68,6 +68,6 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-    <mat-paginator [length]="dataSource.count" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+    <mat-paginator [length]="scheduleCount" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
     </mat-paginator>
 </mat-card>

@@ -6,18 +6,18 @@
         </div>
         <form [formGroup]="filterForm" (submit)="filter()" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutAlign.gt-md="end center"
             fxLayoutAlign.lt-md="start stretch">
-            <mat-input-container>
+            <mat-form-field>
                 <mat-select placeholder="Filtro" formControlName="field">
                     <mat-option [value]="'fullName'">Nome</mat-option>
                     <mat-option [value]="'phone'">Telefone</mat-option>
                 </mat-select>
-            </mat-input-container>
-            <mat-input-container>
+            </mat-form-field>
+            <mat-form-field>
                 <input matInput placeholder="Pesquisar" formControlName="value">
                 <button mat-button mat-icon-button matSuffix>
                     <mat-icon>search</mat-icon>
                 </button>
-            </mat-input-container>
+            </mat-form-field>
         </form>
     </div>
     <div fxLayout="column">

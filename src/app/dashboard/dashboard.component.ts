@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ScheduleService, ISchedule, ScheduleFilter } from 'app/schedule/schedule.service';
-import { Observable } from 'rxjs/Observable';
-import { IPatient, PatientFilter, PatientService } from 'app/patient/patient.service';
 import { startOfMonth, endOfMonth, format, subMonths } from 'date-fns';
-import { IPagedResponse } from 'app/shared/interceptors/responses';
 import * as d3 from 'd3';
-import { parseAttendanceData } from 'app/dashboard/dashboard.utils';
 import { Router, NavigationExtras } from '@angular/router';
+import { Observable } from 'rxjs';
+import { IPagedResponse } from '../shared/interceptors/responses';
+import { ISchedule, ScheduleService, ScheduleFilter } from '../schedule/schedule.service';
+import { IPatient, PatientService, PatientFilter } from '../patient/patient.service';
+import { parseAttendanceData } from './dashboard.utils';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class DashboardComponent implements OnInit {
         { name: 'Comparecimentos', value: '#4CAF50' },
         { name: 'Faltas', value: '#f44336' },
         { name: 'Cancelamentos', value: '#e0e0e0' }
-    ]
+    ];
 
     constructor(private scheduleService: ScheduleService, private patientService: PatientService, private router: Router) { }
 
@@ -45,35 +46,35 @@ export class DashboardComponent implements OnInit {
         if (n2 === 0) {
             return 0;
         }
-        return Math.round(((n1 / n2) - 1) * 100)
+        return Math.round(((n1 / n2) - 1) * 100);
     }
 
     setupObservables() {
         // Patients
         const patientFilter = new PatientFilter();
         patientFilter.setFilterValue('pageSize', '1');
-        this.patients = this.patientService.getAll(patientFilter)
+        this.patients = this.patientService.getAll(patientFilter);
         // Pending Schedules
         const scheduleFilter = new ScheduleFilter();
-        scheduleFilter.setFilterValue('pageSize', '1')
-        scheduleFilter.setFilterValue('endDate', format(new Date(), 'YYYY-MM-DD'))
-        scheduleFilter.setFilterValue('status', '0')
+        scheduleFilter.setFilterValue('pageSize', '1');
+        scheduleFilter.setFilterValue('endDate', format(new Date(), 'YYYY-MM-DD'));
+        scheduleFilter.setFilterValue('status', '0');
         this.pendingSchedules = this.scheduleService.getAll(scheduleFilter);
         // Schedules
         scheduleFilter.reset();
-        scheduleFilter.setFilterValue('pageSize', '1')
-        scheduleFilter.setFilterValue('startDate', this.startDate)
-        scheduleFilter.setFilterValue('endDate', this.endDate)
+        scheduleFilter.setFilterValue('pageSize', '1');
+        scheduleFilter.setFilterValue('startDate', this.startDate);
+        scheduleFilter.setFilterValue('endDate', this.endDate);
         this.schedules = this.scheduleService.getAll(scheduleFilter);
-        scheduleFilter.setFilterValue('startDate', this.refStartDate)
-        scheduleFilter.setFilterValue('endDate', this.refEndDate)
+        scheduleFilter.setFilterValue('startDate', this.refStartDate);
+        scheduleFilter.setFilterValue('endDate', this.refEndDate);
         this.refSchedules = this.scheduleService.getAll(scheduleFilter);
         // Attendance
         this.attendance = this.scheduleService
-            .getAttendanceData()
-            .map(data => {
-                return parseAttendanceData(data)
-            })
+            .getAttendanceData().pipe(
+                map(data => {
+                    return parseAttendanceData(data);
+                }));
         this.attendanceRatio = this.scheduleService.getAttendanceData();
     }
 
@@ -82,8 +83,8 @@ export class DashboardComponent implements OnInit {
         extras.queryParams = {
             dataFim: format(new Date(), 'DD-MM-YYYY'),
             status: '0'
-        }
-        this.router.navigate(['/agenda/lista'], extras)
+        };
+        this.router.navigate(['/agenda/lista'], extras);
     }
 
     viewSchedules() {
@@ -91,12 +92,12 @@ export class DashboardComponent implements OnInit {
         extras.queryParams = {
             dataInicio: format(startOfMonth(this.date), 'DD-MM-YYYY'),
             dataFim: format(endOfMonth(this.date), 'DD-MM-YYYY'),
-        }
-        this.router.navigate(['/agenda/lista'], extras)
+        };
+        this.router.navigate(['/agenda/lista'], extras);
     }
 
     viewPatients() {
-        this.router.navigate(['/pacientes'])
+        this.router.navigate(['/pacientes']);
     }
 
 }

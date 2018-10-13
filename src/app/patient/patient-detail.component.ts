@@ -1,15 +1,16 @@
 import { BaseComponent } from '../shared/components/base.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClinicService, IClinic } from 'app/clinic/clinic.service';
 import { Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { FormGroupDirective, Validators } from '@angular/forms';
 import { IClickEvent, IPaginateEvent } from '../shared/components/pager/datatable-pager.component';
-import { IPatient, PatientService } from 'app/patient/patient.service';
 import { ISchedule, ScheduleFilter } from '../schedule/schedule.service';
 import { MatDialog, MatSlideToggle, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
+import { IClinic, ClinicService } from '../clinic/clinic.service';
+import { PatientService, IPatient } from './patient.service';
+import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
+import { finalize } from 'rxjs/operators';
 
-import { ConfirmDialogComponent } from 'app/shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
     selector: 'app-patient-detail',
@@ -56,18 +57,18 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
         this.loadClinics();
         if (this.patientId) {
             this.getSchedules(0);
-            this.patientService.get(this.patientId)
-                .finally(() => this.isLoading = false)
-                .subscribe(response => {
-                    this.patientForm.setValue({
-                        id: response.id,
-                        name: response.name,
-                        last_name: response.last_name,
-                        phone: response.phone,
-                        sex: response.sex,
-                        clinic: response.clinic,
-                    });
+            this.patientService.get(this.patientId).pipe(
+                finalize(() => this.isLoading = false)
+            ).subscribe(response => {
+                this.patientForm.setValue({
+                    id: response.id,
+                    name: response.name,
+                    last_name: response.last_name,
+                    phone: response.phone,
+                    sex: response.sex,
+                    clinic: response.clinic,
                 });
+            });
         } else {
             this.isLoading = false;
         }
@@ -79,23 +80,23 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
 
     getSchedules(offset: number) {
         this.schedulesLoading = true;
-        const filter = new ScheduleFilter()
+        const filter = new ScheduleFilter();
         filter.setFilterValue('orderBy', '-date');
         filter.setFilterValue('offset', offset.toString());
-        this.patientService.getSchedules(this.patientId, filter)
-            .finally(() => this.schedulesLoading = false)
-            .subscribe(response => {
-                this.scheduleCount = response.count;
-                this.schedules = response.results;
-            });
+        this.patientService.getSchedules(this.patientId, filter).pipe(
+            finalize(() => this.schedulesLoading = false)
+        ).subscribe(response => {
+            this.scheduleCount = response.count;
+            this.schedules = response.results;
+        });
     }
 
     onSubmit() {
         this.isSubmitting = true;
         const data: IPatient = this.patientForm.value;
-        this.patientService.save(data)
-            .finally(() => this.isSubmitting = false)
-            .subscribe(
+        this.patientService.save(data).pipe(
+            finalize(() => this.isSubmitting = false)
+        ).subscribe(
             _patient => {
                 this.snackBar.open('Salvo com sucesso', '', { duration: 2000 });
                 if (this.continuousMode && this.continuousMode.checked) {

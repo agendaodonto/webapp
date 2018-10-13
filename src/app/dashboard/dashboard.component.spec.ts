@@ -3,14 +3,14 @@ import { DashboardComponent } from './dashboard.component';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { ScheduleService } from '../schedule/schedule.service';
-import { ScheduleServiceStub } from 'app/shared/testing/stubs/schedule.stub';
-import { SharedComponentsModule } from 'app/shared/components/shared-components.module';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { PatientServiceStub } from 'app/shared/testing/stubs/patient.stub';
-import { PatientService } from 'app/patient/patient.service';
 import { Router } from '@angular/router';
-import { RouterStub } from 'app/shared/testing/stubs/router.stub';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedComponentsModule } from '../shared/components/shared-components.module';
+import { ScheduleServiceStub } from '../shared/testing/stubs/schedule.stub';
+import { PatientServiceStub } from '../shared/testing/stubs/patient.stub';
+import { PatientService } from '../patient/patient.service';
+import { RouterStub } from '../shared/testing/stubs/router.stub';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 describe('DashboardComponent', () => {
     let component: DashboardComponent;

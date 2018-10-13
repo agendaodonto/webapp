@@ -1,7 +1,7 @@
 import { MaterialAppModule } from '../material.app.module';
 import { NgModule } from '@angular/core';
-import { ScheduleStatusComponent } from 'app/shared/components/schedule-status/schedule-status.component';
 import { CommonModule } from '@angular/common';
+import { ScheduleStatusComponent } from './schedule-status/schedule-status.component';
 import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component';
 import { NotificationStatusComponent } from './notification-status/notification-status.component';
 

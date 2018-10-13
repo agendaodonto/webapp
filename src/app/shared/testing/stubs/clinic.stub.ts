@@ -1,14 +1,15 @@
-import { IClinicService, ClinicFilter, IClinic } from 'app/clinic/clinic.service';
-import { Observable } from 'rxjs/Observable';
-import { ClinicDatabase } from 'app/shared/testing/databases/clinic.database';
+import { IClinicService, ClinicFilter, IClinic } from '../../../clinic/clinic.service';
+import { ClinicDatabase } from '../databases/clinic.database';
+import { IPagedResponse } from '../../interceptors/responses';
+import { Observable, of } from 'rxjs';
 
 export class ClinicServiceStub implements IClinicService {
     clinicDatabase = new ClinicDatabase();
-    getAll(_clinicFilter?: ClinicFilter): Observable<{ results: IClinic[]; }> {
-        return Observable.of({ results: this.clinicDatabase.getMany(10) });
+    getAll(_clinicFilter?: ClinicFilter): Observable<IPagedResponse<IClinic>> {
+        return of({ results: this.clinicDatabase.getMany(10), count: 10 });
     }
     get(_clinicId: number): Observable<IClinic> {
-        return Observable.of(this.clinicDatabase.get());
+        return of(this.clinicDatabase.get());
     }
     create(_clinic: IClinic) {
         throw new Error('Method not implemented.');

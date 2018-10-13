@@ -4,7 +4,7 @@ import { AutoFocusDirective } from './auto-focus.directive';
 import { ButtonLoaderDirective } from './button-loader.directive';
 import { MatSpinner } from '@angular/material';
 import { NgModule } from '@angular/core';
-import { SharedComponentsModule } from 'app/shared/components/shared-components.module';
+import { SharedComponentsModule } from '../components/shared-components.module';
 
 @NgModule({
     imports: [SharedComponentsModule],
