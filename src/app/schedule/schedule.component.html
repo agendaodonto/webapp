@@ -45,6 +45,7 @@
     <div
         class="cal-event"
         [style.backgroundColor]="weekEvent.event.color.secondary"
+        [style.borderColor]="weekEvent.event.color.primary"
         fxLayout="row"
         fxLayoutAlign="space-between center"
         matTooltip="{{ weekEvent.event.notificationStatus.hint }}"

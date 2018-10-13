@@ -33,7 +33,9 @@ export class DentistService extends BaseService implements IDentistService {
     }
 
     getStates(): Observable<any> {
-        return this.http.options(BaseService.API_AUTH_URL + 'register/').pipe(map((data: any) => data.actions.POST.cro_state.choices));
+        return this.http.options(BaseService.API_AUTH_URL + 'register/').pipe(
+            map((data: any) => data.actions.POST.cro_state.choices)
+        );
     }
 
     me(): Observable<IDentist> {

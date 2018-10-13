@@ -6,8 +6,6 @@ import { LoginService } from './login.service';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { RouterLinkStubDirective, RouterStub } from '../shared/testing/stubs/router.stub';
 import { TokenService } from '../shared/services/token.service';
 
 describe('LoginComponent', () => {
@@ -16,12 +14,11 @@ describe('LoginComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [LoginComponent, RouterLinkStubDirective],
+            declarations: [LoginComponent],
             imports: [MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule, DirectivesModule],
             providers: [
                 TokenService,
                 LoginService,
-                { provide: Router, useClass: RouterStub },
             ]
         });
     }));

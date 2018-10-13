@@ -6,10 +6,7 @@ import { ScheduleService } from '../schedule/schedule.service';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedComponentsModule } from '../shared/components/shared-components.module';
-import { ScheduleServiceStub } from '../shared/testing/stubs/schedule.stub';
-import { PatientServiceStub } from '../shared/testing/stubs/patient.stub';
 import { PatientService } from '../patient/patient.service';
-import { RouterStub } from '../shared/testing/stubs/router.stub';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 describe('DashboardComponent', () => {
@@ -21,9 +18,6 @@ describe('DashboardComponent', () => {
             imports: [MaterialAppModule, DirectivesModule, SharedComponentsModule, NgxChartsModule, NoopAnimationsModule],
             declarations: [DashboardComponent],
             providers: [
-                { provide: ScheduleService, useClass: ScheduleServiceStub },
-                { provide: PatientService, useClass: PatientServiceStub },
-                { provide: Router, provideClass: RouterStub }
             ]
         }).compileComponents();
     }));

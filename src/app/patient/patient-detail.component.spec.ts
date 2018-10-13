@@ -9,18 +9,13 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PatientDetailComponent } from './patient-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRouteStub, RouterStub } from '../shared/testing/stubs/router.stub';
 import { PatientService } from './patient.service';
-import { PatientServiceStub } from '../shared/testing/stubs/patient.stub';
-import { ClinicServiceStub } from '../shared/testing/stubs/clinic.stub';
 
 describe('PatientDetailComponent', () => {
     let component: PatientDetailComponent;
     let fixture: ComponentFixture<PatientDetailComponent>;
 
     beforeEach(async(() => {
-        const route = new ActivatedRouteStub();
-        route.testParams = { id: 1 };
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,
@@ -32,10 +27,6 @@ describe('PatientDetailComponent', () => {
             ],
             declarations: [PatientDetailComponent],
             providers: [
-                { provide: PatientService, useClass: PatientServiceStub },
-                { provide: ClinicService, useClass: ClinicServiceStub },
-                { provide: Router, useValue: RouterStub },
-                { provide: ActivatedRoute, useValue: route },
             ]
         }).compileComponents();
     }));

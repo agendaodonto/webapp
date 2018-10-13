@@ -9,6 +9,7 @@ import { EventColor } from 'calendar-utils';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { LocalizedCalendarHeader } from '../shared/providers/localizedheader.provider';
+import { NotificationStatusComponent } from '../shared/components/notification-status/notification-status.component';
 
 type ViewType = 'week' | 'day';
 
@@ -67,14 +68,17 @@ export class ScheduleComponent implements OnInit {
             const tmpArray = [];
             schedules.results.map(schedule => {
                 const text = schedule.patient.name + ' ' + schedule.patient.last_name;
+                const notificationStatus = NotificationStatusComponent.statusLookup(schedule.notification_status);
                 tmpArray.push({
                     id: schedule.id,
                     start: new Date(schedule.date),
                     end: addMinutes(new Date(schedule.date), schedule.duration),
                     title: text,
                     color: ScheduleComponent.COLORS[schedule.status],
+                    notificationStatus: notificationStatus
                 });
                 this.schedules = tmpArray;
+                console.log(this.schedules);
             });
         }
         );
