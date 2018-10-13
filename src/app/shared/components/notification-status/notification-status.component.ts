@@ -9,19 +9,19 @@ import { Component, Input } from '@angular/core';
 })
 export class NotificationStatusComponent {
     private static statusList = {
-        AGENDADO: { hint: 'Sua mensagem está agendada, e assim que necessário será enviada', icon: 'schedule', iconStyle: {} },
-        ENVIADO: { hint: 'Sua mensagem foi enviada com sucesso.', icon: 'done_all', iconStyle: {color: 'green'} },
-        EXPIRADO: { hint: 'Sua mensagem expirou.', icon: 'block', iconStyle: {color: '#626262'} },
-        FALHOU: { hint: 'Ocorreu um erro ao enviar sua mensagem', icon: 'error_outline', iconStyle: {color: 'red'} },
-        DESCONHECIDO: { hint: 'Não sabemos o que aconteceu com a sua mensagem. :(', icon: 'warning', iconStyle: {color: '#FFEB3B'} },
-    }
+        0: { hint: 'Sua mensagem está agendada, e assim que necessário será enviada', icon: 'schedule', iconStyle: {} },
+        1: { hint: 'Sua mensagem foi enviada com sucesso.', icon: 'done_all', iconStyle: {color: 'green'} },
+        2: { hint: 'Ocorreu um erro ao enviar sua mensagem', icon: 'error_outline', iconStyle: {color: 'red'} },
+        3: { hint: 'Sua mensagem expirou.', icon: 'block', iconStyle: {color: '#626262'} },
+        4: { hint: 'Não sabemos o que aconteceu com a sua mensagem. :(', icon: 'warning', iconStyle: {color: '#FFEB3B'} },
+    };
 
     @Input() status: string;
 
     static statusLookup(status: string) {
-        let statusData = NotificationStatusComponent.statusList[status]
+        let statusData = NotificationStatusComponent.statusList[status];
         if (statusData === undefined) {
-            statusData = NotificationStatusComponent.statusList.DESCONHECIDO;
+            statusData = NotificationStatusComponent.statusList[4];
         }
         return statusData;
     }
@@ -31,10 +31,10 @@ export class NotificationStatusComponent {
     }
 
     getIcon() {
-        return NotificationStatusComponent.statusLookup(this.status).icon
+        return NotificationStatusComponent.statusLookup(this.status).icon;
     }
 
     getIconStyle() {
-        return NotificationStatusComponent.statusLookup(this.status).iconStyle
+        return NotificationStatusComponent.statusLookup(this.status).iconStyle;
     }
 }
