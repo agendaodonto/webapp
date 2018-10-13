@@ -1,5 +1,4 @@
 import { Router } from '@angular/router';
-import { RouterLinkStubDirective, RouterStub } from '../shared/testing/stubs/router.stub';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { AboutComponent } from './about.component';
@@ -12,9 +11,9 @@ describe('AboutComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MaterialAppModule],
-      declarations: [AboutComponent, RouterLinkStubDirective],
+      declarations: [AboutComponent],
       providers: [
-        { provide: Router, useClass: RouterStub },
+          Router
       ]
     })
       .compileComponents();
