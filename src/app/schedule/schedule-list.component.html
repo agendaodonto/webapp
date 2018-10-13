@@ -39,8 +39,8 @@
             </button>
         </div>
     </div>
-    <mat-progress-bar [mode]="'query'" *ngIf="isLoading"></mat-progress-bar>
-    <mat-table [dataSource]="ds">
+    <mat-progress-bar [mode]="'query'" *ngIf="dataSource.isLoading"></mat-progress-bar>
+    <mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="select">
             <mat-header-cell *matHeaderCellDef>
                 <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
@@ -68,6 +68,6 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-    <mat-paginator [length]="scheduleCount" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+    <mat-paginator [length]="dataSource.count" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
     </mat-paginator>
 </mat-card>

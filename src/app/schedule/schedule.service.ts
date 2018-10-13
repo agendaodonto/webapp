@@ -50,6 +50,13 @@ export class ScheduleService extends BaseService implements IScheduleService {
         }
     }
 
+    updateNotificationStatus(schedule: ISchedule, newStatus: number): Observable<any> {
+        const payload = {
+            new_status: newStatus
+        };
+        return this.http.post(this.url(['schedules', schedule.id, 'notification']), JSON.stringify(payload));
+    }
+
     getAttendanceData(referenceDate?: Date): Observable<IAttendanceData> {
         let params = new HttpParams();
         params = params.set('date', format(referenceDate, 'YYYY-MM-DD'));

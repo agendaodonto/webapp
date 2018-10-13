@@ -1,16 +1,16 @@
 import * as moment from 'moment';
 
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
 import { ScheduleFilter, ScheduleService, ISchedule } from './schedule.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { DataSource } from '@angular/cdk/collections';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator } from '@angular/material';
 import { Router } from '@angular/router';
+import { merge, BehaviorSubject, Observable } from 'rxjs';
+import { finalize, startWith, switchMap, map } from 'rxjs/operators';
 import { CustomFG, CustomFB } from '../shared/validation';
-import { Observable, BehaviorSubject, merge } from 'rxjs';
-import { startWith, switchMap, finalize, map } from 'rxjs/operators';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,20 +22,15 @@ export class ScheduleListComponent implements OnInit {
     @ViewChild(MatPaginator) paginator;
     displayedColumns = ['select', 'date', 'patient', 'status'];
     dataSource: ScheduleDatasource;
-    ds: MatTableDataSource<ISchedule>;
     filterForm: CustomFG;
-    scheduleFilter = new ScheduleFilter();
-    scheduleCount: number;
     selection = new SelectionModel<ISchedule>(true);
     isUpdating = false;
-    isLoading = false;
-    eventWatcher: Observable<any>;
-    filterChanges = new BehaviorSubject(null);
 
     constructor(
         private scheduleService: ScheduleService,
         private router: Router,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private cdr: ChangeDetectorRef) {
         const fb = new CustomFB();
         this.filterForm = fb.group({
             startDate: [''],
@@ -45,29 +40,7 @@ export class ScheduleListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.ds = new MatTableDataSource();
-        this.eventWatcher = merge(this.paginator.page, this.filterChanges).pipe(
-            startWith(null),
-            switchMap(() => {
-                this.isLoading = true;
-                let offset = 0;
-                offset = this.paginator.pageSize * this.paginator.pageIndex;
-                this.scheduleFilter.setFilterValue('pageSize', this.paginator.pageSize.toString());
-                this.scheduleFilter.setFilterValue('offset', offset.toString());
-                return this.scheduleService.getAll(this.scheduleFilter).pipe(
-                    finalize(() => this.isLoading = false),
-                    map(response => {
-                        this.scheduleCount = response.count;
-                        if (this.scheduleCount < offset) {
-                            this.paginator.pageIndex = 0;
-                            this.filterChanges.next(null);
-                        }
-                        this.ds.data = response.results;
-                        return response.results;
-                    })
-                );
-            }));
-        // this.dataSource = new ScheduleDatasource(this.scheduleService, this.paginator);
+        this.dataSource = new ScheduleDatasource(this.scheduleService, this.paginator);
         this.setupUrlFilter();
     }
 
@@ -138,13 +111,14 @@ export class ScheduleListComponent implements OnInit {
             selectedSchedule.status = status;
             jobs.push(this.scheduleService.save(selectedSchedule));
         });
-        merge(...jobs)
-            .pipe(finalize(() => {
+        merge(...jobs).pipe(
+            finalize(() => {
                 this.selection.clear();
                 this.dataSource.filterChanges.next(null);
                 this.isUpdating = false;
-            })).subscribe();
-
+                this.cdr.detectChanges();
+            })
+        ).subscribe();
     }
 }
 
@@ -181,7 +155,8 @@ class ScheduleDatasource extends DataSource<ISchedule> {
                         return response.results;
                     })
                 );
-            }));
+            })
+        );
     }
     disconnect(_collectionViewer: CollectionViewer): void { }
 
