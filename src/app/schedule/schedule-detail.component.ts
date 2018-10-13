@@ -10,7 +10,7 @@ import { MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
 import { IDentist } from '../shared/services/dentist.service';
 import { ScheduleService, ISchedule } from './schedule.service';
 import { isString } from 'util';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { debounceTime, finalize } from 'rxjs/operators';
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
 import { PatientDetailComponent } from '../patient/patient-detail.component';
@@ -53,22 +53,22 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
             this.loadScheduleData(this.scheduleId);
         }
         const filter = new PatientFilter();
-        this.scheduleForm.controls.patient.valueChanges.pipe(
-            debounceTime(100)
-        ).subscribe((value) => {
-            if (isString(value)) {
-                filter.setFilterValue('fullName', value);
-                this.filteredPatients = this.patientService.getAll(filter);
-            } else {
-                if (value != null) {
-                    this.dentists = value.clinic.dentists;
-                    if (this.dentists.length === 1) {
-                        this.scheduleForm.controls.dentist.setValue(this.dentists[0]);
+        this.scheduleForm.controls.patient.valueChanges
+            .pipe(debounceTime(100))
+            .subscribe((value) => {
+                if (isString(value)) {
+                    filter.setFilterValue('fullName', value);
+                    this.filteredPatients = this.patientService.getAll(filter);
+                } else {
+                    if (value != null) {
+                        this.dentists = value.clinic.dentists;
+                        if (this.dentists.length === 1) {
+                            this.scheduleForm.controls.dentist.setValue(this.dentists[0]);
+                        }
                     }
                 }
-            }
 
-        });
+            });
 
     }
 
@@ -85,16 +85,20 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
         const scheduleDuration = this.scheduleForm.controls.duration.value;
         const nextScheduleDate = addMinutes(scheduleDate, scheduleDuration);
         this.isSubmitting = true;
-        this.scheduleService.save(this.scheduleForm.value).pipe(
-            finalize(() => this.isSubmitting = false)
-        ).subscribe(() => {
-            if (this.continuousMode && this.continuousMode.checked) {
-                this.scheduleFormDirective.resetForm();
-                this.scheduleForm.controls.date.setValue(format(nextScheduleDate, 'YYYY-MM-DDTHH:mm'));
-            } else {
-                this.router.navigate(['/agenda']);
-            }
-        });
+        const jobs = [this.scheduleService.save(this.scheduleForm.value)];
+        if (this.schedule && new Date(this.schedule.date).getTime() !== new Date(scheduleDate).getTime()) {
+            jobs.push(this.scheduleService.updateNotificationStatus(this.schedule, 0));
+        }
+        forkJoin(...jobs)
+            .pipe(finalize(() => this.isSubmitting = false))
+            .subscribe(() => {
+                if (this.continuousMode && this.continuousMode.checked) {
+                    this.scheduleFormDirective.resetForm();
+                    this.scheduleForm.controls.date.setValue(format(nextScheduleDate, 'YYYY-MM-DDTHH:mm'));
+                } else {
+                    this.router.navigate(['/agenda']);
+                }
+            });
     }
 
     loadScheduleData(scheduleId: number) {
