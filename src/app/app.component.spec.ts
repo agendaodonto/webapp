@@ -5,24 +5,25 @@ import { AppComponent } from './app.component';
 import { LoginService } from './login/login.service';
 import { MaterialAppModule } from './shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                AppComponent
-            ],
             imports: [
                 MaterialAppModule,
                 NoopAnimationsModule,
-                HttpClientModule,
-                RouterModule.forRoot([]),
+                HttpClientTestingModule,
+                RouterTestingModule,
+            ],
+            declarations: [
+                AppComponent
             ],
             providers: [
                 LoginService,
-                { provide: APP_BASE_HREF, useValue: '/'},
+                { provide: APP_BASE_HREF, useValue: '/' },
             ]
         });
     }));
@@ -44,7 +45,7 @@ describe('AppComponent', () => {
             type: 'resize',
             target: { innerWidth: 1600 }
         };
-        app.onResize(resizeEvent)
+        app.onResize(resizeEvent);
         expect(app.displayType).toBe('mobile');
     }));
 
@@ -56,7 +57,7 @@ describe('AppComponent', () => {
             type: 'resize',
             target: { innerWidth: 1601 }
         };
-        app.onResize(resizeEvent)
+        app.onResize(resizeEvent);
         expect(app.displayType).toBe('desktop');
     }));
 
@@ -68,15 +69,15 @@ describe('AppComponent', () => {
         spyOn(loginService, 'logout');
         spyOn(router, 'navigate').and.returnValue(true);
         app.logout();
-        expect(loginService.logout).toHaveBeenCalled()
-        expect(router.navigate).toHaveBeenCalledWith(['/login'])
+        expect(loginService.logout).toHaveBeenCalled();
+        expect(router.navigate).toHaveBeenCalledWith(['/login']);
     }));
 
     it('should close the sidenav only for mobile', async(() => {
         const fixture = TestBed.createComponent(AppComponent);
         const app = fixture.componentInstance;
         spyOn(app.sideNav, 'close');
-        app.closeSideNav()
+        app.closeSideNav();
         expect(app.sideNav.close).toHaveBeenCalledTimes(0);
         app.displayType = 'mobile';
         app.closeSideNav();
@@ -87,8 +88,8 @@ describe('AppComponent', () => {
         const fixture = TestBed.createComponent(AppComponent);
         const app = fixture.componentInstance;
         const loginService = fixture.debugElement.injector.get(LoginService);
-        const loggedMenu = {name: 'TestMenu', link: 'aLink', requiresLogin: true, hideWhenLogged: false}
-        const nonLoggedMenu = {name: 'TestMenu2', link: 'aLink2', requiresLogin: false, hideWhenLogged: true}
+        const loggedMenu = { name: 'TestMenu', link: 'aLink', requiresLogin: true, hideWhenLogged: false };
+        const nonLoggedMenu = { name: 'TestMenu2', link: 'aLink2', requiresLogin: false, hideWhenLogged: true };
         spyOn(loginService, 'isLogged').and.returnValue(false);
 
         expect(app.shouldDisplayMenu(loggedMenu)).toBeFalsy();
@@ -99,8 +100,8 @@ describe('AppComponent', () => {
         const fixture = TestBed.createComponent(AppComponent);
         const app = fixture.componentInstance;
         const loginService = fixture.debugElement.injector.get(LoginService);
-        const loggedMenu = {name: 'TestMenu', link: 'aLink', requiresLogin: true, hideWhenLogged: false}
-        const nonLoggedMenu = {name: 'TestMenu2', link: 'aLink2', requiresLogin: false, hideWhenLogged: true}
+        const loggedMenu = { name: 'TestMenu', link: 'aLink', requiresLogin: true, hideWhenLogged: false };
+        const nonLoggedMenu = { name: 'TestMenu2', link: 'aLink2', requiresLogin: false, hideWhenLogged: true };
         spyOn(loginService, 'isLogged').and.returnValue(true);
 
         expect(app.shouldDisplayMenu(loggedMenu)).toBeTruthy();

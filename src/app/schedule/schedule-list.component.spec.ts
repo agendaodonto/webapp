@@ -9,6 +9,8 @@ import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { SharedComponentsModule } from '../shared/components/shared-components.module';
 import { ScheduleService } from './schedule.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ScheduleListComponent', () => {
     let component: ScheduleListComponent;
@@ -22,13 +24,15 @@ describe('ScheduleListComponent', () => {
                 MaterialAppModule,
                 SharedComponentsModule,
                 NoopAnimationsModule,
-                MatMomentDateModule
+                MatMomentDateModule,
+                HttpClientTestingModule,
+                RouterTestingModule
             ],
             declarations: [ScheduleListComponent],
             providers: [
+                ScheduleService
             ]
-        })
-            .compileComponents();
+        }).compileComponents();
     }));
 
     beforeEach(() => {

@@ -1,24 +1,35 @@
 import * as moment from 'moment';
 
-import { ActivatedRoute, Router } from '@angular/router';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { MaterialAppModule } from '../shared/material.app.module';
 import { ScheduleComponent } from './schedule.component';
 import { ScheduleService } from './schedule.service';
 import { CalendarModule, MOMENT } from 'angular-calendar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '../shared/testing/activated-route.stub';
 
 describe('ScheduleComponent', () => {
     let component: ScheduleComponent;
     let fixture: ComponentFixture<ScheduleComponent>;
+    const  routeMock = new ActivatedRouteStub();
 
     beforeEach(async(() => {
-        route.testParams = {};
+        routeMock.testParams = {};
         TestBed.configureTestingModule({
-            imports: [MaterialAppModule, CalendarModule.forRoot()],
+            imports: [
+                MaterialAppModule,
+                CalendarModule.forRoot(),
+                RouterTestingModule,
+                HttpClientTestingModule
+            ],
+            declarations: [ScheduleComponent],
             providers: [
-                { provide: ActivatedRoute, useValue: route },
-                { provide: MOMENT, useValue: moment}
+                { provide: MOMENT, useValue: moment },
+                { provide: ActivatedRoute, useValue: routeMock },
+                ScheduleService
             ]
         }).compileComponents();
 
@@ -35,10 +46,10 @@ describe('ScheduleComponent', () => {
     });
 
     it('should load the date from URL', () => {
-        // route.testParams = { view: 'dia', date: '2017-11-13' };
+        routeMock.testParams = { view: 'dia', date: '2017-11-13' };
         expect(component.scheduleFilter.fields.find(v => v.name === 'startDate').value).toBe('2017-11-13');
         expect(component.scheduleFilter.fields.find(v => v.name === 'endDate').value).toBe('2017-11-13');
-        // route.testParams = { view: 'semana', date: '2017-11-15' };
+        routeMock.testParams = { view: 'semana', date: '2017-11-15 ' };
         expect(component.scheduleFilter.fields.find(v => v.name === 'startDate').value).toBe('2017-11-12');
         expect(component.scheduleFilter.fields.find(v => v.name === 'endDate').value).toBe('2017-11-18');
     });

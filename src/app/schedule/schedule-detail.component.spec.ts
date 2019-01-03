@@ -6,6 +6,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ScheduleDetailComponent } from './schedule-detail.component';
 import { SharedComponentsModule } from '../shared/components/shared-components.module';
+import { ScheduleService } from './schedule.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { PatientService } from '../patient/patient.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ScheduleDetailComponent', () => {
     let component: ScheduleDetailComponent;
@@ -13,9 +17,19 @@ describe('ScheduleDetailComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule, DirectivesModule, SharedComponentsModule],
+            imports: [
+                MaterialAppModule,
+                ReactiveFormsModule,
+                NoopAnimationsModule,
+                DirectivesModule,
+                SharedComponentsModule,
+                HttpClientTestingModule,
+                RouterTestingModule
+            ],
             declarations: [ScheduleDetailComponent],
             providers: [
+                ScheduleService,
+                PatientService
             ]
         }).compileComponents();
     }));

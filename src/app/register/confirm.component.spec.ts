@@ -3,6 +3,9 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmComponent } from './confirm.component';
 import { MaterialAppModule } from '../shared/material.app.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { DentistService } from '../shared/services/dentist.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ConfirmComponent', () => {
     let component: ConfirmComponent;
@@ -10,13 +13,17 @@ describe('ConfirmComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [
+                MaterialAppModule,
+                NoopAnimationsModule,
+                RouterTestingModule,
+                HttpClientTestingModule
+            ],
             declarations: [ConfirmComponent],
-            imports: [MaterialAppModule, NoopAnimationsModule],
             providers: [
+                DentistService
             ]
-
-        })
-            .compileComponents();
+        }).compileComponents();
     }));
 
     beforeEach(() => {
