@@ -29,7 +29,7 @@
     "@swimlane/ngx-charts": "^7.0.1",
     "@swimlane/ngx-datatable": "^11.1.4",
     "angular-calendar": "^0.22.1",
-    "calendar-utils": "^0.0.58",
+    "calendar-utils": "^0.2.3",
     "core-js": "^2.5.6",
     "coveralls": "^3.0.0",
     "d3": "^4.12.0",
