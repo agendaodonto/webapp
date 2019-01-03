@@ -3,10 +3,7 @@ import { Component, ViewChild, HostListener } from '@angular/core';
 import { LoginService } from './login/login.service';
 import { MatSidenav } from '@angular/material';
 import { Md5 } from 'ts-md5/dist/md5';
-import { fromEvent } from 'rxjs';
-import { map, startWith, debounceTime } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 
 interface IMenu {
     name: string;

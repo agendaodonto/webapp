@@ -7,7 +7,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PatientComponent } from './patient.component';
 import { PatientService } from './patient.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('PatientComponent', () => {
     let component: PatientComponent;
@@ -15,9 +16,18 @@ describe('PatientComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, MaterialAppModule, NgxDatatableModule, DataTablePagerModule, ReactiveFormsModule],
+            imports: [
+                NoopAnimationsModule,
+                MaterialAppModule,
+                NgxDatatableModule,
+                DataTablePagerModule,
+                ReactiveFormsModule,
+                RouterTestingModule,
+                HttpClientTestingModule
+            ],
             declarations: [PatientComponent],
             providers: [
+                PatientService
             ]
         }).compileComponents();
     }));

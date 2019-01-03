@@ -1,4 +1,3 @@
-import { ActivatedRoute, Router } from '@angular/router';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { ClinicService } from '../clinic/clinic.service';
@@ -10,6 +9,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PatientDetailComponent } from './patient-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PatientService } from './patient.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PatientDetailComponent', () => {
     let component: PatientDetailComponent;
@@ -24,9 +25,13 @@ describe('PatientDetailComponent', () => {
                 DirectivesModule,
                 NgxDatatableModule,
                 DataTablePagerModule,
+                HttpClientTestingModule,
+                RouterTestingModule
             ],
             declarations: [PatientDetailComponent],
             providers: [
+                PatientService,
+                ClinicService
             ]
         }).compileComponents();
     }));

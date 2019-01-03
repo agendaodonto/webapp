@@ -7,6 +7,8 @@ import { MaterialAppModule } from '../shared/material.app.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TokenService } from '../shared/services/token.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
@@ -15,7 +17,14 @@ describe('LoginComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [LoginComponent],
-            imports: [MaterialAppModule, ReactiveFormsModule, NoopAnimationsModule, DirectivesModule],
+            imports: [
+                HttpClientTestingModule,
+                MaterialAppModule,
+                ReactiveFormsModule,
+                NoopAnimationsModule,
+                DirectivesModule,
+                RouterTestingModule
+            ],
             providers: [
                 TokenService,
                 LoginService,

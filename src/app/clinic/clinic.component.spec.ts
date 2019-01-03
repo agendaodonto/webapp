@@ -5,8 +5,9 @@ import { ClinicComponent } from './clinic.component';
 import { ClinicService } from './clinic.service';
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
 import { MaterialAppModule } from '../shared/material.app.module';
-import { Router } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ClinicComponent', () => {
     let component: ClinicComponent;
@@ -14,9 +15,17 @@ describe('ClinicComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [MaterialAppModule, NgxDatatableModule, DataTablePagerModule, NoopAnimationsModule],
+            imports: [
+                MaterialAppModule,
+                NgxDatatableModule,
+                DataTablePagerModule,
+                NoopAnimationsModule,
+                RouterTestingModule,
+                HttpClientTestingModule
+            ],
             declarations: [ClinicComponent],
             providers: [
+                ClinicService
             ]
         });
     }));
