@@ -16,12 +16,11 @@ jobs:
       env:
         - CHROME_BIN=google-chrome-stable
       script:
-        - ng test -cc -sr --browsers=ChromeHeadlessNoSandBox
+        - ng test --code-coverage=true --single-run --browsers=ChromeHeadlessNoSandBox
         - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
     - stage: test
       script: ng lint
     - stage: test
       script: ng build --aot
     - stage: deploy
-
       script: ./scripts/deploy.sh
