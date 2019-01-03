@@ -18,7 +18,7 @@ export class ScheduleDatabase implements IDatabase<ISchedule> {
             status: Math.floor((Math.random() * 3) + 1),
             date: faker.date.recent(),
             notification_status: 'ENVIADO'
-        }
+        };
         return schedule;
     }
 

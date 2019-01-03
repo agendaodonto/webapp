@@ -24,7 +24,7 @@ const STATE_CHOICES = {
             }
         }
     }
-}
+};
 
 describe('DentistService', () => {
     let injector: TestBed;

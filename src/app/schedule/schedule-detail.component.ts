@@ -56,7 +56,7 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
         this.scheduleForm.controls.patient.valueChanges
             .pipe(debounceTime(100))
             .subscribe((value) => {
-                if (isString(value)) {
+                if (typeof value === 'string') {
                     filter.setFilterValue('fullName', value);
                     this.filteredPatients = this.patientService.getAll(filter);
                 } else {

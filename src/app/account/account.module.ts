@@ -11,7 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 export const accountRoutes: Routes = [
     // { path: 'conta', component: AccountComponent, canActivate: [AuthGuard] }
-]
+];
 
 @NgModule({
     imports: [CommonModule, MaterialAppModule, FlexLayoutModule, ReactiveFormsModule, RouterModule, DirectivesModule],
