@@ -59,7 +59,9 @@ export class ScheduleService extends BaseService implements IScheduleService {
 
     getAttendanceData(referenceDate?: Date): Observable<IAttendanceData> {
         let params = new HttpParams();
-        params = params.set('date', format(referenceDate, 'YYYY-MM-DD'));
+        if (referenceDate) {
+            params = params.set('date', format(referenceDate, 'YYYY-MM-DD'));
+        }
         return this.http.get<IAttendanceData>(this.url(['schedules', 'attendance']), { params: params });
     }
 

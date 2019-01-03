@@ -7,7 +7,7 @@ import { ScheduleFilter } from '../schedule/schedule.service';
 
 export const PATIENTS: Array<IPatient> = [
     { id: 1, name: 'John', last_name: 'Doe', phone: '1234', sex: 'M', clinic: CLINICS[0]}
-]
+];
 
 describe('PatientService', () => {
     let injector: TestBed;
@@ -39,7 +39,7 @@ describe('PatientService', () => {
 
     it('should get all patients with filter', () => {
         const filter = new PatientFilter();
-        filter.setFilterValue('fullName', 'Juca')
+        filter.setFilterValue('fullName', 'Juca');
         service.getAll(filter).subscribe();
         const request = httpMock.expectOne(`${BaseService.API_ENDPOINT}patients/?offset=0&limit=10&ordering=name&full_name=Juca`);
         expect(request.request.method).toBe('GET');

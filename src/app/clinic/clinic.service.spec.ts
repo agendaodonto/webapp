@@ -6,7 +6,7 @@ import { DENTISTS } from '../shared/services/dentist.service.spec';
 
 export const CLINICS: Array<IClinic> = [
     { id: 1, dentists: DENTISTS, name: 'Clinic 1' }
-]
+];
 
 describe('ClinicService', () => {
     let injector: TestBed;
@@ -38,7 +38,7 @@ describe('ClinicService', () => {
 
     it('should get all clinics with filter', () => {
         const filter = new ClinicFilter();
-        filter.setFilterValue('offset', '10')
+        filter.setFilterValue('offset', '10');
         service.getAll(filter).subscribe();
         const request = httpMock.expectOne(`${BaseService.API_ENDPOINT}clinics/?offset=10&limit=10&ordering=id`);
         expect(request.request.method).toBe('GET');
@@ -76,8 +76,8 @@ describe('ClinicService', () => {
         spyOn(service, 'create');
         spyOn(service, 'update');
         service.save(clinic);
-        expect(service.create).toHaveBeenCalled()
-        expect(service.update).toHaveBeenCalledTimes(0)
+        expect(service.create).toHaveBeenCalled();
+        expect(service.update).toHaveBeenCalledTimes(0);
     });
 
     it('should update a clinic when saving with id', () => {
@@ -85,8 +85,8 @@ describe('ClinicService', () => {
         spyOn(service, 'create');
         spyOn(service, 'update');
         service.save(clinic);
-        expect(service.update).toHaveBeenCalled()
-        expect(service.create).toHaveBeenCalledTimes(0)
+        expect(service.update).toHaveBeenCalled();
+        expect(service.create).toHaveBeenCalledTimes(0);
     });
 
 });

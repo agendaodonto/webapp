@@ -14,7 +14,7 @@ export const SCHEDULES: Array<ISchedule> = [
         patient: PATIENTS[0],
         status: 1
     }
-]
+];
 
 describe('ScheduleService', () => {
     let injector: TestBed;
@@ -46,7 +46,7 @@ describe('ScheduleService', () => {
 
     it('should get all schedules with filter', () => {
         const filter = new ScheduleFilter();
-        filter.setFilterValue('status', '1')
+        filter.setFilterValue('status', '1');
         service.getAll(filter).subscribe();
         const request = httpMock.expectOne(`${BaseService.API_ENDPOINT}schedules/?offset=0&limit=10&ordering=date&status=1`);
         expect(request.request.method).toBe('GET');
@@ -84,8 +84,8 @@ describe('ScheduleService', () => {
         spyOn(service, 'create');
         spyOn(service, 'update');
         service.save(schedule);
-        expect(service.create).toHaveBeenCalled()
-        expect(service.update).toHaveBeenCalledTimes(0)
+        expect(service.create).toHaveBeenCalled();
+        expect(service.update).toHaveBeenCalledTimes(0);
     });
 
     it('should update a schedule when saving with id', () => {
@@ -93,8 +93,8 @@ describe('ScheduleService', () => {
         spyOn(service, 'create');
         spyOn(service, 'update');
         service.save(schedule);
-        expect(service.update).toHaveBeenCalled()
-        expect(service.create).toHaveBeenCalledTimes(0)
+        expect(service.update).toHaveBeenCalled();
+        expect(service.create).toHaveBeenCalledTimes(0);
     });
 
     it('should get the attendance data', () => {
@@ -104,7 +104,7 @@ describe('ScheduleService', () => {
     });
 
     it('should get the attendance data with reference date', () => {
-        const refDate = new Date('2017-01-01 10:00')
+        const refDate = new Date('2017-01-01 10:00');
         service.getAttendanceData(refDate).subscribe();
         const request = httpMock.expectOne(`${BaseService.API_ENDPOINT}schedules/attendance/?date=2017-01-01`);
         expect(request.request.method).toBe('GET');

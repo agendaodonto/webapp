@@ -13,13 +13,13 @@ export class ScheduleStatusComponent {
         2: { label: 'Faltou', style: { 'background-color': '#f44336', 'color': 'white' } },
         3: { label: 'Cancelou', style: { 'background-color': '#e0e0e0' } },
         'default': { label: 'Desconhecido', style: { 'background-color': '#e0e0e0' } }
-    }
+    };
 
     @Input() status: number;
     constructor() { }
 
     private statusLookup(status: number) {
-        let statusData = ScheduleStatusComponent.statusList[status]
+        let statusData = ScheduleStatusComponent.statusList[status];
         if (statusData === undefined) {
             statusData = ScheduleStatusComponent.statusList['default'];
         }

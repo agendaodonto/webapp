@@ -15,7 +15,7 @@ export class PatientDatabase implements IDatabase<IPatient> {
             sex: 'M',
             phone: faker.phone.phoneNumber(),
             clinic: this.clinicDatabase.get()
-        }
+        };
         return patient;
     }
 
