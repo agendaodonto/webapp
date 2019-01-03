@@ -295,9 +295,9 @@
     d3-shape "^1.2.0"
     d3-time-format "^2.1.0"
 
-"@swimlane/ngx-datatable@^11.1.4":
-  version "11.1.4"
-  resolved "https://registry.yarnpkg.com/@swimlane/ngx-datatable/-/ngx-datatable-11.1.4.tgz#240fd242918fa9501031f298449326752e870b21"
+"@swimlane/ngx-datatable@^11.3.2":
+  version "11.3.2"
+  resolved "https://registry.yarnpkg.com/@swimlane/ngx-datatable/-/ngx-datatable-11.3.2.tgz#cefeda7f75a6f69394e4f8e05b197942584f054d"
 
 "@types/d3-array@*":
   version "1.2.1"
