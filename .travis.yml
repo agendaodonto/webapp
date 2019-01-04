@@ -16,7 +16,7 @@ jobs:
       env:
         - CHROME_BIN=google-chrome-stable
       script:
-        - ng test --code-coverage=true --watch=false
+        - ng test --code-coverage=true --watch=false --browsers=ChromeHeadless
         - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
     - stage: test
       script: ng lint
