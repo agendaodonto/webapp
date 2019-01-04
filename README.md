@@ -1,4 +1,7 @@
 # WebappAngularUpgrade
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=agendaodonto/webapp)](https://dependabot.com)
+[![Build Status](https://travis-ci.org/agendaodonto/webapp.svg?branch=master)](https://travis-ci.org/agendaodonto/webapp)
+[![Coverage Status](https://coveralls.io/repos/github/agendaodonto/webapp/badge.svg?branch=develop)](https://coveralls.io/github/agendaodonto/webapp?branch=develop)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.4.
 
