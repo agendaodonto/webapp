@@ -1,9 +1,9 @@
-import { Component, ViewChild, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material';
+import { Router } from '@angular/router';
+import { Md5 } from 'ts-md5/dist/md5';
 
 import { LoginService } from './login/login.service';
-import { MatSidenav } from '@angular/material';
-import { Md5 } from 'ts-md5/dist/md5';
-import { Router } from '@angular/router';
 
 interface IMenu {
     name: string;
@@ -17,7 +17,7 @@ type Display = 'desktop' | 'mobile';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
     @ViewChild('sidenav') sideNav: MatSidenav;

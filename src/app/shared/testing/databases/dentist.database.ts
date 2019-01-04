@@ -1,7 +1,7 @@
+import * as faker from 'faker/locale/pt_BR';
+
 import { IDentist } from '../../services/dentist.service';
 import { IDatabase } from './base.database';
-
-const faker = require('faker/locale/pt_BR');
 
 export class DentistDatabase implements IDatabase<IDentist> {
 
@@ -14,7 +14,7 @@ export class DentistDatabase implements IDatabase<IDentist> {
             first_name: faker.name.firstName(),
             last_name: faker.name.lastName(),
             email: faker.internet.email(),
-            sex: 'M'
+            sex: 'M',
         };
         return dentist;
     }

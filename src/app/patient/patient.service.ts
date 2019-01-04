@@ -1,11 +1,14 @@
-import { BaseFilter, BaseService } from '../shared/services/base.service';
-import { IClinic } from '../clinic/clinic.service';
-import { ISchedule, ScheduleFilter } from '../schedule/schedule.service';
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IPagedResponse } from '../shared/interceptors/responses';
 import { map } from 'rxjs/operators';
+
+import { IClinic } from '../clinic/clinic.service';
+import { ScheduleFilter } from '../schedule/schedule.filter';
+import { ISchedule } from '../schedule/schedule.service';
+import { IPagedResponse } from '../shared/interceptors/responses';
+import { BaseService } from '../shared/services/base.service';
+import { PatientFilter } from './patient.filter';
 
 @Injectable()
 export class PatientService extends BaseService implements IPatientService {
@@ -76,27 +79,4 @@ export interface IPatient {
     sex: string;
     phone: string;
     clinic: IClinic;
-}
-
-export class Patient implements IPatient {
-    id: number;
-    name: string;
-    last_name: string;
-    sex: string;
-    phone: string;
-    clinic: IClinic;
-}
-
-export class PatientFilter extends BaseFilter {
-
-    constructor() {
-        super();
-        this.fields.push(
-            { name: 'name', mapsTo: 'name', value: null, type: 'filter' },
-            { name: 'phone', mapsTo: 'phone', value: null, type: 'filter' },
-            { name: 'lastName', mapsTo: 'last_name', value: null, type: 'filter' },
-            { name: 'fullName', mapsTo: 'full_name', value: null, type: 'filter' },
-        );
-        this.setFilterValue('orderBy', 'name');
-    }
 }

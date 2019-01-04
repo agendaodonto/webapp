@@ -1,14 +1,14 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CommonModule } from '@angular/common';
 import { DirectivesModule } from '../shared/directives/directives.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { MaterialAppModule } from '../shared/material.app.module';
+import { TokenService } from '../shared/services/token.service';
 import { LoginComponent } from './login.component';
 import { LoginService } from './login.service';
-import { MaterialAppModule } from '../shared/material.app.module';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { TokenService } from '../shared/services/token.service';
 
 export const loginRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -21,10 +21,10 @@ export const loginRoutes: Routes = [
         FlexLayoutModule,
         ReactiveFormsModule,
         RouterModule,
-        DirectivesModule
+        DirectivesModule,
     ],
     declarations: [LoginComponent],
-    providers: [LoginService, TokenService]
+    providers: [LoginService, TokenService],
 })
 export class LoginModule {
 }

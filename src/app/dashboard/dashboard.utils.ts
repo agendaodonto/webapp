@@ -1,12 +1,12 @@
 import * as moment from 'moment';
-import { IAttendanceData } from '../schedule/schedule.service';
 
+import { IAttendanceData } from '../schedule/schedule.service';
 
 export function parseAttendanceData(response: IAttendanceData) {
     const parsedData = [
         { name: 'Comparecimentos', series: [] },
         { name: 'Faltas', series: [] },
-        { name: 'Cancelamentos', series: [] }
+        { name: 'Cancelamentos', series: [] },
     ];
     Object.keys(response)
         .sort((a, b) => moment(a) > moment(b) ? 1 : -1)

@@ -1,12 +1,13 @@
-import { BaseFilter, BaseService } from '../shared/services/base.service';
-
-import { IDentist } from '../shared/services/dentist.service';
-import { IPatient } from '../patient/patient.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { format } from 'date-fns';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+import { IPatient } from '../patient/patient.service';
 import { IPagedResponse } from '../shared/interceptors/responses';
+import { BaseService } from '../shared/services/base.service';
+import { IDentist } from '../shared/services/dentist.service';
+import { ScheduleFilter } from './schedule.filter';
 
 @Injectable()
 export class ScheduleService extends BaseService implements IScheduleService {
@@ -52,7 +53,7 @@ export class ScheduleService extends BaseService implements IScheduleService {
 
     updateNotificationStatus(schedule: ISchedule, newStatus: number): Observable<any> {
         const payload = {
-            new_status: newStatus
+            new_status: newStatus,
         };
         return this.http.post(this.url(['schedules', schedule.id, 'notification']), JSON.stringify(payload));
     }
@@ -62,7 +63,7 @@ export class ScheduleService extends BaseService implements IScheduleService {
         if (referenceDate) {
             params = params.set('date', format(referenceDate, 'YYYY-MM-DD'));
         }
-        return this.http.get<IAttendanceData>(this.url(['schedules', 'attendance']), { params: params });
+        return this.http.get<IAttendanceData>(this.url(['schedules', 'attendance']), { params });
     }
 
 }
@@ -89,22 +90,8 @@ export enum ScheduleStatus {
     Pending = 0,
     ShownUp = 1,
     Missed = 2,
-    Canceled = 3
+    Canceled = 3,
 }
-
-export class ScheduleFilter extends BaseFilter {
-    constructor() {
-        super();
-        this.fields.push(
-            { name: 'startDate', mapsTo: 'date_0', value: null, type: 'filter' },
-            { name: 'endDate', mapsTo: 'date_1', value: null, type: 'filter' },
-            { name: 'status', mapsTo: 'status', value: null, type: 'filter' },
-        );
-        this.setFilterValue('orderBy', 'date');
-    }
-
-}
-
 
 export interface ISchedule {
     id: number;

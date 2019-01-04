@@ -1,8 +1,9 @@
-import { BaseService } from './base.service';
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { BaseService } from './base.service';
 
 export interface IDentistService {
     get(cro: string): Observable<IDentist[]>;
@@ -10,7 +11,6 @@ export interface IDentistService {
     activate(uid, token): Observable<any>;
     getStates(): Observable<any>;
 }
-
 
 @Injectable()
 export class DentistService extends BaseService implements IDentistService {
@@ -28,13 +28,13 @@ export class DentistService extends BaseService implements IDentistService {
     }
 
     activate(uid, token): Observable<any> {
-        const body = { uid: uid, token: token };
+        const body = { uid, token };
         return this.http.post(BaseService.API_AUTH_URL + 'activate/', JSON.stringify(body));
     }
 
     getStates(): Observable<any> {
         return this.http.options(BaseService.API_AUTH_URL + 'register/').pipe(
-            map((data: any) => data.actions.POST.cro_state.choices)
+            map((data: any) => data.actions.POST.cro_state.choices),
         );
     }
 

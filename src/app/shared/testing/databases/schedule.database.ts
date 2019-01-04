@@ -1,8 +1,9 @@
-import { DentistDatabase } from './dentist.database';
-import { PatientDatabase } from './patient.database';
+import * as faker from 'faker/locale/pt_BR';
+
 import { ISchedule } from '../../../schedule/schedule.service';
 import { IDatabase } from './base.database';
-const faker = require('faker/locale/pt_BR');
+import { DentistDatabase } from './dentist.database';
+import { PatientDatabase } from './patient.database';
 
 export class ScheduleDatabase implements IDatabase<ISchedule> {
 
@@ -17,7 +18,7 @@ export class ScheduleDatabase implements IDatabase<ISchedule> {
             duration: Math.floor((Math.random() * 100) + 1),
             status: Math.floor((Math.random() * 3) + 1),
             date: faker.date.recent(),
-            notification_status: 'ENVIADO'
+            notification_status: 'ENVIADO',
         };
         return schedule;
     }

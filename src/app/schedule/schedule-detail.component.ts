@@ -1,24 +1,24 @@
-import { BaseComponent } from '../shared/components/base.component';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CustomFB, CustomFG } from '../shared/validation';
 import { FormGroupDirective, Validators } from '@angular/forms';
-import { IPatient, PatientFilter, PatientService } from '../patient/patient.service';
-import { addMinutes, format } from 'date-fns';
 import { MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
-
-import { IDentist } from '../shared/services/dentist.service';
-import { ScheduleService, ISchedule } from './schedule.service';
-import { isString } from 'util';
-import { Observable, forkJoin } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { addMinutes, format } from 'date-fns';
+import { forkJoin, Observable } from 'rxjs';
 import { debounceTime, finalize } from 'rxjs/operators';
-import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
+
 import { PatientDetailComponent } from '../patient/patient-detail.component';
+import { PatientFilter } from '../patient/patient.filter';
+import { IPatient, PatientService } from '../patient/patient.service';
+import { BaseComponent } from '../shared/components/base.component';
+import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
+import { IDentist } from '../shared/services/dentist.service';
+import { CustomFB, CustomFG } from '../shared/validation';
+import { ISchedule, ScheduleService } from './schedule.service';
 
 @Component({
     selector: 'app-schedule-detail',
     templateUrl: './schedule-detail.component.html',
-    styleUrls: ['./schedule-detail.component.scss']
+    styleUrls: ['./schedule-detail.component.scss'],
 })
 export class ScheduleDetailComponent extends BaseComponent implements OnInit {
     isLoading = false;
@@ -31,7 +31,8 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
     @ViewChild('continuousMode') continuousMode: MatSlideToggle;
     @ViewChild(FormGroupDirective) scheduleFormDirective: FormGroupDirective;
 
-    constructor(private scheduleService: ScheduleService,
+    constructor(
+        private scheduleService: ScheduleService,
         private patientService: PatientService,
         private snackBar: MatSnackBar,
         public dialog: MatDialog,
@@ -104,7 +105,7 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
     loadScheduleData(scheduleId: number) {
         this.isLoading = true;
         this.scheduleService.get(scheduleId).pipe(
-            finalize(() => this.isLoading = false)
+            finalize(() => this.isLoading = false),
         ).subscribe(
             schedule => {
                 this.schedule = schedule;
@@ -114,9 +115,9 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
                     patient: schedule.patient,
                     date: format(schedule.date, 'YYYY-MM-DDTHH:mm:ss.SSS'),
                     dentist: schedule.dentist,
-                    duration: schedule.duration
+                    duration: schedule.duration,
                 });
-            }
+            },
         );
     }
 
@@ -126,8 +127,8 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
             width: '300px',
             data: {
                 title: 'Você tem certeza disso ?',
-                message: 'Deseja prosseguir?'
-            }
+                message: 'Deseja prosseguir?',
+            },
         });
 
         dialog.afterClosed().subscribe(result => {
@@ -137,7 +138,7 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
                     () => {
                         this.snackBar.open('Agendamento excluido.', '', { duration: 2000 });
                         this.router.navigate(['/agenda']);
-                    }
+                    },
                 );
             }
         });
@@ -149,7 +150,7 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
 
     patientDialog() {
         this.dialog.open(PatientDetailComponent,
-            { data: { patientId: this.scheduleForm.controls.patient.value.id } }
+            { data: { patientId: this.scheduleForm.controls.patient.value.id } },
         );
     }
 }

@@ -1,8 +1,8 @@
-import { IDatabase } from './base.database';
-import { IClinic } from '../../../clinic/clinic.service';
-import { DentistDatabase } from './dentist.database';
+import * as faker from 'faker/locale/pt_BR';
 
-const faker = require('faker/locale/pt_BR');
+import { IClinic } from '../../../clinic/clinic.service';
+import { IDatabase } from './base.database';
+import { DentistDatabase } from './dentist.database';
 
 export class ClinicDatabase implements IDatabase<IClinic> {
 
@@ -12,7 +12,7 @@ export class ClinicDatabase implements IDatabase<IClinic> {
         const clinic: IClinic = {
             id: Math.floor((Math.random() * 100) + 1),
             name: faker.name.firstName(),
-            dentists: this.dentistDabase.getMany(Math.floor(Math.random() * 10) + 1)
+            dentists: this.dentistDabase.getMany(Math.floor(Math.random() * 10) + 1),
         };
         return clinic;
     }

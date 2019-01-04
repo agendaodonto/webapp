@@ -1,14 +1,14 @@
-import { ReactiveFormsModule } from '@angular/forms';
-
 import { CommonModule } from '@angular/common';
-import { ConfirmComponent } from './confirm.component';
-import { DentistService } from '../shared/services/dentist.service';
-import { DirectivesModule } from '../shared/directives/directives.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
-import { RegisterComponent } from './register.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Routes } from '@angular/router';
+
+import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
+import { DentistService } from '../shared/services/dentist.service';
+import { ConfirmComponent } from './confirm.component';
+import { RegisterComponent } from './register.component';
 
 export const registerRoutes: Routes = [
     { path: 'cadastro', component: RegisterComponent },
@@ -17,10 +17,10 @@ export const registerRoutes: Routes = [
 
 @NgModule({
     imports: [
-        CommonModule, MaterialAppModule, FlexLayoutModule, ReactiveFormsModule, DirectivesModule
+        CommonModule, MaterialAppModule, FlexLayoutModule, ReactiveFormsModule, DirectivesModule,
     ],
     declarations: [RegisterComponent, ConfirmComponent],
     exports: [RegisterComponent, ConfirmComponent],
-    providers: [DentistService]
+    providers: [DentistService],
 })
 export class RegisterModule { }

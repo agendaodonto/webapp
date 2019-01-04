@@ -1,15 +1,15 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
+import { PatientService } from '../patient/patient.service';
+import { SharedComponentsModule } from '../shared/components/shared-components.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ScheduleDetailComponent } from './schedule-detail.component';
-import { SharedComponentsModule } from '../shared/components/shared-components.module';
 import { ScheduleService } from './schedule.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { PatientService } from '../patient/patient.service';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ScheduleDetailComponent', () => {
     let component: ScheduleDetailComponent;
@@ -24,13 +24,13 @@ describe('ScheduleDetailComponent', () => {
                 DirectivesModule,
                 SharedComponentsModule,
                 HttpClientTestingModule,
-                RouterTestingModule
+                RouterTestingModule,
             ],
             declarations: [ScheduleDetailComponent],
             providers: [
                 ScheduleService,
-                PatientService
-            ]
+                PatientService,
+            ],
         }).compileComponents();
     }));
 

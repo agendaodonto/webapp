@@ -1,18 +1,18 @@
-import { RouterModule, Routes } from '@angular/router';
-
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
+import { ClinicService } from '../clinic/clinic.service';
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialAppModule } from '../shared/material.app.module';
-import { NgModule } from '@angular/core';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { PatientComponent } from './patient.component';
-import { PatientDetailComponent } from './patient-detail.component';
-import { PatientService } from './patient.service';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from '../shared/guards/auth.guard';
-import { ClinicService } from '../clinic/clinic.service';
+import { MaterialAppModule } from '../shared/material.app.module';
+import { PatientDetailComponent } from './patient-detail.component';
+import { PatientComponent } from './patient.component';
+import { PatientService } from './patient.service';
 
 export const patientRoutes: Routes = [
     { path: 'pacientes', component: PatientComponent, canActivate: [AuthGuard] },
@@ -30,10 +30,10 @@ export const patientRoutes: Routes = [
         FlexLayoutModule,
         NgxDatatableModule,
         DataTablePagerModule,
-        DirectivesModule
+        DirectivesModule,
     ],
     declarations: [PatientComponent, PatientDetailComponent],
-    providers: [PatientService, ClinicService, AuthGuard]
+    providers: [PatientService, ClinicService, AuthGuard],
 })
 export class PatientModule {
 

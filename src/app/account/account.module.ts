@@ -1,13 +1,13 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AccountComponent } from './account.component';
-import { CommonModule } from '@angular/common';
-import { DentistService } from '../shared/services/dentist.service';
 import { DirectivesModule } from '../shared/directives/directives.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialAppModule } from '../shared/material.app.module';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { DentistService } from '../shared/services/dentist.service';
+import { AccountComponent } from './account.component';
 
 export const accountRoutes: Routes = [
     // { path: 'conta', component: AccountComponent, canActivate: [AuthGuard] }
@@ -16,7 +16,7 @@ export const accountRoutes: Routes = [
 @NgModule({
     imports: [CommonModule, MaterialAppModule, FlexLayoutModule, ReactiveFormsModule, RouterModule, DirectivesModule],
     declarations: [AccountComponent],
-    providers: [DentistService]
+    providers: [DentistService],
 })
 export class AccountModule {
 

@@ -1,10 +1,11 @@
-import { TestBed, getTestBed, async } from '@angular/core/testing';
-import { DentistService, IDentist } from './dentist.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { BaseService } from './base.service';
+import { async, getTestBed, TestBed } from '@angular/core/testing';
 
-export const DENTISTS: Array<IDentist> = [
-    { id: 1, cro: '1234', cro_state: 'SP', email: 'john@doe.com', first_name: 'John', last_name: 'Doe', sex: 'M' }
+import { BaseService } from './base.service';
+import { DentistService, IDentist } from './dentist.service';
+
+export const DENTISTS: IDentist[] = [
+    { id: 1, cro: '1234', cro_state: 'SP', email: 'john@doe.com', first_name: 'John', last_name: 'Doe', sex: 'M' },
 ];
 
 const STATE_CHOICES = {
@@ -14,16 +15,16 @@ const STATE_CHOICES = {
                 choices: [
                     {
                         value: 'AC',
-                        display_name: 'Acre'
+                        display_name: 'Acre',
                     },
                     {
                         value: 'AL',
-                        display_name: 'Alagoas'
-                    }
-                ]
-            }
-        }
-    }
+                        display_name: 'Alagoas',
+                    },
+                ],
+            },
+        },
+    },
 };
 
 describe('DentistService', () => {

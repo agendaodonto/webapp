@@ -1,19 +1,19 @@
-import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CustomFB, CustomFG } from '../shared/validation';
-import { DentistService, IDentist } from '../shared/services/dentist.service';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatSnackBar } from '@angular/material';
-
-import { ClinicService } from './clinic.service';
-import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { debounceTime, finalize } from 'rxjs/operators';
+
+import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
+import { DentistService, IDentist } from '../shared/services/dentist.service';
+import { CustomFB, CustomFG } from '../shared/validation';
+import { ClinicService } from './clinic.service';
 
 @Component({
     selector: 'app-clinic-detail',
     templateUrl: './clinic-detail.component.html',
-    styleUrls: ['./clinic-detail.component.scss']
+    styleUrls: ['./clinic-detail.component.scss'],
 })
 export class ClinicDetailComponent implements OnInit {
     clinicId: number;
@@ -25,15 +25,15 @@ export class ClinicDetailComponent implements OnInit {
     filteredOptions: Observable<IDentist[]>;
 
     constructor(private clinicService: ClinicService,
-        private dentistService: DentistService,
-        private router: Router,
-        private route: ActivatedRoute,
-        public snackBar: MatSnackBar,
-        public dialog: MatDialog) {
+                private dentistService: DentistService,
+                private router: Router,
+                private route: ActivatedRoute,
+                public snackBar: MatSnackBar,
+                public dialog: MatDialog) {
         this.clinicForm = new CustomFB().group({
             id: [''],
             name: ['', Validators.required],
-            dentists: [[]]
+            dentists: [[]],
         });
     }
 
@@ -41,15 +41,15 @@ export class ClinicDetailComponent implements OnInit {
         this.clinicId = +this.route.snapshot.params['id'];
         if (this.clinicId) {
             this.clinicService.get(this.clinicId).pipe(
-                finalize(() => this.isLoading = false)
+                finalize(() => this.isLoading = false),
             ).subscribe(
                 response => {
                     this.clinicForm.setValue({
                         id: response.id,
                         name: response.name,
-                        dentists: response.dentists
+                        dentists: response.dentists,
                     });
-                }
+                },
             );
         } else {
             this.isLoading = false;
@@ -64,7 +64,7 @@ export class ClinicDetailComponent implements OnInit {
                 } else {
                     this.filteredOptions = this.dentistService.get(e);
                 }
-            }
+            },
             );
     }
 
@@ -104,8 +104,9 @@ export class ClinicDetailComponent implements OnInit {
             height: '150px',
             data: {
                 title: 'Você tem certeza disso ?',
-                message: 'Ao apagar a Clinica, você também apagará todos os pacientes e agendamentos relacionados a ela. Deseja prosseguir?'
-            }
+                message: 'Ao apagar a Clinica, você também apagará ' +
+                'todos os pacientes e agendamentos relacionados a ela. Deseja prosseguir?',
+            },
         });
 
         dialog.afterClosed().subscribe(result => {
@@ -115,7 +116,7 @@ export class ClinicDetailComponent implements OnInit {
                     () => {
                         this.snackBar.open('Clinica excluida.', '', { duration: 2000 });
                         this.router.navigate(['clinicas']);
-                    }
+                    },
                 );
             }
         });

@@ -1,19 +1,19 @@
-import { CalendarDateFormatter, CalendarEvent } from 'angular-calendar';
 import { Component, OnInit } from '@angular/core';
-import { IMatcher, getMatchedField, getReversedMatchField } from '../shared/util';
-import { ScheduleFilter, ScheduleService } from './schedule.service';
-import { addDays, addMinutes, addWeeks, endOfWeek, format, parse, startOfWeek, subDays, subWeeks } from 'date-fns';
-
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CalendarDateFormatter, CalendarEvent } from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
-import { Router } from '@angular/router';
+import { addDays, addMinutes, addWeeks, endOfWeek, format, parse, startOfWeek, subDays, subWeeks } from 'date-fns';
 import { finalize } from 'rxjs/operators';
-import { LocalizedCalendarHeader } from '../shared/providers/localizedheader.provider';
+
 import { NotificationStatusComponent } from '../shared/components/notification-status/notification-status.component';
+import { LocalizedCalendarHeader } from '../shared/providers/localizedheader.provider';
+import { getMatchedField, getReversedMatchField, IMatcher } from '../shared/util';
+import { ScheduleFilter } from './schedule.filter';
+import { ScheduleService } from './schedule.service';
 
 type ViewType = 'week' | 'day';
 
-interface ScheduleEvent extends CalendarEvent {
+interface IScheduleEvent extends CalendarEvent {
     id: number;
     notificationStatusIcon: string;
 }
@@ -22,7 +22,7 @@ interface ScheduleEvent extends CalendarEvent {
     selector: 'app-schedule',
     templateUrl: './schedule.component.html',
     styleUrls: ['./schedule.component.scss'],
-    providers: [{ provide: CalendarDateFormatter, useClass: LocalizedCalendarHeader }]
+    providers: [{ provide: CalendarDateFormatter, useClass: LocalizedCalendarHeader }],
 })
 export class ScheduleComponent implements OnInit {
     static COLORS: EventColor[] = [
@@ -34,7 +34,7 @@ export class ScheduleComponent implements OnInit {
     view: ViewType = 'week';
     scheduleFilter = new ScheduleFilter();
     currentDate: Date = new Date();
-    schedules: ScheduleEvent[] = [];
+    schedules: IScheduleEvent[] = [];
     isLoading = true;
     urlViews: IMatcher[] = [
         { name: 'day', prettyName: 'dia' },
@@ -63,10 +63,10 @@ export class ScheduleComponent implements OnInit {
             this.scheduleFilter.setFilterValue('endDate', format(endOfWeek(this.currentDate), 'YYYY-MM-DD'));
         }
         this.scheduleService.getAll(this.scheduleFilter).pipe(
-            finalize(() => this.isLoading = false)
-        ).subscribe(schedules => {
+            finalize(() => this.isLoading = false),
+        ).subscribe((schedules) => {
             const tmpArray = [];
-            schedules.results.map(schedule => {
+            schedules.results.map((schedule) => {
                 const text = schedule.patient.name + ' ' + schedule.patient.last_name;
                 const notificationStatus = NotificationStatusComponent.statusLookup(schedule.notification_status);
                 tmpArray.push({
@@ -75,12 +75,12 @@ export class ScheduleComponent implements OnInit {
                     end: addMinutes(new Date(schedule.date), schedule.duration),
                     title: text,
                     color: ScheduleComponent.COLORS[schedule.status],
-                    notificationStatus: notificationStatus
+                    notificationStatus,
                 });
                 this.schedules = tmpArray;
                 console.log(this.schedules);
             });
-        }
+        },
         );
     }
 
@@ -92,7 +92,7 @@ export class ScheduleComponent implements OnInit {
     increment() {
         const addFn = {
             week: addWeeks,
-            day: addDays
+            day: addDays,
         }[this.view];
         this.currentDate = addFn(this.currentDate, 1);
         this.reload();
@@ -101,7 +101,7 @@ export class ScheduleComponent implements OnInit {
     decrement() {
         const subFn = {
             week: subWeeks,
-            day: subDays
+            day: subDays,
         }[this.view];
         this.currentDate = subFn(this.currentDate, 1);
         this.reload();
@@ -122,9 +122,9 @@ export class ScheduleComponent implements OnInit {
 
     setupUrlFilterListener() {
         this.route.params.subscribe(
-            params => {
+            (params) => {
                 if (params.view !== undefined) {
-                    this.view = <ViewType>getMatchedField(params.view, this.urlViews);
+                    this.view = getMatchedField(params.view, this.urlViews) as ViewType;
                 }
 
                 if (params.date !== undefined) {
@@ -133,7 +133,7 @@ export class ScheduleComponent implements OnInit {
                 }
 
                 this.getSchedules();
-            }
+            },
         );
     }
 

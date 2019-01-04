@@ -1,21 +1,20 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Route, RouterModule } from '@angular/router';
+import { CalendarModule, MOMENT } from 'angular-calendar';
 import * as moment from 'moment';
 
-import { CalendarModule, MOMENT } from 'angular-calendar';
-import { Route, RouterModule } from '@angular/router';
-
-import { CommonModule } from '@angular/common';
-import { DirectivesModule } from '../shared/directives/directives.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialAppModule } from '../shared/material.app.module';
-import { NgModule } from '@angular/core';
 import { PatientService } from '../patient/patient.service';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ScheduleComponent } from './schedule.component';
+import { SharedComponentsModule } from '../shared/components/shared-components.module';
+import { DirectivesModule } from '../shared/directives/directives.module';
+import { AuthGuard } from '../shared/guards/auth.guard';
+import { MaterialAppModule } from '../shared/material.app.module';
 import { ScheduleDetailComponent } from './schedule-detail.component';
 import { ScheduleListComponent } from './schedule-list.component';
+import { ScheduleComponent } from './schedule.component';
 import { ScheduleService } from './schedule.service';
-import { SharedComponentsModule } from '../shared/components/shared-components.module';
-import { AuthGuard } from '../shared/guards/auth.guard';
 
 export const scheduleRoutes: Route[] = [
     { path: 'agenda/criar', component: ScheduleDetailComponent, canActivate: [AuthGuard] },
@@ -40,8 +39,8 @@ export const scheduleRoutes: Route[] = [
     declarations: [ScheduleComponent, ScheduleDetailComponent, ScheduleListComponent],
     providers: [
         ScheduleService, PatientService, AuthGuard,
-        { provide: MOMENT, useValue: moment }
-    ]
+        { provide: MOMENT, useValue: moment },
+    ],
 })
 export class ScheduleModule {
 }

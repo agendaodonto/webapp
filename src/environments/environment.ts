@@ -6,5 +6,5 @@
 export const environment = {
     production: false,
     hmr: true,
-    api: 'https://backend-staging.agendaodonto.com/'
+    api: 'https://backend-staging.agendaodonto.com/',
 };

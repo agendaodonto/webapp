@@ -1,25 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { DirectivesModule } from '../shared/directives/directives.module';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { Routes } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { DashboardComponent } from './dashboard.component';
+
+import { PatientService } from '../patient/patient.service';
+import { ScheduleService } from '../schedule/schedule.service';
+import { SharedComponentsModule } from '../shared/components/shared-components.module';
+import { DirectivesModule } from '../shared/directives/directives.module';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { MaterialAppModule } from '../shared/material.app.module';
-import { SharedComponentsModule } from '../shared/components/shared-components.module';
-import { ScheduleService } from '../schedule/schedule.service';
-import { PatientService } from '../patient/patient.service';
+import { DashboardComponent } from './dashboard.component';
 
 export const dashboardRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-    { path: '', redirectTo: '/dashboard', canActivate: [AuthGuard], pathMatch: 'full' }
+    { path: '', redirectTo: '/dashboard', canActivate: [AuthGuard], pathMatch: 'full' },
 ];
 
 @NgModule({
     declarations: [
-        DashboardComponent
+        DashboardComponent,
     ],
     imports: [
         BrowserModule,
@@ -28,7 +29,7 @@ export const dashboardRoutes: Routes = [
         FlexLayoutModule,
         DirectivesModule,
         SharedComponentsModule,
-        NgxChartsModule
+        NgxChartsModule,
     ],
     providers: [ScheduleService, PatientService, AuthGuard],
 })

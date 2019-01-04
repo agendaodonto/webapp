@@ -1,14 +1,15 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { DashboardComponent } from './dashboard.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+import { PatientService } from '../patient/patient.service';
+import { ScheduleService } from '../schedule/schedule.service';
+import { SharedComponentsModule } from '../shared/components/shared-components.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
-import { ScheduleService } from '../schedule/schedule.service';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedComponentsModule } from '../shared/components/shared-components.module';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { PatientService } from '../patient/patient.service';
-import { RouterTestingModule } from '@angular/router/testing';
+import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent', () => {
     let component: DashboardComponent;
@@ -23,10 +24,10 @@ describe('DashboardComponent', () => {
                 SharedComponentsModule,
                 NgxChartsModule,
                 NoopAnimationsModule,
-                RouterTestingModule
+                RouterTestingModule,
             ],
             declarations: [DashboardComponent],
-            providers: [ScheduleService, PatientService]
+            providers: [ScheduleService, PatientService],
         }).compileComponents();
     }));
 

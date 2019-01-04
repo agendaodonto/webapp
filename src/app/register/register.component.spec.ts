@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DirectivesModule } from '../shared/directives/directives.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RegisterComponent } from './register.component';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { DentistService } from '../shared/services/dentist.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RegisterComponent } from './register.component';
 
 describe('RegisterComponent', () => {
     let component: RegisterComponent;
@@ -20,11 +20,11 @@ describe('RegisterComponent', () => {
                 ReactiveFormsModule,
                 NoopAnimationsModule,
                 DirectivesModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
             ],
             providers: [
-                DentistService
-            ]
+                DentistService,
+            ],
         }).compileComponents();
     }));
 

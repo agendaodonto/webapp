@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NotificationStatusComponent } from './notification-status.component';
 import { MaterialAppModule } from '../../material.app.module';
+import { NotificationStatusComponent } from './notification-status.component';
 
 describe('Notification Status Component', () => {
     let component: NotificationStatusComponent;
@@ -10,7 +10,7 @@ describe('Notification Status Component', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MaterialAppModule],
-            declarations: [NotificationStatusComponent]
+            declarations: [NotificationStatusComponent],
         }).compileComponents();
     }));
 

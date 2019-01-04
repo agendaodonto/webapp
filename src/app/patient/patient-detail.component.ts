@@ -1,21 +1,22 @@
-import { BaseComponent } from '../shared/components/base.component';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
-import { CustomFB, CustomFG } from '../shared/validation';
 import { FormGroupDirective, Validators } from '@angular/forms';
-import { IClickEvent, IPaginateEvent } from '../shared/components/pager/datatable-pager.component';
-import { ISchedule, ScheduleFilter } from '../schedule/schedule.service';
-import { MatDialog, MatSlideToggle, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
-import { IClinic, ClinicService } from '../clinic/clinic.service';
-import { PatientService, IPatient } from './patient.service';
-import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
+import { MAT_DIALOG_DATA, MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
+import { ClinicService, IClinic } from '../clinic/clinic.service';
+import { ScheduleFilter } from '../schedule/schedule.filter';
+import { ISchedule } from '../schedule/schedule.service';
+import { BaseComponent } from '../shared/components/base.component';
+import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
+import { IClickEvent, IPaginateEvent } from '../shared/components/pager/datatable-pager.component';
+import { CustomFB, CustomFG } from '../shared/validation';
+import { IPatient, PatientService } from './patient.service';
 
 @Component({
     selector: 'app-patient-detail',
     templateUrl: './patient-detail.component.html',
-    styleUrls: ['./patient-detail.component.scss']
+    styleUrls: ['./patient-detail.component.scss'],
 })
 export class PatientDetailComponent extends BaseComponent implements OnInit {
     patientForm: CustomFG;
@@ -30,7 +31,8 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
     @ViewChild('continuousMode') continuousMode: MatSlideToggle;
     @ViewChild(FormGroupDirective) patientFormDirective: FormGroupDirective;
 
-    constructor(private patientService: PatientService,
+    constructor(
+        private patientService: PatientService,
         private clinicService: ClinicService,
         private router: Router,
         private route: ActivatedRoute,
@@ -44,7 +46,7 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
             last_name: ['', Validators.required],
             phone: ['', Validators.required],
             sex: ['', Validators.required],
-            clinic: ['', Validators.required]
+            clinic: ['', Validators.required],
         });
     }
 
@@ -58,8 +60,8 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
         if (this.patientId) {
             this.getSchedules(0);
             this.patientService.get(this.patientId).pipe(
-                finalize(() => this.isLoading = false)
-            ).subscribe(response => {
+                finalize(() => this.isLoading = false),
+            ).subscribe((response) => {
                 this.patientForm.setValue({
                     id: response.id,
                     name: response.name,
@@ -75,7 +77,7 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
     }
 
     loadClinics() {
-        this.clinicService.getAll().subscribe(response => this.clinics = response.results);
+        this.clinicService.getAll().subscribe((response) => this.clinics = response.results);
     }
 
     getSchedules(offset: number) {
@@ -84,8 +86,8 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
         filter.setFilterValue('orderBy', '-date');
         filter.setFilterValue('offset', offset.toString());
         this.patientService.getSchedules(this.patientId, filter).pipe(
-            finalize(() => this.schedulesLoading = false)
-        ).subscribe(response => {
+            finalize(() => this.schedulesLoading = false),
+        ).subscribe((response) => {
             this.scheduleCount = response.count;
             this.schedules = response.results;
         });
@@ -95,9 +97,9 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
         this.isSubmitting = true;
         const data: IPatient = this.patientForm.value;
         this.patientService.save(data).pipe(
-            finalize(() => this.isSubmitting = false)
+            finalize(() => this.isSubmitting = false),
         ).subscribe(
-            _patient => {
+            (_patient) => {
                 this.snackBar.open('Salvo com sucesso', '', { duration: 2000 });
                 if (this.continuousMode && this.continuousMode.checked) {
                     this.patientFormDirective.resetForm();
@@ -105,7 +107,7 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
                     this.router.navigate(['/pacientes']);
                 }
             },
-            errors => {
+            (errors) => {
                 this.snackBar.open('Não foi possível salvar.', '', { duration: 2000 });
                 this.patientForm.pushFieldErrors(errors.error);
             });
@@ -116,18 +118,18 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
             height: '150px',
             data: {
                 title: 'Você tem certeza disso ?',
-                message: 'Ao apagar o Paciente, você também apagará todos os seus agendamentos. Deseja prosseguir?'
-            }
+                message: 'Ao apagar o Paciente, você também apagará todos os seus agendamentos. Deseja prosseguir?',
+            },
         });
 
-        dialog.afterClosed().subscribe(result => {
+        dialog.afterClosed().subscribe((result) => {
             if (result === 'true') {
                 this.isSubmitting = true;
                 this.patientService.remove(this.patientForm.value).subscribe(
                     () => {
                         this.snackBar.open('Paciente excluido.', '', { duration: 2000 });
                         this.router.navigate(['pacientes']);
-                    }
+                    },
                 );
             }
         });

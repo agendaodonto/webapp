@@ -1,13 +1,13 @@
-import { TestBed, async } from '@angular/core/testing';
-
 import { APP_BASE_HREF } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+
 import { AppComponent } from './app.component';
 import { LoginService } from './login/login.service';
 import { MaterialAppModule } from './shared/material.app.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
     beforeEach(async(() => {
@@ -19,12 +19,12 @@ describe('AppComponent', () => {
                 RouterTestingModule,
             ],
             declarations: [
-                AppComponent
+                AppComponent,
             ],
             providers: [
                 LoginService,
                 { provide: APP_BASE_HREF, useValue: '/' },
-            ]
+            ],
         });
     }));
 
@@ -43,7 +43,7 @@ describe('AppComponent', () => {
         expect(app.displayType).toBe('desktop');
         const resizeEvent = {
             type: 'resize',
-            target: { innerWidth: 1600 }
+            target: { innerWidth: 1600 },
         };
         app.onResize(resizeEvent);
         expect(app.displayType).toBe('mobile');
@@ -55,7 +55,7 @@ describe('AppComponent', () => {
         expect(app.displayType).toBe('desktop');
         const resizeEvent = {
             type: 'resize',
-            target: { innerWidth: 1601 }
+            target: { innerWidth: 1601 },
         };
         app.onResize(resizeEvent);
         expect(app.displayType).toBe('desktop');

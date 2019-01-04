@@ -1,9 +1,10 @@
-import { LoadingOverlayComponent } from '../components/loading-overlay/loading-overlay.component';
-import { Directive, Input, ViewContainerRef, ComponentRef, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, ComponentRef, Directive, Input, ViewContainerRef } from '@angular/core';
 import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
+import { LoadingOverlayComponent } from '../components/loading-overlay/loading-overlay.component';
+
 @Directive({
-    selector: '[appLoadingOverlay]'
+    selector: '[appLoadingOverlay]',
 })
 export class LoadingOverlayDirective implements OnChanges {
     @Input('appLoadingOverlay') trigger: any;

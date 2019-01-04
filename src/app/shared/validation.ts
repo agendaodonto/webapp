@@ -6,14 +6,14 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 export class ValidationService {
     static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
         const config = {
-            'required': 'Campo obrigatório',
-            'invalidNumberField': 'Only numbers allowed',
-            'invalidDateField': 'Not a valid date',
-            'invalidCreditCard': 'Is invalid credit card number',
-            'invalidEmailAddress': 'Invalid email address',
-            'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
-            'invalidPasswords': 'As senhas não coincidem',
-            'minlength': `Minimum length ${validatorValue.requiredLength}`
+            required: 'Campo obrigatório',
+            invalidNumberField: 'Only numbers allowed',
+            invalidDateField: 'Not a valid date',
+            invalidCreditCard: 'Is invalid credit card number',
+            invalidEmailAddress: 'Invalid email address',
+            invalidPassword: 'Invalid password. Password must be at least 6 characters long, and contain a number.',
+            invalidPasswords: 'As senhas não coincidem',
+            minlength: `Minimum length ${validatorValue.requiredLength}`,
         };
 
         // console.log(" config = " + JSON.stringify(config));
@@ -49,7 +49,7 @@ export class ValidationService {
         if (control.value.match(/^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,100}$/)) {
             return null;
         } else {
-            return { 'invalidPassword': true };
+            return { invalidPassword: true };
         }
     }
 
@@ -57,11 +57,12 @@ export class ValidationService {
         if (fg.value.password === fg.value.confirm_password) {
             return null;
         } else {
-            return { 'invalidPasswords': true };
+            return { invalidPasswords: true };
         }
     }
 }
 
+// tslint:disable:max-classes-per-file
 @Injectable()
 export class CustomFB extends FormBuilder {
     group(controlsConfig: { [key: string]: any; }, extra?: { [key: string]: any; }): CustomFG {

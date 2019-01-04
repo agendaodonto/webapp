@@ -1,15 +1,15 @@
 import * as moment from 'moment';
 
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MaterialAppModule } from '../shared/material.app.module';
-import { ScheduleComponent } from './schedule.component';
-import { ScheduleService } from './schedule.service';
-import { CalendarModule, MOMENT } from 'angular-calendar';
-import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CalendarModule, MOMENT } from 'angular-calendar';
+import { MaterialAppModule } from '../shared/material.app.module';
 import { ActivatedRouteStub } from '../shared/testing/activated-route.stub';
+import { ScheduleComponent } from './schedule.component';
+import { ScheduleService } from './schedule.service';
 
 describe('ScheduleComponent', () => {
     let component: ScheduleComponent;
@@ -23,14 +23,14 @@ describe('ScheduleComponent', () => {
                 MaterialAppModule,
                 CalendarModule.forRoot(),
                 RouterTestingModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
             ],
             declarations: [ScheduleComponent],
             providers: [
                 { provide: MOMENT, useValue: moment },
                 { provide: ActivatedRoute, useValue: routeMock },
-                ScheduleService
-            ]
+                ScheduleService,
+            ],
         }).compileComponents();
 
     }));

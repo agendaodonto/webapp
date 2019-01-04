@@ -20,7 +20,7 @@ import {
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
-    MatTooltipModule
+    MatTooltipModule,
 } from '@angular/material';
 
 import { NgModule } from '@angular/core';
@@ -49,11 +49,11 @@ const IMPORT_LIST = [
     MatChipsModule,
     MatDatepickerModule,
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
 ];
 @NgModule({
     imports: [IMPORT_LIST],
-    exports: [IMPORT_LIST]
+    exports: [IMPORT_LIST],
 })
 export class MaterialAppModule {
 

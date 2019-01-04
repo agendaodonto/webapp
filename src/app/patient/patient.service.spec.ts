@@ -1,12 +1,14 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { BaseService } from '../shared/services/base.service';
-import { IPatient, PatientService, PatientFilter } from './patient.service';
-import { CLINICS } from '../clinic/clinic.service.spec';
-import { ScheduleFilter } from '../schedule/schedule.service';
+import { getTestBed, TestBed } from '@angular/core/testing';
 
-export const PATIENTS: Array<IPatient> = [
-    { id: 1, name: 'John', last_name: 'Doe', phone: '1234', sex: 'M', clinic: CLINICS[0]}
+import { CLINICS } from '../clinic/clinic.service.spec';
+import { ScheduleFilter } from '../schedule/schedule.filter';
+import { BaseService } from '../shared/services/base.service';
+import { PatientFilter } from './patient.filter';
+import { IPatient, PatientService } from './patient.service';
+
+export const PATIENTS: IPatient[] = [
+    { id: 1, name: 'John', last_name: 'Doe', phone: '1234', sex: 'M', clinic: CLINICS[0] },
 ];
 
 describe('PatientService', () => {
@@ -75,7 +77,7 @@ describe('PatientService', () => {
         service.count().subscribe();
         const request = httpMock.expectOne(`${BaseService.API_ENDPOINT}patients/?offset=0&limit=1&ordering=name`);
         expect(request.request.method).toBe('GET');
-        request.flush({count: 20});
+        request.flush({ count: 20 });
     });
 
     it('should get the patient schedules', () => {
@@ -88,7 +90,7 @@ describe('PatientService', () => {
     it('should get the patient schedules based on the filter', () => {
         const patient = Object.assign({}, PATIENTS[0]);
         const filter = new ScheduleFilter();
-        filter.setFilterValue('orderBy', '-date')
+        filter.setFilterValue('orderBy', '-date');
         service.getSchedules(patient.id, filter).subscribe();
         const request = httpMock.expectOne(`${BaseService.API_ENDPOINT}patients/${patient.id}/schedules/?offset=0&limit=10&ordering=-date`);
         expect(request.request.method).toBe('GET');
@@ -100,8 +102,8 @@ describe('PatientService', () => {
         spyOn(service, 'create');
         spyOn(service, 'update');
         service.save(patient);
-        expect(service.create).toHaveBeenCalled()
-        expect(service.update).toHaveBeenCalledTimes(0)
+        expect(service.create).toHaveBeenCalled();
+        expect(service.update).toHaveBeenCalledTimes(0);
     });
 
     it('should update a patient when saving with id', () => {
@@ -109,8 +111,8 @@ describe('PatientService', () => {
         spyOn(service, 'create');
         spyOn(service, 'update');
         service.save(patient);
-        expect(service.update).toHaveBeenCalled()
-        expect(service.create).toHaveBeenCalledTimes(0)
+        expect(service.update).toHaveBeenCalled();
+        expect(service.create).toHaveBeenCalledTimes(0);
     });
 
 });

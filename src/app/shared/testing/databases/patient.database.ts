@@ -1,7 +1,7 @@
-import { ClinicDatabase } from './clinic.database';
+import * as faker from 'faker/locale/pt_BR';
 import { IPatient } from '../../../patient/patient.service';
 import { IDatabase } from './base.database';
-const faker = require('faker/locale/pt_BR');
+import { ClinicDatabase } from './clinic.database';
 
 export class PatientDatabase implements IDatabase<IPatient> {
 
@@ -14,7 +14,7 @@ export class PatientDatabase implements IDatabase<IPatient> {
             last_name: faker.name.lastName(),
             sex: 'M',
             phone: faker.phone.phoneNumber(),
-            clinic: this.clinicDatabase.get()
+            clinic: this.clinicDatabase.get(),
         };
         return patient;
     }

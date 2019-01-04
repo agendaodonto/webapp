@@ -1,22 +1,20 @@
-import * as moment from 'moment';
-
+import { SelectionModel } from '@angular/cdk/collections';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { CollectionViewer, SelectionModel } from '@angular/cdk/collections';
-import { ScheduleFilter, ScheduleService, ISchedule } from './schedule.service';
-
-import { ActivatedRoute } from '@angular/router';
-import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material';
-import { Router } from '@angular/router';
-import { merge, BehaviorSubject, Observable } from 'rxjs';
-import { finalize, startWith, switchMap, map } from 'rxjs/operators';
-import { CustomFG, CustomFB } from '../shared/validation';
+import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
+import { merge } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+
+import { CustomFB, CustomFG } from '../shared/validation';
+import { ScheduleDatasource } from './schedule.datasource';
+import { ISchedule, ScheduleService } from './schedule.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-schedule-list',
     templateUrl: './schedule-list.component.html',
-    styleUrls: ['./schedule-list.component.scss']
+    styleUrls: ['./schedule-list.component.scss'],
 })
 export class ScheduleListComponent implements OnInit {
     @ViewChild(MatPaginator) paginator;
@@ -35,7 +33,7 @@ export class ScheduleListComponent implements OnInit {
         this.filterForm = fb.group({
             startDate: [''],
             endDate: [''],
-            status: ['']
+            status: [''],
         });
     }
 
@@ -56,8 +54,8 @@ export class ScheduleListComponent implements OnInit {
             queryParams: {
                 dataInicio: startDate,
                 dataFim: endDate,
-                status: status
-            }
+                status,
+            },
         };
         this.router.navigate(['/agenda/lista'], navigationExtras);
     }
@@ -99,7 +97,7 @@ export class ScheduleListComponent implements OnInit {
         if (this.isAllSelected()) {
             this.selection.clear();
         } else {
-            this.dataSource.schedules.forEach(row => this.selection.select(row));
+            this.dataSource.schedules.forEach((row) => this.selection.select(row));
         }
     }
 
@@ -117,47 +115,7 @@ export class ScheduleListComponent implements OnInit {
                 this.dataSource.filterChanges.next(null);
                 this.isUpdating = false;
                 this.cdr.detectChanges();
-            })
+            }),
         ).subscribe();
     }
-}
-
-class ScheduleDatasource extends DataSource<ISchedule> {
-    isLoading = true;
-    count = 0;
-    filterChanges = new BehaviorSubject(null);
-    changeEvents = [this.paginator.page, this.filterChanges];
-    scheduleFilter = new ScheduleFilter();
-    schedules: ISchedule[];
-
-    constructor(private scheduleService: ScheduleService, private paginator: MatPaginator) {
-        super();
-    }
-
-    connect(_collectionViewer: CollectionViewer): Observable<ISchedule[]> {
-        return merge(...this.changeEvents).pipe(
-            startWith(null),
-            switchMap(() => {
-                this.isLoading = true;
-                let offset = 0;
-                offset = this.paginator.pageSize * this.paginator.pageIndex;
-                this.scheduleFilter.setFilterValue('pageSize', this.paginator.pageSize.toString());
-                this.scheduleFilter.setFilterValue('offset', offset.toString());
-                return this.scheduleService.getAll(this.scheduleFilter).pipe(
-                    finalize(() => this.isLoading = false),
-                    map(response => {
-                        this.count = response.count;
-                        if (this.count < offset) {
-                            this.paginator.pageIndex = 0;
-                            this.filterChanges.next(null);
-                        }
-                        this.schedules = response.results;
-                        return response.results;
-                    })
-                );
-            })
-        );
-    }
-    disconnect(_collectionViewer: CollectionViewer): void { }
-
 }

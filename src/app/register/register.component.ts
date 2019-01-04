@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomFG, ValidationService, CustomFB } from '../shared/validation';
 import { Validators } from '@angular/forms';
+import { CustomFB, CustomFG, ValidationService } from '../shared/validation';
 
-import { DentistService } from '../shared/services/dentist.service';
 import { MatSnackBar } from '@angular/material';
 import { finalize } from 'rxjs/operators';
+import { DentistService } from '../shared/services/dentist.service';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
-    styleUrls: ['./register.component.scss']
+    styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
     states = [];
@@ -30,13 +30,13 @@ export class RegisterComponent implements OnInit {
             password: fb.group({
                 password: ['', Validators.required],
                 confirm_password: ['', Validators.required],
-            }, { validator: ValidationService.passwordCompareValidator })
+            }, { validator: ValidationService.passwordCompareValidator }),
         });
     }
 
     ngOnInit() {
         this.dentistService.getStates().pipe(
-            finalize(() => this.isLoading = false)
+            finalize(() => this.isLoading = false),
         ).subscribe(
             data => {
                 this.states = data;
@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
         const dentist = this.registerForm.value;
         dentist.password = dentist.password.password;
         this.dentistService.create(dentist).pipe(
-            finalize(() => this.isSubmitting = false)
+            finalize(() => this.isSubmitting = false),
         ).subscribe(
             _data => {
                 this.registerForm.reset();

@@ -1,10 +1,11 @@
-import { BaseFilter, BaseService } from '../shared/services/base.service';
-
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { IPagedResponse } from '../shared/interceptors/responses';
+import { BaseService } from '../shared/services/base.service';
 import { IDentist } from '../shared/services/dentist.service';
+import { ClinicFilter } from './clinic.filter';
 
 export interface IClinicService {
     getAll(clinicFilter?: ClinicFilter): Observable<{ results: IClinic[] }>;
@@ -60,8 +61,4 @@ export interface IClinic {
     id: number;
     name: string;
     dentists: IDentist[];
-}
-
-export class ClinicFilter extends BaseFilter {
-
 }

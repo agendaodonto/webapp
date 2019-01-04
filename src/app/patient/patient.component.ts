@@ -1,15 +1,17 @@
-import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CustomFB, CustomFG } from '../shared/validation';
-import { IMatcher, getMatchedField, getReversedMatchField } from '../shared/util';
-import { IPatient, PatientFilter, PatientService } from './patient.service';
-import { IClickEvent } from '../shared/components/pager/datatable-pager.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
+
+import { IClickEvent } from '../shared/components/pager/datatable-pager.component';
+import { getMatchedField, getReversedMatchField, IMatcher } from '../shared/util';
+import { CustomFB, CustomFG } from '../shared/validation';
+import { PatientFilter } from './patient.filter';
+import { IPatient, PatientService } from './patient.service';
 
 @Component({
     selector: 'app-patient',
     templateUrl: './patient.component.html',
-    styleUrls: ['./patient.component.scss']
+    styleUrls: ['./patient.component.scss'],
 })
 export class PatientComponent implements OnInit {
     patients: IPatient[] = [];
@@ -24,12 +26,11 @@ export class PatientComponent implements OnInit {
         { prettyName: 'telefone', name: 'phone' },
     ];
 
-
     constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute) {
         const fb = new CustomFB();
         this.filterForm = fb.group({
             field: ['fullName'],
-            value: ['']
+            value: [''],
         });
     }
 
@@ -82,7 +83,7 @@ export class PatientComponent implements OnInit {
                     this.filterForm.controls.value.setValue(params.value);
                 }
                 this.getPatients(0);
-            }
+            },
         );
     }
 }

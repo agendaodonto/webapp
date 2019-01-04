@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ScheduleStatusComponent } from './schedule-status.component';
 import { MaterialAppModule } from '../../material.app.module';
+import { ScheduleStatusComponent } from './schedule-status.component';
 
 describe('Schedule Status Component', () => {
     let component: ScheduleStatusComponent;
@@ -10,7 +10,7 @@ describe('Schedule Status Component', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MaterialAppModule],
-            declarations: [ScheduleStatusComponent]
+            declarations: [ScheduleStatusComponent],
         }).compileComponents();
     }));
 

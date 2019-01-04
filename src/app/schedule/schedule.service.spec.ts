@@ -1,19 +1,21 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { BaseService } from '../shared/services/base.service';
-import { ScheduleService, ISchedule, ScheduleFilter } from './schedule.service';
-import { DENTISTS } from '../shared/services/dentist.service.spec';
-import { PATIENTS } from '../patient/patient.service.spec';
+import { getTestBed, TestBed } from '@angular/core/testing';
 
-export const SCHEDULES: Array<ISchedule> = [
+import { PATIENTS } from '../patient/patient.service.spec';
+import { BaseService } from '../shared/services/base.service';
+import { DENTISTS } from '../shared/services/dentist.service.spec';
+import { ScheduleFilter } from './schedule.filter';
+import { ISchedule, ScheduleService } from './schedule.service';
+
+export const SCHEDULES: ISchedule[] = [
     {
         id: 1,
         date: '2018-01-29T19:12:49.690973Z',
         dentist: DENTISTS[0], duration: 30,
         notification_status: '1',
         patient: PATIENTS[0],
-        status: 1
-    }
+        status: 1,
+    },
 ];
 
 describe('ScheduleService', () => {

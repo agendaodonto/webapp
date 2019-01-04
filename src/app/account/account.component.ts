@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomFB, CustomFG } from '../shared/validation';
-
-import { DentistService } from '../shared/services/dentist.service';
-import { MatSnackBar } from '@angular/material';
 import { Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { forkJoin } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+
+import { DentistService } from '../shared/services/dentist.service';
+import { CustomFB, CustomFG } from '../shared/validation';
 
 @Component({
     selector: 'app-account',
     templateUrl: './account.component.html',
-    styleUrls: ['./account.component.scss']
+    styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent implements OnInit {
     accountForm: CustomFG;
@@ -28,7 +28,7 @@ export class AccountComponent implements OnInit {
             cro_state: ['', Validators.required],
             sex: ['', Validators.required],
             sg_user: ['', Validators.required],
-            sg_password: ['', Validators.required]
+            sg_password: ['', Validators.required],
         });
     }
 
@@ -60,7 +60,7 @@ export class AccountComponent implements OnInit {
             .subscribe(
                 () => {
                     this.snackBar.open('Salvo com sucesso', '', { duration: 2000 });
-                }
+                },
             );
     }
 

@@ -1,14 +1,14 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { ClinicDetailComponent } from './clinic-detail.component';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ClinicService } from './clinic.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DentistService } from '../shared/services/dentist.service';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ClinicDetailComponent } from './clinic-detail.component';
+import { ClinicService } from './clinic.service';
 
 describe('ClinicDetailComponent', () => {
     let component: ClinicDetailComponent;
@@ -22,13 +22,13 @@ describe('ClinicDetailComponent', () => {
                 NoopAnimationsModule,
                 DirectivesModule,
                 HttpClientTestingModule,
-                RouterTestingModule
+                RouterTestingModule,
             ],
             declarations: [ClinicDetailComponent],
             providers: [
                 ClinicService,
-                DentistService
-            ]
+                DentistService,
+            ],
         });
     }));
 

@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { BaseService } from '../shared/services/base.service';
-import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class LoginService extends BaseService {
@@ -12,9 +13,9 @@ export class LoginService extends BaseService {
 
     authenticate(formData: { email: string, password: string }): Observable<any> {
         const headers = new HttpHeaders({
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         });
-        return this.http.post(BaseService.API_AUTH_URL + 'login/', JSON.stringify(formData), { headers: headers });
+        return this.http.post(BaseService.API_AUTH_URL + 'login/', JSON.stringify(formData), { headers });
     }
 
     logout() {
@@ -31,7 +32,7 @@ export class LoginService extends BaseService {
             response => {
                 localStorage.setItem('user_info', JSON.stringify(response));
                 return JSON.parse(localStorage.getItem('user_info'));
-            }
+            },
         );
     }
 

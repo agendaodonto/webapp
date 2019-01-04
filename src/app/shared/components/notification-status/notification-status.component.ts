@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
     template: `<div class="circle" matTooltip="{{ getHintLabel() }}">
                 <mat-icon class="centered" [ngStyle]="getIconStyle()">{{ getIcon() }}</mat-icon>
               </div>`,
-    styleUrls: ['notification-status.component.scss']
+    styleUrls: ['notification-status.component.scss'],
 })
 export class NotificationStatusComponent {
     private static statusList = {

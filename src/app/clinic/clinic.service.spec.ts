@@ -1,11 +1,13 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { ClinicService, IClinic, ClinicFilter } from './clinic.service';
+import { getTestBed, TestBed } from '@angular/core/testing';
+
 import { BaseService } from '../shared/services/base.service';
 import { DENTISTS } from '../shared/services/dentist.service.spec';
+import { ClinicFilter } from './clinic.filter';
+import { ClinicService, IClinic } from './clinic.service';
 
-export const CLINICS: Array<IClinic> = [
-    { id: 1, dentists: DENTISTS, name: 'Clinic 1' }
+export const CLINICS: IClinic[] = [
+    { id: 1, dentists: DENTISTS, name: 'Clinic 1' },
 ];
 
 describe('ClinicService', () => {

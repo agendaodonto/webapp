@@ -1,8 +1,8 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
-import { AboutComponent } from './about.component';
 import { MaterialAppModule } from '../shared/material.app.module';
+import { AboutComponent } from './about.component';
 
 describe('AboutComponent', () => {
     let component: AboutComponent;
@@ -12,10 +12,10 @@ describe('AboutComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,
-                RouterTestingModule
+                RouterTestingModule,
             ],
             declarations: [AboutComponent],
-            providers: []
+            providers: [],
         })
             .compileComponents();
     }));

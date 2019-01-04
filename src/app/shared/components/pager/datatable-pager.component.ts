@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-
 @Component({
     selector: 'app-datatable-pager',
     templateUrl: 'datatable-pager.component.html',
@@ -32,7 +31,6 @@ export class DataTablePagerComponent {
         return endRange;
     }
 
-
     canPrevious(): boolean {
         return this.page > 1;
     }
@@ -54,12 +52,11 @@ export class DataTablePagerComponent {
             this.page = page;
 
             this.change.emit({
-                page
+                page,
             });
         }
     }
 }
-
 
 export interface IPaginateEvent {
     limit: number;
@@ -68,11 +65,11 @@ export interface IPaginateEvent {
 
 export interface ISortEvent {
     newValue: string;
-    column: { prop: string }
+    column: { prop: string };
 }
 
 export interface IClickEvent<T> {
-    type: string,
+    type: string;
     value: any;
     row: T;
 }

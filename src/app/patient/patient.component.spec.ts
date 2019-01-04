@@ -1,14 +1,14 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
 import { MaterialAppModule } from '../shared/material.app.module';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PatientComponent } from './patient.component';
 import { PatientService } from './patient.service';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('PatientComponent', () => {
     let component: PatientComponent;
@@ -23,12 +23,12 @@ describe('PatientComponent', () => {
                 DataTablePagerModule,
                 ReactiveFormsModule,
                 RouterTestingModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
             ],
             declarations: [PatientComponent],
             providers: [
-                PatientService
-            ]
+                PatientService,
+            ],
         }).compileComponents();
     }));
 

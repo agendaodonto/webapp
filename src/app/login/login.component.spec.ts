@@ -1,14 +1,14 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { DirectivesModule } from '../shared/directives/directives.module';
+import { MaterialAppModule } from '../shared/material.app.module';
+import { TokenService } from '../shared/services/token.service';
 import { LoginComponent } from './login.component';
 import { LoginService } from './login.service';
-import { MaterialAppModule } from '../shared/material.app.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-import { TokenService } from '../shared/services/token.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
@@ -23,12 +23,12 @@ describe('LoginComponent', () => {
                 ReactiveFormsModule,
                 NoopAnimationsModule,
                 DirectivesModule,
-                RouterTestingModule
+                RouterTestingModule,
             ],
             providers: [
                 TokenService,
                 LoginService,
-            ]
+            ],
         });
     }));
 

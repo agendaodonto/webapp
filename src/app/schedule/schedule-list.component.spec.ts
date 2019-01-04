@@ -1,16 +1,15 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ScheduleListComponent } from './schedule-list.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SharedComponentsModule } from '../shared/components/shared-components.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
-import { SharedComponentsModule } from '../shared/components/shared-components.module';
+import { ScheduleListComponent } from './schedule-list.component';
 import { ScheduleService } from './schedule.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ScheduleListComponent', () => {
     let component: ScheduleListComponent;
@@ -26,12 +25,12 @@ describe('ScheduleListComponent', () => {
                 NoopAnimationsModule,
                 MatMomentDateModule,
                 HttpClientTestingModule,
-                RouterTestingModule
+                RouterTestingModule,
             ],
             declarations: [ScheduleListComponent],
             providers: [
-                ScheduleService
-            ]
+                ScheduleService,
+            ],
         }).compileComponents();
     }));
 

@@ -3,7 +3,6 @@ export interface IMatcher {
     prettyName: string;
 }
 
-
 /**
  * Search filters by name in the stack and returns the pretty name
  */

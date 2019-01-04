@@ -31,7 +31,7 @@ export class ButtonLoaderDirective implements OnChanges {
             this.button.disabled = true;
             const factory = this.componentFactoryResolver.resolveComponentFactory(MatSpinner);
             this.componentRef = this.viewContainerRef.createComponent(factory);
-            this.spinner = <MatSpinner>this.componentRef.instance;
+            this.spinner = this.componentRef.instance as MatSpinner;
             this.spinner.diameter = ButtonLoaderDirective.DEFAULT_BTN_DIAMETER;
             this.renderer.setStyle(this.spinner._elementRef.nativeElement, 'margin', '0 auto');
             this.renderer.appendChild(this.viewContainerRef.element.nativeElement, this.spinner._elementRef.nativeElement);

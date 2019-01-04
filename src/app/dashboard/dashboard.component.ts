@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { startOfMonth, endOfMonth, format, subMonths } from 'date-fns';
+import { NavigationExtras, Router } from '@angular/router';
 import * as d3 from 'd3';
-import { Router, NavigationExtras } from '@angular/router';
+import { endOfMonth, format, startOfMonth, subMonths } from 'date-fns';
 import { Observable } from 'rxjs';
-import { IPagedResponse } from '../shared/interceptors/responses';
-import { ISchedule, ScheduleService, ScheduleFilter } from '../schedule/schedule.service';
-import { IPatient, PatientService, PatientFilter } from '../patient/patient.service';
-import { parseAttendanceData } from './dashboard.utils';
 import { map } from 'rxjs/operators';
 
+import { PatientFilter } from '../patient/patient.filter';
+import { IPatient, PatientService } from '../patient/patient.service';
+import { ScheduleFilter } from '../schedule/schedule.filter';
+import { ISchedule, ScheduleService } from '../schedule/schedule.service';
+import { IPagedResponse } from '../shared/interceptors/responses';
+import { parseAttendanceData } from './dashboard.utils';
 
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss']
+    styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
 
@@ -33,7 +35,7 @@ export class DashboardComponent implements OnInit {
     attendanceChartColors = [
         { name: 'Comparecimentos', value: '#4CAF50' },
         { name: 'Faltas', value: '#f44336' },
-        { name: 'Cancelamentos', value: '#e0e0e0' }
+        { name: 'Cancelamentos', value: '#e0e0e0' },
     ];
 
     constructor(private scheduleService: ScheduleService, private patientService: PatientService, private router: Router) { }
@@ -82,7 +84,7 @@ export class DashboardComponent implements OnInit {
         const extras: NavigationExtras = {};
         extras.queryParams = {
             dataFim: format(new Date(), 'DD-MM-YYYY'),
-            status: '0'
+            status: '0',
         };
         this.router.navigate(['/agenda/lista'], extras);
     }

@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ConfirmComponent } from './confirm.component';
-import { MaterialAppModule } from '../shared/material.app.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { DentistService } from '../shared/services/dentist.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { MaterialAppModule } from '../shared/material.app.module';
+import { DentistService } from '../shared/services/dentist.service';
+import { ConfirmComponent } from './confirm.component';
 
 describe('ConfirmComponent', () => {
     let component: ConfirmComponent;
@@ -17,12 +17,12 @@ describe('ConfirmComponent', () => {
                 MaterialAppModule,
                 NoopAnimationsModule,
                 RouterTestingModule,
-                HttpClientTestingModule
+                HttpClientTestingModule,
             ],
             declarations: [ConfirmComponent],
             providers: [
-                DentistService
-            ]
+                DentistService,
+            ],
         }).compileComponents();
     }));
 

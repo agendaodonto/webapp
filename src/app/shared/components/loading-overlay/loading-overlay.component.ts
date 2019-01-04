@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
                 <div class="overlay">
                     <mat-spinner style="margin: 0 auto"></mat-spinner>
                 </div>
-                `
+                `,
 })
 export class LoadingOverlayComponent {
 

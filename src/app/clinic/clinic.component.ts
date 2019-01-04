@@ -1,15 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-import { ClinicFilter, IClinic, ClinicService } from './clinic.service';
-import { Router } from '@angular/router';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { startWith, switchMap, finalize, map } from 'rxjs/operators';
+import { finalize, map, startWith, switchMap } from 'rxjs/operators';
+
+import { ClinicFilter } from './clinic.filter';
+import { ClinicService, IClinic } from './clinic.service';
 
 @Component({
     selector: 'app-clinic',
     templateUrl: './clinic.component.html',
-    styleUrls: ['./clinic.component.scss']
+    styleUrls: ['./clinic.component.scss'],
 })
 export class ClinicComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -40,7 +41,7 @@ export class ClinicComponent implements OnInit {
                         map(response => {
                             this.count = response.count;
                             return response.results;
-                        })
+                        }),
                     );
                 }));
         this.watcher.subscribe(response => {

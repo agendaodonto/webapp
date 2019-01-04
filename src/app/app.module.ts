@@ -1,29 +1,28 @@
+import { registerLocaleData } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import localePtExtras from '@angular/common/locales/extra/pt';
+import localePt from '@angular/common/locales/pt';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
+
+import { AboutModule, aboutRoutes } from './about/about.module';
 import { AccountModule, accountRoutes } from './account/account.module';
+import { AppComponent } from './app.component';
 import { ClinicModule, clinicRoutes } from './clinic/clinic.module';
+import { DashboardModule, dashboardRoutes } from './dashboard/dashboard.module';
 import { LoginModule, loginRoutes } from './login/login.module';
 import { PatientModule, patientRoutes } from './patient/patient.module';
-import { RouterModule, Routes } from '@angular/router';
-import { ScheduleModule, scheduleRoutes } from './schedule/schedule.module';
-
-import { AppComponent } from './app.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { MaterialAppModule } from './shared/material.app.module';
-import { NgModule, LOCALE_ID } from '@angular/core';
 import { RegisterModule, registerRoutes } from './register/register.module';
-import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
-import localePtExtras from '@angular/common/locales/extra/pt';
-// import { MatNativeDateModule } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { dashboardRoutes, DashboardModule } from './dashboard/dashboard.module';
-import { aboutRoutes, AboutModule } from './about/about.module';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { TokenService } from './shared/services/token.service';
-import { TokenInterceptor } from './shared/interceptors/token.interceptor';
+import { ScheduleModule, scheduleRoutes } from './schedule/schedule.module';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
+import { TokenInterceptor } from './shared/interceptors/token.interceptor';
+import { MaterialAppModule } from './shared/material.app.module';
+import { TokenService } from './shared/services/token.service';
 
+// import { MatNativeDateModule } from '@angular/material';
 registerLocaleData(localePt, localePtExtras);
 
 export const routes: Routes = [
@@ -34,7 +33,7 @@ export const routes: Routes = [
     ...patientRoutes,
     ...scheduleRoutes,
     ...aboutRoutes,
-    ...accountRoutes
+    ...accountRoutes,
 ];
 
 @NgModule({
@@ -64,7 +63,7 @@ export const routes: Routes = [
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
 export class AppModule {
 }

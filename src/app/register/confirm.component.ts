@@ -1,12 +1,12 @@
-import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatSnackBar } from '@angular/material';
 import { DentistService } from '../shared/services/dentist.service';
 
 @Component({
     selector: 'app-confirm',
-    template: ''
+    template: '',
 })
 export class ConfirmComponent implements OnInit {
 
@@ -28,7 +28,7 @@ export class ConfirmComponent implements OnInit {
             _error => {
                 this.snack.open('Não foi possível ativar essa conta. Tente novamente', 'Fechar');
                 this.router.navigate(['/login']);
-            }
+            },
             );
     }
 
