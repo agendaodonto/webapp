@@ -20,7 +20,7 @@ stages:
   - name: deploy staging
     if: type = push AND branch = "develop" AND tag IS blank
   - name: deploy production
-    # if: branch = "develop" AND tag IS present
+    if: tag IS present
 
 jobs:
   include:
@@ -46,7 +46,7 @@ jobs:
         - aws s3 sync ./dist s3://agendaodonto-staging-builds/$TRAVIS_BUILD_NUMBER-staging --expires "$(date -d '+1 hour' --utc +'%Y-%m-%dT%H:%M:%SZ')"
     - stage: quality
       name: Build Prod
-    #   if: branch = "develop" AND tag IS present
+      if: tag IS present
       script:
         - ng b -c=production --prod=true --aot
         - aws s3 sync ./dist s3://agendaodonto-staging-builds/$TRAVIS_BUILD_NUMBER-prod --expires "$(date -d '+1 hour' --utc +'%Y-%m-%dT%H:%M:%SZ')"
