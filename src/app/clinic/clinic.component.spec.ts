@@ -4,6 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
+import { configureTestSuite } from 'ng-bullet';
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { ClinicComponent } from './clinic.component';
@@ -13,7 +14,7 @@ describe('ClinicComponent', () => {
     let component: ClinicComponent;
     let fixture: ComponentFixture<ClinicComponent>;
 
-    beforeEach(async(() => {
+    configureTestSuite(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,
@@ -28,7 +29,7 @@ describe('ClinicComponent', () => {
                 ClinicService,
             ],
         });
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ClinicComponent);

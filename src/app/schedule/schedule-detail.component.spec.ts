@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { configureTestSuite } from 'ng-bullet';
 
 import { PatientService } from '../patient/patient.service';
 import { SharedComponentsModule } from '../shared/components/shared-components.module';
@@ -15,7 +16,7 @@ describe('ScheduleDetailComponent', () => {
     let component: ScheduleDetailComponent;
     let fixture: ComponentFixture<ScheduleDetailComponent>;
 
-    beforeEach(async(() => {
+    configureTestSuite(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,
@@ -31,8 +32,8 @@ describe('ScheduleDetailComponent', () => {
                 ScheduleService,
                 PatientService,
             ],
-        }).compileComponents();
-    }));
+        });
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ScheduleDetailComponent);
@@ -42,5 +43,9 @@ describe('ScheduleDetailComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should create a new notification when there is an update', () => {
+
     });
 });

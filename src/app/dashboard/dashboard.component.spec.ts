@@ -4,6 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
+import { configureTestSuite } from 'ng-bullet';
 import { PatientService } from '../patient/patient.service';
 import { ScheduleService } from '../schedule/schedule.service';
 import { SharedComponentsModule } from '../shared/components/shared-components.module';
@@ -15,7 +16,7 @@ describe('DashboardComponent', () => {
     let component: DashboardComponent;
     let fixture: ComponentFixture<DashboardComponent>;
 
-    beforeEach(async(() => {
+    configureTestSuite(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
@@ -28,8 +29,8 @@ describe('DashboardComponent', () => {
             ],
             declarations: [DashboardComponent],
             providers: [ScheduleService, PatientService],
-        }).compileComponents();
-    }));
+        });
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(DashboardComponent);

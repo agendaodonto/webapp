@@ -1,6 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { configureTestSuite } from 'ng-bullet';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { AboutComponent } from './about.component';
 
@@ -8,7 +9,7 @@ describe('AboutComponent', () => {
     let component: AboutComponent;
     let fixture: ComponentFixture<AboutComponent>;
 
-    beforeEach(async(() => {
+    configureTestSuite(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,
@@ -16,9 +17,8 @@ describe('AboutComponent', () => {
             ],
             declarations: [AboutComponent],
             providers: [],
-        })
-            .compileComponents();
-    }));
+        });
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(AboutComponent);

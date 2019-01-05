@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { configureTestSuite } from 'ng-bullet';
 import { SharedComponentsModule } from '../shared/components/shared-components.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
@@ -15,7 +16,7 @@ describe('ScheduleListComponent', () => {
     let component: ScheduleListComponent;
     let fixture: ComponentFixture<ScheduleListComponent>;
 
-    beforeEach(async(() => {
+    configureTestSuite(() => {
         TestBed.configureTestingModule({
             imports: [
                 DirectivesModule,
@@ -31,8 +32,8 @@ describe('ScheduleListComponent', () => {
             providers: [
                 ScheduleService,
             ],
-        }).compileComponents();
-    }));
+        });
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ScheduleListComponent);

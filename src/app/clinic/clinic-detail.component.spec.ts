@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { configureTestSuite } from 'ng-bullet';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { DentistService } from '../shared/services/dentist.service';
@@ -14,7 +15,7 @@ describe('ClinicDetailComponent', () => {
     let component: ClinicDetailComponent;
     let fixture: ComponentFixture<ClinicDetailComponent>;
 
-    beforeEach(async(() => {
+    configureTestSuite(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,
@@ -30,7 +31,7 @@ describe('ClinicDetailComponent', () => {
                 DentistService,
             ],
         });
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ClinicDetailComponent);

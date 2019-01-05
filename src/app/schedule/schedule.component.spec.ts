@@ -1,11 +1,12 @@
 import * as moment from 'moment';
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CalendarModule, MOMENT } from 'angular-calendar';
+import { configureTestSuite } from 'ng-bullet';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { ActivatedRouteStub } from '../shared/testing/activated-route.stub';
 import { ScheduleComponent } from './schedule.component';
@@ -16,8 +17,7 @@ describe('ScheduleComponent', () => {
     let fixture: ComponentFixture<ScheduleComponent>;
     const  routeMock = new ActivatedRouteStub();
 
-    beforeEach(async(() => {
-        routeMock.testParams = {};
+    configureTestSuite(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,
@@ -31,11 +31,11 @@ describe('ScheduleComponent', () => {
                 { provide: ActivatedRoute, useValue: routeMock },
                 ScheduleService,
             ],
-        }).compileComponents();
-
-    }));
+        });
+    });
 
     beforeEach(() => {
+        routeMock.testParams = {};
         fixture = TestBed.createComponent(ScheduleComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

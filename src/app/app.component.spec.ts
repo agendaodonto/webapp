@@ -1,16 +1,20 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { configureTestSuite } from 'ng-bullet';
 import { AppComponent } from './app.component';
 import { LoginService } from './login/login.service';
 import { MaterialAppModule } from './shared/material.app.module';
 
 describe('AppComponent', () => {
-    beforeEach(async(() => {
+    let component: AppComponent;
+    let fixture: ComponentFixture<AppComponent>;
+
+    configureTestSuite(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,
@@ -26,85 +30,73 @@ describe('AppComponent', () => {
                 { provide: APP_BASE_HREF, useValue: '/' },
             ],
         });
-    }));
+    });
 
     beforeEach(() => {
+        fixture = TestBed.createComponent(AppComponent);
+        component = fixture.componentInstance;
     });
 
     it('should create the app', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.componentInstance;
-        expect(app).toBeTruthy();
+        expect(component).toBeTruthy();
     }));
 
     it('should change the display type to mobile when the screen has less than 1600px', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.componentInstance;
-        expect(app.displayType).toBe('desktop');
+        expect(component.displayType).toBe('desktop');
         const resizeEvent = {
             type: 'resize',
             target: { innerWidth: 1600 },
         };
-        app.onResize(resizeEvent);
-        expect(app.displayType).toBe('mobile');
+        component.onResize(resizeEvent);
+        expect(component.displayType).toBe('mobile');
     }));
 
     it('should change the display type to desktop when the screen has more than 1600px', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.componentInstance;
-        expect(app.displayType).toBe('desktop');
+        expect(component.displayType).toBe('desktop');
         const resizeEvent = {
             type: 'resize',
             target: { innerWidth: 1601 },
         };
-        app.onResize(resizeEvent);
-        expect(app.displayType).toBe('desktop');
+        component.onResize(resizeEvent);
+        expect(component.displayType).toBe('desktop');
     }));
 
     it('should clear the localStorage and redirect to login after logout', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.componentInstance;
         const loginService = fixture.debugElement.injector.get(LoginService);
         const router = fixture.debugElement.injector.get(Router);
         spyOn(loginService, 'logout');
         spyOn(router, 'navigate').and.returnValue(true);
-        app.logout();
+        component.logout();
         expect(loginService.logout).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledWith(['/login']);
     }));
 
     it('should close the sidenav only for mobile', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.componentInstance;
-        spyOn(app.sideNav, 'close');
-        app.closeSideNav();
-        expect(app.sideNav.close).toHaveBeenCalledTimes(0);
-        app.displayType = 'mobile';
-        app.closeSideNav();
-        expect(app.sideNav.close).toHaveBeenCalled();
+        spyOn(component.sideNav, 'close');
+        component.closeSideNav();
+        expect(component.sideNav.close).toHaveBeenCalledTimes(0);
+        component.displayType = 'mobile';
+        component.closeSideNav();
+        expect(component.sideNav.close).toHaveBeenCalled();
     }));
 
     it('should only display menus that doesnt requires login', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.componentInstance;
         const loginService = fixture.debugElement.injector.get(LoginService);
         const loggedMenu = { name: 'TestMenu', link: 'aLink', requiresLogin: true, hideWhenLogged: false };
         const nonLoggedMenu = { name: 'TestMenu2', link: 'aLink2', requiresLogin: false, hideWhenLogged: true };
         spyOn(loginService, 'isLogged').and.returnValue(false);
 
-        expect(app.shouldDisplayMenu(loggedMenu)).toBeFalsy();
-        expect(app.shouldDisplayMenu(nonLoggedMenu)).toBeTruthy();
+        expect(component.shouldDisplayMenu(loggedMenu)).toBeFalsy();
+        expect(component.shouldDisplayMenu(nonLoggedMenu)).toBeTruthy();
     }));
 
     it('should hide menus that requires login', async(() => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.componentInstance;
         const loginService = fixture.debugElement.injector.get(LoginService);
         const loggedMenu = { name: 'TestMenu', link: 'aLink', requiresLogin: true, hideWhenLogged: false };
         const nonLoggedMenu = { name: 'TestMenu2', link: 'aLink2', requiresLogin: false, hideWhenLogged: true };
         spyOn(loginService, 'isLogged').and.returnValue(true);
 
-        expect(app.shouldDisplayMenu(loggedMenu)).toBeTruthy();
-        expect(app.shouldDisplayMenu(nonLoggedMenu)).toBeFalsy();
+        expect(component.shouldDisplayMenu(loggedMenu)).toBeTruthy();
+        expect(component.shouldDisplayMenu(nonLoggedMenu)).toBeFalsy();
     }));
 });

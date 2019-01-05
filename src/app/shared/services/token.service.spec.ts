@@ -1,13 +1,18 @@
 import { inject, TestBed } from '@angular/core/testing';
 
+import { configureTestSuite } from 'ng-bullet';
 import { TokenService } from './token.service';
 
 describe('TokenService', () => {
-    beforeEach(() => {
+
+    configureTestSuite(() => {
         TestBed.configureTestingModule({
             imports: [],
             providers: [TokenService],
         });
+    });
+
+    beforeEach(() => {
         localStorage.clear();
     });
 

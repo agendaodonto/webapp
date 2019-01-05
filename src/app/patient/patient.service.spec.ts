@@ -1,6 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { getTestBed, TestBed } from '@angular/core/testing';
 
+import { configureTestSuite } from 'ng-bullet';
 import { CLINICS } from '../clinic/clinic.service.spec';
 import { ScheduleFilter } from '../schedule/schedule.filter';
 import { BaseService } from '../shared/services/base.service';
@@ -15,11 +16,15 @@ describe('PatientService', () => {
     let injector: TestBed;
     let service: PatientService;
     let httpMock: HttpTestingController;
-    beforeEach(() => {
+
+    configureTestSuite(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [PatientService],
         });
+    });
+
+    beforeEach(() => {
         injector = getTestBed();
         service = injector.get(PatientService);
         httpMock = injector.get(HttpTestingController);
