@@ -26,7 +26,7 @@ jobs:
   include:
     - stage: quality
       name: Unit Tests
-      if: tag IS blank
+    #   if: tag IS blank
       addons:
         chrome: stable
       env:
