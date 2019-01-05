@@ -17,7 +17,6 @@ before_install:
 
 stages:
   - name: quality
-    if: tag IS blank
   - name: deploy staging
     if: type = push AND branch = "develop" AND tag IS blank
   - name: deploy production
@@ -27,6 +26,7 @@ jobs:
   include:
     - stage: quality
       name: Unit Tests
+      if: tag IS blank
       addons:
         chrome: stable
       env:
@@ -36,9 +36,11 @@ jobs:
         - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
     - stage: quality
       name: Lint
+      if: tag IS blank
       script: ng lint
     - stage: quality
       name: Build Staging
+      if: tag IS blank
       script:
         - ng b -c=staging --aot
         - aws s3 sync ./dist s3://agendaodonto-staging-builds/$TRAVIS_BUILD_NUMBER-staging --expires "$(date -d '+1 hour' --utc +'%Y-%m-%dT%H:%M:%SZ')"
