@@ -86,11 +86,8 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
         const scheduleDuration = this.scheduleForm.controls.duration.value;
         const nextScheduleDate = addMinutes(scheduleDate, scheduleDuration);
         this.isSubmitting = true;
-        const jobs = [this.scheduleService.save(this.scheduleForm.value)];
-        if (this.schedule && new Date(this.schedule.date).getTime() !== new Date(scheduleDate).getTime()) {
-            jobs.push(this.scheduleService.updateNotificationStatus(this.schedule, 0));
-        }
-        forkJoin(...jobs)
+
+        this.scheduleService.save(this.scheduleForm.value)
             .pipe(finalize(() => this.isSubmitting = false))
             .subscribe(() => {
                 if (this.continuousMode && this.continuousMode.checked) {

@@ -78,7 +78,6 @@ export class ScheduleComponent implements OnInit {
                     notificationStatus,
                 });
                 this.schedules = tmpArray;
-                console.log(this.schedules);
             });
         },
         );
