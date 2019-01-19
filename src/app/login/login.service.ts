@@ -15,7 +15,7 @@ export class LoginService extends BaseService {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
         });
-        return this.http.post(BaseService.API_AUTH_URL + 'login/', JSON.stringify(formData), { headers });
+        return this.http.post(BaseService.API_AUTH_URL + 'token/login/', JSON.stringify(formData), { headers });
     }
 
     logout() {
