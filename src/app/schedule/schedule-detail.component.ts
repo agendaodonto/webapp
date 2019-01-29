@@ -92,6 +92,7 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
             .subscribe(() => {
                 if (this.continuousMode && this.continuousMode.checked) {
                     this.scheduleFormDirective.resetForm();
+                    this.scheduleForm.controls.id.setValue('');
                     this.scheduleForm.controls.date.setValue(format(nextScheduleDate, 'YYYY-MM-DDTHH:mm'));
                 } else {
                     this.router.navigate(['/agenda']);
@@ -120,8 +121,8 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
 
     onDelete() {
         const dialog = this.dialog.open(ConfirmDialogComponent, {
-            height: '150px',
-            width: '300px',
+            height: '200px',
+            width: '400px',
             data: {
                 title: 'Você tem certeza disso ?',
                 message: 'Deseja prosseguir?',

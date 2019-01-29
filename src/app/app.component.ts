@@ -1,4 +1,4 @@
-import { Component, HostListener, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Router } from '@angular/router';
 import { Md5 } from 'ts-md5/dist/md5';
@@ -19,7 +19,7 @@ type Display = 'desktop' | 'mobile';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     @ViewChild('sidenav') sideNav: MatSidenav;
     displayType: Display = 'desktop';
     sideNavMenus: IMenu[] = [
@@ -34,6 +34,10 @@ export class AppComponent {
 
     constructor(public loginService: LoginService, private router: Router) {
 
+    }
+
+    ngOnInit() {
+     window.dispatchEvent(new Event('resize'));
     }
 
     logout() {
