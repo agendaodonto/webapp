@@ -45,7 +45,4 @@ describe('ScheduleDetailComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should create a new notification when there is an update', () => {
-
-    });
 });

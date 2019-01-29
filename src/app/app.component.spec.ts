@@ -61,6 +61,13 @@ describe('AppComponent', () => {
         expect(component.displayType).toBe('desktop');
     }));
 
+    it('should check the display size onInit', () => {
+        spyOn(component, 'onResize');
+
+        component.ngOnInit();
+        expect(component.onResize).toHaveBeenCalled();
+    });
+
     it('should clear the localStorage and redirect to login after logout', async(() => {
         const loginService = fixture.debugElement.injector.get(LoginService);
         const router = fixture.debugElement.injector.get(Router);
