@@ -27,7 +27,7 @@
         "@swimlane/ngx-charts": "^9.0.0",
         "@swimlane/ngx-datatable": "^13.1.0",
         "@types/webpack-env": "^1.13.6",
-        "angular-calendar": "^0.25.2",
+        "angular-calendar": "^0.26.6",
         "core-js": "^2.6.1",
         "d3": "^5.6.0",
         "date-fns": "^1.29.0",
