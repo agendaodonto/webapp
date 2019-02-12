@@ -176,10 +176,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/language-service@^7.2.0":
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-7.2.0.tgz#9602847c03d269234b33a4ddadaa919f2d558227"
-  integrity sha512-UDmIRR0ybdafrJLHkSDgc/3PpsA9lnwXqGMSAyyhEF3InORFFkloAb0a6Naz+y8ePgEMfqbpyWjtzo8qGtOmEQ==
+"@angular/language-service@^7.2.4":
+  version "7.2.4"
+  resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-7.2.4.tgz#db72460040b070410cbff678410c142f4d682af8"
+  integrity sha512-A9Rud/27hHMSUUjpgn57nVeLsoYgdvFwJhtlZA/oCuSpmlD+LqqBsEpPhivwn++u44+DSrFXsic29jlFnsBotw==
 
 "@angular/material-moment-adapter@^7.2.0":
   version "7.2.0"
