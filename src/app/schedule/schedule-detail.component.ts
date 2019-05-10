@@ -25,7 +25,7 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
     isSubmitting = false;
     scheduleForm: CustomFG;
     dentists: IDentist[] = [];
-    filteredPatients: Observable<{ results: IPatient[] }>;
+    filteredPatients: Observable<{ results: IPatient[] }> | null;
     scheduleId: number;
     schedule: ISchedule;
     @ViewChild('continuousMode') continuousMode: MatSlideToggle;

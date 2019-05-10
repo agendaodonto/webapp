@@ -21,7 +21,7 @@ type fieldType = 'filter' | 'other';
 
 export interface IFilterField {
     mapsTo: string;
-    value: string;
+    value: string | null;
     name: string;
     type: fieldType;
 }

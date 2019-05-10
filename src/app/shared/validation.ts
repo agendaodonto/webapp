@@ -16,10 +16,6 @@ export class ValidationService {
             minlength: `Minimum length ${validatorValue.requiredLength}`,
         };
 
-        // console.log(" config = " + JSON.stringify(config));
-        // console.log(" validator name: " + validatorName);
-        // console.log(" config = req " + JSON.stringify(config["required"]));
-        // console.log(" config = nan " + JSON.stringify(config["invalidNumberField"]));
         return config[validatorName];
     }
 
@@ -81,11 +77,13 @@ export class CustomFG extends FormGroup {
     };
 
     getControlErrors(control: CustomControl): string[] {
-        let errorList = [];
-        for (const error in control.errors) {
-            if (control.errors.hasOwnProperty(error)) {
-                if (error !== 'customError') {
-                    errorList.push(ValidationService.getValidatorErrorMessage(error, control.errors[error]));
+        let errorList: string[] = [];
+        if (control.errors != null) {
+            for (const error in control.errors) {
+                if (control.errors.hasOwnProperty(error)) {
+                    if (error !== 'customError') {
+                        errorList.push(ValidationService.getValidatorErrorMessage(error, control.errors[error]));
+                    }
                 }
             }
         }

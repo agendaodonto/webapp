@@ -12,6 +12,9 @@ export class LocalizedCalendarHeader extends CalendarMomentDateFormatter {
     }
 
     public dayViewTitle({ date, locale }: DateFormatterParams): string {
+        if (locale == null) {
+            locale = 'pt-BR';
+        }
         return moment(date).locale(locale).format('DD [de] MMMM [de] YYYY');
     }
 }

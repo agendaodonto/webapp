@@ -5,7 +5,7 @@ import { EventColor } from 'calendar-utils';
 import { addDays, addMinutes, addWeeks, endOfWeek, format, parse, startOfWeek, subDays, subWeeks } from 'date-fns';
 import { finalize } from 'rxjs/operators';
 
-import { NotificationStatusComponent } from '../shared/components/notification-status/notification-status.component';
+import { IStatus, NotificationStatusComponent } from '../shared/components/notification-status/notification-status.component';
 import { LocalizedCalendarHeader } from '../shared/providers/localizedheader.provider';
 import { getMatchedField, getReversedMatchField, IMatcher } from '../shared/util';
 import { ScheduleFilter } from './schedule.filter';
@@ -15,7 +15,7 @@ type ViewType = 'week' | 'day';
 
 interface IScheduleEvent extends CalendarEvent {
     id: number;
-    notificationStatusIcon: string;
+    notificationStatus: IStatus;
 }
 
 @Component({
@@ -65,7 +65,7 @@ export class ScheduleComponent implements OnInit {
         this.scheduleService.getAll(this.scheduleFilter).pipe(
             finalize(() => this.isLoading = false),
         ).subscribe((schedules) => {
-            const tmpArray = [];
+            const tmpArray: IScheduleEvent[] = [];
             schedules.results.map((schedule) => {
                 const text = schedule.patient.name + ' ' + schedule.patient.last_name;
                 const notificationStatus = NotificationStatusComponent.statusLookup(schedule.notification_status);
