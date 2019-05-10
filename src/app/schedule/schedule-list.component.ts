@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChil
 import { MatPaginator } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import { merge } from 'rxjs';
+import { merge, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { CustomFB, CustomFG } from '../shared/validation';
@@ -102,7 +102,7 @@ export class ScheduleListComponent implements OnInit {
     }
 
     setScheduleStatus(status) {
-        const jobs = [];
+        const jobs: Array<Observable<any>> = [];
         this.isUpdating = true;
         this.selection.selected.forEach((schedule) => {
             const selectedSchedule = Object.assign({}, schedule); // Copy the object without reference

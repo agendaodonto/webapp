@@ -31,12 +31,18 @@ export class LoginService extends BaseService {
         this.http.get(BaseService.API_AUTH_URL + 'me/').subscribe(
             response => {
                 localStorage.setItem('user_info', JSON.stringify(response));
-                return JSON.parse(localStorage.getItem('user_info'));
+                return response;
             },
         );
     }
 
     getLocalUserInfo() {
-        return JSON.parse(localStorage.getItem('user_info'));
+        const userInfo = localStorage.getItem('user_info');
+
+        if (userInfo === null) {
+            throw Error('No user info');
+        } else {
+            return JSON.parse(userInfo);
+        }
     }
 }

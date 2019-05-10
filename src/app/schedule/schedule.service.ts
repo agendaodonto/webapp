@@ -58,12 +58,12 @@ export class ScheduleService extends BaseService implements IScheduleService {
         return this.http.post(this.url(['schedules', schedule.id, 'notification']), JSON.stringify(payload));
     }
 
-    getAttendanceData(referenceDate?: Date): Observable<IAttendanceData> {
+    getAttendanceData(referenceDate?: Date): Observable<IAttendanceResponse> {
         let params = new HttpParams();
         if (referenceDate) {
             params = params.set('date', format(referenceDate, 'YYYY-MM-DD'));
         }
-        return this.http.get<IAttendanceData>(this.url(['schedules', 'attendance']), { params });
+        return this.http.get<IAttendanceResponse>(this.url(['schedules', 'attendance']), { params });
     }
 
 }
@@ -74,10 +74,10 @@ export interface IScheduleService {
     create(schedule: ISchedule): Observable<any>;
     update(schedule: ISchedule): Observable<any>;
     save(schedule: ISchedule): Observable<any>;
-    getAttendanceData(referenceDate?: Date): Observable<IAttendanceData>;
+    getAttendanceData(referenceDate?: Date): Observable<IAttendanceResponse>;
 }
 
-export interface IAttendanceData {
+export interface IAttendanceResponse {
     [key: string]: {
         absences: number,
         attendances: number,

@@ -4,7 +4,12 @@ import { Injectable } from '@angular/core';
 export class TokenService {
 
     getToken(): string {
-        return localStorage.getItem('auth_token');
+        const authToken = localStorage.getItem('auth_token');
+        if (authToken == null) {
+            throw new Error('Auth token not defined');
+        } else {
+            return authToken;
+        }
     }
 
     setToken(token: string) {
