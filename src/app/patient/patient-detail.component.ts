@@ -103,6 +103,7 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
                 this.snackBar.open('Salvo com sucesso', '', { duration: 2000 });
                 if (this.continuousMode && this.continuousMode.checked) {
                     this.patientFormDirective.resetForm();
+                    this.patientForm.controls.id.setValue('');
                 } else {
                     this.router.navigate(['/pacientes']);
                 }
