@@ -40,7 +40,7 @@ export class LoginService extends BaseService {
         const userInfo = localStorage.getItem('user_info');
 
         if (userInfo === null) {
-            throw Error('No user info');
+            return null;
         } else {
             return JSON.parse(userInfo);
         }
