@@ -72,7 +72,7 @@ describe('AppComponent', () => {
         const loginService = fixture.debugElement.injector.get(LoginService);
         const router = fixture.debugElement.injector.get(Router);
         spyOn(loginService, 'logout');
-        spyOn(router, 'navigate').and.returnValue(true);
+        spyOn(router, 'navigate').and.returnValue(new Promise(() => true));
         component.logout();
         expect(loginService.logout).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledWith(['/login']);
