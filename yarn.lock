@@ -424,9 +424,10 @@
   resolved "https://registry.yarnpkg.com/@types/faker/-/faker-4.1.5.tgz#8f620f9c9a67150aa0a32b4e8a407da43fca61d4"
   integrity sha512-YSDqoBEWYGdNk53xSkkb6REaUaVSlIjxIAGjj/nbLzlZOit7kUU+nA2zC2qQkIVO4MQ+3zl4Sz7aw+kbpHHHUQ==
 
-"@types/jasmine@*", "@types/jasmine@~3.3.5":
-  version "3.3.5"
-  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.3.5.tgz#3738ffbf34dffae9ecaac4503d7d969744f0e1d7"
+"@types/jasmine@*", "@types/jasmine@~3.3.13":
+  version "3.3.13"
+  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.3.13.tgz#d5daabb0af47bcddee40597acf6e804433bab439"
+  integrity sha512-iczmLoIiVymaD1TIr2UctxjFkNEslVE/QtNAUmpDsD71cZfZBAsPCUv1Y+8AwsfA8bLx2ccr7d95T9w/UAirlQ==
 
 "@types/jasminewd2@~2.0.6":
   version "2.0.6"
