@@ -415,9 +415,10 @@
     d3-shape "^1.2.0"
     d3-time-format "^2.1.0"
 
-"@swimlane/ngx-datatable@^13.1.0":
-  version "13.1.0"
-  resolved "https://registry.yarnpkg.com/@swimlane/ngx-datatable/-/ngx-datatable-13.1.0.tgz#a79edc7eaed762a2f7868209a2ff597bbfc7137b"
+"@swimlane/ngx-datatable@^15.0.0":
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/@swimlane/ngx-datatable/-/ngx-datatable-15.0.0.tgz#215f5da223d774d07f1caea54eed4e88f8c0ee24"
+  integrity sha512-yHwTjhZEWsmEO5iZaAHvW3Pr97TlOV2yLtYY1VJ1bRRPBxuvUTWeF49aavtMeu60H0xVt6v7T8oIq7oA2rOduw==
 
 "@types/faker@^4.1.5":
   version "4.1.5"
