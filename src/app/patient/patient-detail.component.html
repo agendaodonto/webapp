@@ -28,14 +28,29 @@
             </mat-form-field>
         </div>
         <div fxLayout="row">
-            <mat-form-field fxFlex="100">
+            <mat-form-field fxFlex="50">
+                <input matInput placeholder="Plano" formControlName="dental_plan" [matAutocomplete]="auto" #dentalPlan>
+                <mat-error>{{ patientForm.getControlMessages('dental_plan') }}</mat-error>
+            </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPlan">
+                <ng-container *ngIf="filteredPlans | async; let filteredPlans">
+                    <mat-option *ngIf="filteredPlans.count == 0" [value]="{name: dentalPlan.value}">
+                        {{ dentalPlan.value }} (Criar)
+                    </mat-option>
+                    <mat-option *ngFor="let option of filteredPlans.results" [value]="option">
+                        {{ option.name }}
+                    </mat-option>
+                </ng-container>
+            </mat-autocomplete>
+            <mat-form-field fxFlex="50">
                 <mat-select placeholder="Clinica" formControlName="clinic" [compareWith]="defaultMatcher">
                     <mat-option *ngFor="let clinic of clinics" [value]="clinic">{{ clinic.name }}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="app-actions" fxLayoutGap="10px" fxLayoutAlign="end center">
-            <button type="button" mat-raised-button color="warn" *ngIf="patientForm.controls.id.value != ''" (click)="onDelete()" [appBtnLoader]="isSubmitting">
+            <button type="button" mat-raised-button color="warn" *ngIf="patientForm.controls.id.value != ''"
+                (click)="onDelete()" [appBtnLoader]="isSubmitting">
                 <span *ngIf="!isSubmitting">Apagar</span>
             </button>
             <button mat-raised-button color="accent" [disabled]="!patientForm.valid" [appBtnLoader]="isSubmitting">
@@ -48,19 +63,19 @@
 <mat-card class="container" *ngIf="patientId">
     <mat-card-title>Agendamentos</mat-card-title>
     <mat-progress-bar [mode]="'query'" *ngIf="schedulesLoading"></mat-progress-bar>
-    <ngx-datatable #schedulesTable [columnMode]="'force'" [rowHeight]="'auto'" [footerHeight]="50" [rows]="schedules" [externalSorting]="true"
-        [externalPaging]="true" [selectionType]=false (activate)="viewSchedule($event)" [limit]="pageSize" [count]="scheduleCount"
-        [offset]="0" (page)="paginateSchedules($event)">
+    <ngx-datatable #schedulesTable [columnMode]="'force'" [rowHeight]="'auto'" [footerHeight]="50" [rows]="schedules"
+        [externalSorting]="true" [externalPaging]="true" [selectionType]=false (activate)="viewSchedule($event)"
+        [limit]="pageSize" [count]="scheduleCount" [offset]="0" (page)="paginateSchedules($event)">
         <ngx-datatable-column name="Data" prop="date" [width]="1">
             <ng-template let-value="value" ngx-datatable-cell-template>
                 {{value | date:'dd/MM/yy H:mm'}}
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-footer>
-            <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize" let-selectedCount="selectedCount"
-                , let-curPage="curPage" let-offset="offset">
-                <app-datatable-pager style="width:100%" [page]="curPage" [size]="pageSize" [count]="rowCount" [hidden]="!((rowCount / pageSize) > 1)"
-                    (change)="schedulesTable.onFooterPage($event)">
+            <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+                let-selectedCount="selectedCount" , let-curPage="curPage" let-offset="offset">
+                <app-datatable-pager style="width:100%" [page]="curPage" [size]="pageSize" [count]="rowCount"
+                    [hidden]="!((rowCount / pageSize) > 1)" (change)="schedulesTable.onFooterPage($event)">
                 </app-datatable-pager>
             </ng-template>
         </ngx-datatable-footer>

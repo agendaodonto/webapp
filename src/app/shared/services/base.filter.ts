@@ -17,6 +17,18 @@ export abstract class BaseFilter {
         }
         this.fields[filterIndex].value = value;
     }
+
+    getFilterValue(name: string): string | null {
+        const filterIndex = this.fields.findIndex((e) => e.name === name);
+
+        if (filterIndex === -1) {
+            console.error('You are getting a unexisting field:', name);
+            return null;
+        }
+
+        return this.fields[filterIndex].value;
+    }
+
     getFilter(): {
         params: HttpParams;
     } {

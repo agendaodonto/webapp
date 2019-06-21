@@ -2,14 +2,17 @@ import { Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormGroupDirective, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { finalize } from 'rxjs/operators';
-
+import { Observable } from 'rxjs';
+import { debounceTime, finalize } from 'rxjs/operators';
 import { ClinicService, IClinic } from '../clinic/clinic.service';
+import { DentalPlanFilter } from '../dental-plan/dental-plan.filter';
+import { DentalPlanService, IDentalPlan } from '../dental-plan/dental-plan.service';
 import { ScheduleFilter } from '../schedule/schedule.filter';
 import { ISchedule } from '../schedule/schedule.service';
 import { BaseComponent } from '../shared/components/base.component';
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
 import { IClickEvent, IPaginateEvent } from '../shared/components/pager/datatable-pager.component';
+import { IPagedResponse } from '../shared/interceptors/responses';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { IPatient, PatientService } from './patient.service';
 
@@ -28,17 +31,19 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
     pageSize = 10;
     isLoading = true;
     isSubmitting = false;
+    filteredPlans: Observable<IPagedResponse<IDentalPlan>>;
     @ViewChild('continuousMode') continuousMode: MatSlideToggle;
     @ViewChild(FormGroupDirective) patientFormDirective: FormGroupDirective;
 
     constructor(
+        private dialog: MatDialog,
+        private snackBar: MatSnackBar,
         private patientService: PatientService,
         private clinicService: ClinicService,
         private router: Router,
         private route: ActivatedRoute,
-        @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: any,
-        public dialog: MatDialog,
-        public snackBar: MatSnackBar) {
+        private dentalPlanService: DentalPlanService,
+        @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: any) {
         super();
         this.patientForm = new CustomFB().group({
             id: [''],
@@ -47,6 +52,7 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
             phone: ['', Validators.required],
             sex: ['', Validators.required],
             clinic: ['', Validators.required],
+            dental_plan: ['', Validators.required],
         });
     }
 
@@ -57,27 +63,55 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
             this.patientId = +this.route.snapshot.params['id'];
         }
         this.loadClinics();
+        this.setupDentalPlanListener();
         if (this.patientId) {
-            this.getSchedules(0);
-            this.patientService.get(this.patientId).pipe(
-                finalize(() => this.isLoading = false),
-            ).subscribe((response) => {
-                this.patientForm.setValue({
-                    id: response.id,
-                    name: response.name,
-                    last_name: response.last_name,
-                    phone: response.phone,
-                    sex: response.sex,
-                    clinic: response.clinic,
-                });
-            });
+            this.loadPatientSchedules();
         } else {
             this.isLoading = false;
         }
     }
 
-    loadClinics() {
+    private setupDentalPlanListener() {
+        this.patientForm.controls.dental_plan.valueChanges
+            .pipe(debounceTime(100))
+            .subscribe(value => {
+                if (typeof value === 'string') {
+                    const filter = new DentalPlanFilter();
+                    filter.setFilterValue('name', value);
+                    this.filteredPlans = this.dentalPlanService.getAll(filter);
+                } else {
+                    if (!value.id) {
+                        this.isLoading = true;
+                        const newPlan: IDentalPlan = { name: value.name };
+                        this.dentalPlanService.create(newPlan)
+                            .pipe(finalize(() => this.isLoading = false))
+                            .subscribe(response => {
+                                this.patientForm.controls.dental_plan.setValue(response);
+                            });
+                    }
+                }
+            });
+    }
+
+    private loadClinics() {
         this.clinicService.getAll().subscribe((response) => this.clinics = response.results);
+    }
+
+    private loadPatientSchedules() {
+        this.getSchedules(0);
+        this.patientService.get(this.patientId).pipe(
+            finalize(() => this.isLoading = false),
+        ).subscribe((response) => {
+            this.patientForm.setValue({
+                id: response.id,
+                name: response.name,
+                last_name: response.last_name,
+                phone: response.phone,
+                sex: response.sex,
+                clinic: response.clinic,
+                dental_plan: response.dental_plan,
+            });
+        });
     }
 
     getSchedules(offset: number) {
@@ -143,6 +177,18 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
     viewSchedule(selectedRow: IClickEvent<ISchedule>) {
         if (selectedRow.type === 'click') {
             this.router.navigate(['agenda', selectedRow.row.id]);
+        }
+    }
+
+    displayPlan(plan?: IDentalPlan | string): string {
+        if (!plan) {
+            return '';
+        }
+
+        if (typeof plan === 'string') {
+            return plan;
+        } else {
+            return plan.name;
         }
     }
 

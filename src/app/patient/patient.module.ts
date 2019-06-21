@@ -4,8 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
 import { ClinicService } from '../clinic/clinic.service';
+import { DentalPlanService } from '../dental-plan/dental-plan.service';
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { AuthGuard } from '../shared/guards/auth.guard';
@@ -32,8 +32,16 @@ export const patientRoutes: Routes = [
         DataTablePagerModule,
         DirectivesModule,
     ],
-    declarations: [PatientComponent, PatientDetailComponent],
-    providers: [PatientService, ClinicService, AuthGuard],
+    declarations: [
+        PatientComponent,
+        PatientDetailComponent,
+    ],
+    providers: [
+        PatientService,
+        ClinicService,
+        AuthGuard,
+        DentalPlanService,
+    ],
 })
 export class PatientModule {
 
