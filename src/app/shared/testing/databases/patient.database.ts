@@ -2,10 +2,12 @@ import * as faker from 'faker/locale/pt_BR';
 import { IPatient } from '../../../patient/patient.service';
 import { IDatabase } from './base.database';
 import { ClinicDatabase } from './clinic.database';
+import { DentalPlanDatabase } from './dental-plan.database';
 
 export class PatientDatabase implements IDatabase<IPatient> {
 
     clinicDatabase = new ClinicDatabase();
+    dentalPlanDatabase = new DentalPlanDatabase();
 
     get(): IPatient {
         const patient: IPatient = {
@@ -15,6 +17,7 @@ export class PatientDatabase implements IDatabase<IPatient> {
             sex: 'M',
             phone: faker.phone.phoneNumber(),
             clinic: this.clinicDatabase.get(),
+            dental_plan: this.dentalPlanDatabase.get(),
         };
         return patient;
     }

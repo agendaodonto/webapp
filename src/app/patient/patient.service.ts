@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { IClinic } from '../clinic/clinic.service';
+import { IDentalPlan } from '../dental-plan/dental-plan.service';
 import { ScheduleFilter } from '../schedule/schedule.filter';
 import { ISchedule } from '../schedule/schedule.service';
 import { IPagedResponse } from '../shared/interceptors/responses';
@@ -29,12 +29,14 @@ export class PatientService extends BaseService implements IPatientService {
     create(patient: IPatient) {
         const data: any = patient;
         data.clinic = patient.clinic.id;
+        data.dental_plan = patient.dental_plan.id;
         return this.http.post<IPatient>(this.url(['patients']), JSON.stringify(data));
     }
 
     update(patient: IPatient) {
         const data: any = patient;
         data.clinic = patient.clinic.id;
+        data.dental_plan = patient.dental_plan.id;
         return this.http.put<IPatient>(this.url(['patients', patient.id]), JSON.stringify(data));
     }
 
@@ -79,4 +81,5 @@ export interface IPatient {
     sex: string;
     phone: string;
     clinic: IClinic;
+    dental_plan: IDentalPlan;
 }
