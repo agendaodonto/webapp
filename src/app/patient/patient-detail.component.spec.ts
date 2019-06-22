@@ -104,4 +104,15 @@ describe('PatientDetailComponent', () => {
         expect(createSpy).toHaveBeenCalledWith(dentalPlan);
         discardPeriodicTasks();
     }));
+
+    it('should do nothing when the dental_plan field is null', fakeAsync(() => {
+        const getAllSpy = spyOn(dentalPlanService, 'getAll');
+        const createSpy = spyOn(dentalPlanService, 'create');
+
+        component.patientForm.controls.dental_plan.setValue(null);
+        tick(100);
+
+        expect(getAllSpy).not.toHaveBeenCalled();
+        expect(createSpy).not.toHaveBeenCalled();
+    }));
 });

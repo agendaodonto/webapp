@@ -74,7 +74,10 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
     private setupDentalPlanListener() {
         this.patientForm.controls.dental_plan.valueChanges
             .pipe(debounceTime(100))
-            .subscribe(value => {
+            .subscribe((value?: string | IDentalPlan) => {
+                if (!value) {
+                    return;
+                }
                 if (typeof value === 'string') {
                     const filter = new DentalPlanFilter();
                     filter.setFilterValue('name', value);
