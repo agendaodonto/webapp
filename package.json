@@ -25,7 +25,7 @@
         "@angular/platform-browser-dynamic": "^7.2.15",
         "@angular/router": "^7.2.15",
         "@swimlane/ngx-charts": "^9.0.0",
-        "@swimlane/ngx-datatable": "^13.1.0",
+        "@swimlane/ngx-datatable": "^16.0.2",
         "@types/webpack-env": "^1.13.6",
         "angular-calendar": "^0.25.2",
         "core-js": "^2.6.1",
