@@ -7,11 +7,11 @@
         <input type="hidden" formControlName="id">
         <div fxLayout="row">
             <mat-form-field fxFlex="50">
-                <input matInput placeholder="Nome" formControlName="name">
+                <input matInput placeholder="Nome" formControlName="name" maxlength="30">
                 <mat-error>{{ patientForm.getControlMessages('name') }}</mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="50">
-                <input matInput placeholder="Sobrenome" formControlName="last_name">
+                <input matInput placeholder="Sobrenome" formControlName="last_name" maxlength="30">
                 <mat-error>{{ patientForm.getControlMessages('last_name') }}</mat-error>
             </mat-form-field>
         </div>

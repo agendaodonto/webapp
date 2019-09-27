@@ -23,7 +23,6 @@ import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { MaterialAppModule } from './shared/material.app.module';
 import { TokenService } from './shared/services/token.service';
 
-
 registerLocaleData(localePt, localePtExtras);
 
 export const routes: Routes = [
