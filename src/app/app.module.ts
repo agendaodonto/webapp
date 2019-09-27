@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { AboutModule, aboutRoutes } from './about/about.module';
 import { AccountModule, accountRoutes } from './account/account.module';
@@ -22,7 +23,7 @@ import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { MaterialAppModule } from './shared/material.app.module';
 import { TokenService } from './shared/services/token.service';
 
-// import { MatNativeDateModule } from '@angular/material';
+
 registerLocaleData(localePt, localePtExtras);
 
 export const routes: Routes = [
@@ -44,6 +45,7 @@ export const routes: Routes = [
         BrowserModule,
         FormsModule,
         RouterModule.forRoot(routes),
+        NgxMaskModule.forRoot(),
         MaterialAppModule,
         MatMomentDateModule,
         HttpClientModule,
