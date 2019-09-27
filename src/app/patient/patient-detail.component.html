@@ -17,7 +17,7 @@
         </div>
         <div fxLayout="row">
             <mat-form-field fxFlex="50">
-                <input matInput placeholder="Telefone" formControlName="phone">
+                <input matInput placeholder="Telefone" formControlName="phone" mask="(00) 00009-0000">
                 <mat-error>{{ patientForm.getControlMessages('phone') }}</mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="50">
