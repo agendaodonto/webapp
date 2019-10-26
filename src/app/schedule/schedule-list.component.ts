@@ -17,7 +17,7 @@ import { ISchedule, ScheduleService } from './schedule.service';
     styleUrls: ['./schedule-list.component.scss'],
 })
 export class ScheduleListComponent implements OnInit {
-    @ViewChild(MatPaginator) paginator;
+    @ViewChild(MatPaginator, { static: true }) paginator;
     displayedColumns = ['select', 'date', 'patient', 'status'];
     dataSource: ScheduleDatasource;
     filterForm: CustomFG;

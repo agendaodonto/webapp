@@ -28,8 +28,8 @@ export class PatientComponent implements OnInit {
     columnsToDisplay = ['name', 'lastName', 'clinic'];
     datasource: PatientDatasource;
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sorter: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sorter: MatSort;
 
     constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute) {
         const fb = new CustomFB();
