@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort, Sort } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { finalize } from 'rxjs/operators';
 
-import { IClickEvent } from '../shared/components/pager/datatable-pager.component';
 import { getMatchedField, getReversedMatchField, IMatcher } from '../shared/util';
 import { CustomFB, CustomFG } from '../shared/validation';
+import { PatientDatasource } from './patient.datasource';
 import { PatientFilter } from './patient.filter';
 import { IPatient, PatientService } from './patient.service';
 
@@ -25,6 +25,11 @@ export class PatientComponent implements OnInit {
         { prettyName: 'nome', name: 'fullName' },
         { prettyName: 'telefone', name: 'phone' },
     ];
+    columnsToDisplay = ['name', 'lastName', 'clinic'];
+    datasource: PatientDatasource;
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sorter: MatSort;
 
     constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute) {
         const fb = new CustomFB();
@@ -35,36 +40,8 @@ export class PatientComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.datasource = new PatientDatasource(this.patientService, this.paginator);
         this.setupUrlFilterListener();
-    }
-
-    getPatients(offset: number) {
-        this.isLoading = true;
-        this.patientFilter.setFilterValue('offset', offset.toString());
-        this.patientFilter.setFilterValue('orderBy', this.sortBy);
-
-        this.patientService.getAll(this.patientFilter)
-            .pipe(finalize(() => this.isLoading = false))
-            .subscribe(
-                response => {
-                    this.patientCount = response.count;
-                    this.patients = response.results;
-                });
-    }
-
-    view(selectedRow: IClickEvent<IPatient>) {
-        if (selectedRow.type === 'click') {
-            this.router.navigate(['/pacientes/' + selectedRow.row.id]);
-        }
-    }
-
-    paginate(paginateEvent: { limit: number, offset: number }) {
-        this.getPatients(paginateEvent.offset * paginateEvent.limit);
-    }
-
-    sort(sortEvent: { newValue: string, column: { prop: string } }) {
-        this.sortBy = sortEvent.newValue === 'asc' ? sortEvent.column.prop : '-' + sortEvent.column.prop;
-        this.getPatients(0);
     }
 
     filter() {
@@ -75,15 +52,30 @@ export class PatientComponent implements OnInit {
     setupUrlFilterListener() {
         this.route.params.subscribe(
             params => {
-                this.patientFilter.reset();
+                this.datasource.patientFilter.reset();
                 if (params.field !== undefined && params.value !== undefined) {
                     const field = getMatchedField(params.field, this.urlFilters);
-                    this.patientFilter.setFilterValue(field, params.value);
+                    this.datasource.patientFilter.setFilterValue(field, params.value);
                     this.filterForm.controls.field.setValue(field);
                     this.filterForm.controls.value.setValue(params.value);
+                    this.datasource.filterChanges.next(null);
                 }
-                this.getPatients(0);
             },
         );
+    }
+
+    rowClicked(rowData: IPatient) {
+        this.router.navigate([`/pacientes/${rowData.id}`]);
+    }
+
+    sorted(evt: Sort) {
+        const sortMap = {
+            name: 'name',
+            lastName: 'last_name',
+        };
+        const prefix = evt.direction === 'desc' ? '-' : '';
+        const fieldName = sortMap[evt.active];
+        this.datasource.patientFilter.setFilterValue('orderBy', `${prefix}${fieldName}`);
+        this.datasource.filterChanges.next(null);
     }
 }

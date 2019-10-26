@@ -3,9 +3,9 @@ import { ComponentFixture, discardPeriodicTasks, fakeAsync, TestBed, tick } from
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
+
 import { ClinicService } from '../clinic/clinic.service';
 import { DentalPlanFilter } from '../dental-plan/dental-plan.filter';
 import { DentalPlanService, IDentalPlan } from '../dental-plan/dental-plan.service';
@@ -27,7 +27,6 @@ describe('PatientDetailComponent', () => {
                 ReactiveFormsModule,
                 NoopAnimationsModule,
                 DirectivesModule,
-                NgxDatatableModule,
                 DataTablePagerModule,
                 HttpClientTestingModule,
                 RouterTestingModule,

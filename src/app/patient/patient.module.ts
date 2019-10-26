@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgxMaskModule } from 'ngx-mask';
 
 import { ClinicService } from '../clinic/clinic.service';
@@ -30,7 +29,6 @@ export const patientRoutes: Routes = [
         MaterialAppModule,
         RouterModule,
         FlexLayoutModule,
-        NgxDatatableModule,
         DataTablePagerModule,
         DirectivesModule,
         NgxMaskModule,
