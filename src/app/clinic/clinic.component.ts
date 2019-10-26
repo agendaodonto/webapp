@@ -13,7 +13,7 @@ import { ClinicService, IClinic } from './clinic.service';
     styleUrls: ['./clinic.component.scss'],
 })
 export class ClinicComponent implements OnInit {
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
     isLoading = false;
     count = 0;
     dataSource: MatTableDataSource<IClinic>;

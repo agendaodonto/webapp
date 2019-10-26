@@ -20,7 +20,7 @@ type Display = 'desktop' | 'mobile';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-    @ViewChild('sidenav') sideNav: MatSidenav;
+    @ViewChild('sidenav', { static: true }) sideNav: MatSidenav;
     displayType: Display = 'desktop';
     sideNavMenus: IMenu[] = [
         { name: 'Dashboard', link: '/dashboard', requiresLogin: true, hideWhenLogged: false },

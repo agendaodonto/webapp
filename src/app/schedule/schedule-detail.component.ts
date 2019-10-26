@@ -28,8 +28,8 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
     filteredPatients: Observable<{ results: IPatient[] }> | null;
     scheduleId: number;
     schedule: ISchedule;
-    @ViewChild('continuousMode') continuousMode: MatSlideToggle;
-    @ViewChild(FormGroupDirective) scheduleFormDirective: FormGroupDirective;
+    @ViewChild('continuousMode', { static: false }) continuousMode: MatSlideToggle;
+    @ViewChild(FormGroupDirective, { static: true }) scheduleFormDirective: FormGroupDirective;
 
     constructor(
         private scheduleService: ScheduleService,

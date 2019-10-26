@@ -32,8 +32,8 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
     isLoading = true;
     isSubmitting = false;
     filteredPlans: Observable<IPagedResponse<IDentalPlan>>;
-    @ViewChild('continuousMode') continuousMode: MatSlideToggle;
-    @ViewChild(FormGroupDirective) patientFormDirective: FormGroupDirective;
+    @ViewChild('continuousMode', { static: false }) continuousMode: MatSlideToggle;
+    @ViewChild(FormGroupDirective, { static: true }) patientFormDirective: FormGroupDirective;
 
     constructor(
         private dialog: MatDialog,
