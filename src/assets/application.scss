@@ -24,8 +24,6 @@ mat-spinner.btn {
     position: fixed;
     right: 2%;
     bottom: 3%;
-    // right: 20px;
-    // bottom: 20px;
 }
 
 button.fab-no-shadow {
@@ -52,9 +50,6 @@ table.material tr {
 table.material > tbody {
     justify-content: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-    //transition-duration: .28s;
-    //transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    //transition-property: background-color;
 }
 
 button.attended {
@@ -84,28 +79,12 @@ table.material {
     text-align: center;
 }
 
-// Data Table
-.datatable-header-cell-label {
-    font-weight: 800;
+
+tr.hoverable {
+    transition: background-color 0.5s ease;
 }
 
-.datatable-header {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-}
-
-datatable-row-wrapper {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-    transition-duration: .28s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-property: background-color;
-}
-
-datatable-row-wrapper:hover {
+tr.hoverable:hover{
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.04);
-
-}
-
-datatable-body-row.active{
-    background-color: rgba(0, 0, 0, 0.12);
 }

@@ -1,11 +1,10 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
 import { configureTestSuite } from 'ng-bullet';
+
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { PatientComponent } from './patient.component';
@@ -20,7 +19,6 @@ describe('PatientComponent', () => {
             imports: [
                 NoopAnimationsModule,
                 MaterialAppModule,
-                NgxDatatableModule,
                 DataTablePagerModule,
                 ReactiveFormsModule,
                 RouterTestingModule,
