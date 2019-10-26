@@ -1,3 +1,4 @@
+import { NgModule } from '@angular/core';
 import {
     MatAutocompleteModule,
     MatButtonModule,
@@ -17,13 +18,12 @@ import {
     MatSidenavModule,
     MatSlideToggleModule,
     MatSnackBarModule,
+    MatSortModule,
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
 } from '@angular/material';
-
-import { NgModule } from '@angular/core';
 
 const IMPORT_LIST = [
     MatButtonModule,
@@ -50,6 +50,7 @@ const IMPORT_LIST = [
     MatDatepickerModule,
     MatCheckboxModule,
     MatTooltipModule,
+    MatSortModule,
 ];
 @NgModule({
     imports: [IMPORT_LIST],
