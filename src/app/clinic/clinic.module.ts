@@ -4,7 +4,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogModule } from '../shared/components/confirm-dialog/confirm-dialog.module';
@@ -28,7 +27,6 @@ export const clinicRoutes: Routes = [
         CommonModule,
         MaterialAppModule,
         BrowserAnimationsModule,
-        NgxDatatableModule,
         FlexLayoutModule,
         RouterModule,
         ReactiveFormsModule,
