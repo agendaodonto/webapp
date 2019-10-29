@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Route, RouterModule } from '@angular/router';
-import { CalendarModule, MOMENT } from 'angular-calendar';
+import { CalendarModule, DateAdapter, MOMENT } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/moment';
 import * as moment from 'moment';
 
 import { PatientService } from '../patient/patient.service';
@@ -34,7 +35,9 @@ export const scheduleRoutes: Route[] = [
         ReactiveFormsModule,
         DirectivesModule,
         SharedComponentsModule,
-        CalendarModule.forRoot(),
+        CalendarModule.forRoot(
+            { provide: DateAdapter, useFactory: () => adapterFactory(moment) },
+        ),
     ],
     declarations: [ScheduleComponent, ScheduleDetailComponent, ScheduleListComponent],
     providers: [
