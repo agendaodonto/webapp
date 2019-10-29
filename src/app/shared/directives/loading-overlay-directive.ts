@@ -1,5 +1,4 @@
-import { ComponentFactoryResolver, ComponentRef, Directive, Input, ViewContainerRef } from '@angular/core';
-import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
+import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, ViewContainerRef } from '@angular/core';
 
 import { LoadingOverlayComponent } from '../components/loading-overlay/loading-overlay.component';
 

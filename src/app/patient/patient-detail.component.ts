@@ -1,19 +1,19 @@
 import { Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormGroupDirective, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatPaginator, MatSlideToggle, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { debounceTime, finalize } from 'rxjs/operators';
+
 import { ClinicService, IClinic } from '../clinic/clinic.service';
 import { DentalPlanFilter } from '../dental-plan/dental-plan.filter';
 import { DentalPlanService, IDentalPlan } from '../dental-plan/dental-plan.service';
-import { ScheduleFilter } from '../schedule/schedule.filter';
 import { ISchedule } from '../schedule/schedule.service';
 import { BaseComponent } from '../shared/components/base.component';
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
-import { IClickEvent, IPaginateEvent } from '../shared/components/pager/datatable-pager.component';
 import { IPagedResponse } from '../shared/interceptors/responses';
 import { CustomFB, CustomFG } from '../shared/validation';
+import { PatientSchedulesDataSource } from './patient-schedules.datasource';
 import { IPatient, PatientService } from './patient.service';
 
 @Component({
@@ -22,18 +22,18 @@ import { IPatient, PatientService } from './patient.service';
     styleUrls: ['./patient-detail.component.scss'],
 })
 export class PatientDetailComponent extends BaseComponent implements OnInit {
+    @ViewChild('continuousMode', { static: false }) continuousMode: MatSlideToggle;
+    @ViewChild(FormGroupDirective, { static: false }) patientFormDirective: FormGroupDirective;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
     patientForm: CustomFG;
     clinics: IClinic[];
     patientId: number;
-    schedulesLoading = false;
-    schedules: ISchedule[] = [];
-    scheduleCount = 0;
-    pageSize = 10;
     isLoading = true;
     isSubmitting = false;
     filteredPlans: Observable<IPagedResponse<IDentalPlan>>;
-    @ViewChild('continuousMode', { static: false }) continuousMode: MatSlideToggle;
-    @ViewChild(FormGroupDirective, { static: true }) patientFormDirective: FormGroupDirective;
+    datasource: PatientSchedulesDataSource;
+    columnsToDisplay = ['scheduleDate'];
 
     constructor(
         private dialog: MatDialog,
@@ -63,8 +63,10 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
             this.patientId = +this.route.snapshot.params['id'];
         }
         this.loadClinics();
+
         this.setupDentalPlanListener();
         if (this.patientId) {
+            this.datasource = new PatientSchedulesDataSource(this.patientService, this.patientId, this.paginator);
             this.loadPatientSchedules();
         } else {
             this.isLoading = false;
@@ -101,7 +103,7 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
     }
 
     private loadPatientSchedules() {
-        this.getSchedules(0);
+        this.datasource.filterChanges.next(null);
         this.patientService.get(this.patientId).pipe(
             finalize(() => this.isLoading = false),
         ).subscribe((response) => {
@@ -114,19 +116,6 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
                 clinic: response.clinic,
                 dental_plan: response.dental_plan,
             });
-        });
-    }
-
-    getSchedules(offset: number) {
-        this.schedulesLoading = true;
-        const filter = new ScheduleFilter();
-        filter.setFilterValue('orderBy', '-date');
-        filter.setFilterValue('offset', offset.toString());
-        this.patientService.getSchedules(this.patientId, filter).pipe(
-            finalize(() => this.schedulesLoading = false),
-        ).subscribe((response) => {
-            this.scheduleCount = response.count;
-            this.schedules = response.results;
         });
     }
 
@@ -173,14 +162,8 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
         });
     }
 
-    paginateSchedules(event: IPaginateEvent) {
-        this.getSchedules(event.limit * event.offset);
-    }
-
-    viewSchedule(selectedRow: IClickEvent<ISchedule>) {
-        if (selectedRow.type === 'click') {
-            this.router.navigate(['agenda', selectedRow.row.id]);
-        }
+    viewSchedule(schedule: ISchedule) {
+        this.router.navigate(['agenda', schedule.id]);
     }
 
     displayPlan(plan?: IDentalPlan | string): string {
