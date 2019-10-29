@@ -16,7 +16,7 @@ mat-spinner.btn {
 }
 
 .container {
-    margin: 15px;
+    margin: 16px;
 }
 
 .app-action {
@@ -38,19 +38,6 @@ button.fab-no-shadow :hover :active {
     box-shadow: none !important;
 }
 
-table.material > thead > tr {
-    font-weight: 800;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-}
-
-table.material tr {
-    height: 48px;
-}
-
-table.material > tbody {
-    justify-content: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-}
 
 button.attended {
     background-color: #4CAF50;
@@ -66,9 +53,24 @@ mat-dialog-container > app-schedule-detail > mat-card{
     margin: 0;
 }
 
-table.material {
-    width: 100%;
-    border-collapse: collapse;
+table {
+    &.mat-table,&.material{
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    tr {
+        height: 48px;
+    }
+
+    tr.hoverable {
+        transition: background-color 0.5s ease;
+    }
+
+    tr.hoverable:hover{
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.04);
+    }
 }
 
 .app-actions {
@@ -79,12 +81,8 @@ table.material {
     text-align: center;
 }
 
-
-tr.hoverable {
-    transition: background-color 0.5s ease;
+[hidden] {
+    display: none !important;
 }
 
-tr.hoverable:hover{
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.04);
-}
+
