@@ -1,8 +1,9 @@
-import * as moment from 'moment';
-
+import { Injectable } from '@angular/core';
 import { CalendarMomentDateFormatter, DateFormatterParams } from 'angular-calendar';
 import { endOfWeek, getISOWeek } from 'date-fns';
+import * as moment from 'moment';
 
+@Injectable()
 export class LocalizedCalendarHeader extends CalendarMomentDateFormatter {
 
     public weekViewTitle({ date, locale }: DateFormatterParams): string {

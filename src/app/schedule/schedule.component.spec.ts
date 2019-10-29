@@ -1,12 +1,12 @@
-import * as moment from 'moment';
-
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CalendarModule, MOMENT } from 'angular-calendar';
+import { CalendarModule, DateAdapter, MOMENT } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/moment';
+import * as moment from 'moment';
 import { configureTestSuite } from 'ng-bullet';
+
 import { MaterialAppModule } from '../shared/material.app.module';
 import { ActivatedRouteStub } from '../shared/testing/activated-route.stub';
 import { ScheduleComponent } from './schedule.component';
@@ -21,7 +21,7 @@ describe('ScheduleComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,
-                CalendarModule.forRoot(),
+                CalendarModule.forRoot({ provide: DateAdapter, useFactory: () => adapterFactory(moment) }),
                 RouterTestingModule,
                 HttpClientTestingModule,
             ],
