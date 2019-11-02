@@ -29,7 +29,10 @@
             [eventTemplate]="customDayEventTemplate">
         </mwl-calendar-day-view>
         <mwl-calendar-week-view
+        class="no-border"
             *ngIf="view=='week'"
+            [dayStartHour]="8"
+            [dayEndHour]="21"
             [viewDate]="currentDate"
             [events]="schedules"
             (eventClicked)="eventClick($event)"
