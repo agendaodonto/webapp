@@ -1,12 +1,12 @@
 import * as faker from 'faker/locale/pt_BR';
 
 import { IDentist } from '../../services/dentist.service';
-import { IDatabase } from './base.database';
+import { BaseDatabase } from './base.database';
 
-export class DentistDatabase implements IDatabase<IDentist> {
+export class DentistDatabase extends BaseDatabase<IDentist> {
 
     get(): IDentist {
-        const cro = Math.floor((Math.random() * 10000) + 1 );
+        const cro = Math.floor((Math.random() * 10000) + 1);
         const dentist: IDentist = {
             id: Math.floor((Math.random() * 100) + 1),
             cro: cro.toString(),

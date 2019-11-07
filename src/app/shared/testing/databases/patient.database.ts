@@ -1,10 +1,11 @@
 import * as faker from 'faker/locale/pt_BR';
+
 import { IPatient } from '../../../patient/patient.service';
-import { IDatabase } from './base.database';
+import { BaseDatabase } from './base.database';
 import { ClinicDatabase } from './clinic.database';
 import { DentalPlanDatabase } from './dental-plan.database';
 
-export class PatientDatabase implements IDatabase<IPatient> {
+export class PatientDatabase extends BaseDatabase<IPatient> {
 
     clinicDatabase = new ClinicDatabase();
     dentalPlanDatabase = new DentalPlanDatabase();
