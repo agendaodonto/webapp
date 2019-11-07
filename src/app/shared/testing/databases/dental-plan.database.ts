@@ -1,7 +1,9 @@
 import * as faker from 'faker/locale/pt_BR';
+
 import { IDentalPlan } from '../../../dental-plan/dental-plan.service';
-import { IDatabase } from './base.database';
-export class DentalPlanDatabase implements IDatabase<IDentalPlan> {
+import { BaseDatabase } from './base.database';
+
+export class DentalPlanDatabase extends BaseDatabase<IDentalPlan> {
 
     get(): IDentalPlan {
         const plan: IDentalPlan = {
