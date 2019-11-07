@@ -52,6 +52,7 @@
     "coveralls": "^3.0.2",
     "firebase-tools": "^6.2.2",
     "jasmine-core": "~2.99.1",
+    "jasmine-mock-factory": "^3.0.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.3.0",
     "karma-chrome-launcher": "~2.2.0",
