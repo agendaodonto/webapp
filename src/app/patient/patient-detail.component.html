@@ -29,19 +29,10 @@
         </div>
         <div fxLayout="row">
             <mat-form-field fxFlex="50">
-                <input matInput placeholder="Plano" formControlName="dental_plan" [matAutocomplete]="auto" #dentalPlan>
-                <mat-error>{{ patientForm.getControlMessages('dental_plan') }}</mat-error>
+                <mat-select placeholder="Plano" formControlName="dental_plan" [compareWith]="defaultMatcher">
+                    <mat-option *ngFor="let plan of dentalPlans" [value]="plan">{{ plan.name }}</mat-option>
+                </mat-select>
             </mat-form-field>
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPlan">
-                <ng-container *ngIf="filteredPlans | async; let filteredPlans">
-                    <mat-option *ngIf="filteredPlans.count == 0" [value]="{name: dentalPlan.value}">
-                        {{ dentalPlan.value }} (Criar)
-                    </mat-option>
-                    <mat-option *ngFor="let option of filteredPlans.results" [value]="option">
-                        {{ option.name }}
-                    </mat-option>
-                </ng-container>
-            </mat-autocomplete>
             <mat-form-field fxFlex="50">
                 <mat-select placeholder="Clinica" formControlName="clinic" [compareWith]="defaultMatcher">
                     <mat-option *ngFor="let clinic of clinics" [value]="clinic">{{ clinic.name }}</mat-option>
