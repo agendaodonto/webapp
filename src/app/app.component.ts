@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
     sideNavMenus: IMenu[] = [
         { name: 'Dashboard', link: '/dashboard', requiresLogin: true, hideWhenLogged: false },
         { name: 'Clinicas', link: '/clinicas', requiresLogin: true, hideWhenLogged: false },
+        { name: 'Planos', link: '/planos', requiresLogin: true, hideWhenLogged: false },
         { name: 'Pacientes', link: '/pacientes', requiresLogin: true, hideWhenLogged: false },
         { name: 'Agenda', link: '/agenda', requiresLogin: true, hideWhenLogged: false },
         { name: 'Login', link: '/login', requiresLogin: false, hideWhenLogged: true },
