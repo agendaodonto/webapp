@@ -6,7 +6,7 @@ import { ConfirmDialogComponent } from './confirm-dialog.component';
 
 @NgModule({
     imports: [MaterialAppModule, FlexLayoutModule],
-    exports: [],
+    exports: [ConfirmDialogComponent],
     declarations: [ConfirmDialogComponent],
     providers: [],
 })
