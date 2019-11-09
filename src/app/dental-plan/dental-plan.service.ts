@@ -12,6 +12,10 @@ export class DentalPlanService extends BaseService {
         super();
     }
 
+    get(planId: number): Observable<IDentalPlan> {
+        return this.http.get<IDentalPlan>(this.url(['dental-plans', planId]));
+    }
+
     getAll(dentalPlanFilter?: DentalPlanFilter): Observable<IPagedResponse<IDentalPlan>> {
         const filter = dentalPlanFilter ? dentalPlanFilter : new DentalPlanFilter();
         return this.http.get<IPagedResponse<IDentalPlan>>(this.url(['dental-plans']), filter.getFilter());

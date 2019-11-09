@@ -14,6 +14,7 @@ import { AccountModule, accountRoutes } from './account/account.module';
 import { AppComponent } from './app.component';
 import { ClinicModule, clinicRoutes } from './clinic/clinic.module';
 import { DashboardModule, dashboardRoutes } from './dashboard/dashboard.module';
+import { DentalPlanModule, dentalPlanRoutes } from './dental-plan/dental-plan.module';
 import { LoginModule, loginRoutes } from './login/login.module';
 import { PatientModule, patientRoutes } from './patient/patient.module';
 import { RegisterModule, registerRoutes } from './register/register.module';
@@ -34,6 +35,7 @@ export const routes: Routes = [
     ...scheduleRoutes,
     ...aboutRoutes,
     ...accountRoutes,
+    ...dentalPlanRoutes,
 ];
 
 @NgModule({
@@ -57,6 +59,7 @@ export const routes: Routes = [
         ScheduleModule,
         AboutModule,
         AccountModule,
+        DentalPlanModule,
     ],
     providers: [
         TokenService,
