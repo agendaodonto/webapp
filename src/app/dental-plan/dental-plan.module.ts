@@ -4,6 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogModule } from '../shared/components/confirm-dialog/confirm-dialog.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { DentalPlanDetailComponent } from './dental-plan-detail/dental-plan-detail.component';
@@ -23,7 +25,9 @@ export const dentalPlanRoutes: Routes = [
         ReactiveFormsModule,
         DirectivesModule,
         FlexLayoutModule,
+        ConfirmDialogModule,
     ],
     declarations: [DentalPlanComponent, DentalPlanDetailComponent],
+    entryComponents: [ConfirmDialogComponent],
 })
 export class DentalPlanModule { }
