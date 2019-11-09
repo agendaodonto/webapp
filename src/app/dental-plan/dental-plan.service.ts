@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { IPagedResponse } from '../shared/interceptors/responses';
 import { BaseService } from '../shared/services/base.service';
 import { DentalPlanFilter } from './dental-plan.filter';
@@ -38,6 +39,14 @@ export class DentalPlanService extends BaseService {
         } else {
             return this.create(plan);
         }
+    }
+
+    remove(plan: IDentalPlan): Observable<null> {
+        if (!plan.id) {
+            throw new Error('ID is required for deleting a plan');
+        }
+
+        return this.http.delete<null>(this.url(['dental-plans', plan.id]));
     }
 }
 
