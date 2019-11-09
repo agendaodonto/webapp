@@ -21,11 +21,15 @@ export class DentalPlanComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.datasource = new DentalPlanDatasource(this.dentalPlanService);
+    this.datasource.update.next(null);
   }
 
   ngAfterViewInit() {
-    this.datasource = new DentalPlanDatasource(this.dentalPlanService, this.paginator);
-    this.datasource.update.next(null);
+    this.paginator.page.subscribe(() => {
+      this.datasource.filter.reset();
+      this.datasource.filter.setFilterValue('pageSize', this.paginator.pageSize.toString());
+      this.datasource.update.next(null);
+    });
   }
 
   rowClicked(plan: IDentalPlan): void {
