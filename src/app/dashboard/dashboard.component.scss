@@ -1,6 +1,5 @@
 mat-card.mini-report {
   min-height: 150px;
-  cursor: pointer;
 }
 
 mat-icon.mini-report {
@@ -10,7 +9,9 @@ mat-icon.mini-report {
 }
 
 mat-card.chart-report {
-  min-height: 400px;
+  .chart-container {
+    min-height: 250px;
+  }
 }
 
 .huge {
@@ -21,4 +22,8 @@ mat-card.chart-report {
 
 .current-period {
   margin: 0;
+}
+
+.dental-plan-report {
+  min-height: 180px;
 }
