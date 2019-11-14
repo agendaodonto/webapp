@@ -1,4 +1,13 @@
 <div class="container" fxLayout="column" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start">
+        <button mat-icon-button (click)="previousMonth()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <h1 class="current-period">{{ currentMonthLabel }}</h1>
+        <button mat-icon-button (click)="nextMonth()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center start" fxLayoutAlign.lt-md="start stretch" fxLayoutGap="20px">
         <!--Pending schedules cards -->
         <mat-card class="mini-report" fxFlex="25" fxLayout="column" (click)="viewPendingSchedules()">

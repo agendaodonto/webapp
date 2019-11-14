@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import * as d3 from 'd3';
-import { endOfMonth, format, startOfMonth, subMonths } from 'date-fns';
+import { addMonths, endOfMonth, format, isAfter, isBefore, startOfMonth, subMonths } from 'date-fns';
+import * as ptLocale from 'date-fns/locale/pt';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -25,18 +26,33 @@ export class DashboardComponent implements OnInit {
     patients: Observable<IPagedResponse<IPatient>>;
     attendance: Observable<any>;
     attendanceRatio: Observable<any>;
-    date = subMonths(new Date(), 1);
-    startDate = format(startOfMonth(this.date), 'YYYY-MM-DD');
-    endDate = format(endOfMonth(this.date), 'YYYY-MM-DD');
-    refDate = subMonths(new Date(), 2);
-    refStartDate = format(startOfMonth(this.refDate), 'YYYY-MM-DD');
-    refEndDate = format(endOfMonth(this.refDate), 'YYYY-MM-DD');
+    currentDate = subMonths(new Date(), 1);
     curveFunction = d3.curveMonotoneX;
     attendanceChartColors = [
         { name: 'Comparecimentos', value: '#4CAF50' },
         { name: 'Faltas', value: '#f44336' },
         { name: 'Cancelamentos', value: '#e0e0e0' },
     ];
+
+    get startDate() {
+        return format(startOfMonth(this.currentDate), 'YYYY-MM-DD');
+    }
+    get endDate() {
+        return format(endOfMonth(this.currentDate), 'YYYY-MM-DD');
+    }
+    get refDate() {
+        return subMonths(this.currentDate, 1);
+    }
+    get refStartDate() {
+        return format(startOfMonth(this.refDate), 'YYYY-MM-DD');
+    }
+    get refEndDate() {
+        return format(endOfMonth(this.refDate), 'YYYY-MM-DD');
+    }
+
+    get currentMonthLabel() {
+        return format(this.currentDate, 'MMMM/YY', { locale: ptLocale });
+    }
 
     constructor(private scheduleService: ScheduleService, private patientService: PatientService, private router: Router) { }
 
@@ -55,6 +71,7 @@ export class DashboardComponent implements OnInit {
         // Patients
         const patientFilter = new PatientFilter();
         patientFilter.setFilterValue('pageSize', '1');
+        patientFilter.setFilterValue('createdBefore', this.endDate);
         this.patients = this.patientService.getAll(patientFilter);
         // Pending Schedules
         const scheduleFilter = new ScheduleFilter();
@@ -73,7 +90,7 @@ export class DashboardComponent implements OnInit {
         this.refSchedules = this.scheduleService.getAll(scheduleFilter);
         // Attendance
         this.attendance = this.scheduleService
-            .getAttendanceData().pipe(
+            .getAttendanceData(this.currentDate).pipe(
                 map(data => {
                     return parseAttendanceData(data);
                 }));
@@ -92,14 +109,31 @@ export class DashboardComponent implements OnInit {
     viewSchedules() {
         const extras: NavigationExtras = {};
         extras.queryParams = {
-            dataInicio: format(startOfMonth(this.date), 'DD-MM-YYYY'),
-            dataFim: format(endOfMonth(this.date), 'DD-MM-YYYY'),
+            dataInicio: format(startOfMonth(this.currentDate), 'DD-MM-YYYY'),
+            dataFim: format(endOfMonth(this.currentDate), 'DD-MM-YYYY'),
         };
         this.router.navigate(['/agenda/lista'], extras);
     }
 
     viewPatients() {
         this.router.navigate(['/pacientes']);
+    }
+
+    previousMonth() {
+        if (isBefore(this.currentDate, '2019-01-01')) {
+            return;
+        }
+        this.currentDate = subMonths(this.currentDate, 1);
+        this.setupObservables();
+    }
+
+    nextMonth() {
+        if (isAfter(this.currentDate, subMonths(new Date(), 2))) {
+            return;
+        }
+
+        this.currentDate = addMonths(this.currentDate, 1);
+        this.setupObservables();
     }
 
 }
