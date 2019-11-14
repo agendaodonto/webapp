@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { format } from 'date-fns';
 import { Observable } from 'rxjs';
 
 import { IPagedResponse } from '../shared/interceptors/responses';
@@ -48,9 +49,22 @@ export class DentalPlanService extends BaseService {
 
         return this.http.delete<null>(this.url(['dental-plans', plan.id]));
     }
+
+    getStats(startDate: Date, endDate: Date): Observable<IDentalPlanStats[]> {
+        let params = new HttpParams();
+        params = params.set('start_date', format(startDate, 'YYYY-MM-DD'));
+        params = params.set('end_date', format(endDate, 'YYYY-MM-DD'));
+
+        return this.http.get<IDentalPlanStats[]>(this.url(['dental-plans', 'stats']), { params });
+    }
 }
 
 export interface IDentalPlan {
     id?: number;
     name: string;
+}
+
+interface IDentalPlanStats {
+    count: number;
+    dental_plan: string;
 }

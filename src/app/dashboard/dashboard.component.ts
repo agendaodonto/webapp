@@ -6,6 +6,7 @@ import * as ptLocale from 'date-fns/locale/pt';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { DentalPlanService } from '../dental-plan/dental-plan.service';
 import { PatientFilter } from '../patient/patient.filter';
 import { IPatient, PatientService } from '../patient/patient.service';
 import { ScheduleFilter } from '../schedule/schedule.filter';
@@ -21,13 +22,13 @@ import { parseAttendanceData } from './dashboard.utils';
 export class DashboardComponent implements OnInit {
 
     pendingSchedules: Observable<IPagedResponse<ISchedule>>;
-    schedules: Observable<IPagedResponse<ISchedule>>;
     refSchedules: Observable<IPagedResponse<ISchedule>>;
     patients: Observable<IPagedResponse<IPatient>>;
     attendance: Observable<any>;
     attendanceRatio: Observable<any>;
+    dentalPlanStats: Observable<object>;
     currentDate = subMonths(new Date(), 1);
-    curveFunction = d3.curveMonotoneX;
+    curveFunction = d3.curveCatmullRom;
     attendanceChartColors = [
         { name: 'Comparecimentos', value: '#4CAF50' },
         { name: 'Faltas', value: '#f44336' },
@@ -49,12 +50,16 @@ export class DashboardComponent implements OnInit {
     get refEndDate() {
         return format(endOfMonth(this.refDate), 'YYYY-MM-DD');
     }
-
     get currentMonthLabel() {
-        return format(this.currentDate, 'MMMM/YY', { locale: ptLocale });
+        return format(this.currentDate, 'MMMM/YYYY', { locale: ptLocale });
     }
 
-    constructor(private scheduleService: ScheduleService, private patientService: PatientService, private router: Router) { }
+    constructor(
+        private scheduleService: ScheduleService,
+        private patientService: PatientService,
+        private router: Router,
+        private dentalPlanService: DentalPlanService,
+    ) { }
 
     ngOnInit() {
         this.setupObservables();
@@ -80,11 +85,6 @@ export class DashboardComponent implements OnInit {
         scheduleFilter.setFilterValue('status', '0');
         this.pendingSchedules = this.scheduleService.getAll(scheduleFilter);
         // Schedules
-        scheduleFilter.reset();
-        scheduleFilter.setFilterValue('pageSize', '1');
-        scheduleFilter.setFilterValue('startDate', this.startDate);
-        scheduleFilter.setFilterValue('endDate', this.endDate);
-        this.schedules = this.scheduleService.getAll(scheduleFilter);
         scheduleFilter.setFilterValue('startDate', this.refStartDate);
         scheduleFilter.setFilterValue('endDate', this.refEndDate);
         this.refSchedules = this.scheduleService.getAll(scheduleFilter);
@@ -94,7 +94,15 @@ export class DashboardComponent implements OnInit {
                 map(data => {
                     return parseAttendanceData(data);
                 }));
+
         this.attendanceRatio = this.scheduleService.getAttendanceData();
+
+        this.dentalPlanStats = this.dentalPlanService.getStats(startOfMonth(this.currentDate), endOfMonth(this.currentDate))
+            .pipe(
+                map(values => values.map(v => {
+                    return { name: v.dental_plan || 'Sem Plano', value: v.count };
+                })),
+            );
     }
 
     viewPendingSchedules() {
@@ -135,5 +143,4 @@ export class DashboardComponent implements OnInit {
         this.currentDate = addMonths(this.currentDate, 1);
         this.setupObservables();
     }
-
 }

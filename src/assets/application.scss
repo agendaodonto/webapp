@@ -85,4 +85,11 @@ table {
     display: none !important;
 }
 
+mat-card.actionable {
+    transition: background-color 0.5s ease;
+    cursor: pointer;
 
+    &:hover{
+        background-color: rgba(0, 0, 0, 0.08);
+    }
+}
