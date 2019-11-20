@@ -9,6 +9,7 @@ mat-icon.mini-report {
 }
 
 mat-card.chart-report {
+  min-height: 250px;
   .chart-container {
     min-height: 250px;
   }
@@ -25,5 +26,8 @@ mat-card.chart-report {
 }
 
 .dental-plan-report {
-  min-height: 180px;
+  min-height: 320px;
+  .chart-container {
+    min-height: 320px;
+  }
 }
