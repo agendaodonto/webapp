@@ -11,7 +11,7 @@
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxLayoutAlign.lt-md="start stretch"
         fxLayoutGap="20px">
         <!--Pending schedules cards -->
-        <mat-card class="mini-report actionable" fxFlex="25" fxLayout="column" (click)="viewPendingSchedules()">
+        <mat-card class="mini-report actionable" fxFlex="33" fxLayout="column" (click)="viewPendingSchedules()">
             <mat-card-title>Consultas a confirmar</mat-card-title>
             <div fxLayoutAlign="start start"
                 *ngIf="pendingSchedules | async as pendingSchedules; else pendingSchedulesLoading">
@@ -26,7 +26,7 @@
             </div>
         </mat-card>
         <!--Attendance rate card -->
-        <mat-card class="mini-report actionable" fxFlex="25" fxLayout="column" (click)="viewSchedules()">
+        <mat-card class="mini-report actionable" fxFlex="33" fxLayout="column" (click)="viewSchedules()">
             <mat-card-title>Taxa de comparecimento</mat-card-title>
             <div fxLayoutAlign="start start" *ngIf="attendanceRatio | async as attendanceRatio; else attendanceLoading">
                 <mat-icon class="mini-report">account_circle</mat-icon>
@@ -55,7 +55,7 @@
             </div>
         </mat-card>
         <!--Patient count card -->
-        <mat-card class="mini-report actionable" fxFlex="25" fxLayout="column" (click)="viewPatients()">
+        <mat-card class="mini-report actionable" fxFlex="33" fxLayout="column" (click)="viewPatients()">
             <mat-card-title>Pacientes</mat-card-title>
             <div fxLayoutAlign="start start" *ngIf="patients | async as patients; else patientsLoading">
                 <mat-icon class="mini-report">person_add</mat-icon>
@@ -74,10 +74,10 @@
 
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxLayoutAlign.lt-md="start stretch" fxLayoutGap="20px">
         <!--Schedule count card -->
-        <mat-card fxFlex="45" class="dental-plan-report actionable" fxLayout="column" (click)="viewSchedules()">
+        <mat-card fxFlex="45" class="dental-plan-report actionable" fxLayoutAlign="space-between strech"fxLayout="column" (click)="viewSchedules()">
             <mat-card-title>Agendamentos</mat-card-title>
             <div *ngIf="dentalPlanStats | async as dentalPlanStats; else chartLoading">
-                <ngx-charts-advanced-pie-chart [results]="dentalPlanStats"></ngx-charts-advanced-pie-chart>
+                <ngx-charts-advanced-pie-chart class="chart-container" [results]="dentalPlanStats"></ngx-charts-advanced-pie-chart>
             </div>
             <div fxLayoutAlign="end end">
                 <mat-hint>Clique para visualizar</mat-hint>
@@ -98,6 +98,6 @@
         </mat-card>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center start" fxLayoutAlign.lt-md="start stretch">
-        
+
     </div>
 </div>
