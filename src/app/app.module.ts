@@ -23,7 +23,6 @@ import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { MaterialAppModule } from './shared/material.app.module';
 import { TokenService } from './shared/services/token.service';
-import { TestComponentComponent } from './test-component/test-component.component';
 
 registerLocaleData(localePt, localePtExtras);
 
@@ -42,7 +41,6 @@ export const routes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
-        TestComponentComponent,
     ],
     imports: [
         BrowserModule,
