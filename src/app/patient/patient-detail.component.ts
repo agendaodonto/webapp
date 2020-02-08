@@ -21,8 +21,8 @@ import { IPatient, PatientService } from './patient.service';
     styleUrls: ['./patient-detail.component.scss'],
 })
 export class PatientDetailComponent extends BaseComponent implements OnInit {
-    @ViewChild('continuousMode', { static: false }) continuousMode: MatSlideToggle;
-    @ViewChild(FormGroupDirective, { static: false }) patientFormDirective: FormGroupDirective;
+    @ViewChild('continuousMode') continuousMode: MatSlideToggle;
+    @ViewChild(FormGroupDirective) patientFormDirective: FormGroupDirective;
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     patientForm: CustomFG;

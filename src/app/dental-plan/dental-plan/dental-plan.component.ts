@@ -14,7 +14,7 @@ export class DentalPlanComponent implements OnInit, AfterViewInit {
   readonly columnsToDisplay = ['planName'];
   datasource: DentalPlanDatasource;
 
-  @ViewChild(MatPaginator, { static: false })
+  @ViewChild(MatPaginator)
   private paginator: MatPaginator;
 
   constructor(private dentalPlanService: DentalPlanService, private router: Router) { }
