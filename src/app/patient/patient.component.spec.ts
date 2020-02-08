@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { configureTestSuite } from 'ng-bullet';
 
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
 import { MaterialAppModule } from '../shared/material.app.module';
@@ -14,7 +13,7 @@ describe('PatientComponent', () => {
     let component: PatientComponent;
     let fixture: ComponentFixture<PatientComponent>;
 
-    configureTestSuite(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 NoopAnimationsModule,

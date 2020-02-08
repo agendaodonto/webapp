@@ -5,7 +5,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { configureTestSuite } from 'ng-bullet';
 import { AppComponent } from './app.component';
 import { LoginService } from './login/login.service';
 import { MaterialAppModule } from './shared/material.app.module';
@@ -14,7 +13,7 @@ describe('AppComponent', () => {
     let component: AppComponent;
     let fixture: ComponentFixture<AppComponent>;
 
-    configureTestSuite(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,

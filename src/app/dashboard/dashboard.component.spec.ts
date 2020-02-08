@@ -4,7 +4,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Mock, MockFactory } from 'jasmine-mock-factory';
-import { configureTestSuite } from 'ng-bullet';
 
 import { DentalPlanService } from '../dental-plan/dental-plan.service';
 import { PatientService } from '../patient/patient.service';
@@ -21,7 +20,7 @@ describe('DashboardComponent', () => {
     let patientService: Mock<PatientService>;
     let dentalPlanService: Mock<DentalPlanService>;
 
-    configureTestSuite(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,

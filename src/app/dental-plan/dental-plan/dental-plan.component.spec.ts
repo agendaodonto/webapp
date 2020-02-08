@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Mock, MockFactory } from 'jasmine-mock-factory';
-import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
@@ -20,7 +19,7 @@ describe('DentalPlanComponent', () => {
     let fixture: ComponentFixture<DentalPlanComponent>;
     let dentalPlanService: Mock<DentalPlanService>;
 
-    configureTestSuite(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 DirectivesModule,

@@ -1,11 +1,10 @@
 import { inject, TestBed } from '@angular/core/testing';
 
-import { configureTestSuite } from 'ng-bullet';
 import { TokenService } from './token.service';
 
 describe('TokenService', () => {
 
-    configureTestSuite(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [],
             providers: [TokenService],

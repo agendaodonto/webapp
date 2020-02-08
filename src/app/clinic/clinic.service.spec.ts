@@ -1,7 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { getTestBed, TestBed } from '@angular/core/testing';
 
-import { configureTestSuite } from 'ng-bullet';
 import { BaseService } from '../shared/services/base.service';
 import { DENTISTS } from '../shared/services/dentist.service.spec';
 import { ClinicFilter } from './clinic.filter';
@@ -16,7 +15,7 @@ describe('ClinicService', () => {
     let service: ClinicService;
     let httpMock: HttpTestingController;
 
-    configureTestSuite(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [ClinicService],
