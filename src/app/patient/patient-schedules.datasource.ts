@@ -1,5 +1,5 @@
 import { DataSource } from '@angular/cdk/table';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
 import { BehaviorSubject, merge, Observable, Subscribable } from 'rxjs';
 import { finalize, map, switchMap } from 'rxjs/operators';
 

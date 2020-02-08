@@ -8,7 +8,8 @@ import {
     SimpleChange,
     ViewContainerRef,
 } from '@angular/core';
-import { MatButton, MatSpinner } from '@angular/material';
+import { MatButton } from '@angular/material/button';
+import { MatSpinner } from '@angular/material/progress-spinner';
 
 @Directive({
     selector: 'button[appBtnLoader]',

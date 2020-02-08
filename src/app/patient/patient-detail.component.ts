@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormGroupDirective, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatPaginator, MatSlideToggle, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';

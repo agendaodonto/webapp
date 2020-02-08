@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatSpinner } from '@angular/material';
+import { MatSpinner } from '@angular/material/progress-spinner';
 
 import { LoadingOverlayComponent } from '../components/loading-overlay/loading-overlay.component';
 import { SharedComponentsModule } from '../components/shared-components.module';

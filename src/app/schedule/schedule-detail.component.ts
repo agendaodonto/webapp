@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroupDirective, Validators } from '@angular/forms';
-import { MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { addMinutes, format } from 'date-fns';
 import { forkJoin, Observable } from 'rxjs';
