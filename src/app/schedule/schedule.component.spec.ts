@@ -5,7 +5,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CalendarModule, DateAdapter, MOMENT } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/moment';
 import * as moment from 'moment';
-import { configureTestSuite } from 'ng-bullet';
 
 import { MaterialAppModule } from '../shared/material.app.module';
 import { ActivatedRouteStub } from '../shared/testing/activated-route.stub';
@@ -17,7 +16,7 @@ describe('ScheduleComponent', () => {
     let fixture: ComponentFixture<ScheduleComponent>;
     const routeMock = new ActivatedRouteStub();
 
-    configureTestSuite(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,

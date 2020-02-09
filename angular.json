@@ -13,6 +13,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
+                        "aot": true,
                         "outputPath": "dist/webapp",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -29,6 +30,12 @@
                     },
                     "configurations": {
                         "production": {
+                            "budgets": [
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb"
+                                }
+                            ],
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
@@ -46,6 +53,12 @@
                             "buildOptimizer": true
                         },
                         "staging": {
+                            "budgets": [
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb"
+                                }
+                            ],
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
@@ -63,6 +76,12 @@
                             "buildOptimizer": false
                         },
                         "hmr": {
+                            "budgets": [
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb"
+                                }
+                            ],
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
@@ -93,7 +112,7 @@
                         "staging": {
                             "browserTarget": "webapp:build:staging"
                         },
-                        "hmr":{
+                        "hmr": {
                             "hmr": true,
                             "browserTarget": "webapp:build:hmr"
                         }

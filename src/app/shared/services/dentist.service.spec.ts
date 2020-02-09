@@ -1,7 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { async, getTestBed, TestBed } from '@angular/core/testing';
 
-import { configureTestSuite } from 'ng-bullet';
 import { BaseService } from './base.service';
 import { DentistService, IDentist } from './dentist.service';
 
@@ -33,7 +32,7 @@ describe('DentistService', () => {
     let service: DentistService;
     let httpMock: HttpTestingController;
 
-    configureTestSuite(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [DentistService],

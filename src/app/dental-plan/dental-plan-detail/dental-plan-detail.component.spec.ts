@@ -1,11 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Mock, MockFactory } from 'jasmine-mock-factory';
-import { configureTestSuite } from 'ng-bullet';
 import { of, throwError } from 'rxjs';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 import { MaterialAppModule } from 'src/app/shared/material.app.module';
@@ -24,7 +24,7 @@ describe('DentalPlanDetailComponent', () => {
     let snackbar: MatSnackBar;
     let dialog: Mock<MatDialog>;
 
-    configureTestSuite(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,
@@ -42,13 +42,13 @@ describe('DentalPlanDetailComponent', () => {
         });
     });
 
-    beforeEach(async(() => {
+    beforeEach(() => {
         dentalPlanService = MockFactory.create(DentalPlanService);
         dialog = MockFactory.create(MatDialog);
         route = MockFactory.create(ActivatedRoute);
         router = TestBed.get(Router);
         snackbar = TestBed.get(MatSnackBar);
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(DentalPlanDetailComponent);

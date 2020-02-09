@@ -6,7 +6,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Mock, MockFactory } from 'jasmine-mock-factory';
-import { configureTestSuite } from 'ng-bullet';
 import { of } from 'rxjs';
 
 import { ClinicService } from '../clinic/clinic.service';
@@ -35,7 +34,7 @@ describe('PatientDetailComponent', () => {
     let route: Mock<ActivatedRoute>;
     let router: Router;
 
-    configureTestSuite(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialAppModule,
