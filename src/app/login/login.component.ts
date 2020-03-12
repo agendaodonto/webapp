@@ -13,7 +13,7 @@ import { LoginService } from './login.service';
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-    isLoading = false;
+    isSubmitting = false;
     loginForm: CustomFG;
     errors: string[] = [];
 
@@ -25,21 +25,20 @@ export class LoginComponent {
     }
 
     onSubmit() {
-        this.isLoading = true;
+        this.isSubmitting = true;
         this.loginService.authenticate(this.loginForm.value).pipe(
-            finalize(() => this.isLoading = false),
+            finalize(() => this.isSubmitting = false),
         ).subscribe(
             response => {
                 this.tokenService.setToken(response.auth_token);
                 this.loginService.getUserInfo();
                 this.router.navigate(['/dashboard']);
             },
-            errors => {
-                if (errors.hasOwnProperty('non_field_errors')) {
-                    this.errors = errors.non_field_errors;
+            err => {
+                if (err.error.hasOwnProperty('non_field_errors')) {
+                    this.errors = err.error.non_field_errors;
                 }
-                this.loginForm.pushFieldErrors(errors.error);
-
+                this.loginForm.pushFieldErrors(err.error);
             },
         );
 

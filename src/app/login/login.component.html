@@ -18,8 +18,8 @@
         </form>
         <p fxLayoutAlign="end center">
             <a mat-button [routerLink]="['/cadastro']">Criar Conta</a>
-            <button mat-raised-button color="accent" (click)="onSubmit()" [appBtnLoader]="isLoading">
-                <span *ngIf="!isLoading">Entrar</span>
+            <button mat-raised-button color="accent" (click)="onSubmit()" [appBtnLoader]="isSubmitting">
+                <span *ngIf="!isSubmitting">Entrar</span>
             </button>
         </p>
     </mat-card>

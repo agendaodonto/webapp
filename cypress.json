@@ -1,0 +1,12 @@
+{
+    "baseUrl": "http://localhost:4200/",
+    "viewportWidth": 1920,
+    "viewportHeight": 1080,
+    "env": {
+        "user": {
+            "email": "a.roggeri.c@gmail.com",
+            "password": "Teste0987"
+        },
+        "service": "https://backend-staging.agendaodonto.com"
+    }
+}
