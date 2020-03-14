@@ -5,8 +5,18 @@ language: node_js
 node_js:
   - "10"
 
+addons:
+  apt:
+    packages:
+      - libgconf-2-4
+
+services:
+  - docker
+
 cache:
-  yarn: true
+  npm: true
+  directories:
+    - ~/.cache
 
 before_install:
   # set up awscli packages
@@ -18,6 +28,7 @@ before_install:
 stages:
   - name: quality
   - name: quality gate
+  - name: E2E Test
   - name: deploy staging
     if: type = push AND branch = "develop" AND tag IS blank
   - name: deploy production
@@ -54,7 +65,11 @@ jobs:
       script:
         - ng b -c=production --prod=true --aot
         - aws s3 sync ./dist s3://agendaodonto-staging-builds/$TRAVIS_BUILD_NUMBER-prod/dist --expires "$(date -d '+1 hour' --utc +'%Y-%m-%dT%H:%M:%SZ')"
-
+    - stage: E2E Test
+      scripts: 
+        - docker build -f ./dependencies/Dockerfile -t webapp .
+        - docker run --rm -d -p 80:80 --name webapp webapp
+        - npx cypress run
     - stage: deploy staging
       script: ./scripts/deploy.sh staging
 
