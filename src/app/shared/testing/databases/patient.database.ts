@@ -1,17 +1,17 @@
 import * as faker from 'faker/locale/pt_BR';
 
-import { IPatient } from '../../../patient/patient.service';
+import { IPatientResponse } from '../../interfaces/services/patient.model';
 import { BaseDatabase } from './base.database';
 import { ClinicDatabase } from './clinic.database';
 import { DentalPlanDatabase } from './dental-plan.database';
 
-export class PatientDatabase extends BaseDatabase<IPatient> {
+export class PatientDatabase extends BaseDatabase<IPatientResponse> {
 
     clinicDatabase = new ClinicDatabase();
     dentalPlanDatabase = new DentalPlanDatabase();
 
-    get(): IPatient {
-        const patient: IPatient = {
+    get(): IPatientResponse {
+        const patient: IPatientResponse = {
             id: Math.floor((Math.random() * 100) + 1),
             name: faker.name.firstName(),
             last_name: faker.name.lastName(),
@@ -23,7 +23,7 @@ export class PatientDatabase extends BaseDatabase<IPatient> {
         return patient;
     }
 
-    getMany(qty: number): IPatient[] {
+    getMany(qty: number): IPatientResponse[] {
         return new Array(qty).fill(null).map(() => this.get());
     }
 }

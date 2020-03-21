@@ -3,20 +3,21 @@ import { MatPaginator } from '@angular/material';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { finalize, map, startWith, switchMap } from 'rxjs/operators';
 
+import { IScheduleResponse } from '../shared/interfaces/services/schedule.model';
 import { ScheduleFilter } from './schedule.filter';
-import { ISchedule, ScheduleService } from './schedule.service';
+import { ScheduleService } from './schedule.service';
 
-export class ScheduleDatasource extends DataSource<ISchedule> {
+export class ScheduleDatasource extends DataSource<IScheduleResponse> {
     isLoading = true;
     count = 0;
     filterChanges = new BehaviorSubject(null);
     changeEvents = [this.paginator.page, this.filterChanges];
     scheduleFilter = new ScheduleFilter();
-    schedules: ISchedule[];
+    schedules: IScheduleResponse[];
     constructor(private scheduleService: ScheduleService, private paginator: MatPaginator) {
         super();
     }
-    connect(_collectionViewer: CollectionViewer): Observable<ISchedule[]> {
+    connect(_collectionViewer: CollectionViewer): Observable<IScheduleResponse[]> {
         return merge(...this.changeEvents).pipe(startWith(null), switchMap(() => {
             this.isLoading = true;
             let offset = 0;

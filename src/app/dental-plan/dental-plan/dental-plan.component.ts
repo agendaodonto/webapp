@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import { Router } from '@angular/router';
+import { IDentalPlanResponse } from 'src/app/shared/interfaces/services/denta-plan.model';
 
 import { DentalPlanDatasource } from '../dental-plan.datasource';
-import { DentalPlanService, IDentalPlan } from '../dental-plan.service';
+import { DentalPlanService } from '../dental-plan.service';
 
 @Component({
   selector: 'app-dental-plan',
@@ -32,7 +33,7 @@ export class DentalPlanComponent implements OnInit, AfterViewInit {
     });
   }
 
-  rowClicked(plan: IDentalPlan): void {
+  rowClicked(plan: IDentalPlanResponse): void {
     this.router.navigate(['planos', plan.id]);
   }
 }

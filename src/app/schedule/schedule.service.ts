@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { format } from 'date-fns';
 import { Observable } from 'rxjs';
 
-import { IPatient } from '../patient/patient.service';
 import { IPagedResponse } from '../shared/interceptors/responses';
+import { IScheduleResponse } from '../shared/interfaces/services/schedule.model';
 import { BaseService } from '../shared/services/base.service';
-import { IDentist } from '../shared/services/dentist.service';
 import { ScheduleFilter } from './schedule.filter';
 
 @Injectable()
@@ -16,34 +15,34 @@ export class ScheduleService extends BaseService implements IScheduleService {
         super();
     }
 
-    get(scheduleId: number): Observable<ISchedule> {
-        return this.http.get<ISchedule>(this.url(['schedules', scheduleId]));
+    get(scheduleId: number): Observable<IScheduleResponse> {
+        return this.http.get<IScheduleResponse>(this.url(['schedules', scheduleId]));
     }
 
-    getAll(scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<ISchedule>> {
+    getAll(scheduleFilter?: ScheduleFilter): Observable<IPagedResponse<IScheduleResponse>> {
         const filter = scheduleFilter ? scheduleFilter : new ScheduleFilter();
-        return this.http.get<IPagedResponse<ISchedule>>(this.url(['schedules']), filter.getFilter());
+        return this.http.get<IPagedResponse<IScheduleResponse>>(this.url(['schedules']), filter.getFilter());
     }
 
-    create(schedule: ISchedule): Observable<any> {
+    create(schedule: IScheduleResponse): Observable<any> {
         const tmpSchedule: any = schedule;
         tmpSchedule.dentist = schedule.dentist.id;
         tmpSchedule.patient = schedule.patient.id;
-        return this.http.post<ISchedule>(this.url(['schedules']), JSON.stringify(tmpSchedule));
+        return this.http.post<IScheduleResponse>(this.url(['schedules']), JSON.stringify(tmpSchedule));
     }
 
-    update(schedule: ISchedule): Observable<any> {
+    update(schedule: IScheduleResponse): Observable<any> {
         const tmpSchedule: any = schedule;
         tmpSchedule.dentist = schedule.dentist.id;
         tmpSchedule.patient = schedule.patient.id;
-        return this.http.put<ISchedule>(this.url(['schedules', schedule.id]), JSON.stringify(tmpSchedule));
+        return this.http.put<IScheduleResponse>(this.url(['schedules', schedule.id]), JSON.stringify(tmpSchedule));
     }
 
-    remove(schedule: ISchedule): Observable<any> {
+    remove(schedule: IScheduleResponse): Observable<any> {
         return this.http.delete(this.url(['schedules', schedule.id]));
     }
 
-    save(schedule: ISchedule): Observable<any> {
+    save(schedule: IScheduleResponse): Observable<any> {
         if (schedule.id) {
             return this.update(schedule);
         } else {
@@ -51,7 +50,7 @@ export class ScheduleService extends BaseService implements IScheduleService {
         }
     }
 
-    updateNotificationStatus(schedule: ISchedule, newStatus: number): Observable<any> {
+    updateNotificationStatus(schedule: IScheduleResponse, newStatus: number): Observable<any> {
         const payload = {
             new_status: newStatus,
         };
@@ -69,11 +68,11 @@ export class ScheduleService extends BaseService implements IScheduleService {
 }
 
 export interface IScheduleService {
-    get(scheduleId: number): Observable<ISchedule>;
-    getAll(filter?: ScheduleFilter): Observable<{ results: ISchedule[] }>;
-    create(schedule: ISchedule): Observable<any>;
-    update(schedule: ISchedule): Observable<any>;
-    save(schedule: ISchedule): Observable<any>;
+    get(scheduleId: number): Observable<IScheduleResponse>;
+    getAll(filter?: ScheduleFilter): Observable<{ results: IScheduleResponse[] }>;
+    create(schedule: IScheduleResponse): Observable<any>;
+    update(schedule: IScheduleResponse): Observable<any>;
+    save(schedule: IScheduleResponse): Observable<any>;
     getAttendanceData(referenceDate?: Date): Observable<IAttendanceResponse>;
 }
 
@@ -91,14 +90,4 @@ export enum ScheduleStatus {
     ShownUp = 1,
     Missed = 2,
     Canceled = 3,
-}
-
-export interface ISchedule {
-    id: number;
-    patient: IPatient;
-    dentist: IDentist;
-    date: string;
-    duration: number;
-    status: number;
-    notification_status: string;
 }

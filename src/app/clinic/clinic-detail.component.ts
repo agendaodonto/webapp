@@ -6,7 +6,8 @@ import { Observable, of } from 'rxjs';
 import { debounceTime, finalize } from 'rxjs/operators';
 
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
-import { DentistService, IDentist } from '../shared/services/dentist.service';
+import { IDentistResponse } from '../shared/interfaces/services/dentist.model';
+import { DentistService } from '../shared/services/dentist.service';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { ClinicService } from './clinic.service';
 
@@ -22,7 +23,7 @@ export class ClinicDetailComponent implements OnInit {
     errors: string[];
     clinicForm: CustomFG;
     dentistCompleter = new FormControl();
-    filteredOptions: Observable<IDentist[]>;
+    filteredOptions: Observable<IDentistResponse[]>;
 
     constructor(private clinicService: ClinicService,
                 private dentistService: DentistService,
@@ -68,19 +69,19 @@ export class ClinicDetailComponent implements OnInit {
             );
     }
 
-    addDentist(dentist: IDentist) {
+    addDentist(dentist: IDentistResponse) {
         if (this.clinicForm.controls.dentists.value.map(d => d.id).indexOf(dentist.id) === -1) {
             this.clinicForm.controls.dentists.setValue(this.clinicForm.controls.dentists.value.concat(dentist));
         }
     }
 
-    removeDentist(dentist: IDentist) {
+    removeDentist(dentist: IDentistResponse) {
         this.clinicForm.controls.dentists.setValue(this.clinicForm.controls.dentists.value.filter((d) => {
             return d.id !== dentist.id;
         }));
     }
 
-    displayDentist(dentist: IDentist) {
+    displayDentist(dentist: IDentistResponse) {
         return dentist ? dentist.first_name + ' ' + dentist.last_name : '';
     }
 
