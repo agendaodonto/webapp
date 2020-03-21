@@ -17,6 +17,7 @@ before_install:
 
 stages:
   - name: quality
+  - name: quality gate
   - name: deploy staging
     if: type = push AND branch = "develop" AND tag IS blank
   - name: deploy production
@@ -34,6 +35,7 @@ jobs:
       script:
         - ng test --code-coverage=true --watch=false --browsers=ChromeHeadless
         - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+
     - stage: quality
       name: Lint
       if: tag IS blank
@@ -44,6 +46,7 @@ jobs:
       script:
         - ng b -c=staging --aot
         - aws s3 sync ./dist s3://agendaodonto-staging-builds/$TRAVIS_BUILD_NUMBER-staging --expires "$(date -d '+1 hour' --utc +'%Y-%m-%dT%H:%M:%SZ')"
+
     - stage: quality
       name: Build Prod
       if: tag IS present
@@ -54,3 +57,12 @@ jobs:
       script: ./scripts/deploy.sh staging
     - stage: deploy production
       script: ./scripts/deploy.sh production
+
+    - stage: Quality Gate
+      name: Sonar
+      script:
+        - sonar-scanner
+
+addons:
+  sonarcloud:
+    organization: "agendaodonto"
