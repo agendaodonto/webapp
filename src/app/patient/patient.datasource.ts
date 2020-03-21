@@ -3,22 +3,23 @@ import { MatPaginator } from '@angular/material';
 import { BehaviorSubject, merge, Observable, Subscribable } from 'rxjs';
 import { finalize, map, switchMap } from 'rxjs/operators';
 
+import { IPatientResponse } from '../shared/interfaces/services/patient.model';
 import { PatientFilter } from './patient.filter';
-import { IPatient, PatientService } from './patient.service';
+import { PatientService } from './patient.service';
 
-export class PatientDatasource extends DataSource<IPatient> {
+export class PatientDatasource extends DataSource<IPatientResponse> {
     isLoading = true;
     count = 0;
     filterChanges = new BehaviorSubject(null);
     changeEvents: Array<Subscribable<null>> = [this.filterChanges, this.paginator.page];
     patientFilter = new PatientFilter();
-    schedules: IPatient[];
+    schedules: IPatientResponse[];
 
     constructor(private patientService: PatientService, private paginator: MatPaginator) {
         super();
     }
 
-    connect(): Observable<IPatient[]> {
+    connect(): Observable<IPatientResponse[]> {
 
         return merge(...this.changeEvents).pipe(switchMap(() => {
             this.isLoading = true;

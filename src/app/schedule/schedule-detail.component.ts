@@ -3,17 +3,19 @@ import { FormGroupDirective, Validators } from '@angular/forms';
 import { MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { addMinutes, format } from 'date-fns';
-import { forkJoin, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { debounceTime, finalize } from 'rxjs/operators';
 
 import { PatientDetailComponent } from '../patient/patient-detail.component';
 import { PatientFilter } from '../patient/patient.filter';
-import { IPatient, PatientService } from '../patient/patient.service';
+import { PatientService } from '../patient/patient.service';
 import { BaseComponent } from '../shared/components/base.component';
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
-import { IDentist } from '../shared/services/dentist.service';
+import { IDentistResponse } from '../shared/interfaces/services/dentist.model';
+import { IPatientResponse } from '../shared/interfaces/services/patient.model';
+import { IScheduleResponse } from '../shared/interfaces/services/schedule.model';
 import { CustomFB, CustomFG } from '../shared/validation';
-import { ISchedule, ScheduleService } from './schedule.service';
+import { ScheduleService } from './schedule.service';
 
 @Component({
     selector: 'app-schedule-detail',
@@ -24,10 +26,10 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
     isLoading = false;
     isSubmitting = false;
     scheduleForm: CustomFG;
-    dentists: IDentist[] = [];
-    filteredPatients: Observable<{ results: IPatient[] }> | null;
+    dentists: IDentistResponse[] = [];
+    filteredPatients: Observable<{ results: IPatientResponse[] }> | null;
     scheduleId: number;
-    schedule: ISchedule;
+    schedule: IScheduleResponse;
     @ViewChild('continuousMode', { static: false }) continuousMode: MatSlideToggle;
     @ViewChild(FormGroupDirective, { static: true }) scheduleFormDirective: FormGroupDirective;
 
@@ -73,7 +75,7 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
 
     }
 
-    displayPatient(patient: IPatient) {
+    displayPatient(patient: IPatientResponse) {
         if (patient) {
             return patient.name + ' ' + patient.last_name;
         } else {

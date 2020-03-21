@@ -5,15 +5,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { ClinicService, IClinic } from '../clinic/clinic.service';
-import { DentalPlanService, IDentalPlan } from '../dental-plan/dental-plan.service';
-import { ISchedule } from '../schedule/schedule.service';
+import { ClinicService } from '../clinic/clinic.service';
+import { DentalPlanService } from '../dental-plan/dental-plan.service';
 import { BaseComponent } from '../shared/components/base.component';
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
 import { IPagedResponse } from '../shared/interceptors/responses';
+import { IClinicResponse } from '../shared/interfaces/services/clinic.model';
+import { IDentalPlanResponse } from '../shared/interfaces/services/denta-plan.model';
+import { IPatientResponse } from '../shared/interfaces/services/patient.model';
+import { IScheduleResponse } from '../shared/interfaces/services/schedule.model';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { PatientSchedulesDataSource } from './patient-schedules.datasource';
-import { IPatient, PatientService } from './patient.service';
+import { PatientService } from './patient.service';
 
 @Component({
     selector: 'app-patient-detail',
@@ -26,12 +29,12 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     patientForm: CustomFG;
-    clinics: IClinic[];
-    dentalPlans: IDentalPlan[];
+    clinics: IClinicResponse[];
+    dentalPlans: IDentalPlanResponse[];
     patientId: number;
     isLoading = true;
     isSubmitting = false;
-    filteredPlans: Observable<IPagedResponse<IDentalPlan>>;
+    filteredPlans: Observable<IPagedResponse<IDentalPlanResponse>>;
     datasource: PatientSchedulesDataSource;
     columnsToDisplay = ['scheduleDate'];
 
@@ -100,7 +103,7 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
 
     onSubmit() {
         this.isSubmitting = true;
-        const data: IPatient = this.patientForm.value;
+        const data: IPatientResponse = this.patientForm.value;
         this.patientService.save(data).pipe(
             finalize(() => this.isSubmitting = false),
         ).subscribe(
@@ -141,7 +144,7 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
         });
     }
 
-    viewSchedule(schedule: ISchedule) {
+    viewSchedule(schedule: IScheduleResponse) {
         this.router.navigate(['agenda', schedule.id]);
     }
 

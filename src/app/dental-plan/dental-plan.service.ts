@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { Observable } from 'rxjs';
 
 import { IPagedResponse } from '../shared/interceptors/responses';
+import { IDentalPlanResponse } from '../shared/interfaces/services/denta-plan.model';
 import { BaseService } from '../shared/services/base.service';
 import { DentalPlanFilter } from './dental-plan.filter';
 
@@ -14,27 +15,27 @@ export class DentalPlanService extends BaseService {
         super();
     }
 
-    get(planId: number): Observable<IDentalPlan> {
-        return this.http.get<IDentalPlan>(this.url(['dental-plans', planId]));
+    get(planId: number): Observable<IDentalPlanResponse> {
+        return this.http.get<IDentalPlanResponse>(this.url(['dental-plans', planId]));
     }
 
-    getAll(dentalPlanFilter?: DentalPlanFilter): Observable<IPagedResponse<IDentalPlan>> {
+    getAll(dentalPlanFilter?: DentalPlanFilter): Observable<IPagedResponse<IDentalPlanResponse>> {
         const filter = dentalPlanFilter ? dentalPlanFilter : new DentalPlanFilter();
-        return this.http.get<IPagedResponse<IDentalPlan>>(this.url(['dental-plans']), filter.getFilter());
+        return this.http.get<IPagedResponse<IDentalPlanResponse>>(this.url(['dental-plans']), filter.getFilter());
     }
 
-    create(plan: IDentalPlan) {
-        return this.http.post<IDentalPlan>(this.url(['dental-plans']), plan);
+    create(plan: IDentalPlanResponse) {
+        return this.http.post<IDentalPlanResponse>(this.url(['dental-plans']), plan);
     }
 
-    update(plan: IDentalPlan) {
+    update(plan: IDentalPlanResponse) {
         if (!plan.id) {
             throw new Error('ID is required for updating a plan');
         }
-        return this.http.put<IDentalPlan>(this.url(['dental-plans', plan.id]), plan);
+        return this.http.put<IDentalPlanResponse>(this.url(['dental-plans', plan.id]), plan);
     }
 
-    save(plan: IDentalPlan) {
+    save(plan: IDentalPlanResponse) {
         if (plan.id) {
             return this.update(plan);
         } else {
@@ -42,7 +43,7 @@ export class DentalPlanService extends BaseService {
         }
     }
 
-    remove(plan: IDentalPlan): Observable<null> {
+    remove(plan: IDentalPlanResponse): Observable<null> {
         if (!plan.id) {
             throw new Error('ID is required for deleting a plan');
         }
@@ -57,11 +58,6 @@ export class DentalPlanService extends BaseService {
 
         return this.http.get<IDentalPlanStats[]>(this.url(['dental-plans', 'stats']), { params });
     }
-}
-
-export interface IDentalPlan {
-    id?: number;
-    name: string;
 }
 
 interface IDentalPlanStats {

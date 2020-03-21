@@ -3,10 +3,11 @@ import { DataSource } from '@angular/cdk/table';
 import { Observable, ReplaySubject } from 'rxjs';
 import { finalize, map, switchMap } from 'rxjs/operators';
 
+import { IDentalPlanResponse } from '../shared/interfaces/services/denta-plan.model';
 import { DentalPlanFilter } from './dental-plan.filter';
-import { DentalPlanService, IDentalPlan } from './dental-plan.service';
+import { DentalPlanService } from './dental-plan.service';
 
-export class DentalPlanDatasource extends DataSource<IDentalPlan> {
+export class DentalPlanDatasource extends DataSource<IDentalPlanResponse> {
 
     count = 0;
     update = new ReplaySubject<null>();
@@ -17,7 +18,7 @@ export class DentalPlanDatasource extends DataSource<IDentalPlan> {
         super();
     }
 
-    connect(): Observable<IDentalPlan[]> {
+    connect(): Observable<IDentalPlanResponse[]> {
         return this.update.pipe(
             switchMap(() => {
                 this.isLoading = true;

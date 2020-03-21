@@ -3,17 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { IPagedResponse } from '../shared/interceptors/responses';
+import { IClinicResponse } from '../shared/interfaces/services/clinic.model';
 import { BaseService } from '../shared/services/base.service';
-import { IDentist } from '../shared/services/dentist.service';
 import { ClinicFilter } from './clinic.filter';
 
 export interface IClinicService {
-    getAll(clinicFilter?: ClinicFilter): Observable<{ results: IClinic[] }>;
-    get(clinicId: number): Observable<IClinic>;
-    create(clinic: IClinic);
-    update(clinic: IClinic);
-    remove(clinic: IClinic);
-    save(clinic: IClinic);
+    getAll(clinicFilter?: ClinicFilter): Observable<{ results: IClinicResponse[] }>;
+    get(clinicId: number): Observable<IClinicResponse>;
+    create(clinic: IClinicResponse);
+    update(clinic: IClinicResponse);
+    remove(clinic: IClinicResponse);
+    save(clinic: IClinicResponse);
 }
 
 @Injectable()
@@ -23,42 +23,36 @@ export class ClinicService extends BaseService implements IClinicService {
         super();
     }
 
-    getAll(clinicFilter?: ClinicFilter): Observable<IPagedResponse<IClinic>> {
+    getAll(clinicFilter?: ClinicFilter): Observable<IPagedResponse<IClinicResponse>> {
         const filter = clinicFilter ? clinicFilter : new ClinicFilter();
-        return this.http.get<IPagedResponse<IClinic>>(this.url(['clinics']), filter.getFilter());
+        return this.http.get<IPagedResponse<IClinicResponse>>(this.url(['clinics']), filter.getFilter());
     }
 
-    get(clinicId: number): Observable<IClinic> {
-        return this.http.get<IClinic>(this.url(['clinics', clinicId]));
+    get(clinicId: number): Observable<IClinicResponse> {
+        return this.http.get<IClinicResponse>(this.url(['clinics', clinicId]));
     }
 
-    create(clinic: IClinic) {
+    create(clinic: IClinicResponse) {
         const data: any = clinic;
         data.dentists = data.dentists.map(dentist => dentist.id);
-        return this.http.post<IClinic>(this.url(['clinics']), JSON.stringify(data));
+        return this.http.post<IClinicResponse>(this.url(['clinics']), JSON.stringify(data));
     }
 
-    update(clinic: IClinic) {
+    update(clinic: IClinicResponse) {
         const data: any = clinic;
         data.dentists = data.dentists.map(dentist => dentist.id);
-        return this.http.put<IClinic>(this.url(['clinics', clinic.id]), JSON.stringify(data));
+        return this.http.put<IClinicResponse>(this.url(['clinics', clinic.id]), JSON.stringify(data));
     }
 
-    remove(clinic: IClinic) {
+    remove(clinic: IClinicResponse) {
         return this.http.delete(this.url(['clinics', clinic.id]));
     }
 
-    save(clinic: IClinic) {
+    save(clinic: IClinicResponse) {
         if (clinic.id) {
             return this.update(clinic);
         } else {
             return this.create(clinic);
         }
     }
-}
-
-export interface IClinic {
-    id: number;
-    name: string;
-    dentists: IDentist[];
 }
