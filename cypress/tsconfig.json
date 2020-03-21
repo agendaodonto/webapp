@@ -3,16 +3,23 @@
         "strict": true,
         "baseUrl": "../node_modules",
         "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
         "lib": [
-            "es5",
+            "es2015",
             "dom"
         ],
         "types": [
+            "node",
             "cypress"
+        ],
+        "typeRoots": [
+            "node_modules/@types"
         ]
     },
     "include": [
         "../node_modules/cypress",
-        "**/*.ts"
+        "**/*.ts",
+        "../src/app/shared/interfaces/**/*.ts"
     ]
 }

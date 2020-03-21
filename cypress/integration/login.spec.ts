@@ -1,3 +1,6 @@
+import { Authentication } from "../support/authentication";
+import { createUser, deleteUser } from "../support/data/builder";
+
 describe('Login', () => {
     it('should not authenticate with invalid credentials', () => {
         cy.visit('/login');
@@ -13,15 +16,21 @@ describe('Login', () => {
     });
 
     it('should authenticate with valid credentials', () => {
-        cy.visit('/login');
-        const user = Cypress.env('user');
+        createUser(false, false).then(() => {
+            const user = Authentication.user;
+            cy.visit('/login');
 
-        cy.get('input[name="email"]').type(user.email);
-        cy.get('input[name="password"]').type(user.password);
-        cy.get('form').submit();
+            cy.get('input[name="email"]').type(user.email);
+            cy.get('input[name="password"]').type(user.password);
+            cy.get('form').submit();
 
-        cy.location().should((location) => {
-            expect(location.pathname).equals('/dashboard');
+            cy.location().should((location) => {
+                expect(location.pathname).equals('/dashboard');
+            });
+            const name = `${user.name} ${user.lastName}`;
+            cy.get('mat-sidenav').should('contain.text', name);
+
+            deleteUser();
         });
     });
 });

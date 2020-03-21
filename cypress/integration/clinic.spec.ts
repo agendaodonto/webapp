@@ -1,12 +1,17 @@
-import * as faker from 'faker';
-import { setAuth } from '../support/commands';
+import { Authentication } from '../support/authentication';
+import { deleteUser } from '../support/data/builder';
+import { faker } from '../support/faker';
 
 describe('Clinic', () => {
     beforeEach(() => {
-        setAuth();
+        Authentication.setAuth();
 
         cy.visit('/dashboard');
         cy.get('mat-sidenav').contains('Clinicas').click();
+    });
+
+    after(() => {
+        deleteUser();
     });
 
     it('should list clinics', () => {

@@ -1,8 +1,11 @@
-import { setAuth } from '../support/commands';
+import { Authentication } from '../support/authentication';
+import { deleteUser } from '../support/data/builder';
+
 
 describe('Dashboard', () => {
+
     it('should display the dashboard', () => {
-        setAuth();
+        Authentication.setAuth();
 
         cy.visit('/dashboard');
 
@@ -26,5 +29,7 @@ describe('Dashboard', () => {
             .find('p')
             .invoke('text')
             .should('match', /[0-9]+/);
+
+        deleteUser();
     });
 });
