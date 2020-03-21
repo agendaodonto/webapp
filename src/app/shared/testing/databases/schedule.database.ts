@@ -1,17 +1,17 @@
 import * as faker from 'faker/locale/pt_BR';
 
-import { ISchedule } from '../../../schedule/schedule.service';
+import { IScheduleResponse } from '../../interfaces/services/schedule.model';
 import { BaseDatabase } from './base.database';
 import { DentistDatabase } from './dentist.database';
 import { PatientDatabase } from './patient.database';
 
-export class ScheduleDatabase extends BaseDatabase<ISchedule> {
+export class ScheduleDatabase extends BaseDatabase<IScheduleResponse> {
 
     patientDatabase = new PatientDatabase();
     dentistDatabase = new DentistDatabase();
 
-    get(): ISchedule {
-        const schedule: ISchedule = {
+    get(): IScheduleResponse {
+        const schedule: IScheduleResponse = {
             id: Math.floor((Math.random() * 100) + 1),
             patient: this.patientDatabase.get(),
             dentist: this.dentistDatabase.get(),
@@ -23,7 +23,7 @@ export class ScheduleDatabase extends BaseDatabase<ISchedule> {
         return schedule;
     }
 
-    getMany(qty: number): ISchedule[] {
+    getMany(qty: number): IScheduleResponse[] {
         return new Array(qty).fill(null).map(() => this.get());
     }
 }

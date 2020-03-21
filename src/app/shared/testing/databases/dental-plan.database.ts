@@ -1,19 +1,19 @@
 import * as faker from 'faker/locale/pt_BR';
 
-import { IDentalPlan } from '../../../dental-plan/dental-plan.service';
+import { IDentalPlanResponse } from '../../interfaces/services/denta-plan.model';
 import { BaseDatabase } from './base.database';
 
-export class DentalPlanDatabase extends BaseDatabase<IDentalPlan> {
+export class DentalPlanDatabase extends BaseDatabase<IDentalPlanResponse> {
 
-    get(): IDentalPlan {
-        const plan: IDentalPlan = {
+    get(): IDentalPlanResponse {
+        const plan: IDentalPlanResponse = {
             id: Math.floor((Math.random() * 100) + 1),
             name: faker.name.firstName(),
         };
         return plan;
     }
 
-    getMany(qty: number): IDentalPlan[] {
+    getMany(qty: number): IDentalPlanResponse[] {
         return new Array(qty).fill(null).map(() => this.get());
     }
 }

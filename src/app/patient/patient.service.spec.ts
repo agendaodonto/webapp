@@ -1,14 +1,16 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { configureTestSuite } from 'ng-bullet';
+
 import { CLINICS } from '../clinic/clinic.service.spec';
 import { ScheduleFilter } from '../schedule/schedule.filter';
+import { IPatientResponse } from '../shared/interfaces/services/patient.model';
 import { BaseService } from '../shared/services/base.service';
 import { PatientDatabase } from '../shared/testing/databases/patient.database';
 import { PatientFilter } from './patient.filter';
-import { IPatient, PatientService } from './patient.service';
+import { PatientService } from './patient.service';
 
-export const PATIENTS: IPatient[] = [
+export const PATIENTS: IPatientResponse[] = [
     { id: 1, name: 'John', last_name: 'Doe', phone: '1234', sex: 'M', clinic: CLINICS[0], dental_plan: { name: 'xpto' } },
 ];
 
@@ -16,7 +18,7 @@ describe('PatientService', () => {
     let injector: TestBed;
     let service: PatientService;
     let httpMock: HttpTestingController;
-    let patient: IPatient;
+    let patient: IPatientResponse;
 
     configureTestSuite(() => {
         TestBed.configureTestingModule({

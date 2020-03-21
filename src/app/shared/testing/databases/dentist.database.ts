@@ -1,13 +1,13 @@
 import * as faker from 'faker/locale/pt_BR';
 
-import { IDentist } from '../../services/dentist.service';
+import { IDentistResponse } from '../../interfaces/services/dentist.model';
 import { BaseDatabase } from './base.database';
 
-export class DentistDatabase extends BaseDatabase<IDentist> {
+export class DentistDatabase extends BaseDatabase<IDentistResponse> {
 
-    get(): IDentist {
+    get(): IDentistResponse {
         const cro = Math.floor((Math.random() * 10000) + 1);
-        const dentist: IDentist = {
+        const dentist: IDentistResponse = {
             id: Math.floor((Math.random() * 100) + 1),
             cro: cro.toString(),
             cro_state: 'SP',
@@ -19,7 +19,7 @@ export class DentistDatabase extends BaseDatabase<IDentist> {
         return dentist;
     }
 
-    getMany(qty: number): IDentist[] {
+    getMany(qty: number): IDentistResponse[] {
         return new Array(qty).fill(null).map(() => this.get());
     }
 }

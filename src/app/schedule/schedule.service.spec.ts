@@ -1,14 +1,15 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { getTestBed, TestBed } from '@angular/core/testing';
-
 import { configureTestSuite } from 'ng-bullet';
+
 import { PATIENTS } from '../patient/patient.service.spec';
+import { IScheduleResponse } from '../shared/interfaces/services/schedule.model';
 import { BaseService } from '../shared/services/base.service';
 import { DENTISTS } from '../shared/services/dentist.service.spec';
 import { ScheduleFilter } from './schedule.filter';
-import { ISchedule, ScheduleService } from './schedule.service';
+import { ScheduleService } from './schedule.service';
 
-export const SCHEDULES: ISchedule[] = [
+export const SCHEDULES: IScheduleResponse[] = [
     {
         id: 1,
         date: '2018-01-29T19:12:49.690973Z',

@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, Sort } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { IPatientResponse } from '../shared/interfaces/services/patient.model';
 import { getMatchedField, getReversedMatchField, IMatcher } from '../shared/util';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { PatientDatasource } from './patient.datasource';
 import { PatientFilter } from './patient.filter';
-import { IPatient, PatientService } from './patient.service';
+import { PatientService } from './patient.service';
 
 @Component({
     selector: 'app-patient',
@@ -14,7 +15,7 @@ import { IPatient, PatientService } from './patient.service';
     styleUrls: ['./patient.component.scss'],
 })
 export class PatientComponent implements OnInit {
-    patients: IPatient[] = [];
+    patients: IPatientResponse[] = [];
     isLoading = true;
     patientCount = 0;
     sortBy = 'name';
@@ -64,7 +65,7 @@ export class PatientComponent implements OnInit {
         );
     }
 
-    rowClicked(rowData: IPatient) {
+    rowClicked(rowData: IPatientResponse) {
         this.router.navigate([`/pacientes/${rowData.id}`]);
     }
 
