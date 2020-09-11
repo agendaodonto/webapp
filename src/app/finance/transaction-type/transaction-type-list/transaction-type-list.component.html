@@ -1,0 +1,24 @@
+<ng-container *ngIf="hasResult$ | async">
+    <mat-table [dataSource]="rows$">
+        <ng-container matColumnDef="code">
+            <mat-header-cell *matHeaderCellDef> Código </mat-header-cell>
+            <mat-cell *matCellDef="let transactionType"> {{ transactionType.code }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="label">
+            <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+            <mat-cell *matCellDef="let transactionType"> {{ transactionType.label }} </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator [length]="count$ | async" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+</ng-container>
+
+<app-empty-state image="empty-box" *ngIf="empty$ | async">
+    <p>Você não possui nenhum tipo de despesa cadastrado</p>
+</app-empty-state>
+
+<app-empty-state image="empty-box" *ngIf="error$ | async">
+    <p>Ocorreu um erro ao recuperar os tipos de despesas</p>
+</app-empty-state>

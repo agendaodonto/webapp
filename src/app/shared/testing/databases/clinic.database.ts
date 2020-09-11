@@ -17,7 +17,4 @@ export class ClinicDatabase extends BaseDatabase<IClinicResponse> {
         return clinic;
     }
 
-    getMany(qty: number): IClinicResponse[] {
-        return new Array(qty).fill(null).map(() => this.get());
-    }
 }

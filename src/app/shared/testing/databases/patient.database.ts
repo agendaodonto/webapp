@@ -23,7 +23,4 @@ export class PatientDatabase extends BaseDatabase<IPatientResponse> {
         return patient;
     }
 
-    getMany(qty: number): IPatientResponse[] {
-        return new Array(qty).fill(null).map(() => this.get());
-    }
 }

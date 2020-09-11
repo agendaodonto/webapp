@@ -13,7 +13,4 @@ export class DentalPlanDatabase extends BaseDatabase<IDentalPlanResponse> {
         return plan;
     }
 
-    getMany(qty: number): IDentalPlanResponse[] {
-        return new Array(qty).fill(null).map(() => this.get());
-    }
 }

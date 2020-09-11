@@ -35,8 +35,8 @@ export class AppComponent implements OnInit {
         { name: 'Pacientes', link: '/pacientes', requiresLogin: true, hideWhenLogged: false },
         {
             name: 'Financeiro', requiresLogin: true, hideWhenLogged: false, submenus: [
-                { name: 'Tipos de Despesas', link: '/tipo-transacao' }
-            ]
+                { name: 'Tipos de Despesas', link: '/tipo-transacao' },
+            ],
         },
         { name: 'Agenda', link: '/agenda', requiresLogin: true, hideWhenLogged: false },
         { name: 'Login', link: '/login', requiresLogin: false, hideWhenLogged: true },

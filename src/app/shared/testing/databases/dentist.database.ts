@@ -19,7 +19,4 @@ export class DentistDatabase extends BaseDatabase<IDentistResponse> {
         return dentist;
     }
 
-    getMany(qty: number): IDentistResponse[] {
-        return new Array(qty).fill(null).map(() => this.get());
-    }
 }
