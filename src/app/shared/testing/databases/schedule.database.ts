@@ -23,7 +23,4 @@ export class ScheduleDatabase extends BaseDatabase<IScheduleResponse> {
         return schedule;
     }
 
-    getMany(qty: number): IScheduleResponse[] {
-        return new Array(qty).fill(null).map(() => this.get());
-    }
 }
