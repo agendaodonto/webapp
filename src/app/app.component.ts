@@ -7,9 +7,15 @@ import { LoginService } from './login/login.service';
 
 interface IMenu {
     name: string;
-    link: string;
+    link?: string;
     requiresLogin: boolean;
     hideWhenLogged: boolean;
+    submenus?: ISubmenu[];
+}
+
+interface ISubmenu {
+    name: string;
+    link?: string;
 }
 
 type Display = 'desktop' | 'mobile';
@@ -27,6 +33,11 @@ export class AppComponent implements OnInit {
         { name: 'Clinicas', link: '/clinicas', requiresLogin: true, hideWhenLogged: false },
         { name: 'Planos', link: '/planos', requiresLogin: true, hideWhenLogged: false },
         { name: 'Pacientes', link: '/pacientes', requiresLogin: true, hideWhenLogged: false },
+        {
+            name: 'Financeiro', requiresLogin: true, hideWhenLogged: false, submenus: [
+                { name: 'Tipos de Despesas', link: '/tipo-transacao' }
+            ]
+        },
         { name: 'Agenda', link: '/agenda', requiresLogin: true, hideWhenLogged: false },
         { name: 'Login', link: '/login', requiresLogin: false, hideWhenLogged: true },
         { name: 'Sobre', link: '/sobre', requiresLogin: false, hideWhenLogged: false },
@@ -38,7 +49,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-     window.dispatchEvent(new Event('resize'));
+        window.dispatchEvent(new Event('resize'));
     }
 
     logout() {

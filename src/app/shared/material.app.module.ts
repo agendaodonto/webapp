@@ -7,6 +7,7 @@ import {
     MatChipsModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatExpansionModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
@@ -51,6 +52,7 @@ const IMPORT_LIST = [
     MatCheckboxModule,
     MatTooltipModule,
     MatSortModule,
+    MatExpansionModule,
 ];
 @NgModule({
     imports: [IMPORT_LIST],
