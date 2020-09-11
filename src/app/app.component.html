@@ -1,16 +1,31 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav>
     <div class="sidenav-header">
-      <img class="sidenav-image" src="https://www.gravatar.com/avatar/{{ getProfileUrl() }}?d=http%3A%2F%2Fi.imgur.com%2FtwA93qd.jpg">
+      <img class="sidenav-image"
+        src="https://www.gravatar.com/avatar/{{ getProfileUrl() }}?d=http%3A%2F%2Fi.imgur.com%2FtwA93qd.jpg">
       <p *ngIf="loginService.isLogged()">
         {{ loginService.getLocalUserInfo()?.first_name + " " +loginService.getLocalUserInfo()?.last_name}}
       </p>
     </div>
     <mat-list>
       <ng-container *ngFor="let menu of sideNavMenus">
-        <mat-list-item class="link" routerLinkActive="active" [routerLink]="[menu.link]" (click)="closeSideNav()" *ngIf="shouldDisplayMenu(menu)">
+        <mat-list-item class="link" routerLinkActive="active" [routerLink]="[menu.link]" (click)="closeSideNav()"
+          *ngIf="shouldDisplayMenu(menu) && !menu.submenus">
           {{ menu.name }}
         </mat-list-item>
+
+        <mat-accordion *ngIf="shouldDisplayMenu(menu) && menu.submenus">
+          <mat-expansion-panel class="mat-elevation-z0">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{menu.name}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list-item class="link" routerLinkActive="active" [routerLink]="[submenu.link]" (click)="closeSideNav()" *ngFor="let submenu of menu.submenus">
+              {{ submenu.name }}
+            </mat-list-item>
+          </mat-expansion-panel>
+        </mat-accordion>
       </ng-container>
       <mat-list-item class="link" (click)="logout()" *ngIf="loginService.isLogged()">
         Sair
