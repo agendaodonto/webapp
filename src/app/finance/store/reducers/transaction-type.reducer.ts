@@ -1,8 +1,13 @@
-import { act } from '@ngrx/effects';
 import { createReducer, on } from '@ngrx/store';
 
 import { ITransactionTypeState } from '../../shared/models/transaction-type.state';
-import { clinicSelected, loadClinics, loadClinicsError, loadClinicsSuccess, loadTransactionTypesSuccess } from '../actions/transaction-type.actions';
+import {
+    clinicSelected,
+    loadClinics,
+    loadClinicsError,
+    loadClinicsSuccess,
+    loadTransactionTypesSuccess,
+} from '../actions/transaction-type.actions';
 
 const initialState: ITransactionTypeState = {
     clinic: {
@@ -20,7 +25,7 @@ const initialState: ITransactionTypeState = {
     },
 };
 
-export const transactionTypeReducer = createReducer(initialState,
+const _transactionTypeReducer = createReducer(initialState,
     on(loadClinics, (state) => {
         return { ...state, clinic: { loading: true, empty: false, error: false, all: [] } };
     }),
@@ -46,3 +51,7 @@ export const transactionTypeReducer = createReducer(initialState,
         };
     }),
 );
+
+export function transactionTypeReducer(state, action) {
+    return _transactionTypeReducer(state, action);
+}
