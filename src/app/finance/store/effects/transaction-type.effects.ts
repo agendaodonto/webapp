@@ -29,7 +29,6 @@ export class TransactionTypeEffects {
 
     refreshClinic$ = createEffect(() => this.action$.pipe(
         ofType(loadClinics),
-        tap(() => console.log('passou aqui refreshClinic')),
         switchMap(() => {
             return this.clinicService.getAll().pipe(
                 map(clinics => loadClinicsSuccess({ clinics: clinics.results })),
@@ -40,7 +39,6 @@ export class TransactionTypeEffects {
 
     refreshTransactionType$ = createEffect(() => this.action$.pipe(
         ofType(clinicSelected),
-        tap(() => console.log('passou aqui refreshTransactionType')),
         switchMap((v) => {
             return this.transactionTypeService.getAll(v.clinic.id).pipe(
                 map(transactionTypes => loadTransactionTypesSuccess({ transactionTypes })),
@@ -51,7 +49,6 @@ export class TransactionTypeEffects {
 
     transactionTypeListPageChange$ = createEffect(() => this.action$.pipe(
         ofType(transactionTypesPageChanged),
-        tap(() => console.log('passou aqui transactionTypeListPageChange')),
         switchMap((data, clinic) => {
             const offset = data.event.pageSize * data.event.pageIndex;
             const filter = new TransactionTypeFilter();

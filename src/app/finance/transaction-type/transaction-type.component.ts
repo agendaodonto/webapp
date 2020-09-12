@@ -22,6 +22,7 @@ export class TransactionTypeComponent implements OnInit {
     empty$ = this.state$.pipe(map(v => v.clinic.empty));
     error$ = this.state$.pipe(map(v => v.clinic.error));
     loading$ = this.state$.pipe(map(v => v.clinic.loading));
+    hasClinics$ = this.state$.pipe(map(v => !v.clinic.empty && !v.clinic.error && !v.clinic.loading));
 
     constructor(private readonly store: Store<{ finance: { transactionTypes: ITransactionTypeState } }>) {
     }
