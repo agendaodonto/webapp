@@ -18,7 +18,7 @@
           <mat-expansion-panel class="mat-elevation-z0">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                {{menu.name}}
+                <p style="font-size: 16px;">{{menu.name}}</p>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-list-item class="link" routerLinkActive="active" [routerLink]="[submenu.link]" (click)="closeSideNav()" *ngFor="let submenu of menu.submenus">
