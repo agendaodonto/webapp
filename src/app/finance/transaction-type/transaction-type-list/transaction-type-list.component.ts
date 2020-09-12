@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { transactionTypesPageChanged } from '../../store/actions/transaction-typ
     selector: 'app-transaction-type-list',
     templateUrl: './transaction-type-list.component.html',
 })
-export class TransactionTypeListComponent implements AfterViewInit {
+export class TransactionTypeListComponent {
     state$ = this.store.select(m => m.finance.transactionTypes);
     empty$ = this.state$.pipe(map(v => v.transactionTypes.empty));
     error$ = this.state$.pipe(map(v => v.transactionTypes.error));
@@ -23,13 +23,12 @@ export class TransactionTypeListComponent implements AfterViewInit {
     displayedColumns = ['code', 'label'];
 
     @ViewChild(MatPaginator, { static: false })
-    paginator: MatPaginator;
-
-    constructor(private readonly store: Store<{ finance: { transactionTypes: ITransactionTypeState } }>) { }
-
-    ngAfterViewInit() {
-        this.paginator.page.subscribe((pageEvent: PageEvent) => {
+    set(paginator: MatPaginator) {
+        paginator.page.subscribe((pageEvent: PageEvent) => {
             this.store.dispatch(transactionTypesPageChanged({ event: pageEvent }));
         });
     }
+
+    constructor(private readonly store: Store<{ finance: { transactionTypes: ITransactionTypeState } }>) { }
+
 }

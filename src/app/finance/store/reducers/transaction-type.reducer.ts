@@ -6,6 +6,7 @@ import {
     loadClinics,
     loadClinicsError,
     loadClinicsSuccess,
+    loadTransactionTypesError,
     loadTransactionTypesSuccess,
 } from '../actions/transaction-type.actions';
 
@@ -33,10 +34,10 @@ const _transactionTypeReducer = createReducer(initialState,
         return { ...state, clinic: { ...state.clinic, all: action.clinics, empty: action.clinics.length === 0, error: false, loading: false } };
     }),
     on(loadClinicsError, (state) => {
-        return { ...state, error: true, clinics: [], empty: false };
+        return { ...state, clinic: { all: [], error: true, empty: false, loading: false } };
     }),
     on(clinicSelected, (state, action) => {
-        return { ...state, clinic: { ...state.clinic, selected: action.clinic }, transactionTypes: { ...state.transactionTypes, loading: true } };
+        return { ...state, clinic: { ...state.clinic, selected: action.clinic }, transactionTypes: { ...state.transactionTypes, loading: true, error: false, empty: false } };
     }),
     on(loadTransactionTypesSuccess, (state, action) => {
         return {
@@ -46,6 +47,18 @@ const _transactionTypeReducer = createReducer(initialState,
                 count: action.transactionTypes.count,
                 error: false,
                 empty: action.transactionTypes.count === 0,
+                loading: false,
+            },
+        };
+    }),
+    on(loadTransactionTypesError, (state) => {
+        return {
+            ...state,
+            transactionTypes: {
+                all: [],
+                count: 0,
+                error: true,
+                empty: false,
                 loading: false,
             },
         };

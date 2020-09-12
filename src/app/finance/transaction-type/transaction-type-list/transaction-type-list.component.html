@@ -16,9 +16,13 @@
 </ng-container>
 
 <app-empty-state image="empty-box" *ngIf="empty$ | async">
-    <p>Você não possui nenhum tipo de despesa cadastrado</p>
+    <p>Você ainda não possui nenhum tipo de despesa cadastrado</p>
+    <p>Cadastre uma agora para começar a gestão financeira</p>
 </app-empty-state>
 
 <app-empty-state image="empty-box" *ngIf="error$ | async">
-    <p>Ocorreu um erro ao recuperar os tipos de despesas</p>
+    <p>Ocorreu um erro ao recuperar os dados</p>
+    <p>Tente novamente mais tarde</p>
 </app-empty-state>
+
+<mat-progress-bar mode="query" *ngIf="loading$ | async"></mat-progress-bar>
