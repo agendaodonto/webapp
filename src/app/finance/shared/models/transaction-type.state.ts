@@ -16,6 +16,13 @@ export interface ITransactionTypeState {
         error: boolean;
         empty: boolean;
     };
+    transactionTypeDetail: {
+        id?: number;
+        loading: boolean;
+        error: boolean;
+        data?: TransactionTypeDomain;
+        submitting: boolean;
+    };
 }
 
 // export interface ITransactionTypeFilterState {

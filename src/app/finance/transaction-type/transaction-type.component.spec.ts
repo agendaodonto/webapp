@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { Mock, MockFactory } from 'jasmine-mock-factory';
@@ -39,7 +40,9 @@ describe('TransactionTypeComponent', () => {
                 StoreModule.forRoot({}, {}),
                 EffectsModule.forRoot([]),
                 EffectsModule.forFeature([TransactionTypeEffects]),
-                NoopAnimationsModule],
+                NoopAnimationsModule,
+                RouterTestingModule,
+            ],
             declarations: [TransactionTypeComponent, TransactionTypeListComponent],
             providers: [
                 provide(ClinicService), provide(TransactionTypeService),
