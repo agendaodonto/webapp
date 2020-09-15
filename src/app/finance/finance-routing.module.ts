@@ -7,6 +7,7 @@ import { TransactionTypeComponent } from './transaction-type/transaction-type.co
 const routes: Routes = [
     { path: 'tipo-transacao', component: TransactionTypeComponent },
     { path: 'tipo-transacao/detalhe', component: TransactionTypeDetailComponent },
+    { path: 'tipo-transacao/criar', component: TransactionTypeDetailComponent },
 ];
 
 @NgModule({
