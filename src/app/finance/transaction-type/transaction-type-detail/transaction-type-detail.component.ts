@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 import { IAppState } from 'src/app/shared/state/app-state.interface';
 import { CustomFB, CustomFG } from 'src/app/shared/validation';
+import { TransactionTypeDomain } from '../../shared/models/transaction-type.domain';
 
 import { deleteTransactionType, saveTransactionType } from '../../store/actions/transaction-type.actions';
 
@@ -36,16 +37,17 @@ export class TransactionTypeDetailComponent implements OnInit {
         this.state$.pipe(
             map(v => v.transactionTypeDetail.data),
             filter(v => !!v),
+            distinctUntilChanged(),
         ).subscribe(data => {
             this.transactionTypeForm.setValue({ ...data });
         });
     }
 
     onSubmit() {
-        this.store.dispatch(saveTransactionType({transactionType: this.transactionTypeForm.value}));
+        this.store.dispatch(saveTransactionType({transactionType: TransactionTypeDomain.fromObject(this.transactionTypeForm.value)}));
     }
 
     onDelete() {
-        this.store.dispatch(deleteTransactionType({ transactionType: this.transactionTypeForm.value}));
+        this.store.dispatch(deleteTransactionType({ transactionType: TransactionTypeDomain.fromObject(this.transactionTypeForm.value)}));
     }
 }

@@ -12,4 +12,12 @@ export class TransactionTypeDomain {
         domain.label = response.label;
         return domain;
     }
+
+    static fromObject(value: any): TransactionTypeDomain {
+        const domain = new TransactionTypeDomain();
+        domain.id = value.id;
+        domain.code = +value.code;
+        domain.label = value.label;
+        return domain;
+    }
 }
