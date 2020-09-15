@@ -42,7 +42,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-            <tr class="hoverable" mat-row *matRowDef="let rowData; columns: columnsToDisplay"
+            <tr class="actionable" mat-row *matRowDef="let rowData; columns: columnsToDisplay"
                 (click)="rowClicked(rowData)">
 
             </tr>
