@@ -2,7 +2,9 @@
     <mat-card-title>
         <span>Tipos de Despesas </span>
     </mat-card-title>
-
+    <div class="app-actions" fxLayoutAlign="end center">
+        <a mat-raised-button color="accent" [routerLink]="['/tipo-transacao', 'criar']">Novo</a>
+    </div>
     <ng-container *ngIf="hasClinics$ | async">
         <mat-form-field>
             <mat-select placeholder="Clinica" [value]="selectedClinic$ | async"
