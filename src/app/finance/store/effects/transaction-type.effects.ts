@@ -37,7 +37,7 @@ export class TransactionTypeEffects {
         private readonly store: Store<IAppState>,
     ) { }
 
-    refreshClinic$ = createEffect(() => this.action$.pipe(
+    loadClinics$ = createEffect(() => this.action$.pipe(
         ofType(loadClinics),
         switchMap(() => {
             return this.clinicService.getAll().pipe(
@@ -47,7 +47,7 @@ export class TransactionTypeEffects {
         }),
     ));
 
-    refreshTransactionType$ = createEffect(() => this.action$.pipe(
+    clinicSelected$ = createEffect(() => this.action$.pipe(
         ofType(clinicSelected),
         switchMap((v) => {
             return this.transactionTypeService.getAll(v.clinic.id).pipe(
@@ -75,11 +75,9 @@ export class TransactionTypeEffects {
         withLatestFrom(this.store.select(s => s.finance.transactionTypes.clinic.selected)),
         switchMap(([data, clinic]) => {
             this.router.navigate(['tipo-transacao/detalhe']);
-
             if (!clinic) {
                 return of(loadTransactionTypesError());
             }
-
             return this.transactionTypeService.get(clinic.id, data.transactionTypeId).pipe(
                 map(transactionType => loadTransactionTypeDetailSuccess({ transactionType })),
                 catchError(() => of(loadTransactionTypeDetailError())),

@@ -5,13 +5,13 @@
 
         <div fxLayout="row">
             <mat-form-field fxFlex="100">
-                <input matInput placeholder="Descrição" formControlName="label">
+                <input matInput placeholder="Descrição" formControlName="label" id="transaction-type-label">
                 <mat-error> {{ transactionTypeForm.getControlMessages('label') }} </mat-error>
             </mat-form-field>
         </div>
         <div fxLayout="row">
             <mat-form-field fxFlex="100">
-                <input matInput placeholder="Código" formControlName="code">
+                <input matInput placeholder="Código" formControlName="code" id="transaction-type-code">
                 <mat-error> {{ transactionTypeForm.getControlMessages('code') }} </mat-error>
             </mat-form-field>
         </div>
