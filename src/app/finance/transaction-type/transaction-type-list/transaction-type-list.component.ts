@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 
 import { ITransactionTypeState } from '../../shared/models/transaction-type.state';
-import { transactionTypesPageChanged } from '../../store/actions/transaction-type.actions';
+import { loadTransactionTypeDetail, transactionTypesPageChanged } from '../../store/actions/transaction-type.actions';
 
 @Component({
     selector: 'app-transaction-type-list',
@@ -29,6 +29,11 @@ export class TransactionTypeListComponent {
         });
     }
 
-    constructor(private readonly store: Store<{ finance: { transactionTypes: ITransactionTypeState } }>) { }
+    constructor(
+        private readonly store: Store<{ finance: { transactionTypes: ITransactionTypeState } }>,
+    ) { }
 
+    viewTransactionType(transactionTypeId: number) {
+        this.store.dispatch(loadTransactionTypeDetail({ transactionTypeId }));
+    }
 }

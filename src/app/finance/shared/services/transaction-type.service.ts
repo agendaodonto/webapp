@@ -30,11 +30,36 @@ export class TransactionTypeService extends BaseService {
         );
     }
 
-    create(transaction: TransactionTypeDomain): Observable<TransactionTypeDomain> {
-        const url = this.url(['finance/transaction-types', transaction.clinic]);
+    get(clinicId: number, transactionId: number): Observable<TransactionTypeDomain> {
+        const url = this.url(['finance/transaction-types', clinicId, transactionId]);
 
-        return this.http.post<ITransactionTypeResponse>(url, transaction).pipe(
-            map(response => TransactionTypeDomain.fromResponse(response)),
-        );
+        return this.http.get<ITransactionTypeResponse>(url).pipe(map(TransactionTypeDomain.fromResponse));
     }
+
+    delete(clinicId: number, transactionId: number): Observable<void> {
+        const url = this.url(['finance/transaction-types', clinicId, transactionId]);
+
+        return this.http.delete<void>(url);
+    }
+
+    create(clinicId: number, transactionType: TransactionTypeDomain): Observable<void> {
+        const url = this.url(['finance/transaction-types', clinicId]);
+
+        return this.http.post<void>(url, transactionType);
+    }
+
+    update(clinicId: number, transactionType: TransactionTypeDomain): Observable<void> {
+        const url = this.url(['finance/transaction-types', clinicId, transactionType.id]);
+
+        return this.http.put<void>(url, transactionType);
+    }
+
+    save(clinicId: number, transactionType: TransactionTypeDomain): Observable<void> {
+        if (transactionType.id) {
+            return this.update(clinicId, transactionType);
+        } else {
+            return this.create(clinicId, transactionType);
+        }
+    }
+
 }

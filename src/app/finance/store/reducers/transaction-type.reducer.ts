@@ -3,11 +3,17 @@ import { createReducer, on } from '@ngrx/store';
 import { ITransactionTypeState } from '../../shared/models/transaction-type.state';
 import {
     clinicSelected,
+    crudTransactionTypeError,
+    crudTransactionTypeSuccess,
+    deleteTransactionType,
     loadClinics,
     loadClinicsError,
     loadClinicsSuccess,
+    loadTransactionTypeDetail,
+    loadTransactionTypeDetailSuccess,
     loadTransactionTypesError,
     loadTransactionTypesSuccess,
+    saveTransactionType,
 } from '../actions/transaction-type.actions';
 
 const initialState: ITransactionTypeState = {
@@ -23,6 +29,11 @@ const initialState: ITransactionTypeState = {
         empty: false,
         error: false,
         loading: false,
+    },
+    transactionTypeDetail: {
+        loading: false,
+        error: false,
+        submitting: false,
     },
 };
 
@@ -60,6 +71,82 @@ const _transactionTypeReducer = createReducer(initialState,
                 error: true,
                 empty: false,
                 loading: false,
+            },
+        };
+    }),
+    on(loadTransactionTypeDetail, ((state, action) => {
+        return {
+            ...state,
+            transactionTypeDetail: {
+                id: action.transactionTypeId,
+                loading: true,
+                error: false,
+                submitting: false,
+            },
+        };
+    })),
+    on(loadTransactionTypeDetailSuccess, ((state, action) => {
+        return {
+            ...state,
+            transactionTypeDetail: {
+                ...state.transactionTypeDetail,
+                loading: false,
+                error: false,
+                data: action.transactionType,
+            },
+        };
+    })),
+    on(loadTransactionTypesError, state => {
+        return {
+            ...state,
+            transactionTypeDetail: {
+                ...state.transactionTypeDetail,
+                loading: false,
+                error: true,
+            },
+        };
+    }),
+    on(saveTransactionType, state => {
+        return {
+            ...state,
+            transactionTypeDetail: {
+                ...state.transactionTypeDetail,
+                loading: false,
+                error: false,
+                submitting: true,
+            },
+        };
+    }),
+    on(deleteTransactionType, state => {
+        return {
+            ...state,
+            transactionTypeDetail: {
+                ...state.transactionTypeDetail,
+                loading: false,
+                error: false,
+                submitting: true,
+            },
+        };
+    }),
+    on(crudTransactionTypeSuccess, state => {
+        return {
+            ...state,
+            transactionTypeDetail: {
+                ...state.transactionTypeDetail,
+                loading: false,
+                error: false,
+                submitting: false,
+            },
+        };
+    }),
+    on(crudTransactionTypeError, state => {
+        return {
+            ...state,
+            transactionTypeDetail: {
+                ...state.transactionTypeDetail,
+                loading: false,
+                error: false,
+                submitting: false,
             },
         };
     }),
