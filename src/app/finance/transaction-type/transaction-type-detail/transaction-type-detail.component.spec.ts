@@ -98,7 +98,7 @@ describe('TransactionTypeDetailComponent', () => {
         // Arrange
         const transactionType = ttdb.get();
         transactionTypeService._spy.get._func.and.returnValue(of(transactionType));
-        transactionTypeService._spy.save._func.and.returnValue(of());
+        transactionTypeService._spy.save._func.and.returnValue(of(null));
         store.dispatch(loadTransactionTypeDetail({ transactionTypeId: 1 }));
         fixture.detectChanges();
 
@@ -128,7 +128,7 @@ describe('TransactionTypeDetailComponent', () => {
         // Arrange
         const transactionType = ttdb.get();
         transactionTypeService._spy.get._func.and.returnValue(of(transactionType));
-        transactionTypeService._spy.delete._func.and.returnValue(of());
+        transactionTypeService._spy.delete._func.and.returnValue(of(null));
         store.dispatch(loadTransactionTypeDetail({ transactionTypeId: 1 }));
         fixture.detectChanges();
 
@@ -138,7 +138,6 @@ describe('TransactionTypeDetailComponent', () => {
         fixture.detectChanges();
 
         // Assert
-        const expectedDomain = new TransactionTypeDomain();
         expect(transactionTypeService.delete).toHaveBeenCalledTimes(1);
         expect(transactionTypeService.delete).toHaveBeenCalledWith(clinic.id, transactionType.id);
     });
