@@ -59,12 +59,18 @@ export class TransactionTypeEffects {
 
     transactionTypeListPageChange$ = createEffect(() => this.action$.pipe(
         ofType(transactionTypesPageChanged),
-        switchMap((data, clinic) => {
+        withLatestFrom(this.store.select(s => s.finance.transactionTypes.clinic.selected)),
+        switchMap(([data, clinic]) => {
+
+            if (!clinic) {
+                return of(loadTransactionTypesError());
+            }
+
             const offset = data.event.pageSize * data.event.pageIndex;
             const filter = new TransactionTypeFilter();
             filter.setFilterValue('pageSize', data.event.pageSize.toString());
             filter.setFilterValue('offset', offset.toString());
-            return this.transactionTypeService.getAll(clinic, filter).pipe(
+            return this.transactionTypeService.getAll(clinic.id, filter).pipe(
                 map(transactionTypes => loadTransactionTypesSuccess({ transactionTypes })),
             );
         }),
