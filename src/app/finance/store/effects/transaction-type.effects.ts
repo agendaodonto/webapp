@@ -112,7 +112,7 @@ export class TransactionTypeEffects {
         ofType(deleteTransactionType),
         withLatestFrom(this.store.select(s => s.finance.transactionTypes.clinic.selected)),
         switchMap(([data, clinic]) => {
-            if (!clinic) {
+            if (!clinic || !data.transactionType.id) {
                 return of(crudTransactionTypeError());
             }
 

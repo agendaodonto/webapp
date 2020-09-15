@@ -102,6 +102,6 @@ describe('TransactionTypeComponent', () => {
 
         // Assert
         expect(router.navigate).toHaveBeenCalledWith(['tipo-transacao/detalhe']);
-        expect(transactionTypeService.get).toHaveBeenCalledWith(clinics.results[0].id, transactionTypes.results[0].id);
+        expect(transactionTypeService.get).toHaveBeenCalledWith(clinics.results[0].id, transactionTypes.results[0].id!);
     });
 });
