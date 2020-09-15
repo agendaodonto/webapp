@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ITransactionTypeState } from '../../shared/models/transaction-type.state';
@@ -20,13 +21,20 @@ export class TransactionTypeListComponent {
 
     rows$ = this.state$.pipe(map(v => v.transactionTypes.all));
 
-    displayedColumns = ['code', 'label'];
+    subscription: Subscription;
 
+    displayedColumns = ['code', 'label'];
     @ViewChild(MatPaginator, { static: false })
-    set(paginator: MatPaginator) {
-        paginator.page.subscribe((pageEvent: PageEvent) => {
-            this.store.dispatch(transactionTypesPageChanged({ event: pageEvent }));
-        });
+    set paginator(paginator: MatPaginator) {
+        if (paginator) {
+            if (this.subscription) {
+                this.subscription.unsubscribe();
+            }
+            this.subscription = paginator.page.subscribe((pageEvent: PageEvent) => {
+                this.store.dispatch(transactionTypesPageChanged({ event: pageEvent }));
+            });
+        }
+
     }
 
     constructor(
