@@ -20,8 +20,11 @@ import { ClinicDatabase } from '../../../shared/testing/databases/clinic.databas
 import { provideMock } from '../../../shared/testing/provide-mock';
 import { TransactionTypeDomain } from '../../shared/models/transaction-type.domain';
 import { TransactionTypeService } from '../../shared/services/transaction-type.service';
-import { clinicSelected, loadTransactionTypeDetail } from '../../store/actions/transaction-type.actions';
+import { clinicSelected } from '../../store/actions/clinic.action';
+import { loadTransactionTypeDetail } from '../../store/actions/transaction-type.actions';
+import { ClinicEffects } from '../../store/effects/clinic.effect';
 import { TransactionTypeEffects } from '../../store/effects/transaction-type.effects';
+import { clinicReducer } from '../../store/reducers/clinic.reducer';
 import { transactionTypeReducer } from '../../store/reducers/transaction-type.reducer';
 import { TransactionTypeDetailComponent } from './transaction-type-detail.component';
 
@@ -42,10 +45,10 @@ describe('TransactionTypeDetailComponent', () => {
             imports: [
                 MaterialAppModule,
                 SharedComponentsModule,
-                StoreModule.forFeature('finance', { transactionTypes: transactionTypeReducer }),
+                StoreModule.forFeature('finance', { transactionTypes: transactionTypeReducer, clinic: clinicReducer }),
                 StoreModule.forRoot({}, {}),
                 EffectsModule.forRoot([]),
-                EffectsModule.forFeature([TransactionTypeEffects]),
+                EffectsModule.forFeature([TransactionTypeEffects, ClinicEffects]),
                 NoopAnimationsModule,
                 RouterTestingModule,
                 DirectivesModule,

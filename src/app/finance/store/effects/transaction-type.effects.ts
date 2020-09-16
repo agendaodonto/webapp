@@ -4,22 +4,18 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { ClinicService } from 'src/app/clinic/clinic.service';
 import { IAppState } from 'src/app/shared/state/app-state.interface';
 
 import { TransactionTypeFilter } from '../../shared/services/transaction-type.filter';
 import { TransactionTypeService } from '../../shared/services/transaction-type.service';
 import {
-    clinicSelected,
     crudTransactionTypeError,
     crudTransactionTypeSuccess,
     deleteTransactionType,
-    loadClinics,
-    loadClinicsError,
-    loadClinicsSuccess,
     loadTransactionTypeDetail,
     loadTransactionTypeDetailError,
     loadTransactionTypeDetailSuccess,
+    loadTransactionTypes,
     loadTransactionTypesError,
     loadTransactionTypesSuccess,
     saveTransactionType,
@@ -31,24 +27,13 @@ export class TransactionTypeEffects {
 
     constructor(
         private readonly action$: Actions,
-        private readonly clinicService: ClinicService,
         private readonly transactionTypeService: TransactionTypeService,
         private readonly router: Router,
         private readonly store: Store<IAppState>,
     ) { }
 
-    loadClinics$ = createEffect(() => this.action$.pipe(
-        ofType(loadClinics),
-        switchMap(() => {
-            return this.clinicService.getAll().pipe(
-                map(clinics => loadClinicsSuccess({ clinics: clinics.results })),
-                catchError(() => of(loadClinicsError()),
-                ));
-        }),
-    ));
-
-    clinicSelected$ = createEffect(() => this.action$.pipe(
-        ofType(clinicSelected),
+    loadTransactionTypes$ = createEffect(() => this.action$.pipe(
+        ofType(loadTransactionTypes),
         switchMap((v) => {
             return this.transactionTypeService.getAll(v.clinic.id).pipe(
                 map(transactionTypes => loadTransactionTypesSuccess({ transactionTypes })),
@@ -59,7 +44,7 @@ export class TransactionTypeEffects {
 
     transactionTypeListPageChange$ = createEffect(() => this.action$.pipe(
         ofType(transactionTypesPageChanged),
-        withLatestFrom(this.store.select(s => s.finance.transactionTypes.clinic.selected)),
+        withLatestFrom(this.store.select(s => s.finance.clinic.selected)),
         switchMap(([data, clinic]) => {
 
             if (!clinic) {
@@ -78,7 +63,7 @@ export class TransactionTypeEffects {
 
     viewTransactionTypeDetail$ = createEffect(() => this.action$.pipe(
         ofType(loadTransactionTypeDetail),
-        withLatestFrom(this.store.select(s => s.finance.transactionTypes.clinic.selected)),
+        withLatestFrom(this.store.select(s => s.finance.clinic.selected)),
         switchMap(([data, clinic]) => {
             this.router.navigate(['tipo-transacao/detalhe']);
             if (!clinic) {
@@ -93,7 +78,7 @@ export class TransactionTypeEffects {
 
     saveTransactionType$ = createEffect(() => this.action$.pipe(
         ofType(saveTransactionType),
-        withLatestFrom(this.store.select(s => s.finance.transactionTypes.clinic.selected)),
+        withLatestFrom(this.store.select(s => s.finance.clinic.selected)),
         switchMap(([data, clinic]) => {
 
             if (!clinic) {
@@ -110,7 +95,7 @@ export class TransactionTypeEffects {
 
     deleteTransactionType$ = createEffect(() => this.action$.pipe(
         ofType(deleteTransactionType),
-        withLatestFrom(this.store.select(s => s.finance.transactionTypes.clinic.selected)),
+        withLatestFrom(this.store.select(s => s.finance.clinic.selected)),
         switchMap(([data, clinic]) => {
             if (!clinic || !data.transactionType.id) {
                 return of(crudTransactionTypeError());

@@ -11,7 +11,9 @@ import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { FinanceRoutingModule } from './finance-routing.module';
 import { TransactionTypeService } from './shared/services/transaction-type.service';
+import { ClinicEffects } from './store/effects/clinic.effect';
 import { TransactionTypeEffects } from './store/effects/transaction-type.effects';
+import { clinicReducer } from './store/reducers/clinic.reducer';
 import { transactionTypeReducer } from './store/reducers/transaction-type.reducer';
 import {
     TransactionTypeDetailComponent,
@@ -26,8 +28,8 @@ import { TransactionTypeComponent } from './transaction-type/transaction-type.co
         MaterialAppModule,
         FlexLayoutModule,
         SharedComponentsModule,
-        StoreModule.forFeature('finance', { transactionTypes: transactionTypeReducer }),
-        EffectsModule.forFeature([TransactionTypeEffects]),
+        StoreModule.forFeature('finance', { transactionTypes: transactionTypeReducer, clinic: clinicReducer }),
+        EffectsModule.forFeature([TransactionTypeEffects, ClinicEffects]),
         FormsModule,
         DirectivesModule,
         ReactiveFormsModule,

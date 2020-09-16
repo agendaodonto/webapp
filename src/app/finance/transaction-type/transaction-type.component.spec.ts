@@ -15,7 +15,9 @@ import { TransactionTypeDatabase } from 'src/app/shared/testing/databases/transa
 
 import { provideMock } from '../../shared/testing/provide-mock';
 import { TransactionTypeService } from '../shared/services/transaction-type.service';
+import { ClinicEffects } from '../store/effects/clinic.effect';
 import { TransactionTypeEffects } from '../store/effects/transaction-type.effects';
+import { clinicReducer } from '../store/reducers/clinic.reducer';
 import { transactionTypeReducer } from '../store/reducers/transaction-type.reducer';
 import { TransactionTypeListComponent } from './transaction-type-list/transaction-type-list.component';
 import { TransactionTypeComponent } from './transaction-type.component';
@@ -35,10 +37,10 @@ describe('TransactionTypeComponent', () => {
             imports: [
                 MaterialAppModule,
                 SharedComponentsModule,
-                StoreModule.forFeature('finance', { transactionTypes: transactionTypeReducer }),
+                StoreModule.forFeature('finance', { transactionTypes: transactionTypeReducer, clinic: clinicReducer }),
                 StoreModule.forRoot({}, {}),
                 EffectsModule.forRoot([]),
-                EffectsModule.forFeature([TransactionTypeEffects]),
+                EffectsModule.forFeature([TransactionTypeEffects, ClinicEffects]),
                 NoopAnimationsModule,
                 RouterTestingModule,
             ],
