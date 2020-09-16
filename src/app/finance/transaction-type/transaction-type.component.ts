@@ -6,7 +6,7 @@ import { hasValue } from '../../shared/operators/has-value.operator';
 
 import { IAppState } from '../../shared/state/app-state.interface';
 import { clinicSelected, loadClinics } from '../store/actions/clinic.action';
-import { loadTransactionTypes } from '../store/actions/transaction-type.actions';
+import { loadTransactionTypes } from '../store/actions/transaction-type.action';
 
 @Component({
     selector: 'app-transaction-type',
@@ -31,11 +31,9 @@ export class TransactionTypeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.clinic$
-            .pipe(filter(response => response.length > 0))
-            .subscribe(clinics => {
-                this.store.dispatch(clinicSelected({ clinic: clinics[0] }));
-            });
+        this.clinic$.subscribe(clinics => {
+            this.store.dispatch(clinicSelected({ clinic: clinics[0] }));
+        });
 
         this.selectedClinic$
             .pipe(hasValue())

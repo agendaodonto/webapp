@@ -21,7 +21,7 @@ import { provideMock } from '../../../shared/testing/provide-mock';
 import { TransactionTypeDomain } from '../../shared/models/transaction-type.domain';
 import { TransactionTypeService } from '../../shared/services/transaction-type.service';
 import { clinicSelected } from '../../store/actions/clinic.action';
-import { loadTransactionTypeDetail } from '../../store/actions/transaction-type.actions';
+import { loadTransactionTypeDetail } from '../../store/actions/transaction-type.action';
 import { ClinicEffects } from '../../store/effects/clinic.effect';
 import { TransactionTypeEffects } from '../../store/effects/transaction-type.effects';
 import { clinicReducer } from '../../store/reducers/clinic.reducer';

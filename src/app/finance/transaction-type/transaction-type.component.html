@@ -12,9 +12,6 @@
                 <mat-option [value]="clinic" *ngFor="let clinic of clinic$ | async">{{clinic.name}}</mat-option>
             </mat-select>
         </mat-form-field>
-        <div fxLayout="row" fxLayoutAlign="end end">
-
-        </div>
         <app-transaction-type-list></app-transaction-type-list>
     </ng-container>
 

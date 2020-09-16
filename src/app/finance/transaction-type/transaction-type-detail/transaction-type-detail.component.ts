@@ -7,7 +7,7 @@ import { CustomFB, CustomFG } from 'src/app/shared/validation';
 
 import { hasValue } from '../../../shared/operators/has-value.operator';
 import { TransactionTypeDomain } from '../../shared/models/transaction-type.domain';
-import { deleteTransactionType, saveTransactionType } from '../../store/actions/transaction-type.actions';
+import { deleteTransactionType, saveTransactionType } from '../../store/actions/transaction-type.action';
 
 @Component({
     selector: 'app-transaction-type-detail',
