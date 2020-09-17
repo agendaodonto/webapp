@@ -20,7 +20,7 @@ import {
     loadTransactionTypesSuccess,
     saveTransactionType,
     transactionTypesPageChanged,
-} from '../actions/transaction-type.actions';
+} from '../actions/transaction-type.action';
 
 @Injectable()
 export class TransactionTypeEffects {

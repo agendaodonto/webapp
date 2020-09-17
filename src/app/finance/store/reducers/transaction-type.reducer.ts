@@ -11,7 +11,7 @@ import {
     loadTransactionTypesError,
     loadTransactionTypesSuccess,
     saveTransactionType,
-} from '../actions/transaction-type.actions';
+} from '../actions/transaction-type.action';
 
 const initialState: ITransactionTypeState = {
     transactionTypes: {

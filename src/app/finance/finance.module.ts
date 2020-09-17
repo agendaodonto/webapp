@@ -11,15 +11,19 @@ import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { FinanceRoutingModule } from './finance-routing.module';
 import { TransactionTypeService } from './shared/services/transaction-type.service';
+import { TransactionService } from './shared/services/transaction.service';
 import { ClinicEffects } from './store/effects/clinic.effect';
 import { TransactionTypeEffects } from './store/effects/transaction-type.effects';
+import { TransactionEffects } from './store/effects/transaction.effects';
 import { clinicReducer } from './store/reducers/clinic.reducer';
 import { transactionTypeReducer } from './store/reducers/transaction-type.reducer';
+import { transactionReducer } from './store/reducers/transaction.reducer';
 import {
     TransactionTypeDetailComponent,
 } from './transaction-type/transaction-type-detail/transaction-type-detail.component';
 import { TransactionTypeListComponent } from './transaction-type/transaction-type-list/transaction-type-list.component';
 import { TransactionTypeComponent } from './transaction-type/transaction-type.component';
+import { TransactionListComponent } from './transactions/transaction-list/transaction-list.component';
 
 @NgModule({
     imports: [
@@ -28,8 +32,8 @@ import { TransactionTypeComponent } from './transaction-type/transaction-type.co
         MaterialAppModule,
         FlexLayoutModule,
         SharedComponentsModule,
-        StoreModule.forFeature('finance', { transactionTypes: transactionTypeReducer, clinic: clinicReducer }),
-        EffectsModule.forFeature([TransactionTypeEffects, ClinicEffects]),
+        StoreModule.forFeature('finance', { transactionTypes: transactionTypeReducer, clinic: clinicReducer, transactions: transactionReducer }),
+        EffectsModule.forFeature([TransactionTypeEffects, ClinicEffects, TransactionEffects]),
         FormsModule,
         DirectivesModule,
         ReactiveFormsModule,
@@ -38,11 +42,12 @@ import { TransactionTypeComponent } from './transaction-type/transaction-type.co
         TransactionTypeComponent,
         TransactionTypeListComponent,
         TransactionTypeDetailComponent,
+        TransactionListComponent,
     ],
     providers: [
         ClinicService,
-        TransactionTypeEffects,
         TransactionTypeService,
+        TransactionService,
     ],
 })
 export class FinanceModule { }
