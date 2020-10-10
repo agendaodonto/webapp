@@ -36,7 +36,7 @@ export class PatientDetailComponent extends BaseComponent implements OnInit {
     isSubmitting = false;
     filteredPlans: Observable<IPagedResponse<IDentalPlanResponse>>;
     datasource: PatientSchedulesDataSource;
-    columnsToDisplay = ['scheduleDate'];
+    columnsToDisplay = ['scheduleDate', 'scheduleStatus'];
 
     constructor(
         private dialog: MatDialog,

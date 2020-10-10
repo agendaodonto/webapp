@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 import { ClinicService } from '../clinic/clinic.service';
 import { DentalPlanService } from '../dental-plan/dental-plan.service';
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
+import { SharedComponentsModule } from '../shared/components/shared-components.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { MaterialAppModule } from '../shared/material.app.module';
 import { ClinicDatabase } from '../shared/testing/databases/clinic.database';
@@ -45,6 +46,7 @@ describe('PatientDetailComponent', () => {
                 DataTablePagerModule,
                 HttpClientTestingModule,
                 RouterTestingModule,
+                SharedComponentsModule,
             ],
             declarations: [PatientDetailComponent],
             providers: [
