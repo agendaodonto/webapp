@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { hasValue } from '../../shared/operators/has-value.operator';
 
-import { ITransactionTypeState } from '../shared/models/transaction-type.state';
-import { clinicSelected, loadClinics } from '../store/actions/transaction-type.actions';
+import { IAppState } from '../../shared/state/app-state.interface';
+import { clinicSelected, loadClinics } from '../store/actions/clinic.action';
+import { loadTransactionTypes } from '../store/actions/transaction-type.action';
 
 @Component({
     selector: 'app-transaction-type',
@@ -13,26 +15,31 @@ import { clinicSelected, loadClinics } from '../store/actions/transaction-type.a
 })
 export class TransactionTypeComponent implements OnInit {
     state$ = this.store.select(m => m.finance.transactionTypes);
-    clinic$ = this.state$.pipe(
-        filter(s => !s.clinic.error && !s.clinic.empty),
-        map(v => v.clinic.all),
+    clinicState$ = this.store.select(m => m.finance.clinic);
+    clinic$ = this.clinicState$.pipe(
+        filter(s => !s.error && !s.empty),
+        map(v => v.all),
         distinctUntilChanged(),
     );
-    selectedClinic$ = this.state$.pipe(map(s => s.clinic.selected));
-    empty$ = this.state$.pipe(map(v => v.clinic.empty));
-    error$ = this.state$.pipe(map(v => v.clinic.error));
-    loading$ = this.state$.pipe(map(v => v.clinic.loading));
-    hasClinics$ = this.state$.pipe(map(v => !v.clinic.empty && !v.clinic.error && !v.clinic.loading));
+    selectedClinic$ = this.clinicState$.pipe(map(s => s.selected));
+    empty$ = this.clinicState$.pipe(map(v => v.empty));
+    error$ = this.clinicState$.pipe(map(v => v.error));
+    loading$ = this.clinicState$.pipe(map(v => v.loading));
+    hasClinics$ = this.clinicState$.pipe(map(v => !v.empty && !v.error && !v.loading));
 
-    constructor(private readonly store: Store<{ finance: { transactionTypes: ITransactionTypeState } }>) {
+    constructor(private readonly store: Store<IAppState>) {
     }
 
     ngOnInit() {
         this.clinic$.subscribe(clinics => {
-            if (clinics.length > 0) {
-                this.store.dispatch(clinicSelected({ clinic: clinics[0] }));
-            }
+            this.store.dispatch(clinicSelected({ clinic: clinics[0] }));
         });
+
+        this.selectedClinic$
+            .pipe(hasValue())
+            .subscribe(clinic => {
+                this.store.dispatch(loadTransactionTypes({ clinic }));
+            });
 
         this.store.dispatch(loadClinics());
     }

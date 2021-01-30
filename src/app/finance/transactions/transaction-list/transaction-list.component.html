@@ -1,0 +1,65 @@
+<mat-card class="container">
+    <mat-card-title>
+        Transações
+    </mat-card-title>
+    <ng-container *ngIf="hasClinics$ | async">
+        <mat-form-field>
+            <mat-select placeholder="Clinica" [value]="selectedClinic$ | async"
+                (selectionChange)="clinicSelected($event)">
+                <mat-option [value]="clinic" *ngFor="let clinic of clinic$ | async">{{clinic.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngIf="hasResult$ | async">
+        <mat-table [dataSource]="rows$">
+            <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef> Data </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.transaction.date | date:'shortDate' }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.transaction.type.label }} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="value">
+                <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.transaction.amount | currency:'BRL' }} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.transaction.description }} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="payer">
+                <mat-header-cell *matHeaderCellDef> Titular do pagamento </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.transaction.payer }} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="serviceBeneficiary">
+                <mat-header-cell *matHeaderCellDef> Beneficiário do serviço </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{ row.transaction.serviceBeneficiary }} </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row class="actionable" *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+        <mat-paginator [length]="count$ | async" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+            (page)="paginate($event)">
+        </mat-paginator>
+    </ng-container>
+
+
+    <app-empty-state image="empty-box" *ngIf="!(hasClinics$ | async)">
+        <p>Você ainda não tem clinicas cadastradas.</p>
+        <p>Cadastre uma clinica para começar a gestão financeira</p>
+    </app-empty-state>
+
+    <app-empty-state image="empty-box" *ngIf="empty$ | async">
+        <p>Você ainda não tem transações cadastradas.</p>
+        <p>Comece o cadastro de transações através do botão "novo" dessa tela</p>
+    </app-empty-state>
+
+    <app-empty-state image="error-cloud" *ngIf="error$ | async">
+        <p>Ocorreu um erro ao recuperar os dados</p>
+        <p>Tente novamente mais tarde</p>
+    </app-empty-state>
+
+
+</mat-card>

@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ITransactionTypeState } from '../../shared/models/transaction-type.state';
-import { loadTransactionTypeDetail, transactionTypesPageChanged } from '../../store/actions/transaction-type.actions';
+import { loadTransactionTypeDetail, transactionTypesPageChanged } from '../../store/actions/transaction-type.action';
 
 @Component({
     selector: 'app-transaction-type-list',
