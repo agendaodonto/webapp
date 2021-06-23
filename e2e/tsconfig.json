@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "baseUrl": "../node_modules",
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "lib": [
+            "es2015",
+            "dom"
+        ],
+        "types": [
+            "node",
+        ],
+        "typeRoots": [
+            "node_modules/@types"
+        ]
+    },
+    "include": [
+        "**/*.ts",
+        "../src/app/shared/interfaces/**/*.ts"
+    ]
+}
