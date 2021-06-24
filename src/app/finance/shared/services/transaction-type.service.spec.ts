@@ -1,7 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { configureTestSuite } from 'ng-bullet';
-import { IPagedResponse } from '../../../shared/interceptors/responses';
+import { IPagedResponse } from 'src/app/shared/interfaces/paged-response.interface';
 import { ITransactionTypeResponse } from '../../../shared/interfaces/services/transaction-type-response.model';
 import { BaseService } from '../../../shared/services/base.service';
 import { TransactionTypeDatabase } from '../../../shared/testing/databases/transaction-type.database';
