@@ -1,4 +1,5 @@
 import * as faker from 'faker';
+import { IPagedResponse } from '../../../src/app/shared/interfaces/paged-response.interface';
 import { IPatientResponse } from '../../../src/app/shared/interfaces/services/patient.model';
 import { makeRequest } from '../request';
 import { baseBackendUrl } from '../vars';
@@ -26,4 +27,14 @@ export function createPatients(token: string, clinicId: number, dentalPlanId: nu
     });
 
     return Promise.all(jobs);
+}
+
+export function getPatients(token: string): Promise<IPagedResponse<IPatientResponse>> {
+    return makeRequest(`${baseBackendUrl}/v1/patients/`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`,
+        }
+    })
 }

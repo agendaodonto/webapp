@@ -10,6 +10,8 @@ const config: PlaywrightTestConfig = {
                 channel: 'chrome',
                 screenshot: 'only-on-failure',
             },
+            timeout: 20000,
+            
         }
     ],
 
