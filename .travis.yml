@@ -1,4 +1,4 @@
-dist: trusty
+dist: focal
 
 language: node_js
 
@@ -66,10 +66,12 @@ jobs:
         - ng b -c=production --prod=true --aot
         - aws s3 sync ./dist s3://agendaodonto-staging-builds/$TRAVIS_BUILD_NUMBER-prod/dist --expires "$(date -d '+1 hour' --utc +'%Y-%m-%dT%H:%M:%SZ')"
     - stage: E2E Test
+      env: 
+        - APP_HOST=http://localhost
       scripts: 
         - docker build -f ./dependencies/Dockerfile -t webapp .
         - docker run --rm -d -p 80:80 --name webapp webapp
-        - npx cypress run
+        - npm run e2e
     - stage: deploy staging
       script: ./scripts/deploy.sh staging
 
