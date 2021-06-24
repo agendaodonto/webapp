@@ -28,7 +28,7 @@
         <div fxLayout.gt-lg="row" fxLayout.lt-lg="column">
             <!-- Remove this after fixed (https://github.com/angular/material2/issues/8012)-->
             <mat-form-field fxFlex="70">
-                <input matInput type="datetime-local" placeholder="Data" formControlName="date">
+                <input matInput type="datetime-local" placeholder="Data" formControlName="date" max="9999-12-31T23:59">
             </mat-form-field>
             <mat-form-field fxFlex="30" style="top:1px;">
                 <input matInput type="number" placeholder="Duração (Minutos)" formControlName="duration">
