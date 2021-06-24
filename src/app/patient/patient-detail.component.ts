@@ -9,7 +9,7 @@ import { ClinicService } from '../clinic/clinic.service';
 import { DentalPlanService } from '../dental-plan/dental-plan.service';
 import { BaseComponent } from '../shared/components/base.component';
 import { ConfirmDialogComponent } from '../shared/components/confirm-dialog/confirm-dialog.component';
-import { IPagedResponse } from '../shared/interceptors/responses';
+import { IPagedResponse } from '../shared/interfaces/paged-response.interface';
 import { IClinicResponse } from '../shared/interfaces/services/clinic.model';
 import { IDentalPlanResponse } from '../shared/interfaces/services/denta-plan.model';
 import { IPatientResponse } from '../shared/interfaces/services/patient.model';

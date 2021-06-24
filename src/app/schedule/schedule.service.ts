@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { format } from 'date-fns';
 import { Observable } from 'rxjs';
 
-import { IPagedResponse } from '../shared/interceptors/responses';
+import { IPagedResponse } from '../shared/interfaces/paged-response.interface';
 import { IScheduleResponse } from '../shared/interfaces/services/schedule.model';
 import { BaseService } from '../shared/services/base.service';
 import { ScheduleFilter } from './schedule.filter';

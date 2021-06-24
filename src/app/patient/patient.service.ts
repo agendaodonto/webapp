@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ScheduleFilter } from '../schedule/schedule.filter';
-import { IPagedResponse } from '../shared/interceptors/responses';
+import { IPagedResponse } from '../shared/interfaces/paged-response.interface';
 import { IPatientResponse } from '../shared/interfaces/services/patient.model';
 import { IScheduleResponse } from '../shared/interfaces/services/schedule.model';
 import { BaseService } from '../shared/services/base.service';

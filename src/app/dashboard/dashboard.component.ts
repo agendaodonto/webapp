@@ -11,7 +11,7 @@ import { PatientFilter } from '../patient/patient.filter';
 import { PatientService } from '../patient/patient.service';
 import { ScheduleFilter } from '../schedule/schedule.filter';
 import { ScheduleService } from '../schedule/schedule.service';
-import { IPagedResponse } from '../shared/interceptors/responses';
+import { IPagedResponse } from '../shared/interfaces/paged-response.interface';
 import { IPatientResponse } from '../shared/interfaces/services/patient.model';
 import { IScheduleResponse } from '../shared/interfaces/services/schedule.model';
 import { parseAttendanceData } from './dashboard.utils';
