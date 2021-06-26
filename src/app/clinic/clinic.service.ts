@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { IPagedResponse } from '../shared/interceptors/responses';
+import { IPagedResponse } from '../shared/interfaces/paged-response.interface';
 import { IClinicResponse } from '../shared/interfaces/services/clinic.model';
 import { BaseService } from '../shared/services/base.service';
 import { ClinicFilter } from './clinic.filter';

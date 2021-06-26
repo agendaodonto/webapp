@@ -1,4 +1,4 @@
-import { IPagedResponse } from '../../interceptors/responses';
+import { IPagedResponse } from '../../interfaces/paged-response.interface';
 
 export interface IDatabase<T> {
     get(): T;

@@ -1,6 +1,6 @@
 import { PageEvent } from '@angular/material';
 import { createAction, props } from '@ngrx/store';
-import { IPagedResponse } from 'src/app/shared/interceptors/responses';
+import { IPagedResponse } from 'src/app/shared/interfaces/paged-response.interface';
 import { IClinicResponse } from 'src/app/shared/interfaces/services/clinic.model';
 
 import { TransactionTypeDomain } from '../../shared/models/transaction-type.domain';

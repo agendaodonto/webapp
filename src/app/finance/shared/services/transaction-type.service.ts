@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IPagedResponse } from 'src/app/shared/interceptors/responses';
+import { IPagedResponse } from 'src/app/shared/interfaces/paged-response.interface';
 import { ITransactionTypeResponse } from 'src/app/shared/interfaces/services/transaction-type-response.model';
 import { BaseService } from 'src/app/shared/services/base.service';
 
