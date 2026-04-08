@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { IDentalPlanResponse } from 'src/app/shared/interfaces/services/denta-plan.model';
 
@@ -15,7 +15,7 @@ export class DentalPlanComponent implements OnInit, AfterViewInit {
   readonly columnsToDisplay = ['planName'];
   datasource: DentalPlanDatasource;
 
-  @ViewChild(MatPaginator, { static: false })
+  @ViewChild(MatPaginator)
   private paginator: MatPaginator;
 
   constructor(private dentalPlanService: DentalPlanService, private router: Router) { }

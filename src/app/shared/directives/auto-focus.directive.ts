@@ -1,17 +1,10 @@
-import {
-    AfterViewInit,
-    ChangeDetectorRef,
-    Directive,
-    ElementRef,
-    HostListener,
-    Renderer,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 
 @Directive({
     selector: 'form[appAutoFocus]',
 })
 export class AutoFocusDirective implements AfterViewInit {
-    constructor(private _eRef: ElementRef, private renderer: Renderer, private cdr: ChangeDetectorRef) { }
+    constructor(private _eRef: ElementRef, private renderer: Renderer2, private cdr: ChangeDetectorRef) { }
 
     private getInputElement(nativeElement: any): any {
         if (!nativeElement || !nativeElement.children) {
@@ -45,7 +38,7 @@ export class AutoFocusDirective implements AfterViewInit {
         formChildren.every(child => {
             const input = this.getInputElement(child);
             if (input) {
-                this.renderer.invokeElementMethod(input, 'focus', []);
+                input.focus();
                 return false;
             }
             return true;

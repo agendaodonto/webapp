@@ -1,7 +1,7 @@
 import { CanActivate, Router } from '@angular/router';
 
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from '../../login/login.service';
 
 @Injectable()

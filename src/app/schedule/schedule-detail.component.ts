@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroupDirective, Validators } from '@angular/forms';
-import { MatDialog, MatSlideToggle, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { addMinutes, format } from 'date-fns';
 import { Observable } from 'rxjs';
@@ -29,8 +31,13 @@ export class ScheduleDetailComponent extends BaseComponent implements OnInit {
     dentists: IDentistResponse[] = [];
     filteredPatients: Observable<{ results: IPatientResponse[] }> | null;
     scheduleId: number;
+<<<<<<< HEAD
+    schedule: ISchedule;
+    @ViewChild('continuousMode', { static: false }) continuousMode: MatSlideToggle;
+=======
     schedule: IScheduleResponse;
     @ViewChild('continuousMode', { static: false }) continuousMode: MatSlideToggle;
+>>>>>>> develop
     @ViewChild(FormGroupDirective, { static: true }) scheduleFormDirective: FormGroupDirective;
 
     constructor(

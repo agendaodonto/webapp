@@ -1,6 +1,5 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { configureTestSuite } from 'ng-bullet';
 import { environment } from 'src/environments/environment';
 
 import { DentalPlanDatabase } from '../shared/testing/databases/dental-plan.database';
@@ -11,7 +10,7 @@ describe('DentalPlanService', () => {
     let service: DentalPlanService;
     let controller: HttpTestingController;
 
-    configureTestSuite(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [DentalPlanService],

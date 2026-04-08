@@ -1,6 +1,9 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { getTestBed, TestBed } from '@angular/core/testing';
+<<<<<<< HEAD
+=======
 import { configureTestSuite } from 'ng-bullet';
+>>>>>>> develop
 
 import { CLINICS } from '../clinic/clinic.service.spec';
 import { ScheduleFilter } from '../schedule/schedule.filter';
@@ -20,7 +23,7 @@ describe('PatientService', () => {
     let httpMock: HttpTestingController;
     let patient: IPatientResponse;
 
-    configureTestSuite(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [PatientService],
