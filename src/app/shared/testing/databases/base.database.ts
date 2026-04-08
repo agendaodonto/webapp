@@ -7,12 +7,15 @@ export interface IDatabase<T> {
 
 export abstract class BaseDatabase<T> implements IDatabase<T> {
     abstract get(): T;
-    abstract getMany(qty: number): T[];
 
     getAsResponse(count: number): IPagedResponse<T> {
         return {
             count,
             results: this.getMany(count),
         };
+    }
+
+    getMany(qty: number): T[] {
+        return new Array(qty).fill(null).map(() => this.get());
     }
 }

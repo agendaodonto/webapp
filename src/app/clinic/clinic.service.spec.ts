@@ -1,12 +1,18 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { getTestBed, TestBed } from '@angular/core/testing';
+<<<<<<< HEAD
 
+=======
+import { configureTestSuite } from 'ng-bullet';
+
+import { IClinicResponse } from '../shared/interfaces/services/clinic.model';
+>>>>>>> develop
 import { BaseService } from '../shared/services/base.service';
 import { DENTISTS } from '../shared/services/dentist.service.spec';
 import { ClinicFilter } from './clinic.filter';
-import { ClinicService, IClinic } from './clinic.service';
+import { ClinicService } from './clinic.service';
 
-export const CLINICS: IClinic[] = [
+export const CLINICS: IClinicResponse[] = [
     { id: 1, dentists: DENTISTS, name: 'Clinic 1' },
 ];
 

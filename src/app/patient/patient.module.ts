@@ -8,6 +8,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { ClinicService } from '../clinic/clinic.service';
 import { DentalPlanService } from '../dental-plan/dental-plan.service';
 import { DataTablePagerModule } from '../shared/components/pager/datatable-pager.module';
+import { SharedComponentsModule } from '../shared/components/shared-components.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { MaterialAppModule } from '../shared/material.app.module';
@@ -32,6 +33,7 @@ export const patientRoutes: Routes = [
         DataTablePagerModule,
         DirectivesModule,
         NgxMaskModule,
+        SharedComponentsModule,
     ],
     declarations: [
         PatientComponent,

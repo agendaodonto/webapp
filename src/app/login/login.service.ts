@@ -28,7 +28,7 @@ export class LoginService extends BaseService {
     }
 
     getUserInfo() {
-        this.http.get(BaseService.API_AUTH_URL + 'me/').subscribe(
+        this.http.get(BaseService.API_AUTH_URL + 'users/me/').subscribe(
             response => {
                 localStorage.setItem('user_info', JSON.stringify(response));
                 return response;

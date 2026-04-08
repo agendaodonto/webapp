@@ -1,10 +1,18 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { async, getTestBed, TestBed } from '@angular/core/testing';
+<<<<<<< HEAD
 
 import { BaseService } from './base.service';
 import { DentistService, IDentist } from './dentist.service';
+=======
+import { configureTestSuite } from 'ng-bullet';
+>>>>>>> develop
 
-export const DENTISTS: IDentist[] = [
+import { IDentistResponse } from '../interfaces/services/dentist.model';
+import { BaseService } from './base.service';
+import { DentistService } from './dentist.service';
+
+export const DENTISTS: IDentistResponse[] = [
     { id: 1, cro: '1234', cro_state: 'SP', email: 'john@doe.com', first_name: 'John', last_name: 'Doe', sex: 'M' },
 ];
 

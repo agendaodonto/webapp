@@ -8,10 +8,12 @@ import { map } from 'rxjs/operators';
 
 import { DentalPlanService } from '../dental-plan/dental-plan.service';
 import { PatientFilter } from '../patient/patient.filter';
-import { IPatient, PatientService } from '../patient/patient.service';
+import { PatientService } from '../patient/patient.service';
 import { ScheduleFilter } from '../schedule/schedule.filter';
-import { ISchedule, ScheduleService } from '../schedule/schedule.service';
+import { ScheduleService } from '../schedule/schedule.service';
 import { IPagedResponse } from '../shared/interceptors/responses';
+import { IPatientResponse } from '../shared/interfaces/services/patient.model';
+import { IScheduleResponse } from '../shared/interfaces/services/schedule.model';
 import { parseAttendanceData } from './dashboard.utils';
 
 @Component({
@@ -21,9 +23,9 @@ import { parseAttendanceData } from './dashboard.utils';
 })
 export class DashboardComponent implements OnInit {
 
-    pendingSchedules: Observable<IPagedResponse<ISchedule>>;
-    refSchedules: Observable<IPagedResponse<ISchedule>>;
-    patients: Observable<IPagedResponse<IPatient>>;
+    pendingSchedules: Observable<IPagedResponse<IScheduleResponse>>;
+    refSchedules: Observable<IPagedResponse<IScheduleResponse>>;
+    patients: Observable<IPagedResponse<IPatientResponse>>;
     attendance: Observable<any>;
     attendanceRatio: Observable<any>;
     dentalPlanStats: Observable<object>;

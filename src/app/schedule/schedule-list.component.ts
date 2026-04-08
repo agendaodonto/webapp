@@ -6,9 +6,10 @@ import * as moment from 'moment';
 import { merge, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
+import { IScheduleResponse } from '../shared/interfaces/services/schedule.model';
 import { CustomFB, CustomFG } from '../shared/validation';
 import { ScheduleDatasource } from './schedule.datasource';
-import { ISchedule, ScheduleService } from './schedule.service';
+import { ScheduleService } from './schedule.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,7 +22,7 @@ export class ScheduleListComponent implements OnInit {
     displayedColumns = ['select', 'date', 'patient', 'status'];
     dataSource: ScheduleDatasource;
     filterForm: CustomFG;
-    selection = new SelectionModel<ISchedule>(true);
+    selection = new SelectionModel<IScheduleResponse>(true);
     isUpdating = false;
 
     constructor(

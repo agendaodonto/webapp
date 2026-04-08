@@ -4,10 +4,10 @@ import { BehaviorSubject, merge, Observable, Subscribable } from 'rxjs';
 import { finalize, map, switchMap } from 'rxjs/operators';
 
 import { ScheduleFilter } from '../schedule/schedule.filter';
-import { ISchedule } from '../schedule/schedule.service';
+import { IScheduleResponse } from '../shared/interfaces/services/schedule.model';
 import { PatientService } from './patient.service';
 
-export class PatientSchedulesDataSource extends DataSource<ISchedule> {
+export class PatientSchedulesDataSource extends DataSource<IScheduleResponse> {
     isLoading = true;
     count = 0;
     filterChanges = new BehaviorSubject(null);
@@ -18,7 +18,7 @@ export class PatientSchedulesDataSource extends DataSource<ISchedule> {
         super();
     }
 
-    connect(): Observable<ISchedule[]> {
+    connect(): Observable<IScheduleResponse[]> {
         return merge(...this.changeEvents).pipe(
             switchMap(() => {
                 this.isLoading = true;

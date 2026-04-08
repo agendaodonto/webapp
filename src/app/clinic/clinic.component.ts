@@ -5,8 +5,9 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map, startWith, switchMap } from 'rxjs/operators';
 
+import { IClinicResponse } from '../shared/interfaces/services/clinic.model';
 import { ClinicFilter } from './clinic.filter';
-import { ClinicService, IClinic } from './clinic.service';
+import { ClinicService } from './clinic.service';
 
 @Component({
     selector: 'app-clinic',
@@ -17,7 +18,7 @@ export class ClinicComponent implements OnInit {
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
     isLoading = false;
     count = 0;
-    dataSource: MatTableDataSource<IClinic>;
+    dataSource: MatTableDataSource<IClinicResponse>;
     displayedColumns = ['name', 'actions'];
     watcher: Observable<any>;
 
@@ -51,7 +52,7 @@ export class ClinicComponent implements OnInit {
 
     }
 
-    view(clinic: IClinic) {
+    view(clinic: IClinicResponse) {
         this.router.navigate(['/clinicas/' + clinic.id]);
     }
 }

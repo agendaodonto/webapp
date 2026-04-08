@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { IDentistResponse } from '../interfaces/services/dentist.model';
 import { BaseService } from './base.service';
 
 export interface IDentistService {
-    get(cro: string): Observable<IDentist[]>;
-    create(dentist: IDentist): Observable<IDentist[]>;
+    get(cro: string): Observable<IDentistResponse[]>;
+    create(dentist: IDentistResponse): Observable<IDentistResponse[]>;
     activate(uid, token): Observable<any>;
     getStates(): Observable<any>;
 }
@@ -18,13 +19,13 @@ export class DentistService extends BaseService implements IDentistService {
         super();
     }
 
-    get(cro: string): Observable<IDentist[]> {
+    get(cro: string): Observable<IDentistResponse[]> {
         return this.http.get(this.url(['dentists']) + '?cro=' + cro)
             .pipe(map((data: any) => data.results));
     }
 
-    create(dentist: IDentist): Observable<IDentist[]> {
-        return this.http.post<IDentist[]>(BaseService.API_AUTH_URL + 'register/', JSON.stringify(dentist));
+    create(dentist: IDentistResponse): Observable<IDentistResponse[]> {
+        return this.http.post<IDentistResponse[]>(BaseService.API_AUTH_URL + 'register/', JSON.stringify(dentist));
     }
 
     activate(uid, token): Observable<any> {
@@ -38,21 +39,11 @@ export class DentistService extends BaseService implements IDentistService {
         );
     }
 
-    me(): Observable<IDentist> {
-        return this.http.get<IDentist>(this.url(['dentists', 'me']));
+    me(): Observable<IDentistResponse> {
+        return this.http.get<IDentistResponse>(this.url(['dentists', 'me']));
     }
 
-    update(dentist: IDentist): Observable<IDentist> {
-        return this.http.put<IDentist>(this.url(['dentists', 'me']), JSON.stringify(dentist));
+    update(dentist: IDentistResponse): Observable<IDentistResponse> {
+        return this.http.put<IDentistResponse>(this.url(['dentists', 'me']), JSON.stringify(dentist));
     }
-}
-
-export interface IDentist {
-    id: number;
-    cro: string;
-    cro_state: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-    sex: string;
 }
